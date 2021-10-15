@@ -1,0 +1,401 @@
+<div class="row">
+  <div class="col-md-12" id="pg-title">Tasks management</div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="widget">
+      <div class="widget-body">
+        <div class="row">
+          <div class="col-md-12" id="pg-nav">
+            <ul class="list-inline">
+              <li>
+                <a class="btn">
+                  <span class="glyphicon glyphicon-plus"></span> Create new task
+                </a>
+              </li>
+              <li>
+                <a class="btn">
+                  <span class="glyphicon glyphicon-remove"></span> Tasks
+                  incomplete
+                </a>
+              </li>
+              <li>
+                <a class="btn">
+                  <span class="glyphicon glyphicon-ok"></span> Tasks completed
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="widget">
+      <div class="widget-body">
+        <div class="row">
+          <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+            <h5>Tasks incomplete</h5>
+          </div>
+          <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 toolbar">
+            <ul class="list-inline">
+              <li>
+                <a class="btn btn_toolbar" target="_blank">
+                  <span class="glyphicon glyphicon-print"></span> Print
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-sm-12 col-md-12">
+            <div class="table-responsive">
+              <div
+                id="DataTables_Table_0_wrapper"
+                class="dataTables_wrapper no-footer"
+              >
+                <div
+                  id="DataTables_Table_0_wrapper"
+                  class="dataTables_wrapper no-footer"
+                >
+                  <div id="DataTables_Table_0_filter" class="dataTables_filter">
+                    <label
+                      >Search:<input
+                        type="search"
+                        class="lw-ml-10 lw-mb-10"
+                        placeholder=""
+                        aria-controls="DataTables_Table_0"
+                    /></label>
+                  </div>
+                  <table
+                    class="
+                      table table table-striped
+                      res_tab_asc
+                      dataTable
+                      no-footer
+                    "
+                    cellspacing="0"
+                    width="100%"
+                    id="DataTables_Table_0"
+                    role="grid"
+                    aria-describedby="DataTables_Table_0_info"
+                  >
+                    <thead>
+                      <tr role="row">
+                        <th
+                          width="85"
+                          class="sorting_asc"
+                          tabindex="0"
+                          aria-controls="DataTables_Table_0"
+                          rowspan="1"
+                          colspan="1"
+                          aria-label="Deadline: activate to sort column descending"
+                          aria-sort="ascending"
+                        >
+                          Deadline
+                        </th>
+                        <th
+                          width="50"
+                          class="sorting"
+                          tabindex="0"
+                          aria-controls="DataTables_Table_0"
+                          rowspan="1"
+                          colspan="1"
+                          aria-label="Priority: activate to sort column ascending"
+                        >
+                          Priority
+                        </th>
+                        <th
+                          class="sorting"
+                          tabindex="0"
+                          aria-controls="DataTables_Table_0"
+                          rowspan="1"
+                          colspan="1"
+                          aria-label="Title: activate to sort column ascending"
+                        >
+                          Title
+                        </th>
+                        <th
+                          class="sorting"
+                          tabindex="0"
+                          aria-controls="DataTables_Table_0"
+                          rowspan="1"
+                          colspan="1"
+                          aria-label="Case reference: activate to sort column ascending"
+                        >
+                          Case reference
+                        </th>
+                        <th
+                          width="90"
+                          class="sorting"
+                          tabindex="0"
+                          aria-controls="DataTables_Table_0"
+                          rowspan="1"
+                          colspan="1"
+                          aria-label="Assigned to: activate to sort column ascending"
+                        >
+                          Assigned to
+                        </th>
+                        <th
+                          width="90"
+                          class="sorting"
+                          tabindex="0"
+                          aria-controls="DataTables_Table_0"
+                          rowspan="1"
+                          colspan="1"
+                          aria-label="Assigned on: activate to sort column ascending"
+                        >
+                          Assigned on
+                        </th>
+                        <th
+                          width="50"
+                          class="sorting"
+                          tabindex="0"
+                          aria-controls="DataTables_Table_0"
+                          rowspan="1"
+                          colspan="1"
+                          aria-label="Actions: activate to sort column ascending"
+                        >
+                          Actions
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr role="row" class="odd">
+                        <td class="sorting_1">
+                          <span class="hideme">20210806</span>
+                          <span
+                            data-toggle="tooltip"
+                            title=""
+                            class="badge_cms badge_red"
+                            data-original-title="Overdue"
+                          >
+                            06 Aug 2021
+                          </span>
+                        </td>
+                        <td class="text-center">
+                          <span
+                            data-toggle="tooltip"
+                            title=""
+                            class="glyphicon glyphicon-arrow-up glyphicon-red"
+                            data-original-title="High"
+                          >
+                            <span class="hideme">2</span>
+                          </span>
+                        </td>
+                        <td>
+                          <a class="td_link_dark">
+                            <strong>Mr. Johni Dismissal Case</strong>
+                          </a>
+                          <br />
+                          <small class="muted">
+                            1st hearing held on 05-08-2021
+                          </small>
+                        </td>
+                        <td>
+                          <strong>
+                            <a class="td_link" target="_blank">
+                              CL/1000.00/Company Pvt Ltd
+                            </a>
+                          </strong>
+                          <br />
+                          <small class="muted">abc</small>
+                        </td>
+                        <td class="text-center">
+                          <span class="badge_cms badge_blue">DMI</span>
+                        </td>
+                        <td>
+                          <span class="hideme">20210806</span> 06 Aug 2021
+                        </td>
+                        <td>
+                          <ul class="nav nav-right">
+                            <li>
+                              <a
+                                data-toggle="dropdown"
+                                aria-expanded="false"
+                              >
+                                <span
+                                  class="glyphicon glyphicon-triangle-bottom"
+                                ></span>
+                              </a>
+                              <ul class="dropdown-menu" role="menu">
+                                <li>
+                                  <a>
+                                    <span
+                                      class="glyphicon glyphicon-eye-open"
+                                    ></span>
+                                    View details
+                                  </a>
+                                </li>
+                                <li>
+                                  <a>
+                                    <span
+                                      class="glyphicon glyphicon-pencil"
+                                    ></span>
+                                    Edit
+                                  </a>
+                                </li>
+                                <li>
+                                  <a
+                                    onclick="return confirm('Are you sure you want to delete this task?');"
+                                  >
+                                    <span
+                                      class="glyphicon glyphicon-remove"
+                                    ></span>
+                                    Delete
+                                  </a>
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </td>
+                      </tr>
+                      <tr role="row" class="even">
+                        <td class="sorting_1">
+                          <span class="hideme">20210813</span>
+                          <span
+                            data-toggle="tooltip"
+                            title=""
+                            class="badge_cms badge_red"
+                            data-original-title="Overdue"
+                          >
+                            13 Aug 2021
+                          </span>
+                        </td>
+                        <td class="text-center">
+                          <span
+                            data-toggle="tooltip"
+                            title=""
+                            class="
+                              glyphicon
+                              glyphicon-resize-vertical
+                              glyphicon-green
+                            "
+                            data-original-title="Normal"
+                          >
+                            <span class="hideme">1</span>
+                          </span>
+                        </td>
+                        <td>
+                          <a class="td_link_dark">
+                            <strong>Employment contract</strong>
+                          </a>
+                          <br />
+                          <small class="muted">
+                            Next hearing decided on 12-08-2021
+                          </small>
+                        </td>
+                        <td>
+                          <strong>
+                            <a class="td_link" target="_blank">
+                              CL/1000.00/Company Pvt Ltd
+                            </a>
+                          </strong>
+                          <br />
+                          <small class="muted">abc</small>
+                        </td>
+                        <td class="text-center">
+                          <span class="badge_cms badge_blue">DMI</span>
+                        </td>
+                        <td>
+                          <span class="hideme">20210812</span> 12 Aug 2021
+                        </td>
+                        <td>
+                          <ul class="nav nav-right">
+                            <li>
+                              <a
+                                data-toggle="dropdown"
+                                aria-expanded="false"
+                              >
+                                <span
+                                  class="glyphicon glyphicon-triangle-bottom"
+                                ></span>
+                              </a>
+                              <ul class="dropdown-menu" role="menu">
+                                <li>
+                                  <a>
+                                    <span
+                                      class="glyphicon glyphicon-eye-open"
+                                    ></span>
+                                    View details
+                                  </a>
+                                </li>
+                                <li>
+                                  <a>
+                                    <span
+                                      class="glyphicon glyphicon-pencil"
+                                    ></span>
+                                    Edit
+                                  </a>
+                                </li>
+                                <li>
+                                  <a
+                                    onclick="return confirm('Are you sure you want to delete this task?');"
+                                  >
+                                    <span
+                                      class="glyphicon glyphicon-remove"
+                                    ></span>
+                                    Delete
+                                  </a>
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div
+                    class="dataTables_info"
+                    id="DataTables_Table_0_info"
+                    role="status"
+                    aria-live="polite"
+                  >
+                    Showing 1 to 2 of 2 entries
+                  </div>
+                  <div
+                    class="dataTables_paginate paging_simple_numbers"
+                    id="DataTables_Table_0_paginate"
+                  >
+                    <a
+                      class="paginate_button previous disabled"
+                      aria-controls="DataTables_Table_0"
+                      data-dt-idx="0"
+                      tabindex="0"
+                      id="DataTables_Table_0_previous"
+                    >
+                      Previous
+                    </a>
+                    <span>
+                      <a
+                        class="paginate_button current"
+                        aria-controls="DataTables_Table_0"
+                        data-dt-idx="1"
+                        tabindex="0"
+                      >
+                        1
+                      </a>
+                    </span>
+                    <a
+                      class="paginate_button next disabled"
+                      aria-controls="DataTables_Table_0"
+                      data-dt-idx="2"
+                      tabindex="0"
+                      id="DataTables_Table_0_next"
+                    >
+                      Next
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

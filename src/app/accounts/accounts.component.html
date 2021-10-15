@@ -1,0 +1,539 @@
+<div class="row">
+  <div class="col-md-12" id="pg-title">Accounts</div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="widget">
+      <div class="widget-body">
+        <div class="row">
+          <div class="col-md-12" id="pg-nav">
+            <ul class="list-inline d-flex">
+              <li>
+                <a class="btn">
+                  <span class="glyphicon glyphicon-user"></span> Client Ledgers
+                </a>
+              </li>
+
+              <li>
+                <ul class="nav">
+                  <li class="toolbar_dd">
+                    <a
+                      class="dropdown-toggle btn btn-primary"
+                      data-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <i class="glyphicon glyphicon-th"></i> General Ledgers
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                      <li>
+                        <a>
+                          <span class="fa fa-braille"></span> Office A/C: Office
+                          Account
+                          <small class="muted">(12345600 - 00-11-22)</small>
+                        </a>
+                      </li>
+                      <li>
+                        <a>
+                          <span class="fa fa-braille"></span> Client A/C: Client
+                          Account
+                          <small class="muted">(00123123 - 99-00-99)</small>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <ul class="nav">
+                  <li class="toolbar_dd">
+                    <a
+                      class="dropdown-toggle btn btn-primary"
+                      data-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <i class="glyphicon glyphicon-home"></i> Bank Accounts
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                      <li>
+                        <a>
+                          <span class="fa fa-university"></span> Office A/C:
+                          Office Account
+                          <small class="muted">(12345600 - 00-11-22)</small>
+                        </a>
+                      </li>
+                      <li>
+                        <a>
+                          <span class="fa fa-university"></span> Client A/C:
+                          Client Account
+                          <small class="muted">(00123123 - 99-00-99)</small>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <ul class="nav">
+                  <li class="toolbar_dd">
+                    <a
+                      class="dropdown-toggle btn btn-primary"
+                      data-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <i class="glyphicon glyphicon-file"></i> Invoices
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                      <li>
+                        <a>
+                          <span class="fa fa-plus"></span> Create New Invoice
+                        </a>
+                      </li>
+                      <li>
+                        <a>
+                          <span class="fa fa-chain-broken"></span> Uninvoiced
+                          Fixed Fee Matters
+                        </a>
+                      </li>
+                      <li>
+                        <a>
+                          <span class="fa fa-files-o"></span> Manage Invoices
+                        </a>
+                      </li>
+                      <li>
+                        <a>
+                          <span class="fa fa-edit"></span> Manage Credit Notes
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a class="btn">
+                  <span class="glyphicon glyphicon-time"></span> Time Bills
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12 col-md-12">
+    <div class="widget">
+      <div class="widget-body">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+            <highcharts-chart style="width: 100%; height: 500px; display: block;" class="my-auto"
+              [Highcharts]="caseChart" [options]="caseChartOpt"></highcharts-chart>
+          </div>
+
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+            <div class="table-responsive">
+              <div
+                id="DataTables_Table_0_wrapper"
+                class="dataTables_wrapper no-footer"
+              >
+                <div
+                  id="DataTables_Table_0_wrapper"
+                  class="dataTables_wrapper no-footer"
+                >
+                  <table
+                    class="
+                      table table-striped
+                      res_tab_fixed_asc
+                      dataTable
+                      no-footer
+                    "
+                    cellspacing="0"
+                    width="100%"
+                    style="margin-top: 6px"
+                    id="DataTables_Table_0"
+                    role="grid"
+                  >
+                    <thead>
+                      <tr role="row">
+                        <th class="sorting_disabled" rowspan="1" colspan="1">
+                          Months
+                        </th>
+                        <th class="sorting_disabled" rowspan="1" colspan="1">
+                          Total Sale
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr role="row" class="odd">
+                        <td>Jan 2021</td>
+                        <td>
+                          <strong>
+                            <span class="fa fa-gbp"></span>
+                            0.00
+                          </strong>
+                        </td>
+                      </tr>
+                      <tr role="row" class="even">
+                        <td>Feb 2021</td>
+                        <td>
+                          <strong>
+                            <span class="fa fa-gbp"></span>
+                            0.00
+                          </strong>
+                        </td>
+                      </tr>
+                      <tr role="row" class="odd">
+                        <td>Mar 2021</td>
+                        <td>
+                          <strong>
+                            <span class="fa fa-gbp"></span>
+                            0.00
+                          </strong>
+                        </td>
+                      </tr>
+                      <tr role="row" class="even">
+                        <td>Apr 2021</td>
+                        <td>
+                          <strong>
+                            <span class="fa fa-gbp"></span>
+                            0.00
+                          </strong>
+                        </td>
+                      </tr>
+                      <tr role="row" class="odd">
+                        <td>May 2021</td>
+                        <td>
+                          <strong>
+                            <span class="fa fa-gbp"></span>
+                            0.00
+                          </strong>
+                        </td>
+                      </tr>
+                      <tr role="row" class="even">
+                        <td>Jun 2021</td>
+                        <td>
+                          <strong>
+                            <span class="fa fa-gbp"></span>
+                            0.00
+                          </strong>
+                        </td>
+                      </tr>
+                      <tr role="row" class="odd">
+                        <td>Jul 2021</td>
+                        <td>
+                          <strong>
+                            <span class="fa fa-gbp"></span>
+                            0.00
+                          </strong>
+                        </td>
+                      </tr>
+                      <tr role="row" class="even">
+                        <td>Aug 2021</td>
+                        <td>
+                          <strong>
+                            <span class="fa fa-gbp"></span>
+                            0.00
+                          </strong>
+                        </td>
+                      </tr>
+                      <tr role="row" class="odd">
+                        <td>Sep 2021</td>
+                        <td>
+                          <strong>
+                            <span class="fa fa-gbp"></span>
+                            753.00
+                          </strong>
+                        </td>
+                      </tr>
+                      <tr role="row" class="even">
+                        <td>Oct 2021</td>
+                        <td>
+                          <strong>
+                            <span class="fa fa-gbp"></span>
+                            0.00
+                          </strong>
+                        </td>
+                      </tr>
+                      <tr role="row" class="odd">
+                        <td>Nov 2021</td>
+                        <td>
+                          <strong>
+                            <span class="fa fa-gbp"></span>
+                            0.00
+                          </strong>
+                        </td>
+                      </tr>
+                      <tr role="row" class="even">
+                        <td>Dec 2021</td>
+                        <td>
+                          <strong>
+                            <span class="fa fa-gbp"></span>
+                            0.00
+                          </strong>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12 col-md-12">
+    <div class="widget">
+      <div class="widget-body">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <h5>Overdue invoices</h5>
+          </div>
+        </div>
+        <hr />
+        <div class="table-responsive">
+          <div
+            id="DataTables_Table_1_wrapper"
+            class="dataTables_wrapper no-footer"
+          >
+            <div
+              id="DataTables_Table_1_wrapper"
+              class="dataTables_wrapper no-footer"
+            >
+              <div id="DataTables_Table_0_filter" class="dataTables_filter">
+                <label
+                  >Search:<input
+                    type="search"
+                    class="lw-ml-10 lw-mb-10"
+                    placeholder=""
+                    aria-controls="DataTables_Table_0"
+                /></label>
+              </div>
+              <table
+                class="
+                  table table-striped
+                  res_tab_full_desc
+                  dataTable
+                  no-footer
+                "
+                cellspacing="0"
+                width="100%"
+                id="DataTables_Table_1"
+                role="grid"
+                aria-describedby="DataTables_Table_1_info"
+              >
+                <thead>
+                  <tr role="row">
+                    <th
+                      class="sorting_desc"
+                      tabindex="0"
+                      aria-controls="DataTables_Table_1"
+                      rowspan="1"
+                      colspan="1"
+                      aria-label="Serial: activate to sort column ascending"
+                      aria-sort="descending"
+                    >
+                      Serial
+                    </th>
+                    <th
+                      class="sorting"
+                      tabindex="0"
+                      aria-controls="DataTables_Table_1"
+                      rowspan="1"
+                      colspan="1"
+                      aria-label="Client name: activate to sort column ascending"
+                    >
+                      Client name
+                    </th>
+                    <th
+                      class="sorting"
+                      tabindex="0"
+                      aria-controls="DataTables_Table_1"
+                      rowspan="1"
+                      colspan="1"
+                      aria-label="Reference: activate to sort column ascending"
+                    >
+                      Reference
+                    </th>
+                    <th
+                      class="sorting"
+                      tabindex="0"
+                      aria-controls="DataTables_Table_1"
+                      rowspan="1"
+                      colspan="1"
+                      aria-label="Issue date: activate to sort column ascending"
+                    >
+                      Issue date
+                    </th>
+                    <th
+                      class="sorting"
+                      tabindex="0"
+                      aria-controls="DataTables_Table_1"
+                      rowspan="1"
+                      colspan="1"
+                      aria-label="Due date: activate to sort column ascending"
+                    >
+                      Due date
+                    </th>
+                    <th
+                      class="sorting"
+                      tabindex="0"
+                      aria-controls="DataTables_Table_1"
+                      rowspan="1"
+                      colspan="1"
+                      aria-label="Total amount: activate to sort column ascending"
+                    >
+                      Total amount
+                    </th>
+                    <th
+                      class="sorting"
+                      tabindex="0"
+                      aria-controls="DataTables_Table_1"
+                      rowspan="1"
+                      colspan="1"
+                      aria-label="Outstanding: activate to sort column ascending"
+                    >
+                      Outstanding
+                    </th>
+                    <th
+                      class="sorting"
+                      tabindex="0"
+                      aria-controls="DataTables_Table_1"
+                      rowspan="1"
+                      colspan="1"
+                      aria-label="Status: activate to sort column ascending"
+                    >
+                      Status
+                    </th>
+                    <th
+                      class="sorting"
+                      tabindex="0"
+                      aria-controls="DataTables_Table_1"
+                      rowspan="1"
+                      colspan="1"
+                      aria-label="Sent?: activate to sort column ascending"
+                    >
+                      Sent?
+                    </th>
+                    <th
+                      width="50"
+                      class="sorting"
+                      tabindex="0"
+                      aria-controls="DataTables_Table_1"
+                      rowspan="1"
+                      colspan="1"
+                      aria-label="Actions: activate to sort column ascending"
+                    >
+                      Actions
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="odd" role="row">
+                    <td class="sorting_1">
+                      <a class="td_link"> INV-00006 </a>
+                    </td>
+                    <td>Rizwan Sabir</td>
+                    <td>CL/1006.00</td>
+                    <td><span class="hideme">20210930</span> 30-09-2021</td>
+                    <td><span class="hideme">20210930</span> 30-09-2021</td>
+                    <td>£3.00</td>
+                    <td>£3.00</td>
+                    <td>
+                      <span class="badge_cms badge_red">Unpaid</span>
+                    </td>
+                    <td class="text-center">
+                      <span
+                        class="glyphicon glyphicon-remove"
+                        style="color: #999; font-size: 16px"
+                      ></span>
+                    </td>
+                    <td>
+                      <ul class="nav nav-right">
+                        <li>
+                          <a data-toggle="dropdown" aria-expanded="false">
+                            <span
+                              class="glyphicon glyphicon-triangle-bottom"
+                            ></span>
+                          </a>
+                          <ul class="dropdown-menu" role="menu">
+                            <li>
+                              <a target="_blank">
+                                <span class="glyphicon glyphicon-save"></span>
+                                Download / Print (PDF)
+                              </a>
+                            </li>
+                            <li>
+                              <a>
+                                <span
+                                  class="glyphicon glyphicon-envelope"
+                                ></span>
+                                Send by email
+                              </a>
+                            </li>
+                            <li>
+                              <a>
+                                <span class="glyphicon glyphicon-bell"></span>
+                                Send reminder by email
+                              </a>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div
+                class="dataTables_info"
+                id="DataTables_Table_1_info"
+                role="status"
+                aria-live="polite"
+              >
+                Showing 1 to 1 of 1 entries
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12 col-md-12">
+    <div class="widget">
+      <div class="widget-body">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+            <div class="dash_blocks dash_green">
+              <p><strong>Total Our Fee</strong></p>
+              <p class="dash_strong"><span class="fa fa-gbp"></span> 2.50</p>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+            <div class="dash_blocks dash_red">
+              <p><strong>Total VAT</strong></p>
+              <p class="dash_strong"><span class="fa fa-gbp"></span> 0.50</p>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+            <div class="dash_blocks dash_yellow">
+              <p><strong>Total Amount</strong></p>
+              <p class="dash_strong"><span class="fa fa-gbp"></span> 3.00</p>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+            <div class="dash_blocks dash_blue">
+              <p><strong>Total Outstanding</strong></p>
+              <p class="dash_strong"><span class="fa fa-gbp"></span> 3.00</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

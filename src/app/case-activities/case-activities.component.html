@@ -1,0 +1,293 @@
+<div class="row">
+  <div class="col-md-12" id="pg-title">Case Activities</div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="widget">
+      <div class="widget-body">
+        <div class="row">
+          <div class="col-md-12" id="pg-nav">
+            <ul class="list-inline">
+              <li>
+                <a class="btn" [routerLink]="['/dashboard']"
+                  ><span class="fa fa-bar-chart"></span> Dashboard</a
+                >
+              </li>
+              <li>
+                <a class="btn"
+                  ><span class="fa fa-edit"></span> Activities by caseworker</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <hr />
+        <form
+          [formGroup]="searchForm"
+          class="form-horizontal"
+          accept-charset="UTF-8"
+        >
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+              <label>Select Date:</label>
+              <input
+                type="date"
+                formControlName="currentDate"
+                maxlength="10"
+                class="form-control bt_datepicker span12 dpicker"
+              />
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+              <label>&nbsp;</label>
+              <button class="btn btn-primary" type="submit">
+                <span class="glyphicon glyphicon-search"></span> Submit
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="widget">
+      <div class="widget-body">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <h5>Activites ({{ date }})</h5>
+          </div>
+        </div>
+        <hr />
+
+        <div class="table-responsive" style="padding-bottom: 10px">
+          <div
+            id="DataTables_Table_0_wrapper"
+            class="dataTables_wrapper no-footer"
+          >
+            <div
+              id="DataTables_Table_0_wrapper"
+              class="dataTables_wrapper no-footer"
+            >
+              <div id="DataTables_Table_0_filter" class="dataTables_filter">
+                <label
+                  >Search:<input
+                    type="search"
+                    class="lw-ml-10 lw-mb-10"
+                    placeholder=""
+                    aria-controls="DataTables_Table_0"
+                /></label>
+              </div>
+              <table
+                class="
+                  table table table-striped
+                  res_tab_full_desc
+                  dataTable
+                  no-footer
+                "
+                cellspacing="0"
+                width="100%"
+                id="DataTables_Table_0"
+                role="grid"
+                aria-describedby="DataTables_Table_0_info"
+              >
+                <thead>
+                  <tr role="row">
+                    <th
+                      width="50"
+                      class="sorting_desc"
+                      tabindex="0"
+                      aria-controls="DataTables_Table_0"
+                      rowspan="1"
+                      colspan="1"
+                      aria-label="Time: activate to sort column ascending"
+                      aria-sort="descending"
+                    >
+                      Time
+                    </th>
+                    <th
+                      width="200"
+                      class="sorting"
+                      tabindex="0"
+                      aria-controls="DataTables_Table_0"
+                      rowspan="1"
+                      colspan="1"
+                      aria-label="Added by: activate to sort column ascending"
+                    >
+                      Added by
+                    </th>
+                    <th
+                      width="90"
+                      class="sorting"
+                      tabindex="0"
+                      aria-controls="DataTables_Table_0"
+                      rowspan="1"
+                      colspan="1"
+                      aria-label="Case ref: activate to sort column ascending"
+                    >
+                      Case ref
+                    </th>
+                    <th
+                      width="120"
+                      class="sorting"
+                      tabindex="0"
+                      aria-controls="DataTables_Table_0"
+                      rowspan="1"
+                      colspan="1"
+                      aria-label="Type: activate to sort column ascending"
+                    >
+                      Type
+                    </th>
+                    <th
+                      class="sorting"
+                      tabindex="0"
+                      aria-controls="DataTables_Table_0"
+                      rowspan="1"
+                      colspan="1"
+                      aria-label="Description: activate to sort column ascending"
+                    >
+                      Description
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr role="row" class="odd">
+                    <td class="sorting_1">
+                      <span class="hideme">20210930180347</span>
+                      <strong>18:03</strong>
+                    </td>
+                    <td>Dr. Mazhar Ilahi</td>
+                    <td></td>
+                    <td><i class="fa fa-check"></i> Info</td>
+                    <td>New payment receipt of £4.00 created.</td>
+                  </tr>
+                  <tr role="row" class="even">
+                    <td class="sorting_1">
+                      <span class="hideme">20210930175700</span>
+                      <strong>17:57</strong>
+                    </td>
+                    <td>Dr. Mazhar Ilahi</td>
+                    <td>
+                      <a
+                        class="td_link"
+                        >CL/1005.00/hussain</a
+                      >
+                    </td>
+                    <td><i class="fa fa-file-o"></i> Note</td>
+                    <td>Added note: testtestets</td>
+                  </tr>
+                  <tr role="row" class="odd">
+                    <td class="sorting_1">
+                      <span class="hideme">20210930175015</span>
+                      <strong>17:50</strong>
+                    </td>
+                    <td>Dr. Mazhar Ilahi</td>
+                    <td></td>
+                    <td><i class="fa fa-check"></i> Info</td>
+                    <td>Consultation with test is finished.</td>
+                  </tr>
+                  <tr role="row" class="even">
+                    <td class="sorting_1">
+                      <span class="hideme">20210930174448</span>
+                      <strong>17:44</strong>
+                    </td>
+                    <td>Dr. Mazhar Ilahi</td>
+                    <td></td>
+                    <td><i class="fa fa-check"></i> Info</td>
+                    <td>
+                      Added new event "[30-09-2021 @ 07:00:00] test" into
+                      calendar.
+                    </td>
+                  </tr>
+                  <tr role="row" class="odd">
+                    <td class="sorting_1">
+                      <span class="hideme">20210930173159</span>
+                      <strong>17:31</strong>
+                    </td>
+                    <td>Dr. Mazhar Ilahi</td>
+                    <td>
+                      <a
+                        class="td_link"
+                        >CL/1006.00/Sabir</a
+                      >
+                    </td>
+                    <td><i class="fa fa-file-o"></i> Note</td>
+                    <td>Added note: test2</td>
+                  </tr>
+                  <tr role="row" class="even">
+                    <td class="sorting_1">
+                      <span class="hideme">20210930173144</span>
+                      <strong>17:31</strong>
+                    </td>
+                    <td>Dr. Mazhar Ilahi</td>
+                    <td>
+                      <a
+                        class="td_link"
+                        >CL/1006.00/Sabir</a
+                      >
+                    </td>
+                    <td><i class="fa fa-file-o"></i> Note</td>
+                    <td>Added note: test</td>
+                  </tr>
+                  <tr role="row" class="odd">
+                    <td class="sorting_1">
+                      <span class="hideme">20210930163803</span>
+                      <strong>16:38</strong>
+                    </td>
+                    <td>Dr. Mazhar Ilahi</td>
+                    <td>
+                      <a
+                        class="td_link"
+                        >CL/1006.00/Sabir</a
+                      >
+                    </td>
+                    <td><i class="fa fa-file-o"></i> Note</td>
+                    <td>New bill created: BL-00004</td>
+                  </tr>
+                  <tr role="row" class="even">
+                    <td class="sorting_1">
+                      <span class="hideme">20210930162441</span>
+                      <strong>16:24</strong>
+                    </td>
+                    <td>Dr. Mazhar Ilahi</td>
+                    <td>
+                      <a
+                        class="td_link"
+                        >CL/1006.00/Sabir</a
+                      >
+                    </td>
+                    <td><i class="fa fa-check"></i> Info</td>
+                    <td>Invoice INV-00006 created.</td>
+                  </tr>
+                  <tr role="row" class="odd">
+                    <td class="sorting_1">
+                      <span class="hideme">20210930161440</span>
+                      <strong>16:14</strong>
+                    </td>
+                    <td>Dr. Mazhar Ilahi</td>
+                    <td>
+                      <a
+                        class="td_link"
+                        >CL/1006.00/Sabir</a
+                      >
+                    </td>
+                    <td><i class="fa fa-check"></i> Info</td>
+                    <td>New case has been opened</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div
+                class="dataTables_info"
+                id="DataTables_Table_0_info"
+                role="status"
+                aria-live="polite"
+              >
+                Showing 1 to 9 of 9 entries
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,381 @@
+<div class="row">
+  <div class="col-md-12" id="pg-title">Consultations</div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="widget">
+      <div class="widget-body">
+        <div class="row">
+          <div class="col-md-12" id="pg-nav">
+            <ul class="list-inline">
+              <li>
+                <a
+                  class="btn"
+                  
+                >
+                  <span class="glyphicon glyphicon-plus"></span> Start new
+                  consultation
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12 col-md-12">
+    <div class="widget">
+      <div class="widget-body">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <h5>Custom search</h5>
+          </div>
+        </div>
+        <hr />
+        <form
+          id="search_form"
+          name="search_form"
+          class="form-horizontal"
+          
+          accept-charset="UTF-8"
+        >
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+              <label>Select option</label>
+              <select class="w-100 selectpicker form-control">
+                <option>Date Range</option>
+              </select>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+              <div id="filter1" style="display: none">
+                <div class="row">
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <label>Enter search terms</label>
+                    <input
+                      type="text"
+                      maxlength="200"
+                      class="form-control txt"
+                      name="inpNUM"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+              <div id="filter0" style="display: block">
+                <div class="row">
+                  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <label>Start date:</label>
+                    <input
+                      type="text"
+                      maxlength="10"
+                      class="form-control bt_datepicker span12 dpicker"
+                      id="inpSDATE"
+                      name="inpSDATE"
+                      value="06-10-2021"
+                      readonly="readonly"
+                    />
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <label>End date:</label>
+                    <input
+                      type="text"
+                      maxlength="10"
+                      class="form-control bt_datepicker span12 dpicker"
+                      id="inpEDATE"
+                      name="inpEDATE"
+                      value="06-10-2021"
+                      readonly="readonly"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+              <label>&nbsp;</label>
+              <button style="margin-bottom: 15px" class="btn" type="submit">
+                <span class="glyphicon glyphicon-search"></span>
+                Search
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12 col-md-12">
+    <div class="widget">
+      <div class="widget-body">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <h5>Search results</h5>
+          </div>
+        </div>
+        <hr />
+
+        <div class="row">
+          <div class="col-sm-12 col-md-12">
+            <div class="table-responsive">
+              <div
+                id="DataTables_Table_0_wrapper"
+                class="dataTables_wrapper no-footer"
+              >
+                <div
+                  id="DataTables_Table_0_wrapper"
+                  class="dataTables_wrapper no-footer"
+                >
+                <div id="DataTables_Table_0_filter" class="dataTables_filter">
+                    <label
+                      >Search:<input
+                        type="search"
+                        class="lw-ml-10 lw-mb-10"
+                        placeholder=""
+                        aria-controls="DataTables_Table_0"
+                    /></label>
+                  </div>
+                  <table
+                    class="
+                      table table table-striped
+                      res_tab_full_desc
+                      dataTable
+                      no-footer
+                    "
+                    cellspacing="0"
+                    width="100%"
+                    id="DataTables_Table_0"
+                    role="grid"
+                    aria-describedby="DataTables_Table_0_info"
+                  >
+                    <thead>
+                      <tr role="row">
+                        <th
+                          class="sorting_desc"
+                          tabindex="0"
+                          aria-controls="DataTables_Table_0"
+                          rowspan="1"
+                          colspan="1"
+                          aria-label="Date &amp;amp; Time: activate to sort column ascending"
+                          aria-sort="descending"
+                        >
+                          Date &amp; Time
+                        </th>
+                        <th
+                          class="sorting"
+                          tabindex="0"
+                          aria-controls="DataTables_Table_0"
+                          rowspan="1"
+                          colspan="1"
+                          aria-label="Client Name: activate to sort column ascending"
+                        >
+                          Client Name
+                        </th>
+                        <th
+                          class="sorting"
+                          tabindex="0"
+                          aria-controls="DataTables_Table_0"
+                          rowspan="1"
+                          colspan="1"
+                          aria-label="Consultant: activate to sort column ascending"
+                        >
+                          Consultant
+                        </th>
+                        <th
+                          class="sorting"
+                          tabindex="0"
+                          aria-controls="DataTables_Table_0"
+                          rowspan="1"
+                          colspan="1"
+                          aria-label="Category: activate to sort column ascending"
+                        >
+                          Category
+                        </th>
+                        <th
+                          width="50"
+                          class="sorting"
+                          tabindex="0"
+                          aria-controls="DataTables_Table_0"
+                          rowspan="1"
+                          colspan="1"
+                          aria-label="Actions: activate to sort column ascending"
+                        >
+                          Actions
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr role="row" class="odd">
+                        <td class="sorting_1">
+                          <span class="hideme">20210930174800</span> 30 Sep 2021
+                          @ 17:48
+                        </td>
+                        <td>
+                          <a
+                            class="td_link_dark"
+                            target="_blank"
+                          >
+                            test
+                          </a>
+                        </td>
+                        <td>Dr. Mazhar Ilahi</td>
+                        <td>
+                          Employment Law
+                          <span class="glyphicon glyphicon-arrow-right"></span>
+                          Flexible Working
+                        </td>
+
+                        <td>
+                          <ul class="nav nav-right">
+                            <li>
+                              <a
+                                class="dropdown-toggle"
+                                data-toggle="dropdown"
+                                aria-expanded="false"
+                              >
+                                <span
+                                  class="glyphicon glyphicon-triangle-bottom"
+                                ></span>
+                              </a>
+                              <ul class="dropdown-menu" role="menu">
+                                <li>
+                                  <a
+                                  >
+                                    <span
+                                      class="glyphicon glyphicon-play"
+                                    ></span>
+                                    Start New Case
+                                  </a>
+                                </li>
+                                <li>
+                                  <a
+                                    target="_blank"
+                                  >
+                                    <span
+                                      class="glyphicon glyphicon-save"
+                                    ></span>
+                                    Download / Print (PDF)
+                                  </a>
+                                </li>
+                                <li>
+                                  <a
+                                  >
+                                    <span
+                                      class="glyphicon glyphicon-pencil"
+                                    ></span>
+                                    Edit
+                                  </a>
+                                </li>
+                                <li>
+                                  <a
+                                    onclick="return confirm('Are you sure you want to delete this record?');"
+                                  >
+                                    <span
+                                      class="glyphicon glyphicon-remove"
+                                    ></span>
+                                    Delete
+                                  </a>
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </td>
+                      </tr>
+                      <tr role="row" class="even">
+                        <td class="sorting_1">
+                          <span class="hideme">20210802150800</span> 02 Aug 2021
+                          @ 15:08
+                        </td>
+                        <td>
+                          <a
+                            class="td_link_dark"
+                            target="_blank"
+                          >
+                            John smith
+                          </a>
+                        </td>
+                        <td>Dr. Mazhar Ilahi</td>
+                        <td>
+                          Civil Litigation
+                          <span class="glyphicon glyphicon-arrow-right"></span>
+                          Boundary and neighbour disputes
+                        </td>
+
+                        <td>
+                          <ul class="nav nav-right">
+                            <li>
+                              <a
+                                class="dropdown-toggle"
+                                data-toggle="dropdown"
+                                aria-expanded="false"
+                              >
+                                <span
+                                  class="glyphicon glyphicon-triangle-bottom"
+                                ></span>
+                              </a>
+                              <ul class="dropdown-menu" role="menu">
+                                <li>
+                                  <a
+                                  >
+                                    <span
+                                      class="glyphicon glyphicon-play"
+                                    ></span>
+                                    Start New Case
+                                  </a>
+                                </li>
+                                <li>
+                                  <a
+                                    target="_blank"
+                                  >
+                                    <span
+                                      class="glyphicon glyphicon-save"
+                                    ></span>
+                                    Download / Print (PDF)
+                                  </a>
+                                </li>
+                                <li>
+                                  <a
+                                  >
+                                    <span
+                                      class="glyphicon glyphicon-pencil"
+                                    ></span>
+                                    Edit
+                                  </a>
+                                </li>
+                                <li>
+                                  <a
+                                    onclick="return confirm('Are you sure you want to delete this record?');"
+                                  >
+                                    <span
+                                      class="glyphicon glyphicon-remove"
+                                    ></span>
+                                    Delete
+                                  </a>
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div
+                    class="dataTables_info"
+                    id="DataTables_Table_0_info"
+                    role="status"
+                    aria-live="polite"
+                  >
+                    Showing 1 to 2 of 2 entries
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

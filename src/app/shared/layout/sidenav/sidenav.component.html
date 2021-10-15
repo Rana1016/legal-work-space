@@ -1,0 +1,9 @@
+<ul class="nav">
+    <li *ngFor="let menuItem of menuItems">
+        <a [routerLink]='[menuItem.url]' [ngClass]="{'active': checkActive(menuItem.url)}">
+            <i class="fa fa-{{menuItem.icon}}"></i>
+            {{menuItem.text}}
+            <span *ngIf="menuItem.badge" class="badge pull-right">{{menuItem?.badge}}</span>
+        </a>
+    </li>
+</ul>

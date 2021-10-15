@@ -1,0 +1,162 @@
+<div class="row">
+  <div class="col-md-12" id="pg-title">
+    Log book <span class="glyphicon glyphicon-chevron-right"></span> Post
+    (Incoming) <span class="glyphicon glyphicon-chevron-right"></span> add
+    activity
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="widget">
+      <div class="widget-body">
+        <div class="row">
+          <div class="col-md-12" id="pg-nav">
+            <ul class="list-inline">
+              <li>
+                <a
+                  class="btn"
+                  [routerLink]="['/logs']"
+                  ><span class="glyphicon glyphicon-arrow-left"></span> Back</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="widget">
+      <div class="widget-body">
+        <div class="row">
+          <div class="col-sm-12 col-md-12">
+            <div class="alert alert-info" role="alert">
+              <strong>Note:</strong> All fields marked with an asterisk (*) are
+              required.
+            </div>
+            <form
+              id="data_form"
+              name="data_form"
+              class="form-horizontal"
+              accept-charset="UTF-8"
+              enctype="multipart/form-data"
+            >
+              <div class="row">
+                <div class="col-md-4"><label for="inpCID">Case ID</label></div>
+                <div class="col-md-8">
+                  <input
+                    type="text"
+                    maxlength="10"
+                    class="form-control"
+                    id="inpCID"
+                    name="inpCID"
+                  /><small class="text-muted">Example: 2417.01</small>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">&nbsp;</div>
+                <div class="col-md-8" id="client_form_result">
+                  <p>&nbsp;</p>
+                  <input type="hidden" name="hidMATTER_ID" value="" />
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4"><label for="inpDATE">* Date</label></div>
+                <div class="col-md-8">
+                  <input
+                    type="text"
+                    maxlength="10"
+                    class="form-control bt_datepicker span12"
+                    id="inpDATE"
+                    name="inpDATE"
+                    value="06-10-2021"
+                    readonly="readonly"
+                  /><small class="text-muted">Format: dd-mm-yyyy</small>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="inpTITLE">* Title</label>
+                </div>
+                <div class="col-md-8">
+                  <input
+                    type="text"
+                    maxlength="100"
+                    class="form-control"
+                    id="inpTITLE"
+                    name="inpTITLE"
+                    value=""
+                  /><small class="text-muted"
+                    >Example: Application sent to HO by special delivery.</small
+                  >
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="inpREF">Reference</label>
+                </div>
+                <div class="col-md-8">
+                  <input
+                    type="text"
+                    maxlength="50"
+                    class="form-control"
+                    id="inpREF"
+                    name="inpREF"
+                    value=""
+                  /><small class="text-muted">Example: GB882XEFD34</small>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="inpNOTES">Addtional Information</label>
+                </div>
+                <div class="col-md-8">
+                  <textarea
+                    class="form-control"
+                    style="height: 175px !important"
+                    id="inpNOTES"
+                    name="inpNOTES"
+                    rows="3"
+                  ></textarea>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="file">Upload document</label>
+                </div>
+                <div class="col-md-8">
+                  <input
+                    type="file"
+                    id="file"
+                    name="userfile"
+                    class="input-xlarge"
+                  /><small class="text-muted"
+                    >Allowed file types:
+                    pdf|doc|docx|dot|dotx|xls|xlsx|ppt|pptx|pps|ppsx|odt|ods|odp|pages|rtf|txt|csv|gif|png|jpg<br />
+                    Maximum size: 100 MB</small
+                  >
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-8">
+                  <button
+                    style="margin-bottom: 15px"
+                    class="btn btn-primary"
+                    type="submit"
+                  >
+                    <span class="glyphicon glyphicon-ok"></span> Submit
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

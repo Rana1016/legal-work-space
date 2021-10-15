@@ -1,0 +1,21 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import { CasesRoutingModule } from './cases-routing.module';
+import { DefaultComponent } from './components/cases/cases.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { RouterModule } from '@angular/router';
+import { CasesComponent } from './cases.component';
+
+@NgModule({
+  declarations: [CasesComponent, DefaultComponent],
+  imports: [
+    CommonModule,
+    CasesRoutingModule,
+    NgbDropdownModule,
+    RouterModule,
+    ReactiveFormsModule,
+  ],
+})
+export class CasesModule {}

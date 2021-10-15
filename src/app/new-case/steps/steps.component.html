@@ -1,1589 +1,589 @@
 <div class="row">
-  <div class="col-md-12" id="pg-title">
-    Open new case <span class="glyphicon glyphicon-chevron-right"></span>
-    {{ Navigation && "Step # " + Navigation }}
-  </div>
+    <div class="col-md-12" id="pg-title">
+        Open new case
+        <span class="glyphicon glyphicon-chevron-right"></span> {{ Navigation && 'Step # ' + Navigation }}
+    </div>
 </div>
 <div class="row">
-  <div class="col-md-12">
-    <div class="widget">
-      <div class="widget-body">
-        <div class="row">
-          <div class="col-md-12" id="pg-nav">
-            <ul class="list-inline">
-              <li>
-                <a *ngIf="Navigation == 1" class="btn" [routerLink]="['/cases']"
-                  ><span class="glyphicon glyphicon-user"></span> Clients &amp;
-                  cases</a
-                >
-                <a
-                  *ngIf="Navigation !== 1 && Navigation < 5"
-                  class="btn"
-                  [routerLink]="['/new-case/step-' + (Navigation - 1)]"
-                  ><span class="glyphicon glyphicon-arrow-left"></span> Back</a
-                >
-              </li>
-            </ul>
-          </div>
+    <div class="col-md-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div class="row">
+                    <div class="col-md-12" id="pg-nav">
+                        <ul class="list-inline">
+                            <li>
+                                <a *ngIf="Navigation == 1" class="btn" [routerLink]="['/cases']">
+                                    <span class="glyphicon glyphicon-user"></span> Clients &amp; cases
+                                </a>
+                                <a *ngIf="Navigation !== 1 && Navigation < 5" class="btn" [routerLink]="['/new-case/step-' + (Navigation - 1)]">
+                                    <span class="glyphicon glyphicon-arrow-left"></span> Back
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 
 <div class="row">
-  <div class="col-md-12">
-    <div class="widget">
-      <div class="widget-body">
-        <div class="row">
-          <div class="col-md-3">
-            <div class="steps">
-              <ul class="list-unstyled vbar">
-                <li>
-                  <a
-                    [routerLink]="['/new-case/step-1']"
-                    [ngClass]="{
+    <div class="col-md-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="steps">
+                            <ul class="list-unstyled vbar">
+                                <li>
+                                    <a [routerLink]="['/new-case/step-1']" [ngClass]="{
                       'vbar_active progress-bar-success': Navigation == 1
-                    }"
-                    class="vbar_active progress-bar-success"
-                    >1</a
-                  >
-                </li>
-                <li>Personal Information</li>
-                <li>
-                  <div class="progress vprogress">
-                    <div
-                      [ngClass]="{
+                    }" class="vbar_active progress-bar-success">
+                    1
+                  </a>
+                                </li>
+                                <li>Personal Information</li>
+                                <li>
+                                    <div class="progress vprogress">
+                                        <div [ngClass]="{
                         'vbar_active progress-bar-success': Navigation >= 1
-                      }"
-                      class="progress-bar progress-bar-striped active"
-                      role="progressbar"
-                      aria-valuenow="100"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                    ></div>
-                  </div>
-                </li>
-                <li>
-                  <a
-                    [routerLink]="['/new-case/step-2']"
-                    [ngClass]="{
+                      }" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a [routerLink]="['/new-case/step-2']" [ngClass]="{
                       'vbar_active progress-bar-success': Navigation == 2
-                    }"
-                    >2</a
-                  >
-                </li>
-                <li>Case Details</li>
-                <li>
-                  <div class="progress vprogress">
-                    <div
-                      [ngClass]="{
+                    }">
+                    2
+                  </a>
+                                </li>
+                                <li>Case Details</li>
+                                <li>
+                                    <div class="progress vprogress">
+                                        <div [ngClass]="{
                         'vbar_active progress-bar-success': Navigation >= 2
-                      }"
-                      class="progress-bar progress-bar-striped active"
-                      role="progressbar"
-                      aria-valuenow="100"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                    ></div>
-                  </div>
-                </li>
-                <li>
-                  <a
-                    [routerLink]="['/new-case/step-3']"
-                    class=""
-                    [ngClass]="{
+                      }" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a [routerLink]="['/new-case/step-3']" class="" [ngClass]="{
                       'vbar_active progress-bar-success': Navigation == 3
-                    }"
-                    >3</a
-                  >
-                </li>
-                <li>Payment Options</li>
-                <li>
-                  <div class="progress vprogress">
-                    <div
-                      [ngClass]="{
+                    }">
+                    3
+                  </a>
+                                </li>
+                                <li>Payment Options</li>
+                                <li>
+                                    <div class="progress vprogress">
+                                        <div [ngClass]="{
                         'vbar_active progress-bar-success': Navigation >= 3
-                      }"
-                      class="progress-bar progress-bar-striped active"
-                      role="progressbar"
-                      aria-valuenow="100"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                    ></div>
-                  </div>
-                </li>
-                <li>
-                  <a
-                    [routerLink]="['/new-case/step-4']"
-                    class=""
-                    [ngClass]="{
+                      }" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a [routerLink]="['/new-case/step-4']" class="" [ngClass]="{
                       'vbar_active progress-bar-success': Navigation == 4
-                    }"
-                    >4</a
-                  >
-                </li>
-                <li>Declarations &amp; Submit</li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-md-9">
-            <div class="alert alert-info" role="alert">
-              <strong>Note:</strong> All fields marked with an asterisk (*) are
-              required.
-            </div>
-            <form
-              class="form-horizontal"
-              accept-charset="UTF-8"
-              [formGroup]="stepForm"
-              *ngIf="Navigation == 1"
-            >
-              <div class="row">
-                <div class="col-md-4"><label>Title</label></div>
-                <div class="col-md-8">
-                  <select
-                    class="w-100 selectpicker form-control"
-                    formControlName="title"
-                  >
+                    }">
+                    4
+                  </a>
+                                </li>
+                                <li>Declarations &amp; Submit</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="alert alert-info" role="alert">
+                            <strong>Note:</strong> All fields marked with an asterisk (*) are required.
+                        </div>
+                        <form class="form-horizontal" accept-charset="UTF-8" [formGroup]="stepForm" *ngIf="Navigation == 1">
+                            <div class="row">
+                                <div class="col-md-4"><label>Title</label></div>
+                                <div class="col-md-8">
+                                    <select class="w-100 selectpicker form-control" formControlName="title">
                     <option value="0">Please Select</option>
-                    <option
-                      *ngFor="let opt of FormData.titles; let i = index"
-                      [value]="i + 1"
-                    >
+                    <option *ngFor="let opt of FormData.titles; let i = index" [value]="i + 1">
                       {{ opt }}
                     </option>
                   </select>
-                  <small class="text-muted"
-                    >Select an appropriate option. (Optional)</small
-                  >
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-4">
-                  <label>* First Name</label>
-                </div>
-                <div class="col-md-8">
-                  <input
-                    type="text"
-                    maxlength="200"
-                    class="form-control"
-                    formControlName="firstName"
-                  /><small class="text-muted"
-                    >Note: Name exactly as appears on Photo ID.</small
-                  >
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-4">
-                  <label>* Last Name</label>
-                </div>
-                <div class="col-md-8">
-                  <input
-                    type="text"
-                    maxlength="200"
-                    class="form-control"
-                    formControlName="lastName"
-                  /><small class="text-muted"
-                    >Note: Name exactly as appears on Photo ID.</small
-                  >
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-4">
-                  <label>Date of Birth</label>
-                </div>
-                <div class="col-md-8">
-                  <input
-                    type="text"
-                    maxlength="10"
-                    class="mask_date form-control bt_datepicker span12"
-                    type="date"
-                  /><small class="text-muted">Format: dd-mm-yyyy</small>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-4">
-                  <label>* Gender?</label>
-                </div>
-                <div class="col-md-8">
-                  <select
-                    class="w-100 selectpicker form-control"
-                    formControlName="gender"
-                  >
+                                    <small class="text-muted">
+                    Select an appropriate option. (Optional)
+                  </small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>* First Name</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="200" class="form-control" formControlName="firstName" />
+                                    <small class="text-muted">
+                    Note: Name exactly as appears on Photo ID.
+                  </small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>* Last Name</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="200" class="form-control" formControlName="lastName" />
+                                    <small class="text-muted">
+                    Note: Name exactly as appears on Photo ID.
+                  </small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Date of Birth</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="10" class="mask_date form-control bt_datepicker span12" type="date" />
+                                    <small class="text-muted">Format: dd-mm-yyyy</small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>* Gender?</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <select class="w-100 selectpicker form-control" formControlName="gender">
                     <option value="0">Please Select</option>
-                    <option
-                      *ngFor="let opt of FormData.genders; let i = index"
-                      [value]="i + 1"
-                    >
+                    <option *ngFor="let opt of FormData.genders; let i = index" [value]="i + 1">
                       {{ opt }}
                     </option>
                   </select>
-                  <small class="text-muted"
-                    >Select an appropriate option.</small
-                  >
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-4">
-                  <label>Nationality</label>
-                </div>
-                <div class="col-md-8">
-                  <select
-                    class="w-100 selectpicker form-control"
-                    formControlName="nationality"
-                  >
+                                    <small class="text-muted">
+                    Select an appropriate option.
+                  </small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Nationality</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <select class="w-100 selectpicker form-control" formControlName="nationality">
                     <option value="0">Please Select</option>
-                    <option
-                      *ngFor="let opt of FormData.nationalities; let i = index"
-                      [value]="i + 1"
-                    >
+                    <option *ngFor="let opt of FormData.nationalities; let i = index" [value]="i + 1">
                       {{ opt }}
                     </option>
                   </select>
-                  <small class="text-muted"
-                    >Select an appropriate option.</small
-                  >
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-4">
-                  <label for="inpCOMPANY">Company Name (if any)</label>
-                </div>
-                <div class="col-md-8">
-                  <input
-                    type="text"
-                    maxlength="200"
-                    class="form-control"
-                    id="inpCOMPANY"
-                    formControlName="companyName"
-                  /><small class="text-muted"
-                    >Example: XYZ Limited (Optional)</small
-                  >
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-4">
-                  <label for="inpADDRESS">* Address</label>
-                </div>
-                <div class="col-md-8">
-                  <input
-                    type="text"
-                    maxlength="200"
-                    class="form-control"
-                    id="inpADDRESS"
-                    formControlName="address"
-                  /><small class="text-muted"
-                    >Example: Flat A, 123 Abc Road, Xyx Ave.</small
-                  >
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-4">
-                  <label>* Town / City</label>
-                </div>
-                <div class="col-md-8">
-                  <input
-                    type="text"
-                    maxlength="100"
-                    class="form-control"
-                    id="inpCITY"
-                    formControlName="city"
-                  /><small class="text-muted">Example: London</small>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-4">
-                  <label>* Country</label>
-                </div>
-                <div class="col-md-8">
-                  <select
-                    class="w-100 selectpicker form-control"
-                    formControlName="country"
-                  >
+                                    <small class="text-muted">
+                    Select an appropriate option.
+                  </small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="inpCOMPANY">Company Name (if any)</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="200" class="form-control" id="inpCOMPANY" formControlName="companyName" />
+                                    <small class="text-muted">
+                    Example: XYZ Limited (Optional)
+                  </small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="inpADDRESS">* Address</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="200" class="form-control" id="inpADDRESS" formControlName="address" />
+                                    <small class="text-muted">
+                    Example: Flat A, 123 Abc Road, Xyx Ave.
+                  </small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>* Town / City</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="100" class="form-control" id="inpCITY" formControlName="city" />
+                                    <small class="text-muted">Example: London</small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>* Country</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <select class="w-100 selectpicker form-control" formControlName="country">
                     <option value="0">Please Select</option>
-                    <option
-                      *ngFor="let opt of FormData.countries; let i = index"
-                      [value]="i + 1"
-                    >
+                    <option *ngFor="let opt of FormData.countries; let i = index" [value]="i + 1">
                       {{ opt }}
                     </option>
                   </select>
-                  <small class="text-muted"
-                    >Select an appropriate option.</small
-                  >
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-4">
-                  <label>Zipcode / Postcode</label>
-                </div>
-                <div class="col-md-8">
-                  <input
-                    type="text"
-                    maxlength="16"
-                    class="form-control"
-                    formControlName="zipCode"
-                  /><small class="text-muted">Example: SW19 1AB</small>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-4">
-                  <label>Email Address</label>
-                </div>
-                <div class="col-md-8">
-                  <input
-                    type="text"
-                    maxlength="200"
-                    class="form-control"
-                    formControlName="email"
-                  /><small class="text-muted"
-                    >Example: user@company-name.co.uk (Optional)</small
-                  >
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-4">
-                  <label>Phone Number (Primary)</label>
-                </div>
-                <div class="col-md-8">
-                  <input
-                    type="text"
-                    maxlength="16"
-                    class="form-control"
-                    id="inpPHONE1"
-                    formControlName="phonePrimary"
-                  /><small class="text-muted"
-                    >Note: Only digits without spaces. Example:
-                    07000111000</small
-                  >
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-4">
-                  <label>Phone Number (Secondary)</label>
-                </div>
-                <div class="col-md-8">
-                  <input
-                    type="text"
-                    maxlength="16"
-                    class="form-control"
-                    id="inpPHONE2"
-                    formControlName="phoneSecondary"
-                  /><small class="text-muted"
-                    >Note: Only digits without spaces. Example:
-                    02080111000</small
-                  >
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-4">
-                  <label for="inpMODE"
-                    >* Preferred mode of correspondence ?</label
-                  >
-                </div>
-                <div class="col-md-8">
-                  <select
-                    class="w-100 selectpicker form-control"
-                    formControlName="preferredMode"
-                  >
+                                    <small class="text-muted">
+                    Select an appropriate option.
+                  </small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Zipcode / Postcode</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="16" class="form-control" formControlName="zipCode" />
+                                    <small class="text-muted">Example: SW19 1AB</small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Email Address</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="200" class="form-control" formControlName="email" />
+                                    <small class="text-muted">
+                    Example: user@company-name.co.uk (Optional)
+                  </small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Phone Number (Primary)</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="16" class="form-control" id="inpPHONE1" formControlName="phonePrimary" />
+                                    <small class="text-muted">
+                    Note: Only digits without spaces. Example: 07000111000
+                  </small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Phone Number (Secondary)</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" maxlength="16" class="form-control" id="inpPHONE2" formControlName="phoneSecondary" />
+                                    <small class="text-muted">
+                    Note: Only digits without spaces. Example: 02080111000
+                  </small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="inpMODE">
+                    * Preferred mode of correspondence ?
+                  </label>
+                                </div>
+                                <div class="col-md-8">
+                                    <select class="w-100 selectpicker form-control" formControlName="preferredMode">
                     <option value="0">Please Select</option>
-                    <option
-                      *ngFor="let opt of FormData.preferredModes; let i = index"
-                      [value]="i + 1"
-                    >
+                    <option *ngFor="let opt of FormData.preferredModes; let i = index" [value]="i + 1">
                       {{ opt }}
                     </option>
                   </select>
-                  <small class="text-muted"
-                    >Select an appropriate option.</small
-                  >
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-4">
-                  <label>* How did you hear about us?</label>
-                </div>
-                <div class="col-md-8">
-                  <select
-                    class="w-100 selectpicker form-control"
-                    formControlName="hearAboutUs"
-                  >
+                                    <small class="text-muted">
+                    Select an appropriate option.
+                  </small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>* How did you hear about us?</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <select class="w-100 selectpicker form-control" formControlName="hearAboutUs">
                     <option value="0">Please Select</option>
-                    <option
-                      *ngFor="let opt of FormData.hearAboutUs; let i = index"
-                      [value]="i + 1"
-                    >
+                    <option *ngFor="let opt of FormData.hearAboutUs; let i = index" [value]="i + 1">
                       {{ opt }}
                     </option>
                   </select>
-                  <small class="text-muted"
-                    >Select an appropriate option.</small
-                  >
-                </div>
-              </div>
-              <hr />
-              <h5>Other applicants / parties</h5>
-              <hr />
-              <div class="input_fields_wrap3"></div>
-              <div class="row" style="margin-bottom: 100px">
-                <div class="col-md-12">
-                  <button class="add_field_button3 btn btn-danger">
-                    <span class="fa fa-plus"></span> Add More Applicants
+                                    <small class="text-muted">
+                    Select an appropriate option.
+                  </small>
+                                </div>
+                            </div>
+                            <hr />
+                            <h5>Other applicants / parties</h5>
+                            <hr />
+                            <div class="input_fields_wrap3"></div>
+                            <div class="row" style="margin-bottom: 100px;">
+                                <div class="col-md-12">
+                                    <button class="add_field_button3 btn btn-danger">
+                    <span class="fa fa-plus"></span>
+                    Add More Applicants
                   </button>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12 text-right">
-                  <button
-                    *ngIf="Navigation > 0 && Navigation < 4"
-                    class="btn btn-primary"
-                    data-toggle="modal"
-                    data-target=".bs-example-modal-lg"
-                    type="button"
-                    aria-hidden="true"
-                    [routerLink]="['/new-case/step-' + (Navigation + 1)]"
-                  >
-                    Save &amp; Continue <span class="fa fa-arrow-right"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 text-right">
+                                    <button *ngIf="Navigation > 0 && Navigation < 4" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" type="button" aria-hidden="true" [routerLink]="['/new-case/step-' + (Navigation + 1)]">
+                    Save &amp; Continue
+                    <span class="fa fa-arrow-right"></span>
                   </button>
-                </div>
-              </div>
-            </form>
-            <form
-              class="form-horizontal"
-              accept-charset="UTF-8"
-              [formGroup]="stepForm"
-              *ngIf="Navigation == 2"
-            >
-              <div class="row">
-                <div class="col-md-4">
-                  <label for="inpFEE">* Fee Type?</label>
-                </div>
-                <div class="col-md-8">
-                  <select
-                    class="w-100 selectpicker form-control"
-                    formControlName="feeType"
-                  >
+                                </div>
+                            </div>
+                        </form>
+                        <form class="form-horizontal" accept-charset="UTF-8" [formGroup]="stepForm" *ngIf="Navigation == 2">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="inpFEE">* Fee Type?</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <select class="w-100 selectpicker form-control" formControlName="feeType">
                     <option value="0">Please Select</option>
-                    <option
-                      *ngFor="let opt of FormData.titles; let i = index"
-                      [value]="i + 1"
-                    >
+                    <option *ngFor="let opt of FormData.titles; let i = index" [value]="i + 1">
                       {{ opt }}
                     </option>
                   </select>
-                  <small class="text-muted"
-                    >Select an appropriate option.</small
-                  >
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-4">
-                  <label for="inpCOVER"
-                    >* What is covered by this fee agreement?</label
-                  >
-                </div>
-                <div class="col-md-8">
-                  <textarea
-                    class="form-control"
-                    id="inpCOVER"
-                    name="inpCOVER"
-                    rows="3"
-                  ></textarea>
-                </div>
-              </div>
-              <div id="fee1" class="">
-                <div class="row">
-                  <div class="col-md-4">
-                    <label for="inpAGREED">* Agreed Fee</label>
-                  </div>
-                  <div class="col-md-8">
-                    <input
-                      type="text"
-                      maxlength="10"
-                      class="form-control"
-                      id="inpAGREED"
-                      name="inpAGREED"
-                      value="0.00"
-                    /><small class="text-muted"
-                      >Example: 299.50 (Including VAT)</small
-                    >
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-4">
-                    <label for="inpISVAT"
-                      >* Is VAT applicable &amp; included into agreed
-                      fee?</label
-                    >
-                  </div>
-                  <div class="col-md-8">
-                    <select
-                      name="inpISVAT"
-                      id="inpISVAT"
-                      class="selectpicker show-menu-arrow form-control"
-                      style="display: none"
-                    >
+                                    <small class="text-muted">
+                    Select an appropriate option.
+                  </small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="inpCOVER">
+                    * What is covered by this fee agreement?
+                  </label>
+                                </div>
+                                <div class="col-md-8">
+                                    <textarea class="form-control" id="inpCOVER" name="inpCOVER" rows="3"></textarea>
+                                </div>
+                            </div>
+                            <div id="fee1" class="">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label for="inpAGREED">* Agreed Fee</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" maxlength="10" class="form-control" id="inpAGREED" name="inpAGREED" value="0.00" />
+                                        <small class="text-muted">
+                      Example: 299.50 (Including VAT)
+                    </small>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label for="inpISVAT">
+                      * Is VAT applicable &amp; included into agreed fee?
+                    </label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <select name="inpISVAT" id="inpISVAT" class="selectpicker show-menu-arrow form-control" style="display: none;">
                       <option value="0" selected="selected">No</option>
                       <option value="1">Yes</option>
                     </select>
-                    <div
-                      class="
-                        btn-group
-                        bootstrap-select
-                        show-menu-arrow
-                        form-control
-                      "
-                    >
-                      <button
-                        type="button"
-                        class="btn dropdown-toggle selectpicker btn-default"
-                        data-toggle="dropdown"
-                        data-id="inpISVAT"
-                        title="No"
-                      >
-                        <span class="filter-option pull-left">No</span
-                        >&nbsp;<span class="caret"></span>
+                                        <div class="btn-group bootstrap-select show-menu-arrow form-control">
+                                            <button type="button" class="btn dropdown-toggle selectpicker btn-default" data-toggle="dropdown" data-id="inpISVAT" title="No">
+                        <span class="filter-option pull-left">No</span>
+                        &nbsp;
+                        <span class="caret"></span>
                       </button>
-                      <div class="dropdown-menu open">
-                        <ul
-                          class="dropdown-menu inner selectpicker"
-                          role="menu"
-                        >
-                          <li data-original-index="0" class="selected">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">No</span>'
-                              ><span class="text">No</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                          <li data-original-index="1">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">Yes</span>'
-                              ><span class="text">Yes</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div
-                      class="
-                        btn-group
-                        bootstrap-select
-                        show-menu-arrow
-                        form-control
-                      "
-                    >
-                      <button
-                        type="button"
-                        class="btn dropdown-toggle selectpicker btn-default"
-                        data-toggle="dropdown"
-                        data-id="inpISVAT"
-                        title="No"
-                        aria-expanded="false"
-                      >
-                        <span class="filter-option pull-left">No</span
-                        >&nbsp;<span class="caret"></span>
+                                            <div class="dropdown-menu open">
+                                                <ul class="dropdown-menu inner selectpicker" role="menu">
+                                                    <li data-original-index="0" class="selected">
+                                                        <a tabindex="0" class="" data-normalized-text='<span class="text">No</span>'>
+                                                            <span class="text">No</span>
+                                                            <span class="glyphicon glyphicon-ok check-mark"></span>
+                                                        </a>
+                                                    </li>
+                                                    <li data-original-index="1">
+                                                        <a tabindex="0" class="" data-normalized-text='<span class="text">Yes</span>'>
+                                                            <span class="text">Yes</span>
+                                                            <span class="glyphicon glyphicon-ok check-mark"></span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="btn-group bootstrap-select show-menu-arrow form-control">
+                                            <button type="button" class="btn dropdown-toggle selectpicker btn-default" data-toggle="dropdown" data-id="inpISVAT" title="No" aria-expanded="false">
+                        <span class="filter-option pull-left">No</span>
+                        &nbsp;
+                        <span class="caret"></span>
                       </button>
-                      <div class="dropdown-menu open">
-                        <ul
-                          class="dropdown-menu inner selectpicker"
-                          role="menu"
-                        >
-                          <li data-original-index="0" class="selected">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">No</span>'
-                              ><span class="text">No</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                          <li data-original-index="1">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">Yes</span>'
-                              ><span class="text">Yes</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <small class="text-muted"
-                      >Select an appropriate option.</small
-                    >
-                  </div>
-                </div>
-                <div class="row hideme">
-                  <div class="col-md-4">
-                    <label for="inpDISB1"
-                      >* Disbursements are included into agreed fee?</label
-                    >
-                  </div>
-                  <div class="col-md-8">
-                    <select
-                      name="inpDISB1"
-                      id="inpDISB1"
-                      class="selectpicker show-menu-arrow form-control"
-                      style="display: none"
-                    >
-                      <option value="0" selected="selected">No</option>
-                      <option value="1">Yes</option>
-                    </select>
-                    <div
-                      class="
-                        btn-group
-                        bootstrap-select
-                        show-menu-arrow
-                        form-control
-                      "
-                    >
-                      <button
-                        type="button"
-                        class="btn dropdown-toggle selectpicker btn-default"
-                        data-toggle="dropdown"
-                        data-id="inpDISB1"
-                        title="No"
-                      >
-                        <span class="filter-option pull-left">No</span
-                        >&nbsp;<span class="caret"></span>
-                      </button>
-                      <div class="dropdown-menu open">
-                        <ul
-                          class="dropdown-menu inner selectpicker"
-                          role="menu"
-                        >
-                          <li data-original-index="0" class="selected">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">No</span>'
-                              ><span class="text">No</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                          <li data-original-index="1">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">Yes</span>'
-                              ><span class="text">Yes</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div
-                      class="
-                        btn-group
-                        bootstrap-select
-                        show-menu-arrow
-                        form-control
-                      "
-                    >
-                      <button
-                        type="button"
-                        class="btn dropdown-toggle selectpicker btn-default"
-                        data-toggle="dropdown"
-                        data-id="inpDISB1"
-                        title="No"
-                      >
-                        <span class="filter-option pull-left">No</span
-                        >&nbsp;<span class="caret"></span>
-                      </button>
-                      <div class="dropdown-menu open">
-                        <ul
-                          class="dropdown-menu inner selectpicker"
-                          role="menu"
-                        >
-                          <li data-original-index="0" class="selected">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">No</span>'
-                              ><span class="text">No</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                          <li data-original-index="1">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">Yes</span>'
-                              ><span class="text">Yes</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <small class="text-muted"
-                      >Select an appropriate option.</small
-                    >
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-4">
-                    <label for="inpADVANCE">* Advance Payment</label>
-                  </div>
-                  <div class="col-md-8">
-                    <input
-                      type="text"
-                      maxlength="10"
-                      class="form-control"
-                      id="inpADVANCE"
-                      name="inpADVANCE"
-                      value="0.00"
-                    /><small class="text-muted">Example: 299.50</small>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-4">
-                    <label>Instalment due date and amount</label>
-                  </div>
-                  <div class="col-md-4">
-                    <input
-                      type="text"
-                      maxlength="10"
-                      class="form-control bt_datepicker span12"
-                      name="inpINSTALMENT_DATE_1000"
-                      value="06-10-2021"
-                      readonly="readonly"
-                    /><small class="text-muted"
-                      >Select instalment due date</small
-                    >
-                  </div>
-                  <div class="col-md-3">
-                    <input
-                      type="text"
-                      maxlength="10"
-                      class="form-control"
-                      name="inpINSTALMENT_1000"
-                      value="0.00"
-                    /><small class="text-muted">Example: 299.50</small>
-                  </div>
-                </div>
-                <div class="input_fields_wrap0"></div>
-                <div class="row" style="margin-bottom: 100px">
-                  <div class="col-md-12">
-                    <button class="add_field_button0 btn btn-danger">
-                      <span class="fa fa-plus"></span> Add More Instalments
+                                            <div class="dropdown-menu open">
+                                                <ul class="dropdown-menu inner selectpicker" role="menu">
+                                                    <li data-original-index="0" class="selected">
+                                                        <a tabindex="0" class="" data-normalized-text='<span class="text">No</span>'>
+                                                            <span class="text">No</span>
+                                                            <span class="glyphicon glyphicon-ok check-mark"></span>
+                                                        </a>
+                                                    </li>
+                                                    <li data-original-index="1">
+                                                        <a tabindex="0" class="" data-normalized-text='<span class="text">Yes</span>'>
+                                                            <span class="text">Yes</span>
+                                                            <span class="glyphicon glyphicon-ok check-mark"></span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <small class="text-muted">
+                      Select an appropriate option.
+                    </small>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label for="inpADVANCE">* Advance Payment</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" maxlength="10" class="form-control" id="inpADVANCE" name="inpADVANCE" value="0.00" />
+                                        <small class="text-muted">Example: 299.50</small>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label>Instalment due date and amount</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" maxlength="10" class="form-control bt_datepicker span12" name="inpINSTALMENT_DATE_1000" value="06-10-2021" readonly="readonly" />
+                                        <small class="text-muted">Select instalment due date</small>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" maxlength="10" class="form-control" name="inpINSTALMENT_1000" value="0.00" />
+                                        <small class="text-muted">Example: 299.50</small>
+                                    </div>
+                                </div>
+                                <div class="input_fields_wrap0"></div>
+                                <div class="row" style="margin-bottom: 100px;">
+                                    <div class="col-md-12">
+                                        <button class="add_field_button0 btn btn-danger">
+                      <span class="fa fa-plus"></span>
+                      Add More Instalments
                     </button>
-                  </div>
-                </div>
-              </div>
-              <div id="fee2" class="hideme">
-                <div class="row hideme">
-                  <div class="col-md-4">
-                    <label for="inpACCOUNT">* Paid In Advance</label>
-                  </div>
-                  <div class="col-md-8">
-                    <input
-                      type="text"
-                      maxlength="10"
-                      class="form-control"
-                      id="inpACCOUNT"
-                      name="inpACCOUNT"
-                      value="0.00"
-                    /><small class="text-muted">Example: 299.50</small>
-                  </div>
-                </div>
-                <div class="row hideme">
-                  <div class="col-md-4">
-                    <label for="inpRATE">* Hourly Rate</label>
-                  </div>
-                  <div class="col-md-8">
-                    <input
-                      type="text"
-                      maxlength="10"
-                      class="form-control"
-                      id="inpRATE"
-                      name="inpRATE"
-                      value="0.00"
-                    /><small class="text-muted"
-                      >Example: 299.00 (Including VAT)</small
-                    >
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-4">
-                    <label for="inpCW_RATE">* Hourly Rate Caseworker</label>
-                  </div>
-                  <div class="col-md-8">
-                    <select
-                      name="inpCW_RATE"
-                      id="inpCW_RATE"
-                      class="selectpicker show-menu-arrow form-control"
-                      style="display: none"
-                    >
-                      <option value="" selected="selected">
-                        --Please Select--
-                      </option>
-                      <option value="9-4001-34180">Dr. Mazhar Ilahi</option>
-                    </select>
-                    <div
-                      class="
-                        btn-group
-                        bootstrap-select
-                        show-menu-arrow
-                        form-control
-                      "
-                    >
-                      <button
-                        type="button"
-                        class="btn dropdown-toggle selectpicker btn-default"
-                        data-toggle="dropdown"
-                        data-id="inpCW_RATE"
-                        title="--Please Select--"
-                      >
-                        <span class="filter-option pull-left"
-                          >--Please Select--</span
-                        >&nbsp;<span class="caret"></span>
-                      </button>
-                      <div class="dropdown-menu open">
-                        <ul
-                          class="dropdown-menu inner selectpicker"
-                          role="menu"
-                        >
-                          <li data-original-index="0" class="selected">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">--Please Select--</span>'
-                              ><span class="text">--Please Select--</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                          <li data-original-index="1">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">Dr. Mazhar Ilahi</span>'
-                              ><span class="text">Dr. Mazhar Ilahi</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div
-                      class="
-                        btn-group
-                        bootstrap-select
-                        show-menu-arrow
-                        form-control
-                      "
-                    >
-                      <button
-                        type="button"
-                        class="btn dropdown-toggle selectpicker btn-default"
-                        data-toggle="dropdown"
-                        data-id="inpCW_RATE"
-                        title="--Please Select--"
-                      >
-                        <span class="filter-option pull-left"
-                          >--Please Select--</span
-                        >&nbsp;<span class="caret"></span>
-                      </button>
-                      <div class="dropdown-menu open">
-                        <ul
-                          class="dropdown-menu inner selectpicker"
-                          role="menu"
-                        >
-                          <li data-original-index="0" class="selected">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">--Please Select--</span>'
-                              ><span class="text">--Please Select--</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                          <li data-original-index="1">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">Dr. Mazhar Ilahi</span>'
-                              ><span class="text">Dr. Mazhar Ilahi</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <small class="text-muted"
-                      >Apply hourly rate according to the selected
-                      caseworker</small
-                    >
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-4">
-                    <label for="inpISVAT2"
-                      >* Is VAT applicable &amp; included into hourly
-                      rate?</label
-                    >
-                  </div>
-                  <div class="col-md-8">
-                    <select
-                      name="inpISVAT2"
-                      id="inpISVAT2"
-                      class="selectpicker show-menu-arrow form-control"
-                      style="display: none"
-                    >
-                      <option value="0" selected="selected">No</option>
-                      <option value="1">Yes</option>
-                    </select>
-                    <div
-                      class="
-                        btn-group
-                        bootstrap-select
-                        show-menu-arrow
-                        form-control
-                      "
-                    >
-                      <button
-                        type="button"
-                        class="btn dropdown-toggle selectpicker btn-default"
-                        data-toggle="dropdown"
-                        data-id="inpISVAT2"
-                        title="No"
-                      >
-                        <span class="filter-option pull-left">No</span
-                        >&nbsp;<span class="caret"></span>
-                      </button>
-                      <div class="dropdown-menu open">
-                        <ul
-                          class="dropdown-menu inner selectpicker"
-                          role="menu"
-                        >
-                          <li data-original-index="0" class="selected">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">No</span>'
-                              ><span class="text">No</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                          <li data-original-index="1">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">Yes</span>'
-                              ><span class="text">Yes</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div
-                      class="
-                        btn-group
-                        bootstrap-select
-                        show-menu-arrow
-                        form-control
-                      "
-                    >
-                      <button
-                        type="button"
-                        class="btn dropdown-toggle selectpicker btn-default"
-                        data-toggle="dropdown"
-                        data-id="inpISVAT2"
-                        title="No"
-                      >
-                        <span class="filter-option pull-left">No</span
-                        >&nbsp;<span class="caret"></span>
-                      </button>
-                      <div class="dropdown-menu open">
-                        <ul
-                          class="dropdown-menu inner selectpicker"
-                          role="menu"
-                        >
-                          <li data-original-index="0" class="selected">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">No</span>'
-                              ><span class="text">No</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                          <li data-original-index="1">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">Yes</span>'
-                              ><span class="text">Yes</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <small class="text-muted"
-                      >Select an appropriate option.</small
-                    >
-                  </div>
-                </div>
-                <div class="row hideme">
-                  <div class="col-md-4">
-                    <label for="inpDISB2"
-                      >* Disbursements are included into hourly rate?</label
-                    >
-                  </div>
-                  <div class="col-md-8">
-                    <select
-                      name="inpDISB2"
-                      id="inpDISB2"
-                      class="selectpicker show-menu-arrow form-control"
-                      style="display: none"
-                    >
-                      <option value="0" selected="selected">No</option>
-                      <option value="1">Yes</option>
-                    </select>
-                    <div
-                      class="
-                        btn-group
-                        bootstrap-select
-                        show-menu-arrow
-                        form-control
-                      "
-                    >
-                      <button
-                        type="button"
-                        class="btn dropdown-toggle selectpicker btn-default"
-                        data-toggle="dropdown"
-                        data-id="inpDISB2"
-                        title="No"
-                      >
-                        <span class="filter-option pull-left">No</span
-                        >&nbsp;<span class="caret"></span>
-                      </button>
-                      <div class="dropdown-menu open">
-                        <ul
-                          class="dropdown-menu inner selectpicker"
-                          role="menu"
-                        >
-                          <li data-original-index="0" class="selected">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">No</span>'
-                              ><span class="text">No</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                          <li data-original-index="1">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">Yes</span>'
-                              ><span class="text">Yes</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div
-                      class="
-                        btn-group
-                        bootstrap-select
-                        show-menu-arrow
-                        form-control
-                      "
-                    >
-                      <button
-                        type="button"
-                        class="btn dropdown-toggle selectpicker btn-default"
-                        data-toggle="dropdown"
-                        data-id="inpDISB2"
-                        title="No"
-                      >
-                        <span class="filter-option pull-left">No</span
-                        >&nbsp;<span class="caret"></span>
-                      </button>
-                      <div class="dropdown-menu open">
-                        <ul
-                          class="dropdown-menu inner selectpicker"
-                          role="menu"
-                        >
-                          <li data-original-index="0" class="selected">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">No</span>'
-                              ><span class="text">No</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                          <li data-original-index="1">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">Yes</span>'
-                              ><span class="text">Yes</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <small class="text-muted"
-                      >Select an appropriate option.</small
-                    >
-                  </div>
-                </div>
-              </div>
-              <div id="fee3" class="hideme">
-                <div class="row">
-                  <div class="col-md-4">
-                    <label>* Agreed Amount / Percentage</label>
-                  </div>
-                  <div class="col-md-4">
-                    <input
-                      type="text"
-                      maxlength="10"
-                      class="form-control"
-                      name="inpAMOUNT"
-                      value="0.00"
-                    /><small class="text-muted"
-                      >Example: 16.50 (Including VAT)</small
-                    >
-                  </div>
-                  <div class="col-md-3">
-                    <select
-                      name="inpUNIT"
-                      class="selectpicker show-menu-arrow form-control"
-                      style="display: none"
-                    >
-                      <option value="0" selected="selected">Percent (%)</option>
-                      <option value="1">Amount (GBP)</option>
-                    </select>
-                    <div
-                      class="
-                        btn-group
-                        bootstrap-select
-                        show-menu-arrow
-                        form-control
-                      "
-                    >
-                      <button
-                        type="button"
-                        class="btn dropdown-toggle selectpicker btn-default"
-                        data-toggle="dropdown"
-                        title="Percent (%)"
-                      >
-                        <span class="filter-option pull-left">Percent (%)</span
-                        >&nbsp;<span class="caret"></span>
-                      </button>
-                      <div class="dropdown-menu open">
-                        <ul
-                          class="dropdown-menu inner selectpicker"
-                          role="menu"
-                        >
-                          <li data-original-index="0" class="selected">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">Percent (%)</span>'
-                              ><span class="text">Percent (%)</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                          <li data-original-index="1">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">Amount (GBP)</span>'
-                              ><span class="text">Amount (GBP)</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div
-                      class="
-                        btn-group
-                        bootstrap-select
-                        show-menu-arrow
-                        form-control
-                      "
-                    >
-                      <button
-                        type="button"
-                        class="btn dropdown-toggle selectpicker btn-default"
-                        data-toggle="dropdown"
-                        title="Percent (%)"
-                      >
-                        <span class="filter-option pull-left">Percent (%)</span
-                        >&nbsp;<span class="caret"></span>
-                      </button>
-                      <div class="dropdown-menu open">
-                        <ul
-                          class="dropdown-menu inner selectpicker"
-                          role="menu"
-                        >
-                          <li data-original-index="0" class="selected">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">Percent (%)</span>'
-                              ><span class="text">Percent (%)</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                          <li data-original-index="1">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">Amount (GBP)</span>'
-                              ><span class="text">Amount (GBP)</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <small class="text-muted"
-                      >Select an appropriate option.</small
-                    >
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-4">
-                    <label for="inpISVAT3"
-                      >* Is VAT applicable &amp; included into agreed amount /
-                      percentage?</label
-                    >
-                  </div>
-                  <div class="col-md-8">
-                    <select
-                      name="inpISVAT3"
-                      id="inpISVAT3"
-                      class="selectpicker show-menu-arrow form-control"
-                      style="display: none"
-                    >
-                      <option value="0" selected="selected">No</option>
-                      <option value="1">Yes</option>
-                    </select>
-                    <div
-                      class="
-                        btn-group
-                        bootstrap-select
-                        show-menu-arrow
-                        form-control
-                      "
-                    >
-                      <button
-                        type="button"
-                        class="btn dropdown-toggle selectpicker btn-default"
-                        data-toggle="dropdown"
-                        data-id="inpISVAT3"
-                        title="No"
-                      >
-                        <span class="filter-option pull-left">No</span
-                        >&nbsp;<span class="caret"></span>
-                      </button>
-                      <div class="dropdown-menu open">
-                        <ul
-                          class="dropdown-menu inner selectpicker"
-                          role="menu"
-                        >
-                          <li data-original-index="0" class="selected">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">No</span>'
-                              ><span class="text">No</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                          <li data-original-index="1">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">Yes</span>'
-                              ><span class="text">Yes</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div
-                      class="
-                        btn-group
-                        bootstrap-select
-                        show-menu-arrow
-                        form-control
-                      "
-                    >
-                      <button
-                        type="button"
-                        class="btn dropdown-toggle selectpicker btn-default"
-                        data-toggle="dropdown"
-                        data-id="inpISVAT3"
-                        title="No"
-                      >
-                        <span class="filter-option pull-left">No</span
-                        >&nbsp;<span class="caret"></span>
-                      </button>
-                      <div class="dropdown-menu open">
-                        <ul
-                          class="dropdown-menu inner selectpicker"
-                          role="menu"
-                        >
-                          <li data-original-index="0" class="selected">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">No</span>'
-                              ><span class="text">No</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                          <li data-original-index="1">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">Yes</span>'
-                              ><span class="text">Yes</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <small class="text-muted"
-                      >Select an appropriate option.</small
-                    >
-                  </div>
-                </div>
-                <div class="row hideme">
-                  <div class="col-md-4">
-                    <label for="inpDISB3"
-                      >* Disbursements are included into agreed amount /
-                      percentage?</label
-                    >
-                  </div>
-                  <div class="col-md-8">
-                    <select
-                      name="inpDISB3"
-                      id="inpDISB3"
-                      class="selectpicker show-menu-arrow form-control"
-                      style="display: none"
-                    >
-                      <option value="0" selected="selected">No</option>
-                      <option value="1">Yes</option>
-                    </select>
-                    <div
-                      class="
-                        btn-group
-                        bootstrap-select
-                        show-menu-arrow
-                        form-control
-                      "
-                    >
-                      <button
-                        type="button"
-                        class="btn dropdown-toggle selectpicker btn-default"
-                        data-toggle="dropdown"
-                        data-id="inpDISB3"
-                        title="No"
-                      >
-                        <span class="filter-option pull-left">No</span
-                        >&nbsp;<span class="caret"></span>
-                      </button>
-                      <div class="dropdown-menu open">
-                        <ul
-                          class="dropdown-menu inner selectpicker"
-                          role="menu"
-                        >
-                          <li data-original-index="0" class="selected">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">No</span>'
-                              ><span class="text">No</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                          <li data-original-index="1">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">Yes</span>'
-                              ><span class="text">Yes</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div
-                      class="
-                        btn-group
-                        bootstrap-select
-                        show-menu-arrow
-                        form-control
-                      "
-                    >
-                      <button
-                        type="button"
-                        class="btn dropdown-toggle selectpicker btn-default"
-                        data-toggle="dropdown"
-                        data-id="inpDISB3"
-                        title="No"
-                      >
-                        <span class="filter-option pull-left">No</span
-                        >&nbsp;<span class="caret"></span>
-                      </button>
-                      <div class="dropdown-menu open">
-                        <ul
-                          class="dropdown-menu inner selectpicker"
-                          role="menu"
-                        >
-                          <li data-original-index="0" class="selected">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">No</span>'
-                              ><span class="text">No</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                          <li data-original-index="1">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">Yes</span>'
-                              ><span class="text">Yes</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <small class="text-muted"
-                      >Select an appropriate option.</small
-                    >
-                  </div>
-                </div>
-              </div>
-              <hr />
-              <div class="input_fields_wrap3"></div>
-              <div class="row" style="margin-bottom: 100px">
-                <div class="col-md-12">
-                  <button class="add_field_button3 btn btn-danger">
-                    <span class="fa fa-plus"></span> Add More Installments
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <hr />
+                            <div class="input_fields_wrap3"></div>
+                            <div class="row" style="margin-bottom: 100px;">
+                                <div class="col-md-12">
+                                    <button class="add_field_button3 btn btn-danger">
+                    <span class="fa fa-plus"></span>
+                    Add More Installments
                   </button>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12 text-right">
-                  <button
-                    *ngIf="Navigation > 0 && Navigation < 4"
-                    class="btn btn-primary"
-                    data-toggle="modal"
-                    data-target=".bs-example-modal-lg"
-                    type="button"
-                    aria-hidden="true"
-                    [routerLink]="['/new-case/step-' + (Navigation + 1)]"
-                  >
-                    Save &amp; Continue <span class="fa fa-arrow-right"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 text-right">
+                                    <button *ngIf="Navigation > 0 && Navigation < 4" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" type="button" aria-hidden="true" [routerLink]="['/new-case/step-' + (Navigation + 1)]">
+                    Save &amp; Continue
+                    <span class="fa fa-arrow-right"></span>
                   </button>
+                                </div>
+                            </div>
+                        </form>
+                        <form class="form-horizontal" accept-charset="UTF-8" [formGroup]="stepForm" *ngIf="Navigation == 3">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="inpFEE">* Fee Type?</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <select class="w-100 selectpicker form-control" formControlName="feeType">
+                    <option value="0">Please Select</option>
+                    <option *ngFor="let opt of FormData.titles; let i = index" [value]="i + 1">
+                      {{ opt }}
+                    </option>
+                  </select>
+                                    <small class="text-muted">
+                    Select an appropriate option.
+                  </small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="inpCOVER">
+                    * What is covered by this fee agreement?
+                  </label>
+                                </div>
+                                <div class="col-md-8">
+                                    <textarea class="form-control" id="inpCOVER" name="inpCOVER" rows="3" formControlName="coveredByAgreement"></textarea>
+                                </div>
+                            </div>
+                            <div id="fee1" class="">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label for="inpAGREED">* Agreed Fee</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" maxlength="10" class="form-control" id="inpAGREED" name="inpAGREED" formControlName="agreedFee" />
+                                        <small class="text-muted">
+                      Example: 299.50 (Including VAT)
+                    </small>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label for="inpISVAT">
+                      * Is VAT applicable &amp; included into agreed fee?
+                    </label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="col-md-8">
+                                            <select class="w-100 selectpicker form-control" formControlName=" IsVatApplicable">
+                        <option value="0">Please Select</option>
+                        <option *ngFor="let opt of FormData.titles; let i = index" [value]="i + 1">
+                          {{ opt }}
+                        </option>
+                      </select>
+                                            <small class="text-muted">
+                        Select an appropriate option.
+                      </small>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label for="inpADVANCE">* Advance Payment</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" maxlength="10" class="form-control" id="inpADVANCE" name="inpADVANCE" formControlName="advancedPayment" />
+                                            <small class="text-muted">Example: 299.50</small>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label>Instalment due date and amount</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="text" maxlength="10" class="form-control bt_datepicker span12" name="inpINSTALMENT_DATE_1000" formControlName="installmentDueDate" readonly="readonly" />
+                                            <small class="text-muted">
+                        Select instalment due date
+                      </small>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="text" maxlength="10" class="form-control" name="inpINSTALMENT_1000" formControlName="installmentAmount" />
+                                            <small class="text-muted">Example: 299.50</small>
+                                        </div>
+                                    </div>
+                                    <div class="input_fields_wrap0"></div>
+                                    <div class="row" style="margin-bottom: 100px;">
+                                        <div class="col-md-12">
+                                            <button class="add_field_button0 btn btn-danger">
+                        <span class="fa fa-plus"></span>
+                        Add More Instalments
+                      </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="row">
+                                    <div class="col-md-12 text-right">
+                                        <button class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" type="button" aria-hidden="true" onclick="formAJAX('https://crescent.legalworkspace.co.uk/index.php/cms/secure/cases/ajax/edit-step3/615d655c1be6cHbJ0B7w8/')">
+                      Save &amp; Continue
+                      <span class="fa fa-arrow-right"></span>
+                    </button>
+                                    </div>
+                                </div>
+                        </form>
+                        </form>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </form>
-          </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-</div>
-<button
-  *ngIf="Navigation == 4"
-  class="btn btn-primary"
-  data-toggle="modal"
-  data-target=".bs-example-modal-lg"
-  type="button"
-  aria-hidden="true"
->
+    <button *ngIf="Navigation == 4" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" type="button" aria-hidden="true">
   Submit &amp; Finish
   <span class="fa fa-arrow-right"></span>
 </button>

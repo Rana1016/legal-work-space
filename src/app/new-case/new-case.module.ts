@@ -5,6 +5,7 @@ import { NewCaseRoutingModule } from './new-case-routing.module';
 import { NewCaseComponent } from './new-case.component';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { StepsComponent } from './steps/steps.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { StepsComponent } from './steps/steps.component';
     CommonModule,
     NewCaseRoutingModule,
     NgbDropdownModule,
+    ReactiveFormsModule
     
   ]
 })

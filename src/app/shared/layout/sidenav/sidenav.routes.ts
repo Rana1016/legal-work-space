@@ -6,11 +6,11 @@ const SideNavItems = [
         text: 'Dashboard',
         icon: 'bar-chart'
     },
-    // {
-    //     url: 'calendar',
-    //     text: 'Calendar',
-    //     icon: 'calendar'
-    // },
+    {
+        url: 'calendar',
+        text: 'Calendar',
+        icon: 'calendar'
+    },
     {
         url: 'new-case',
         text: 'New Case',

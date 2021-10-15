@@ -14,7 +14,7 @@
       format("embedded-opentype"),
     url("assets/fonts/fontawesome-webfont.woff2?v=4.7.0") format("woff2"),
     url("assets/fonts/fontawesome-webfont.woff?v=4.7.0") format("woff"),
-    url("assets/fonts/fontawesome-webfont.ttf?v=4.7.0") format("truetype")
+    url("assets/fonts/fontawesome-webfont.ttf?v=4.7.0") format("truetype");
 }
 * {
   box-sizing: border-box;
@@ -231,6 +231,12 @@
   .lw-pb-#{$j} {
     padding-bottom: #{$j}px !important;
   }
+}
+
+.pika-lendar {
+  float: unset !important;
+  width: 240px;
+  margin: 8px auto !important;
 }
 
 // option:checked {

@@ -1,20 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import FormData from '../../../assets/JSONs/FormData.json'
+import FormData from '../../../assets/JSONs/FormData.json';
 @Component({
   selector: 'app-steps',
   templateUrl: './steps.component.html',
-  styleUrls: ['./steps.component.scss']
+  styleUrls: ['./steps.component.scss'],
 })
 export class StepsComponent implements OnInit {
-  constructor(private route: ActivatedRoute, private router: Router, private fb: FormBuilder) { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private fb: FormBuilder
+  ) {}
+  FormData = FormData;
   stepForm!: FormGroup;
   ngOnInit(): void {
-    this.route.params.subscribe(({step}) => {
-      let num = parseInt(step.replace(/^\D+/g, ""));
+    this.route.params.subscribe(({ step }) => {
+      let num = parseInt(step.replace(/^\D+/g, ''));
       if (num > 0 && num < 5) {
-        this.setNavigation(num)
+        this.setNavigation(num);
         switch (num) {
           case 1: {
             this.stepForm = this.fb.group({
@@ -33,20 +38,47 @@ export class StepsComponent implements OnInit {
               phonePrimary: [''],
               phoneSecondary: [''],
               preferredMode: [0],
-              hearAboutUs: [0]
-            })
-            break
+              hearAboutUs: [0],
+            });
+            break;
           }
           case 2: {
             this.stepForm = this.fb.group({
-              
-            })
+              category: [0],
+              subCategory: [0],
+              briefCaseDesc: [''],
+              caseSupervisor: [0],
+              caseWorker: [0],
+              clientsInstruction: [''],
+              AdviceToClient: [''],
+              agreedPlanAction: [''],
+              chancesOfSuccess: [0],
+              weaknessOfCase: [''],
+              conflictOfInterest: [false],
+              conflictOfInterestExplain: [''],
+              criminalConvictions: [false],
+              explaination: [''],
+              additionalInformation: [''],
+            });
+            break;
+          }
+          case 3: {
+            this.stepForm = this.fb.group({
+              feeType: [0],
+              coveredByAgreement: [''],
+              agreedFee: [''],
+              IsVatApplicable: [false],
+              advancedPayment: [0.00],
+              installmentDueDate: Date,
+              installmentAmount: [0.00],
+            });
+            break;
           }
         }
       } else {
-        this.router.navigate(["dashboard"])
+        this.router.navigate(['dashboard']);
       }
-    })
+    });
   }
 
   Navigation: number = 1;

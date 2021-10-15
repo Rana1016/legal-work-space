@@ -1,6 +1,5 @@
 export interface newCaseInterface
 {
-    ///step1
     title?: number,
     firstName?: string,
     lastName?: string,
@@ -17,7 +16,6 @@ export interface newCaseInterface
     phoneSecondary?: string,
     preferredMode?: number,
     hearAboutUs?: number,
-     ////step2
     category?: number,
     subCategory?: number,
     briefCaseDesc?: string
@@ -33,8 +31,6 @@ export interface newCaseInterface
     criminalConvictions?: boolean,
     explaination?: string,
     additionalInformation?:string
-    
-    /////// step3
     feeType?: number,
     coveredByAgreement?: string,
     agreedFee?: string,
@@ -42,8 +38,6 @@ export interface newCaseInterface
     advancedPayment?: number,
     installmentDueDate?: Date,
     installmentAmount?: number,
-   
-    
 }
 export interface step1Interface{
     title?: number,
@@ -67,7 +61,7 @@ export interface step2Interface
 {
     category?: number,
     subCategory?: number,
-    briefCaseDesc?: string
+    briefCaseDesc?: string,
     caseSupervisor?: number,
     caseWorker?: number,
     clientsInstruction?: string,

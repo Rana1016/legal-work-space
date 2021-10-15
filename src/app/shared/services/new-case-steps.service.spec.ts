@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { NewCaseStepsService } from './steps.service';
+import { NewCaseStepsService } from './new-case-steps.service';
 
 describe('NewCaseStepsService', () => {
   let service: NewCaseStepsService;

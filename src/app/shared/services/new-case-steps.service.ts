@@ -10,4 +10,12 @@ export class NewCaseStepsService {
   private newCaseFormSubject: BehaviorSubject<newCaseInterface | null> =
     new BehaviorSubject<newCaseInterface | null>(null);
     public newCaseForm: Observable<newCaseInterface | null> = this.newCaseFormSubject.asObservable();
+
+  addStep(data: any) {
+    this.newCaseFormSubject.next({...this.newCaseFormSubject.value, ...data})
+  }
+
+  submitData(data: any) {
+    
+  }
 }

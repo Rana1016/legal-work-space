@@ -19,12 +19,27 @@ export class StepsComponent implements OnInit {
           case 1: {
             this.stepForm = this.fb.group({
               title: [0],
-              first_name: ['', Validators.required],
-              last_name: ['', Validators.required],
-              DOB: [''],
-              gender: [''],
+              firstName: ['', Validators.required],
+              lastName: ['', Validators.required],
+              dateOfBirth: [Date.now()],
+              gender: [0],
               nationality: [0],
-
+              companyName: [''],
+              address: [''],
+              city: [''],
+              country: [0],
+              zipCode: [''],
+              email: [''],
+              phonePrimary: [''],
+              phoneSecondary: [''],
+              preferredMode: [0],
+              hearAboutUs: [0]
+            })
+            break
+          }
+          case 2: {
+            this.stepForm = this.fb.group({
+              
             })
           }
         }

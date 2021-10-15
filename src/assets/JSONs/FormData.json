@@ -469,7 +469,6 @@
         "Other"
     ],
     "categories": [
-        "--Please Select--",
         "Civil Litigation",
         "Consumer Law",
         "Criminal Law",
@@ -480,7 +479,9 @@
         "Personal injury &amp; clinical negligence",
         "Housing Law (Property &amp; Conveyancing)"
     ],
-    "subCategories": [],
+    "subCategories": [
+        "Case Study"
+    ],
     "caseSupervisors": [
         "Dr. Mazhar Ilahi"
     ],

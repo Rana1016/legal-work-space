@@ -145,10 +145,10 @@
                     class="w-100 selectpicker form-control"
                     formControlName="title"
                   >
-                    <option value="0">Please Select</option>
                     <option
                       *ngFor="let opt of FormData.titles; let i = index"
                       [value]="i + 1"
+                      
                     >
                       {{ opt }}
                     </option>
@@ -210,7 +210,6 @@
                     class="w-100 selectpicker form-control"
                     formControlName="gender"
                   >
-                    <option value="0">Please Select</option>
                     <option
                       *ngFor="let opt of FormData.genders; let i = index"
                       [value]="i + 1"
@@ -232,7 +231,6 @@
                     class="w-100 selectpicker form-control"
                     formControlName="nationality"
                   >
-                    <option value="0">Please Select</option>
                     <option
                       *ngFor="let opt of FormData.nationalities; let i = index"
                       [value]="i + 1"
@@ -300,7 +298,6 @@
                     class="w-100 selectpicker form-control"
                     formControlName="country"
                   >
-                    <option value="0">Please Select</option>
                     <option
                       *ngFor="let opt of FormData.countries; let i = index"
                       [value]="i + 1"
@@ -386,7 +383,6 @@
                     class="w-100 selectpicker form-control"
                     formControlName="preferredMode"
                   >
-                    <option value="0">Please Select</option>
                     <option
                       *ngFor="let opt of FormData.preferredModes; let i = index"
                       [value]="i + 1"
@@ -408,7 +404,6 @@
                     class="w-100 selectpicker form-control"
                     formControlName="hearAboutUs"
                   >
-                    <option value="0">Please Select</option>
                     <option
                       *ngFor="let opt of FormData.hearAboutUs; let i = index"
                       [value]="i + 1"
@@ -456,16 +451,16 @@
             >
               <div class="row">
                 <div class="col-md-4">
-                  <label for="inpFEE">* Fee Type?</label>
+                  <label for="inpCATEGORY">* Category</label>
                 </div>
                 <div class="col-md-8">
                   <select
                     class="w-100 selectpicker form-control"
-                    formControlName="feeType"
+                    formControlName="category"
                   >
                     <option value="0">Please Select</option>
                     <option
-                      *ngFor="let opt of FormData.titles; let i = index"
+                      *ngFor="let opt of FormData.categories; let i = index"
                       [value]="i + 1"
                     >
                       {{ opt }}
@@ -478,1080 +473,251 @@
               </div>
               <div class="row">
                 <div class="col-md-4">
-                  <label for="inpCOVER"
-                    >* What is covered by this fee agreement?</label
+                  <label for="inpSUBCATEGORY">* Sub-Category</label>
+                </div>
+                <div class="col-md-8">
+                  <select
+                    class="w-100 selectpicker form-control"
+                    formControlName="subCategory"
+                  >
+                    <option value="0">Please Select</option>
+                    <option
+                      *ngFor="let opt of FormData.subCategories; let i = index"
+                      [value]="i + 1"
+                    >
+                      {{ opt }}
+                    </option>
+                  </select>
+                  <small class="text-muted"
+                    >Select an appropriate option.</small
+                  >
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="inpDESC">* Brief Case Description</label>
+                </div>
+                <div class="col-md-8">
+                  <input
+                    type="text"
+                    maxlength="120"
+                    class="form-control"
+                    formControlName="briefCaseDesc"
+                  /><small class="text-muted"
+                    >Example: Tier 4 student visa extension</small
+                  >
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="inpSUPERVISOR">* Case Supervisor</label>
+                </div>
+                <div class="col-md-8">
+                  <select
+                    class="w-100 selectpicker form-control"
+                    formControlName="caseSupervisor"
+                  >
+                    <option value="0">Please Select</option>
+                    <option
+                      *ngFor="
+                        let opt of FormData.caseSupervisors;
+                        let i = index
+                      "
+                      [value]="i + 1"
+                    >
+                      {{ opt }}
+                    </option>
+                  </select>
+                  <small class="text-muted"
+                    >Select an appropriate option.</small
+                  >
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="inpCASEWORKER">* Caseworker</label>
+                </div>
+                <div class="col-md-8">
+                  <select
+                    class="w-100 selectpicker form-control"
+                    formControlName="caseWorker"
+                  >
+                    <option value="0">Please Select</option>
+                    <option
+                      *ngFor="let opt of FormData.caseWorkers; let i = index"
+                      [value]="i + 1"
+                    >
+                      {{ opt }}
+                    </option>
+                  </select>
+                  <small class="text-muted"
+                    >Select an appropriate option.</small
+                  >
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="inpINSTRUCTIONS">* Client's Instructions</label>
+                </div>
+                <div class="col-md-8">
+                  <textarea
+                    class="form-control"
+                    id="inpINSTRUCTIONS"
+                    name="inpINSTRUCTIONS"
+                    rows="3"
+                    formControlName="clientsInstruction"
+                  ></textarea>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="inpADVICE">Advice given to the client</label>
+                </div>
+                <div class="col-md-8">
+                  <textarea
+                    class="form-control"
+                    id="inpADVICE"
+                    name="inpADVICE"
+                    rows="3"
+                    formControlName="AdviceToClient"
+                  ></textarea>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="inpPLAN">Agreed plan of action</label>
+                </div>
+                <div class="col-md-8">
+                  <textarea
+                    class="form-control"
+                    id="inpPLAN"
+                    name="inpPLAN"
+                    rows="3"
+                    formControlName="agreedPlanAction"
+                  ></textarea>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="inpSUCCESS">* Chances of Success</label>
+                </div>
+                <div class="col-md-8">
+                  <select
+                    class="w-100 selectpicker form-control"
+                    formControlName="chancesOfSuccess"
+                  >
+                    <option value="0">Please Select</option>
+                    <option
+                      *ngFor="
+                        let opt of FormData.chancesOfSuccess;
+                        let i = index
+                      "
+                      [value]="i + 1"
+                    >
+                      {{ opt }}
+                    </option>
+                  </select>
+                  <small class="text-muted"
+                    >Select an appropriate option.</small
+                  >
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="inpWEAKNESS">Weaknesses of case (if any)</label>
+                </div>
+                <div class="col-md-8">
+                  <textarea
+                    class="form-control"
+                    id="inpWEAKNESS"
+                    name="inpWEAKNESS"
+                    rows="3"
+                    formControlName="weaknessOfCase"
+                  ></textarea>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="inpCONFLICT"
+                    >* Conflicts of interest check made?</label
+                  >
+                </div>
+                <div class="col-md-8">
+                  <select
+                    class="w-100 selectpicker form-control"
+                    formControlName="conflictOfInterest"
+                  >
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                  </select>
+                  <small class="text-muted"
+                    ><strong class="text-green"
+                      >No conflict found in client database.</strong
+                    ></small
+                  >
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="inpREASON">
+                    If conflict of interest identified, please explain</label
                   >
                 </div>
                 <div class="col-md-8">
                   <textarea
                     class="form-control"
-                    id="inpCOVER"
-                    name="inpCOVER"
+                    id="inpREASON"
+                    name="inpREASON"
                     rows="3"
                   ></textarea>
                 </div>
               </div>
-              <div id="fee1" class="">
-                <div class="row">
-                  <div class="col-md-4">
-                    <label for="inpAGREED">* Agreed Fee</label>
-                  </div>
-                  <div class="col-md-8">
-                    <input
-                      type="text"
-                      maxlength="10"
-                      class="form-control"
-                      id="inpAGREED"
-                      name="inpAGREED"
-                      value="0.00"
-                    /><small class="text-muted"
-                      >Example: 299.50 (Including VAT)</small
-                    >
-                  </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="inpCRIME"
+                    >* Do you have any criminal convictions/traffic
+                    offences/civil judgments in the UK or outside the UK?</label
+                  >
                 </div>
-                <div class="row">
-                  <div class="col-md-4">
-                    <label for="inpISVAT"
-                      >* Is VAT applicable &amp; included into agreed
-                      fee?</label
-                    >
-                  </div>
-                  <div class="col-md-8">
-                    <select
-                      name="inpISVAT"
-                      id="inpISVAT"
-                      class="selectpicker show-menu-arrow form-control"
-                      style="display: none"
-                    >
-                      <option value="0" selected="selected">No</option>
-                      <option value="1">Yes</option>
-                    </select>
-                    <div
-                      class="
-                        btn-group
-                        bootstrap-select
-                        show-menu-arrow
-                        form-control
-                      "
-                    >
-                      <button
-                        type="button"
-                        class="btn dropdown-toggle selectpicker btn-default"
-                        data-toggle="dropdown"
-                        data-id="inpISVAT"
-                        title="No"
-                      >
-                        <span class="filter-option pull-left">No</span
-                        >&nbsp;<span class="caret"></span>
-                      </button>
-                      <div class="dropdown-menu open">
-                        <ul
-                          class="dropdown-menu inner selectpicker"
-                          role="menu"
-                        >
-                          <li data-original-index="0" class="selected">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">No</span>'
-                              ><span class="text">No</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                          <li data-original-index="1">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">Yes</span>'
-                              ><span class="text">Yes</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div
-                      class="
-                        btn-group
-                        bootstrap-select
-                        show-menu-arrow
-                        form-control
-                      "
-                    >
-                      <button
-                        type="button"
-                        class="btn dropdown-toggle selectpicker btn-default"
-                        data-toggle="dropdown"
-                        data-id="inpISVAT"
-                        title="No"
-                        aria-expanded="false"
-                      >
-                        <span class="filter-option pull-left">No</span
-                        >&nbsp;<span class="caret"></span>
-                      </button>
-                      <div class="dropdown-menu open">
-                        <ul
-                          class="dropdown-menu inner selectpicker"
-                          role="menu"
-                        >
-                          <li data-original-index="0" class="selected">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">No</span>'
-                              ><span class="text">No</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                          <li data-original-index="1">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">Yes</span>'
-                              ><span class="text">Yes</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <small class="text-muted"
-                      >Select an appropriate option.</small
-                    >
-                  </div>
-                </div>
-                <div class="row hideme">
-                  <div class="col-md-4">
-                    <label for="inpDISB1"
-                      >* Disbursements are included into agreed fee?</label
-                    >
-                  </div>
-                  <div class="col-md-8">
-                    <select
-                      name="inpDISB1"
-                      id="inpDISB1"
-                      class="selectpicker show-menu-arrow form-control"
-                      style="display: none"
-                    >
-                      <option value="0" selected="selected">No</option>
-                      <option value="1">Yes</option>
-                    </select>
-                    <div
-                      class="
-                        btn-group
-                        bootstrap-select
-                        show-menu-arrow
-                        form-control
-                      "
-                    >
-                      <button
-                        type="button"
-                        class="btn dropdown-toggle selectpicker btn-default"
-                        data-toggle="dropdown"
-                        data-id="inpDISB1"
-                        title="No"
-                      >
-                        <span class="filter-option pull-left">No</span
-                        >&nbsp;<span class="caret"></span>
-                      </button>
-                      <div class="dropdown-menu open">
-                        <ul
-                          class="dropdown-menu inner selectpicker"
-                          role="menu"
-                        >
-                          <li data-original-index="0" class="selected">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">No</span>'
-                              ><span class="text">No</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                          <li data-original-index="1">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">Yes</span>'
-                              ><span class="text">Yes</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div
-                      class="
-                        btn-group
-                        bootstrap-select
-                        show-menu-arrow
-                        form-control
-                      "
-                    >
-                      <button
-                        type="button"
-                        class="btn dropdown-toggle selectpicker btn-default"
-                        data-toggle="dropdown"
-                        data-id="inpDISB1"
-                        title="No"
-                      >
-                        <span class="filter-option pull-left">No</span
-                        >&nbsp;<span class="caret"></span>
-                      </button>
-                      <div class="dropdown-menu open">
-                        <ul
-                          class="dropdown-menu inner selectpicker"
-                          role="menu"
-                        >
-                          <li data-original-index="0" class="selected">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">No</span>'
-                              ><span class="text">No</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                          <li data-original-index="1">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">Yes</span>'
-                              ><span class="text">Yes</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <small class="text-muted"
-                      >Select an appropriate option.</small
-                    >
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-4">
-                    <label for="inpADVANCE">* Advance Payment</label>
-                  </div>
-                  <div class="col-md-8">
-                    <input
-                      type="text"
-                      maxlength="10"
-                      class="form-control"
-                      id="inpADVANCE"
-                      name="inpADVANCE"
-                      value="0.00"
-                    /><small class="text-muted">Example: 299.50</small>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-4">
-                    <label>Instalment due date and amount</label>
-                  </div>
-                  <div class="col-md-4">
-                    <input
-                      type="text"
-                      maxlength="10"
-                      class="form-control bt_datepicker span12"
-                      name="inpINSTALMENT_DATE_1000"
-                      value="06-10-2021"
-                      readonly="readonly"
-                    /><small class="text-muted"
-                      >Select instalment due date</small
-                    >
-                  </div>
-                  <div class="col-md-3">
-                    <input
-                      type="text"
-                      maxlength="10"
-                      class="form-control"
-                      name="inpINSTALMENT_1000"
-                      value="0.00"
-                    /><small class="text-muted">Example: 299.50</small>
-                  </div>
-                </div>
-                <div class="input_fields_wrap0"></div>
-                <div class="row" style="margin-bottom: 100px">
-                  <div class="col-md-12">
-                    <button class="add_field_button0 btn btn-danger">
-                      <span class="fa fa-plus"></span> Add More Instalments
-                    </button>
-                  </div>
+                <div class="col-md-8">
+                  <select
+                    class="w-100 selectpicker form-control"
+                    formControlName="caseWorker"
+                  >
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                  </select>
+                  <small class="text-muted"
+                    >Select an appropriate option.</small
+                  >
                 </div>
               </div>
-              <div id="fee2" class="hideme">
-                <div class="row hideme">
-                  <div class="col-md-4">
-                    <label for="inpACCOUNT">* Paid In Advance</label>
-                  </div>
-                  <div class="col-md-8">
-                    <input
-                      type="text"
-                      maxlength="10"
-                      class="form-control"
-                      id="inpACCOUNT"
-                      name="inpACCOUNT"
-                      value="0.00"
-                    /><small class="text-muted">Example: 299.50</small>
-                  </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="inpCRIME_DETAILES"> If YES, please explain</label>
                 </div>
-                <div class="row hideme">
-                  <div class="col-md-4">
-                    <label for="inpRATE">* Hourly Rate</label>
-                  </div>
-                  <div class="col-md-8">
-                    <input
-                      type="text"
-                      maxlength="10"
-                      class="form-control"
-                      id="inpRATE"
-                      name="inpRATE"
-                      value="0.00"
-                    /><small class="text-muted"
-                      >Example: 299.00 (Including VAT)</small
-                    >
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-4">
-                    <label for="inpCW_RATE">* Hourly Rate Caseworker</label>
-                  </div>
-                  <div class="col-md-8">
-                    <select
-                      name="inpCW_RATE"
-                      id="inpCW_RATE"
-                      class="selectpicker show-menu-arrow form-control"
-                      style="display: none"
-                    >
-                      <option value="" selected="selected">
-                        --Please Select--
-                      </option>
-                      <option value="9-4001-34180">Dr. Mazhar Ilahi</option>
-                    </select>
-                    <div
-                      class="
-                        btn-group
-                        bootstrap-select
-                        show-menu-arrow
-                        form-control
-                      "
-                    >
-                      <button
-                        type="button"
-                        class="btn dropdown-toggle selectpicker btn-default"
-                        data-toggle="dropdown"
-                        data-id="inpCW_RATE"
-                        title="--Please Select--"
-                      >
-                        <span class="filter-option pull-left"
-                          >--Please Select--</span
-                        >&nbsp;<span class="caret"></span>
-                      </button>
-                      <div class="dropdown-menu open">
-                        <ul
-                          class="dropdown-menu inner selectpicker"
-                          role="menu"
-                        >
-                          <li data-original-index="0" class="selected">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">--Please Select--</span>'
-                              ><span class="text">--Please Select--</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                          <li data-original-index="1">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">Dr. Mazhar Ilahi</span>'
-                              ><span class="text">Dr. Mazhar Ilahi</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div
-                      class="
-                        btn-group
-                        bootstrap-select
-                        show-menu-arrow
-                        form-control
-                      "
-                    >
-                      <button
-                        type="button"
-                        class="btn dropdown-toggle selectpicker btn-default"
-                        data-toggle="dropdown"
-                        data-id="inpCW_RATE"
-                        title="--Please Select--"
-                      >
-                        <span class="filter-option pull-left"
-                          >--Please Select--</span
-                        >&nbsp;<span class="caret"></span>
-                      </button>
-                      <div class="dropdown-menu open">
-                        <ul
-                          class="dropdown-menu inner selectpicker"
-                          role="menu"
-                        >
-                          <li data-original-index="0" class="selected">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">--Please Select--</span>'
-                              ><span class="text">--Please Select--</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                          <li data-original-index="1">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">Dr. Mazhar Ilahi</span>'
-                              ><span class="text">Dr. Mazhar Ilahi</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <small class="text-muted"
-                      >Apply hourly rate according to the selected
-                      caseworker</small
-                    >
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-4">
-                    <label for="inpISVAT2"
-                      >* Is VAT applicable &amp; included into hourly
-                      rate?</label
-                    >
-                  </div>
-                  <div class="col-md-8">
-                    <select
-                      name="inpISVAT2"
-                      id="inpISVAT2"
-                      class="selectpicker show-menu-arrow form-control"
-                      style="display: none"
-                    >
-                      <option value="0" selected="selected">No</option>
-                      <option value="1">Yes</option>
-                    </select>
-                    <div
-                      class="
-                        btn-group
-                        bootstrap-select
-                        show-menu-arrow
-                        form-control
-                      "
-                    >
-                      <button
-                        type="button"
-                        class="btn dropdown-toggle selectpicker btn-default"
-                        data-toggle="dropdown"
-                        data-id="inpISVAT2"
-                        title="No"
-                      >
-                        <span class="filter-option pull-left">No</span
-                        >&nbsp;<span class="caret"></span>
-                      </button>
-                      <div class="dropdown-menu open">
-                        <ul
-                          class="dropdown-menu inner selectpicker"
-                          role="menu"
-                        >
-                          <li data-original-index="0" class="selected">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">No</span>'
-                              ><span class="text">No</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                          <li data-original-index="1">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">Yes</span>'
-                              ><span class="text">Yes</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div
-                      class="
-                        btn-group
-                        bootstrap-select
-                        show-menu-arrow
-                        form-control
-                      "
-                    >
-                      <button
-                        type="button"
-                        class="btn dropdown-toggle selectpicker btn-default"
-                        data-toggle="dropdown"
-                        data-id="inpISVAT2"
-                        title="No"
-                      >
-                        <span class="filter-option pull-left">No</span
-                        >&nbsp;<span class="caret"></span>
-                      </button>
-                      <div class="dropdown-menu open">
-                        <ul
-                          class="dropdown-menu inner selectpicker"
-                          role="menu"
-                        >
-                          <li data-original-index="0" class="selected">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">No</span>'
-                              ><span class="text">No</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                          <li data-original-index="1">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">Yes</span>'
-                              ><span class="text">Yes</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <small class="text-muted"
-                      >Select an appropriate option.</small
-                    >
-                  </div>
-                </div>
-                <div class="row hideme">
-                  <div class="col-md-4">
-                    <label for="inpDISB2"
-                      >* Disbursements are included into hourly rate?</label
-                    >
-                  </div>
-                  <div class="col-md-8">
-                    <select
-                      name="inpDISB2"
-                      id="inpDISB2"
-                      class="selectpicker show-menu-arrow form-control"
-                      style="display: none"
-                    >
-                      <option value="0" selected="selected">No</option>
-                      <option value="1">Yes</option>
-                    </select>
-                    <div
-                      class="
-                        btn-group
-                        bootstrap-select
-                        show-menu-arrow
-                        form-control
-                      "
-                    >
-                      <button
-                        type="button"
-                        class="btn dropdown-toggle selectpicker btn-default"
-                        data-toggle="dropdown"
-                        data-id="inpDISB2"
-                        title="No"
-                      >
-                        <span class="filter-option pull-left">No</span
-                        >&nbsp;<span class="caret"></span>
-                      </button>
-                      <div class="dropdown-menu open">
-                        <ul
-                          class="dropdown-menu inner selectpicker"
-                          role="menu"
-                        >
-                          <li data-original-index="0" class="selected">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">No</span>'
-                              ><span class="text">No</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                          <li data-original-index="1">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">Yes</span>'
-                              ><span class="text">Yes</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div
-                      class="
-                        btn-group
-                        bootstrap-select
-                        show-menu-arrow
-                        form-control
-                      "
-                    >
-                      <button
-                        type="button"
-                        class="btn dropdown-toggle selectpicker btn-default"
-                        data-toggle="dropdown"
-                        data-id="inpDISB2"
-                        title="No"
-                      >
-                        <span class="filter-option pull-left">No</span
-                        >&nbsp;<span class="caret"></span>
-                      </button>
-                      <div class="dropdown-menu open">
-                        <ul
-                          class="dropdown-menu inner selectpicker"
-                          role="menu"
-                        >
-                          <li data-original-index="0" class="selected">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">No</span>'
-                              ><span class="text">No</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                          <li data-original-index="1">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">Yes</span>'
-                              ><span class="text">Yes</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <small class="text-muted"
-                      >Select an appropriate option.</small
-                    >
-                  </div>
+                <div class="col-md-8">
+                  <textarea
+                    class="form-control"
+                    id="inpCRIME_DETAILES"
+                    name="inpCRIME_DETAILES"
+                    rows="3"
+                    formControlName="explanation"
+                  ></textarea>
                 </div>
               </div>
-              <div id="fee3" class="hideme">
-                <div class="row">
-                  <div class="col-md-4">
-                    <label>* Agreed Amount / Percentage</label>
-                  </div>
-                  <div class="col-md-4">
-                    <input
-                      type="text"
-                      maxlength="10"
-                      class="form-control"
-                      name="inpAMOUNT"
-                      value="0.00"
-                    /><small class="text-muted"
-                      >Example: 16.50 (Including VAT)</small
-                    >
-                  </div>
-                  <div class="col-md-3">
-                    <select
-                      name="inpUNIT"
-                      class="selectpicker show-menu-arrow form-control"
-                      style="display: none"
-                    >
-                      <option value="0" selected="selected">Percent (%)</option>
-                      <option value="1">Amount (GBP)</option>
-                    </select>
-                    <div
-                      class="
-                        btn-group
-                        bootstrap-select
-                        show-menu-arrow
-                        form-control
-                      "
-                    >
-                      <button
-                        type="button"
-                        class="btn dropdown-toggle selectpicker btn-default"
-                        data-toggle="dropdown"
-                        title="Percent (%)"
-                      >
-                        <span class="filter-option pull-left">Percent (%)</span
-                        >&nbsp;<span class="caret"></span>
-                      </button>
-                      <div class="dropdown-menu open">
-                        <ul
-                          class="dropdown-menu inner selectpicker"
-                          role="menu"
-                        >
-                          <li data-original-index="0" class="selected">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">Percent (%)</span>'
-                              ><span class="text">Percent (%)</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                          <li data-original-index="1">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">Amount (GBP)</span>'
-                              ><span class="text">Amount (GBP)</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div
-                      class="
-                        btn-group
-                        bootstrap-select
-                        show-menu-arrow
-                        form-control
-                      "
-                    >
-                      <button
-                        type="button"
-                        class="btn dropdown-toggle selectpicker btn-default"
-                        data-toggle="dropdown"
-                        title="Percent (%)"
-                      >
-                        <span class="filter-option pull-left">Percent (%)</span
-                        >&nbsp;<span class="caret"></span>
-                      </button>
-                      <div class="dropdown-menu open">
-                        <ul
-                          class="dropdown-menu inner selectpicker"
-                          role="menu"
-                        >
-                          <li data-original-index="0" class="selected">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">Percent (%)</span>'
-                              ><span class="text">Percent (%)</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                          <li data-original-index="1">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">Amount (GBP)</span>'
-                              ><span class="text">Amount (GBP)</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <small class="text-muted"
-                      >Select an appropriate option.</small
-                    >
-                  </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="inpNOTES">Additional Information</label>
                 </div>
-                <div class="row">
-                  <div class="col-md-4">
-                    <label for="inpISVAT3"
-                      >* Is VAT applicable &amp; included into agreed amount /
-                      percentage?</label
-                    >
-                  </div>
-                  <div class="col-md-8">
-                    <select
-                      name="inpISVAT3"
-                      id="inpISVAT3"
-                      class="selectpicker show-menu-arrow form-control"
-                      style="display: none"
-                    >
-                      <option value="0" selected="selected">No</option>
-                      <option value="1">Yes</option>
-                    </select>
-                    <div
-                      class="
-                        btn-group
-                        bootstrap-select
-                        show-menu-arrow
-                        form-control
-                      "
-                    >
-                      <button
-                        type="button"
-                        class="btn dropdown-toggle selectpicker btn-default"
-                        data-toggle="dropdown"
-                        data-id="inpISVAT3"
-                        title="No"
-                      >
-                        <span class="filter-option pull-left">No</span
-                        >&nbsp;<span class="caret"></span>
-                      </button>
-                      <div class="dropdown-menu open">
-                        <ul
-                          class="dropdown-menu inner selectpicker"
-                          role="menu"
-                        >
-                          <li data-original-index="0" class="selected">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">No</span>'
-                              ><span class="text">No</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                          <li data-original-index="1">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">Yes</span>'
-                              ><span class="text">Yes</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div
-                      class="
-                        btn-group
-                        bootstrap-select
-                        show-menu-arrow
-                        form-control
-                      "
-                    >
-                      <button
-                        type="button"
-                        class="btn dropdown-toggle selectpicker btn-default"
-                        data-toggle="dropdown"
-                        data-id="inpISVAT3"
-                        title="No"
-                      >
-                        <span class="filter-option pull-left">No</span
-                        >&nbsp;<span class="caret"></span>
-                      </button>
-                      <div class="dropdown-menu open">
-                        <ul
-                          class="dropdown-menu inner selectpicker"
-                          role="menu"
-                        >
-                          <li data-original-index="0" class="selected">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">No</span>'
-                              ><span class="text">No</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                          <li data-original-index="1">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">Yes</span>'
-                              ><span class="text">Yes</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <small class="text-muted"
-                      >Select an appropriate option.</small
-                    >
-                  </div>
-                </div>
-                <div class="row hideme">
-                  <div class="col-md-4">
-                    <label for="inpDISB3"
-                      >* Disbursements are included into agreed amount /
-                      percentage?</label
-                    >
-                  </div>
-                  <div class="col-md-8">
-                    <select
-                      name="inpDISB3"
-                      id="inpDISB3"
-                      class="selectpicker show-menu-arrow form-control"
-                      style="display: none"
-                    >
-                      <option value="0" selected="selected">No</option>
-                      <option value="1">Yes</option>
-                    </select>
-                    <div
-                      class="
-                        btn-group
-                        bootstrap-select
-                        show-menu-arrow
-                        form-control
-                      "
-                    >
-                      <button
-                        type="button"
-                        class="btn dropdown-toggle selectpicker btn-default"
-                        data-toggle="dropdown"
-                        data-id="inpDISB3"
-                        title="No"
-                      >
-                        <span class="filter-option pull-left">No</span
-                        >&nbsp;<span class="caret"></span>
-                      </button>
-                      <div class="dropdown-menu open">
-                        <ul
-                          class="dropdown-menu inner selectpicker"
-                          role="menu"
-                        >
-                          <li data-original-index="0" class="selected">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">No</span>'
-                              ><span class="text">No</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                          <li data-original-index="1">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">Yes</span>'
-                              ><span class="text">Yes</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div
-                      class="
-                        btn-group
-                        bootstrap-select
-                        show-menu-arrow
-                        form-control
-                      "
-                    >
-                      <button
-                        type="button"
-                        class="btn dropdown-toggle selectpicker btn-default"
-                        data-toggle="dropdown"
-                        data-id="inpDISB3"
-                        title="No"
-                      >
-                        <span class="filter-option pull-left">No</span
-                        >&nbsp;<span class="caret"></span>
-                      </button>
-                      <div class="dropdown-menu open">
-                        <ul
-                          class="dropdown-menu inner selectpicker"
-                          role="menu"
-                        >
-                          <li data-original-index="0" class="selected">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">No</span>'
-                              ><span class="text">No</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                          <li data-original-index="1">
-                            <a
-                              tabindex="0"
-                              class=""
-                              data-normalized-text='<span class="text">Yes</span>'
-                              ><span class="text">Yes</span
-                              ><span
-                                class="glyphicon glyphicon-ok check-mark"
-                              ></span
-                            ></a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <small class="text-muted"
-                      >Select an appropriate option.</small
-                    >
-                  </div>
-                </div>
-              </div>
-              <hr />
-              <div class="input_fields_wrap3"></div>
-              <div class="row" style="margin-bottom: 100px">
-                <div class="col-md-12">
-                  <button class="add_field_button3 btn btn-danger">
-                    <span class="fa fa-plus"></span> Add More Installments
-                  </button>
+                <div class="col-md-8">
+                  <textarea
+                    class="form-control"
+                    id="inpNOTES"
+                    name="inpNOTES"
+                    rows="3"
+                    formControlName="additionalInformation"
+                  ></textarea>
                 </div>
               </div>
               <div class="row">

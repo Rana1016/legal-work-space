@@ -54,10 +54,10 @@ export class StepsComponent implements OnInit {
               agreedPlanAction: [''],
               chancesOfSuccess: [0],
               weaknessOfCase: [''],
-              conflictOfInterest: [false],
+              conflictOfInterest: [0],
               conflictOfInterestExplain: [''],
-              criminalConvictions: [false],
-              explaination: [''],
+              criminalConvictions: [0],
+              explanation: [''],
               additionalInformation: [''],
             });
             break;

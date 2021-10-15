@@ -29,7 +29,7 @@ export interface newCaseInterface
     conflictOfInterest?: boolean,
     conflictOfInterestExplain: string;
     criminalConvictions?: boolean,
-    explaination?: string,
+    explanation?: string,
     additionalInformation?:string
     feeType?: number,
     coveredByAgreement?: string,
@@ -72,7 +72,7 @@ export interface step2Interface
     conflictOfInterest?: boolean,
     conflictOfInterestExplain: string;
     criminalConvictions?: boolean,
-    explaination?: string,
+    explanation?: string,
     additionalInformation?: string
 }
 export interface step3Interface

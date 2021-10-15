@@ -67,10 +67,10 @@ export class StepsComponent implements OnInit {
               feeType: [0],
               coveredByAgreement: [''],
               agreedFee: [''],
-              IsVatApplicable: [false],
-              advancedPayment: [0.00],
-              installmentDueDate: Date,
-              installmentAmount: [0.00],
+              IsVatApplicable: [0],
+              advancedPayment: ['0.00'],
+              installmentDueDate: [Date.now()],
+              installmentAmount: ['0.00'],
             });
             break;
           }

@@ -1,6 +1,7 @@
 <div class="row">
   <div class="col-md-12" id="pg-title">
-    Open new case <span class="glyphicon glyphicon-chevron-right"></span>
+    Open new case
+    <span class="glyphicon glyphicon-chevron-right"></span>
     {{ Navigation && "Step # " + Navigation }}
   </div>
 </div>
@@ -12,16 +13,21 @@
           <div class="col-md-12" id="pg-nav">
             <ul class="list-inline">
               <li>
-                <a *ngIf="Navigation == 1" class="btn" [routerLink]="['/cases']"
-                  ><span class="glyphicon glyphicon-user"></span> Clients &amp;
-                  cases</a
+                <a
+                  *ngIf="Navigation == 1"
+                  class="btn"
+                  [routerLink]="['/cases']"
                 >
+                  <span class="glyphicon glyphicon-user"></span> Clients &amp;
+                  cases
+                </a>
                 <a
                   *ngIf="Navigation !== 1 && Navigation < 5"
                   class="btn"
                   [routerLink]="['/new-case/step-' + (Navigation - 1)]"
-                  ><span class="glyphicon glyphicon-arrow-left"></span> Back</a
                 >
+                  <span class="glyphicon glyphicon-arrow-left"></span> Back
+                </a>
               </li>
             </ul>
           </div>
@@ -46,8 +52,9 @@
                       'vbar_active progress-bar-success': Navigation == 1
                     }"
                     class="vbar_active progress-bar-success"
-                    >1</a
                   >
+                    1
+                  </a>
                 </li>
                 <li>Personal Information</li>
                 <li>
@@ -70,8 +77,9 @@
                     [ngClass]="{
                       'vbar_active progress-bar-success': Navigation == 2
                     }"
-                    >2</a
                   >
+                    2
+                  </a>
                 </li>
                 <li>Case Details</li>
                 <li>
@@ -95,8 +103,9 @@
                     [ngClass]="{
                       'vbar_active progress-bar-success': Navigation == 3
                     }"
-                    >3</a
                   >
+                    3
+                  </a>
                 </li>
                 <li>Payment Options</li>
                 <li>
@@ -145,10 +154,10 @@
                     class="w-100 selectpicker form-control"
                     formControlName="title"
                   >
+                    <option value="0">Please Select</option>
                     <option
                       *ngFor="let opt of FormData.titles; let i = index"
                       [value]="i + 1"
-                      
                     >
                       {{ opt }}
                     </option>
@@ -210,6 +219,7 @@
                     class="w-100 selectpicker form-control"
                     formControlName="gender"
                   >
+                    <option value="0">Please Select</option>
                     <option
                       *ngFor="let opt of FormData.genders; let i = index"
                       [value]="i + 1"
@@ -231,6 +241,7 @@
                     class="w-100 selectpicker form-control"
                     formControlName="nationality"
                   >
+                    <option value="0">Please Select</option>
                     <option
                       *ngFor="let opt of FormData.nationalities; let i = index"
                       [value]="i + 1"
@@ -298,6 +309,7 @@
                     class="w-100 selectpicker form-control"
                     formControlName="country"
                   >
+                    <option value="0">Please Select</option>
                     <option
                       *ngFor="let opt of FormData.countries; let i = index"
                       [value]="i + 1"
@@ -383,6 +395,7 @@
                     class="w-100 selectpicker form-control"
                     formControlName="preferredMode"
                   >
+                    <option value="0">Please Select</option>
                     <option
                       *ngFor="let opt of FormData.preferredModes; let i = index"
                       [value]="i + 1"
@@ -404,6 +417,7 @@
                     class="w-100 selectpicker form-control"
                     formControlName="hearAboutUs"
                   >
+                    <option value="0">Please Select</option>
                     <option
                       *ngFor="let opt of FormData.hearAboutUs; let i = index"
                       [value]="i + 1"
@@ -411,9 +425,9 @@
                       {{ opt }}
                     </option>
                   </select>
-                  <small class="text-muted"
-                    >Select an appropriate option.</small
-                  >
+                  <small class="text-muted">
+                    Select an appropriate option.
+                  </small>
                 </div>
               </div>
               <hr />
@@ -423,7 +437,8 @@
               <div class="row" style="margin-bottom: 100px">
                 <div class="col-md-12">
                   <button class="add_field_button3 btn btn-danger">
-                    <span class="fa fa-plus"></span> Add More Applicants
+                    <span class="fa fa-plus"></span>
+                    Add More Applicants
                   </button>
                 </div>
               </div>
@@ -438,7 +453,8 @@
                     aria-hidden="true"
                     [routerLink]="['/new-case/step-' + (Navigation + 1)]"
                   >
-                    Save &amp; Continue <span class="fa fa-arrow-right"></span>
+                    Save &amp; Continue
+                    <span class="fa fa-arrow-right"></span>
                   </button>
                 </div>
               </div>
@@ -736,20 +752,179 @@
                 </div>
               </div>
             </form>
+            <form
+              class="form-horizontal"
+              accept-charset="UTF-8"
+              [formGroup]="stepForm"
+              *ngIf="Navigation == 3"
+            >
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="inpFEE">* Fee Type?</label>
+                </div>
+                <div class="col-md-8">
+                  <select
+                    class="w-100 selectpicker form-control"
+                    formControlName="feeType"
+                  >
+                    <option value="0">Please Select</option>
+                    <option
+                      *ngFor="let opt of FormData.feeTypes; let i = index"
+                      [value]="i + 1"
+                    >
+                      {{ opt }}
+                    </option>
+                  </select>
+                  <small class="text-muted">
+                    Select an appropriate option.
+                  </small>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="inpCOVER">
+                    * What is covered by this fee agreement?
+                  </label>
+                </div>
+                <div class="col-md-8">
+                  <textarea
+                    class="form-control"
+                    id="inpCOVER"
+                    name="inpCOVER"
+                    rows="3"
+                    formControlName="coveredByAgreement"
+                  ></textarea>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="inpAGREED">* Agreed Fee</label>
+                </div>
+                <div class="col-md-8">
+                  <input
+                    type="text"
+                    maxlength="10"
+                    class="form-control"
+                    id="inpAGREED"
+                    name="inpAGREED"
+                    formControlName="agreedFee"
+                  />
+                  <small class="text-muted">
+                    Example: 299.50 (Including VAT)
+                  </small>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="inpISVAT">
+                    * Is VAT applicable &amp; included into agreed fee?
+                  </label>
+                </div>
+                <div class="col-md-8">
+                  <select
+                    class="w-100 selectpicker form-control"
+                    formControlName="IsVatApplicable"
+                  >
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                  </select>
+                  <small class="text-muted">
+                    Select an appropriate option.
+                  </small>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="inpADVANCE">* Advance Payment</label>
+                </div>
+                <div class="col-md-8">
+                  <input
+                    type="text"
+                    maxlength="10"
+                    class="form-control"
+                    id="inpADVANCE"
+                    name="inpADVANCE"
+                    formControlName="advancedPayment"
+                  />
+                  <small class="text-muted">Example: 299.50</small>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <label>Instalment due date and amount</label>
+                </div>
+                <div class="col-md-4">
+                  <input
+                    type="date"
+                    maxlength="10"
+                    class="form-control bt_datepicker span12"
+                    name="inpINSTALMENT_DATE_1000"
+                    formControlName="installmentDueDate"
+                  />
+                  <small class="text-muted"> Select instalment due date </small>
+                </div>
+                <div class="col-md-3">
+                  <input
+                    type="text"
+                    maxlength="10"
+                    class="form-control"
+                    name="inpINSTALMENT_1000"
+                    formControlName="installmentAmount"
+                  />
+                  <small class="text-muted">Example: 299.50</small>
+                </div>
+              </div>
+              <div class="input_fields_wrap0"></div>
+              <div class="row" style="margin-bottom: 100px">
+                <div class="col-md-12">
+                  <button class="add_field_button0 btn btn-danger">
+                    <span class="fa fa-plus"></span>
+                    Add More Instalments
+                  </button>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12 text-right">
+                  <button
+                    *ngIf="Navigation > 0 && Navigation < 4"
+                    class="btn btn-primary"
+                    data-toggle="modal"
+                    data-target=".bs-example-modal-lg"
+                    type="button"
+                    aria-hidden="true"
+                    [routerLink]="['/new-case/step-' + (Navigation + 1)]"
+                  >
+                    Save &amp; Continue <span class="fa fa-arrow-right"></span>
+                  </button>
+                </div>
+              </div>
+            </form>
+            <form
+              id="data_form"
+              name="data_form"
+              class="form-horizontal"
+              accept-charset="UTF-8"
+            >
+              <div class="row">
+                <div class="col-md-12 text-right">
+                  <button
+                    *ngIf="Navigation == 4"
+                    class="lw-mt-30 btn btn-primary"
+                    data-toggle="modal"
+                    data-target=".bs-example-modal-lg"
+                    type="button"
+                    aria-hidden="true"
+                  >
+                    Submit &amp; Finish
+                    <span class="fa fa-arrow-right"></span>
+                  </button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-<button
-  *ngIf="Navigation == 4"
-  class="btn btn-primary"
-  data-toggle="modal"
-  data-target=".bs-example-modal-lg"
-  type="button"
-  aria-hidden="true"
->
-  Submit &amp; Finish
-  <span class="fa fa-arrow-right"></span>
-</button>

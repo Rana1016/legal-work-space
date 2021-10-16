@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { CasesComponent } from './cases.component';
+import { CaseDetailsModule } from './components/case-details/case-details.module';
 
 @NgModule({
   declarations: [CasesComponent, DefaultComponent],
@@ -16,6 +17,7 @@ import { CasesComponent } from './cases.component';
     NgbDropdownModule,
     RouterModule,
     ReactiveFormsModule,
+    CaseDetailsModule,
   ],
 })
 export class CasesModule {}

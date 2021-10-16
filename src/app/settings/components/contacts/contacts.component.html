@@ -1,61 +1,66 @@
-
-
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="floating-timer">
-                <div id="stopwatch"><time>00:00:00</time></div>
-                <button data-toggle="tooltip" title="" id="stpw_start" style="display: inline-block;" data-original-title="Start"><span class="fa fa-play-circle" aria-hidden="true"></span></button>
-                <button data-toggle="tooltip" title="" id="stpw_stop" style="display: none;" data-original-title="Pause"><span class="fa fa-pause-circle" aria-hidden="true"></span></button>
-                <button data-toggle="tooltip" title="" id="stpw_clear" data-original-title="Reset"><span class="fa fa-stop-circle" aria-hidden="true"></span></button>
-                <button data-toggle="modal" data-target="#myModalTimeAdd" id="stpw_popup"><span class="fa fa-check-circle" aria-hidden="true"></span></button>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-<div class="col-md-12" id="pg-title">Contact book settings</div>
+<div class="row">
+    <div class="col-md-12" id="pg-title">Contact book settings</div>
 </div>
 <div class="row">
-<div class="col-md-12">
-<div class="widget">
-<div class="widget-body">
-    <div class="row">            
-        <div class="col-md-12" id="pg-nav">
-            <ul class="list-inline">
-                <li><a class="btn" href="https://crescent.legalworkspace.co.uk/index.php/cms/secure/dashboard/default/"><span class="fa fa-bar-chart"></span> Dashboard</a></li>
+    <div class="col-md-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div class="row">
+                    <div class="col-md-12" id="pg-nav">
+                        <ul class="list-inline">
+                            <li>
+                                <a class="btn"><span class="fa fa-bar-chart"></span> Dashboard</a
+                >
+              </li>
             </ul>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-</div>
-</div>
+  </div>
 </div>
 
 <div class="row">
-<div class="col-md-12">
-<div class="widget">
-<div class="widget-body">
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+  <div class="col-md-12">
+    <div class="widget">
+      <div class="widget-body">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
             <h5>Import contacts from outlook</h5>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 toolbar"></div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 toolbar">
-        </div>
-    </div>
-    <hr>
-    <form class="form-horizontal" action="https://crescent.legalworkspace.co.uk/index.php/cms/secure/settings/contacts/import-contacts/" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
-        <div class="row">
+        <hr />
+        <form
+          class="form-horizontal"
+          action="https://crescent.legalworkspace.co.uk/index.php/cms/secure/settings/contacts/import-contacts/"
+          method="post"
+          accept-charset="UTF-8"
+          enctype="multipart/form-data"
+        >
+          <div class="row">
             <div class="col-md-4">Upload CSV file</div>
-            <div class="col-md-8"><input type="file" id="userfile" name="userfile" class="input-xlarge"><small class="text-muted">*.CSV file only.<br>Maximum size: 100 MB (Required)</small></div>
-        </div>
-        <div class="row">
+            <div class="col-md-8">
+              <input
+                type="file"
+                id="userfile"
+                name="userfile"
+                class="input-xlarge"
+              /><small class="text-muted"
+                >*.CSV file only.<br />Maximum size: 100 MB (Required)</small
+              >
+            </div>
+          </div>
+          <div class="row">
             <div class="col-md-4"></div>
             <div class="col-md-8">
-                <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-import"></span> Import contacts</button>
+              <button class="btn btn-primary" type="submit">
+                <span class="glyphicon glyphicon-import"></span> Import contacts
+              </button>
             </div>
-        </div>
-    </form>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
-</div>
-</div>
-</div>            

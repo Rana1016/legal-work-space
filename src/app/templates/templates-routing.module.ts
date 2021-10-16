@@ -1,11 +1,22 @@
+import { DocumentsComponent } from './components/documents/documents.component';
+import { TemplatesComponent } from './templates.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DocumentsComponent } from '../cases/components/case-details/children/documents/documents.component';
-
 const routes: Routes = [
   {
-    path:"documents",
-    component:DocumentsComponent
+    path: "",
+    redirectTo: "/documents",
+    pathMatch: 'full'
+  },
+  {
+    path:"",
+    component: TemplatesComponent,
+    children: [
+      {
+        path: "documents",
+        component:DocumentsComponent
+      }
+    ]
   }
 ];
 

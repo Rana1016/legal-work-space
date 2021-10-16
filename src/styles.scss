@@ -165,6 +165,8 @@
 [ngbdropdownmenu] {
   .lw-header & {
     top: 48px !important;
+    left: unset;
+    right: 0;
   }
   & > li {
     &:active {

@@ -14,6 +14,7 @@ import { DeadlinesComponent } from './children/deadlines/deadlines.component';
 import { WorkflowComponent } from './children/workflow/workflow.component';
 import { ActivitiesComponent } from './children/activities/activities.component';
 import { StatusComponent } from './children/status/status.component';
+import { AmlComponent } from './children/aml/aml.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { StatusComponent } from './children/status/status.component';
     DeadlinesComponent,
     WorkflowComponent,
     ActivitiesComponent,
-    StatusComponent
+    StatusComponent,
+    AmlComponent
   ],
   imports: [
     CommonModule,

@@ -1,1 +1,242 @@
-<p>global-settings works!</p>
+<div class="row">
+  <div class="col-md-12" id="pg-title">Global settings</div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="widget">
+      <div class="widget-body">
+        <div class="row">
+          <div class="col-md-12" id="pg-nav">
+            <ul class="list-inline">
+              <li>
+                <a
+                  class="btn"
+                  href="https://crescent.legalworkspace.co.uk/index.php/cms/secure/settings/bank/"
+                  ><span class="fa fa-university"></span> Bank Accounts</a
+                >
+              </li>
+              <li>
+                <a
+                  class="btn"
+                  href="https://crescent.legalworkspace.co.uk/index.php/cms/secure/settings/locations/"
+                  ><span class="glyphicon glyphicon-home"></span> Office
+                  Locations</a
+                >
+              </li>
+              <li>
+                <a
+                  class="btn"
+                  href="https://crescent.legalworkspace.co.uk/index.php/cms/secure/settings/users/"
+                  ><span class="glyphicon glyphicon-user"></span> User
+                  Management</a
+                >
+              </li>
+              <li>
+                <a
+                  class="btn"
+                  href="https://crescent.legalworkspace.co.uk/index.php/cms/secure/settings/departments/"
+                  ><span class="glyphicon glyphicon-check"></span> Areas of
+                  Practice</a
+                >
+              </li>
+              <li>
+                <a
+                  class="btn"
+                  href="https://crescent.legalworkspace.co.uk/index.php/cms/secure/templates/default/"
+                  ><span class="glyphicon glyphicon-duplicate"></span> Document
+                  Templates</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="widget">
+      <div class="widget-body">
+        <div class="alert alert-info" role="alert">
+          <strong>Note:</strong> All fields marked with an asterisk (*) are
+          required.
+        </div>
+        <form
+          id="data_form"
+          name="data_form"
+          class="form-horizontal"
+          action="#"
+          method="post"
+          accept-charset="UTF-8"
+        >
+          <h4><strong>Company details</strong></h4>
+          <hr />
+          <div class="row">
+            <div class="col-md-4">
+              <label for="inpCOMP_REG">Company registration number</label>
+            </div>
+            <div class="col-md-8">
+              <input
+                type="text"
+                maxlength="16"
+                class="form-control"
+                id="inpCOMP_REG"
+                name="inpCOMP_REG"
+                value=""
+              /><small class="text-muted">Example: 1234578</small>
+            </div>
+          </div>
+          <hr />
+          <h4><strong>VAT (Value-added tax)</strong></h4>
+          <hr />
+          <div class="row">
+            <div class="col-md-4">
+              <label for="inpVAT">VAT registration number</label>
+            </div>
+            <div class="col-md-8">
+              <input
+                type="text"
+                maxlength="16"
+                class="form-control"
+                id="inpVAT"
+                name="inpVAT"
+                value=""
+              /><small class="text-muted">Example: GB12345678</small>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <label for="inpVAT_RATE">* VAT rate (Percentage)</label>
+            </div>
+            <div class="col-md-8">
+              <input
+                type="text"
+                maxlength="5"
+                class="form-control"
+                id="inpVAT_RATE"
+                name="inpVAT_RATE"
+                value="20.00"
+              /><small class="text-muted">Example: 20.00</small>
+            </div>
+          </div>
+          <h4><strong>Invoices</strong></h4>
+          <hr />
+          <div class="row">
+            <div class="col-md-4">
+              <label for="inpINV_NOTES"
+                >Invoice additional information (footer notes)</label
+              >
+            </div>
+            <div class="col-md-8">
+              <textarea
+                class="form-control"
+                id="inpINV_NOTES"
+                name="inpINV_NOTES"
+                rows="3"
+              >
+We accept payment by Credit Card (Mastercard / Visa), Debit Card (Visa Debit, Visa Electron, Maestro), Cash, cheque, or Electronic Bank Transfer (BACS/CHAPS/SWIFT/wire transfer).</textarea
+              >
+            </div>
+          </div>
+          <hr />
+          <div class="row hideme">
+            <div class="col-md-4">
+              <label for="inpINV_TERMS">Invoice terms &amp; conditions</label>
+            </div>
+            <div class="col-md-8">
+              <textarea
+                class="form-control"
+                id="inpINV_TERMS"
+                name="inpINV_TERMS"
+                rows="3"
+              >
+Just to remind you about the terms &amp; conditions you agreed,
+
+. You agreed to pay full amount on or before due date of this invoice.
+. You agreed that if the outstanding amount is not settled as agreed in the contract on or before due date of this invoice then we reserve every right to stop acting on your behalf and terminate this contract.</textarea
+              >
+            </div>
+          </div>
+          <hr />
+          <div class="row">
+            <div class="col-md-4">
+              <label for="inpINV_EMAIL">Invoice send by email template</label>
+            </div>
+            <div class="col-md-8">
+              <textarea
+                class="form-control"
+                id="inpINV_EMAIL"
+                name="inpINV_EMAIL"
+                rows="3"
+              >
+Please find attached your invoice. We appreciate your prompt payment.
+
+Thanks for your business!</textarea
+              >
+            </div>
+          </div>
+          <hr />
+          <div class="row">
+            <div class="col-md-4">
+              <label for="inpINV_REMINDER">Invoice reminder template</label>
+            </div>
+            <div class="col-md-8">
+              <textarea
+                class="form-control"
+                id="inpINV_REMINDER"
+                name="inpINV_REMINDER"
+                rows="3"
+              >
+This is a friendly reminder that the above mentioned invoice is now overdue.
+
+We understand that oversights happen but would appreciate prompt payment of this amount. Could you please let us know when we can expect payment? If payment has already been made please disregard this email.
+
+Thanks in advance for your cooperation.</textarea
+              >
+            </div>
+          </div>
+          <hr />
+          <h4><strong>Instalment reminders</strong></h4>
+          <hr />
+          <div class="row">
+            <div class="col-md-4">
+              <label for="inpINST_DUE">Instalment reminder template</label>
+            </div>
+            <div class="col-md-8">
+              <textarea
+                class="form-control"
+                id="inpINST_DUE"
+                name="inpINST_DUE"
+                rows="3"
+              >
+This is a friendly reminder that your instalment is now due as mentioned above. If payment has already been made please disregard this email.
+
+Please let us know if you have any questions about the instalment or if there is anything we can do for you.
+
+Thank you in advance for your prompt payment.</textarea
+              >
+            </div>
+          </div>
+          <hr />
+          <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-8">
+              <button
+                class="btn btn-primary"
+                data-toggle="modal"
+                data-target=".bs-example-modal-lg"
+                type="button"
+                aria-hidden="true"
+                onclick="formAJAX('https://crescent.legalworkspace.co.uk/index.php/cms/secure/settings/ajax/edit-global-settings/')"
+              >
+                <span class="glyphicon glyphicon-ok"></span> Save changes
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

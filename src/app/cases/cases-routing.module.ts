@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DefaultComponent } from './components/cases/cases.component';
-import { NewCaseComponent } from '../new-case/new-case.component';
 
 const routes: Routes = [
   {
@@ -9,8 +8,8 @@ const routes: Routes = [
     component: DefaultComponent,
   },
   {
-    path: 'new',
-    component: NewCaseComponent
+    path: 'case-details/:caseRef',
+    loadChildren: () => import('./components/case-details/case-details.module').then(m => m.CaseDetailsModule)
   }
 ];
 

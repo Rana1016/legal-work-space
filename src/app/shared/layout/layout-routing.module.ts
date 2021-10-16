@@ -75,6 +75,16 @@ const LayoutRoutes: Routes = [
     loadChildren: () =>
       import('src/app/reports/reports.module').then((m) => m.ReportsModule),
   },
+  {
+    path: 'settings',
+    loadChildren: () =>
+      import('src/app/settings/settings.module').then((m) => m.SettingsModule),
+  },
+  {
+    path: 'templates',
+    loadChildren: () =>
+      import('src/app/templates/templates.module').then((m) => m.TemplatesModule),
+  },
 ];
 
 const routes: Routes = [

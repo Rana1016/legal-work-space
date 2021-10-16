@@ -1,1 +1,148 @@
-<p>calendar works!</p>
+
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="floating-timer">
+                <div id="stopwatch"><time>00:00:00</time></div>
+                <button data-toggle="tooltip" title="" id="stpw_start" style="display: inline-block;" data-original-title="Start"><span class="fa fa-play-circle" aria-hidden="true"></span></button>
+                <button data-toggle="tooltip" title="" id="stpw_stop" style="display: none;" data-original-title="Pause"><span class="fa fa-pause-circle" aria-hidden="true"></span></button>
+                <button data-toggle="tooltip" title="" id="stpw_clear" data-original-title="Reset"><span class="fa fa-stop-circle" aria-hidden="true"></span></button>
+                <button data-toggle="modal" data-target="#myModalTimeAdd" id="stpw_popup"><span class="fa fa-check-circle" aria-hidden="true"></span></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+<div class="col-md-12" id="pg-title">Calendar settings</div>
+</div>
+<div class="row">
+<div class="col-md-12">
+<div class="widget">
+<div class="widget-body">
+    <div class="row">            
+        <div class="col-md-12" id="pg-nav">
+            <ul class="list-inline">
+                <li><a class="btn" href="https://crescent.legalworkspace.co.uk/index.php/cms/secure/dashboard/default/"><span class="fa fa-bar-chart"></span> Dashboard</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<div class="row">
+<div class="col-md-12">
+<div class="widget">
+<div class="widget-body">
+    <form id="data_form" name="data_form" class="form-horizontal" action="#" method="post" accept-charset="UTF-8">
+        <h4><strong>Choose colour</strong></h4>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                                                    <span class="blk_color" style="background-color: #DB4453"><input type="radio" name="inpCOLOR" value="#DB4453"></span>
+                                                    <span class="blk_color" style="background-color: #E9573E"><input type="radio" name="inpCOLOR" value="#E9573E"></span>
+                                                    <span class="blk_color" style="background-color: #F6BB43"><input type="radio" name="inpCOLOR" value="#F6BB43"></span>
+                                                    <span class="blk_color" style="background-color: #78B41E"><input type="radio" name="inpCOLOR" value="#78B41E" checked="checked"></span>
+                                                    <span class="blk_color" style="background-color: #36BC9B"><input type="radio" name="inpCOLOR" value="#36BC9B"></span>
+                                                    <span class="blk_color" style="background-color: #3BAEDA"><input type="radio" name="inpCOLOR" value="#3BAEDA"></span>
+                                                    <span class="blk_color" style="background-color: #4B89DC"><input type="radio" name="inpCOLOR" value="#4B89DC"></span>
+                                                    <span class="blk_color" style="background-color: #967BDC"><input type="radio" name="inpCOLOR" value="#967BDC"></span>
+                                                    <span class="blk_color" style="background-color: #D870AD"><input type="radio" name="inpCOLOR" value="#D870AD"></span>
+                                                    <span class="blk_color" style="background-color: #7F8C8D"><input type="radio" name="inpCOLOR" value="#7F8C8D"></span>
+                                        </div>
+        </div>
+        <hr>
+        <h4><strong>Share calendar</strong></h4>
+        <hr>
+        <div class="row">
+            <div class="col-md-4"><label for="inpREAD">Read only access</label></div>
+            <div class="col-md-8"><select name="inpREAD[]" id="inpREAD" class="selectpicker show-menu-arrow form-control" data-live-search="true" multiple="" data-selected-text-format="count" style="display: none;">
+<option value="" selected="selected"></option>
+</select><div class="btn-group bootstrap-select show-tick show-menu-arrow form-control"><button type="button" class="btn dropdown-toggle selectpicker btn-default" data-toggle="dropdown" data-id="inpREAD" title="Nothing selected"><span class="filter-option pull-left">Nothing selected</span>&nbsp;<span class="caret"></span></button><div class="dropdown-menu open"><div class="bs-searchbox"><input type="text" class="input-block-level form-control" autocomplete="off"></div><ul class="dropdown-menu inner selectpicker" role="menu"><li data-original-index="0" class="selected"><a tabindex="0" class="" data-normalized-text="<span class=&quot;text&quot;></span>"><span class="text"></span><span class="glyphicon glyphicon-ok check-mark"></span></a></li></ul></div></div>
+<small class="text-muted">Selected users will have read only access on you calendar</small></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4"><label for="inpEDIT">Full access (add/edit/delete)</label></div>
+            <div class="col-md-8"><select name="inpEDIT[]" id="inpEDIT" class="selectpicker show-menu-arrow form-control" data-live-search="true" multiple="" data-selected-text-format="count" style="display: none;">
+<option value="" selected="selected"></option>
+</select><div class="btn-group bootstrap-select show-tick show-menu-arrow form-control"><button type="button" class="btn dropdown-toggle selectpicker btn-default" data-toggle="dropdown" data-id="inpEDIT" title="Nothing selected"><span class="filter-option pull-left">Nothing selected</span>&nbsp;<span class="caret"></span></button><div class="dropdown-menu open"><div class="bs-searchbox"><input type="text" class="input-block-level form-control" autocomplete="off"></div><ul class="dropdown-menu inner selectpicker" role="menu"><li data-original-index="0" class="selected"><a tabindex="0" class="" data-normalized-text="<span class=&quot;text&quot;></span>"><span class="text"></span><span class="glyphicon glyphicon-ok check-mark"></span></a></li></ul></div></div>
+<small class="text-muted">Selected users will have full access on you calendar</small></div>
+        </div>
+        <hr>
+        <h4><strong>Display shared calendars</strong></h4>
+        <hr>
+        <div class="row">
+            <div class="col-md-4"><label for="inpSHOW">Show shared calendars</label></div>
+            <div class="col-md-8"><select name="inpSHOW[]" id="inpSHOW" class="selectpicker show-menu-arrow form-control" data-live-search="true" multiple="" data-selected-text-format="count" style="display: none;">
+<option value="" selected="selected"></option>
+</select><div class="btn-group bootstrap-select show-tick show-menu-arrow form-control"><button type="button" class="btn dropdown-toggle selectpicker btn-default" data-toggle="dropdown" data-id="inpSHOW" title="Nothing selected"><span class="filter-option pull-left">Nothing selected</span>&nbsp;<span class="caret"></span></button><div class="dropdown-menu open"><div class="bs-searchbox"><input type="text" class="input-block-level form-control" autocomplete="off"></div><ul class="dropdown-menu inner selectpicker" role="menu"><li data-original-index="0" class="selected"><a tabindex="0" class="" data-normalized-text="<span class=&quot;text&quot;></span>"><span class="text"></span><span class="glyphicon glyphicon-ok check-mark"></span></a></li></ul></div></div>
+</div>
+        </div>
+        <hr>
+        <h4><strong>Calendar view</strong></h4>
+        <hr>
+        <div class="row">
+            <div class="col-md-4"><label for="inpVIEW">Select default calendar view</label></div>
+            <div class="col-md-8"><select name="inpVIEW" id="inpVIEW" class="selectpicker show-menu-arrow form-control" style="display: none;">
+<option value="agendaDay" selected="selected">Day View</option>
+<option value="agendaWeek">Week View</option>
+<option value="month">Month View</option>
+<option value="listMonth">List View</option>
+</select><div class="btn-group bootstrap-select show-menu-arrow form-control"><button type="button" class="btn dropdown-toggle selectpicker btn-default" data-toggle="dropdown" data-id="inpVIEW" title="Day View"><span class="filter-option pull-left">Day View</span>&nbsp;<span class="caret"></span></button><div class="dropdown-menu open"><ul class="dropdown-menu inner selectpicker" role="menu"><li data-original-index="0" class="selected"><a tabindex="0" class="" data-normalized-text="<span class=&quot;text&quot;>Day View</span>"><span class="text">Day View</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="1"><a tabindex="0" class="" data-normalized-text="<span class=&quot;text&quot;>Week View</span>"><span class="text">Week View</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="2"><a tabindex="0" class="" data-normalized-text="<span class=&quot;text&quot;>Month View</span>"><span class="text">Month View</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="3"><a tabindex="0" class="" data-normalized-text="<span class=&quot;text&quot;>List View</span>"><span class="text">List View</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li></ul></div></div>
+<small class="text-muted">Select an appropriate option.</small></div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" type="button" aria-hidden="true" onclick="formAJAX('https://crescent.legalworkspace.co.uk/index.php/cms/secure/settings/ajax/edit-calendar/')"><span class="glyphicon glyphicon-ok"></span> Save changes</button>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+</div>
+</div>
+
+<div class="row">
+<div class="col-md-12">
+<div class="widget">
+<div class="widget-body">
+    <h4><strong>Your iCal Calendar URL</strong></h4>
+    <hr>
+    <code>https://crescent.legalworkspace.co.uk/index.php/cms/ical/4001/q1kbn5/</code>
+</div>
+</div>
+</div>
+</div>
+
+<div class="row">
+<div class="col-md-12">
+<div class="widget">
+<div class="widget-body">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <h5>Import calendar from outlook</h5>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 toolbar">
+        </div>
+    </div>
+    <hr>
+    <form class="form-horizontal" action="https://crescent.legalworkspace.co.uk/index.php/cms/secure/settings/calendar/import-cal/" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-md-4">Upload CSV file</div>
+            <div class="col-md-8"><input type="file" id="userfile" name="userfile" class="input-xlarge"><small class="text-muted">*.CSV file only.<br>Maximum size: 100 MB (Required)</small></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-8">
+                <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-import"></span> Import calendar</button>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+</div>
+</div>           

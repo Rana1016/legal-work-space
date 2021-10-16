@@ -15,6 +15,8 @@ import { NgbDropdownModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NewCaseModule } from './new-case/new-case.module';
 import { CaseActivitiesModule } from './case-activities/case-activities.module';
 import { RouterModule } from '@angular/router';
+import { SettingsModule } from './settings/settings.module';
+import { TemplatesModule } from './templates/templates.module';
 
 @NgModule({
   declarations: [AppComponent, ConsultationsComponent],
@@ -31,7 +33,9 @@ import { RouterModule } from '@angular/router';
     NgbDropdownModule,
     NewCaseModule,
     CaseActivitiesModule,
-    RouterModule
+    RouterModule,
+    SettingsModule,
+    TemplatesModule
   ],
   providers: [],
   bootstrap: [AppComponent],

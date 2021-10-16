@@ -8,10 +8,9 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { CasesComponent } from './cases.component';
 import { CaseDetailsModule } from './components/case-details/case-details.module';
-import { AmlComponent } from './case-details/components/children/aml/aml.component';
 
 @NgModule({
-  declarations: [CasesComponent, DefaultComponent, AmlComponent],
+  declarations: [CasesComponent, DefaultComponent,],
   imports: [
     CommonModule,
     CasesRoutingModule,

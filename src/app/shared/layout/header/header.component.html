@@ -3,13 +3,18 @@
         <div class="col-xs-12 col-sm-12 col-xl-2 brand">
             <span class="main-logo">Legal Workspace</span>
             <span class="d-xl-none mobile-menu">
-                <a data-toggle="modal" data-target=".mobi-menu">
-                    <span class="fa fa-bars"></span>
+        <a data-toggle="modal" data-target=".mobi-menu">
+          <span class="fa fa-bars"></span>
             <span class="d-md-inline-block d-none head">Menu</span>
             </a>
             </span>
         </div>
-        <ul class="col-xs-3 col-sm-8 col-md-10 col-lg-10 d-none d-xl-flex nav main-menu">
+        <ul class="
+        col-xs-3 col-sm-8 col-md-10 col-lg-10
+        d-none d-xl-flex
+        nav
+        main-menu
+      ">
             <li ngbDropdown ngbDropdownToggle>
                 <a>
                     <span class="glyphicon glyphicon-bell"></span> Notifications
@@ -23,9 +28,7 @@
                         </a>
                     </li>
                     <li ngbDropdownItem>
-                        <a>
-                            <span class="glyphicon glyphicon-bell"></span> Workflow
-                        </a>
+                        <a> <span class="glyphicon glyphicon-bell"></span> Workflow </a>
                     </li>
                     <li ngbDropdownItem>
                         <a>
@@ -37,14 +40,40 @@
             </li>
 
             <li ngbDropdown ngbDropdownToggle>
-                <a>
-                    <i class="fa fa-calculator"></i> Calculators
-                </a>
+                <a> <i class="fa fa-calculator"></i> Calculators </a>
                 <ul ngbDropdownMenu>
                     <li ngbDropdownItem>
                         <a data-toggle="modal" data-target="#myModalVAT">
                             <i class="fa fa-calculator"></i> VAT Calculator
                         </a>
+                        <!-- <ng-template #content let-modal>
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="modal-basic-title">
+                                    Profile update
+                                </h4>
+                                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="dateOfBirth">Date of birth</label>
+                                        <div class="input-group">
+                                            <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker" />
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">
+                  Save
+                </button>
+                            </div>
+                        </ng-template> -->
                     </li>
                     <li ngbDropdownItem>
                         <a data-toggle="modal" data-target="#myModalCalTime">
@@ -66,9 +95,9 @@
                     </li>
                 </ul>
             </li>
-            <li ngbDropdown ngbDropdownToggle class='no-caret'>
+            <li ngbDropdown ngbDropdownToggle class="no-caret">
                 <a>
-                    <span style="font-size: 18px;" class="glyphicon glyphicon-cog"></span>
+                    <span style="font-size: 18px" class="glyphicon glyphicon-cog"></span>
                 </a>
                 <ul ngbDropdownMenu>
                     <li ngbDropdownItem>
@@ -142,20 +171,16 @@
             <li ngbDropdown ngbDropdownToggle class="no-caret none">
                 <a>
                     <span class="badge green">
-                        <span class="glyphicon glyphicon-user"></span> Dr. Mazhar Ilahi
+            <span class="glyphicon glyphicon-user"></span> Dr. Mazhar Ilahi
                     <b class="hideme">DMI</b>
                     </span>
                 </a>
                 <ul ngbDropdownMenu>
                     <li ngbDropdownItem>
-                        <a>
-                            <span class="fa fa-key"></span> Change Password
-                        </a>
+                        <a> <span class="fa fa-key"></span> Change Password </a>
                     </li>
                     <li ngbDropdownItem>
-                        <a>
-                            <span class="glyphicon glyphicon-log-out"></span> Sign out
-                        </a>
+                        <a> <span class="glyphicon glyphicon-log-out"></span> Sign out </a>
                     </li>
                 </ul>
             </li>

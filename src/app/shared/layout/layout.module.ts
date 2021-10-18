@@ -16,7 +16,7 @@ import { ReceiptsModule } from 'src/app/receipts/receipts.module';
 import { AccountsModule } from 'src/app/accounts/accounts.module';
 import { LogsModule } from 'src/app/logs/logs.module';
 import { ReportsModule } from 'src/app/reports/reports.module';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDatepickerModule, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -37,7 +37,8 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
     AccountsModule,
     LogsModule,
     ReportsModule,
-    NgbDropdownModule
+    NgbDropdownModule,
+    NgbDatepickerModule
   ]
 })
 export class LayoutModule { }

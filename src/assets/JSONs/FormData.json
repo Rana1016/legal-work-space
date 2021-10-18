@@ -1,4 +1,19 @@
 {
+    "caseInstruction": [
+        "Legal opinion",
+        "Legal drafting",
+        "Due diligence",
+        "Legalisation/registration of documents",
+        "Regulatory work",
+        "Litigation-New Case start",
+        "Litigation-Pending adjudication case",
+        "Litigation consultation only",
+        "Other please specify option",
+        "Add more option"
+
+    ],
+
+
     "titles": [
         "Mr",
         "Mrs",

@@ -1,135 +1,89 @@
 <div class="row">
-  <div class="col-md-12" id="pg-title">
-    Open new case
-    <span class="glyphicon glyphicon-chevron-right"></span>
-    {{ Navigation && "Step # " + Navigation }}
-  </div>
+    <div class="col-md-12" id="pg-title">
+        Open new case
+        <span class="glyphicon glyphicon-chevron-right"></span> {{ Navigation && "Step # " + Navigation }}
+    </div>
 </div>
 <div class="row">
-  <div class="col-md-12">
-    <div class="widget">
-      <div class="widget-body">
-        <div class="row">
-          <div class="col-md-12" id="pg-nav">
-            <ul class="list-inline">
-              <li>
-                <a
-                  *ngIf="Navigation == 1"
-                  class="btn"
-                  [routerLink]="['/cases']"
-                >
-                  <span class="glyphicon glyphicon-user"></span> Clients &amp;
-                  cases
-                </a>
-                <a
-                  *ngIf="Navigation !== 1 && Navigation < 5"
-                  class="btn"
-                  [routerLink]="['/new-case/step-' + (Navigation - 1)]"
-                >
-                  <span class="glyphicon glyphicon-arrow-left"></span> Back
-                </a>
-              </li>
-            </ul>
-          </div>
+    <div class="col-md-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div class="row">
+                    <div class="col-md-12" id="pg-nav">
+                        <ul class="list-inline">
+                            <li>
+                                <a *ngIf="Navigation == 1" class="btn" [routerLink]="['/cases']">
+                                    <span class="glyphicon glyphicon-user"></span> Clients &amp; cases
+                                </a>
+                                <a *ngIf="Navigation !== 1 && Navigation < 5" class="btn" [routerLink]="['/new-case/step-' + (Navigation - 1)]">
+                                    <span class="glyphicon glyphicon-arrow-left"></span> Back
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 
 <div class="row">
-  <div class="col-md-12">
-    <div class="widget">
-      <div class="widget-body">
-        <div class="row">
-          <div class="col-md-3">
-            <div class="steps">
-              <ul class="list-unstyled vbar">
-                <li>
-                  <a
-                    [routerLink]="['/new-case/step-1']"
-                    [ngClass]="{
+    <div class="col-md-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="steps">
+                            <ul class="list-unstyled vbar">
+                                <li>
+                                    <a [routerLink]="['/new-case/step-1']" [ngClass]="{
                       'vbar_active progress-bar-success': Navigation == 1
-                    }"
-                    class="vbar_active progress-bar-success"
-                  >
+                    }" class="vbar_active progress-bar-success">
                     1
                   </a>
-                </li>
-                <li>Personal Information</li>
-                <li>
-                  <div class="progress vprogress">
-                    <div
-                      [ngClass]="{
+                                </li>
+                                <li>Personal Information</li>
+                                <li>
+                                    <div class="progress vprogress">
+                                        <div [ngClass]="{
                         'vbar_active progress-bar-success': Navigation >= 1
-                      }"
-                      class="progress-bar progress-bar-striped active"
-                      role="progressbar"
-                      aria-valuenow="100"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                    ></div>
-                  </div>
-                </li>
-                <li>
-                  <a
-                    [routerLink]="['/new-case/step-2']"
-                    [ngClass]="{
+                      }" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a [routerLink]="['/new-case/step-2']" [ngClass]="{
                       'vbar_active progress-bar-success': Navigation == 2
-                    }"
-                  >
+                    }">
                     2
                   </a>
-                </li>
-                <li>Case Details</li>
-                <li>
-                  <div class="progress vprogress">
-                    <div
-                      [ngClass]="{
+                                </li>
+                                <li>Case Details</li>
+                                <li>
+                                    <div class="progress vprogress">
+                                        <div [ngClass]="{
                         'vbar_active progress-bar-success': Navigation >= 2
-                      }"
-                      class="progress-bar progress-bar-striped active"
-                      role="progressbar"
-                      aria-valuenow="100"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                    ></div>
-                  </div>
-                </li>
-                <li>
-                  <a
-                    [routerLink]="['/new-case/step-3']"
-                    class=""
-                    [ngClass]="{
+                      }" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a [routerLink]="['/new-case/step-3']" class="" [ngClass]="{
                       'vbar_active progress-bar-success': Navigation == 3
-                    }"
-                  >
+                    }">
                     3
                   </a>
-                </li>
-                <li>Payment Options</li>
-                <li>
-                  <div class="progress vprogress">
-                    <div
-                      [ngClass]="{
+                                </li>
+                                <li>Payment Options</li>
+                                <li>
+                                    <div class="progress vprogress">
+                                        <div [ngClass]="{
                         'vbar_active progress-bar-success': Navigation >= 3
-                      }"
-                      class="progress-bar progress-bar-striped active"
-                      role="progressbar"
-                      aria-valuenow="100"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                    ></div>
-                  </div>
-                </li>
-                <li>
-                  <a
-                    [routerLink]="['/new-case/step-4']"
-                    class=""
-                    [ngClass]="{
+                      }" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a [routerLink]="['/new-case/step-4']" class="" [ngClass]="{
                       'vbar_active progress-bar-success': Navigation == 4
-                    }"
-                    >4</a
+                    }">4</a
                   >
                 </li>
                 <li>Declarations &amp; Submit</li>
@@ -482,6 +436,7 @@
                       {{ opt }}
                     </option>
                   </select>
+                  
                   <small class="text-muted"
                     >Select an appropriate option.</small
                   >
@@ -571,6 +526,7 @@
                   >
                 </div>
               </div>
+              <!--  -->
               <div class="row">
                 <div class="col-md-4">
                   <label for="inpINSTRUCTIONS">* Client's Instructions</label>
@@ -585,6 +541,37 @@
                   ></textarea>
                 </div>
               </div>
+               <div class="row">
+                <div class="col-md-4">
+                  <label for="inpINSTRUCTIONS">* Case Instructions</label>
+                </div>
+                
+                   <div class="col-md-8">
+                  <select
+                    class="w-100 selectpicker form-control"
+                    formControlName="caseInstruction"
+                  >
+                    <option value="0">Please Select</option>
+                    <option
+                      *ngFor="
+                        let opt of FormData.caseInstruction;
+                        let i = index
+                      "
+                      [value]="i + 1"
+                    >
+                      {{ opt }}
+                    </option>
+                  </select>
+                  
+                  <span class="fa fa-plus fa-lg m-3" role="button" (click)="open(content)"></span>
+                  <br>
+                  <small class="text-muted"
+                    >Select an appropriate option.</small
+                  >
+               
+                </div>
+              </div>
+              <!--  -->
               <div class="row">
                 <div class="col-md-4">
                   <label for="inpADVICE">Advice given to the client</label>
@@ -928,3 +915,26 @@
     </div>
   </div>
 </div>
+
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label for="dateOfBirth">Date of birth</label>
+        <div class="input-group">
+          <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd">
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+  </div>
+</ng-template>

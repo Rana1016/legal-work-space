@@ -2,16 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import FormData from '../../../assets/JSONs/FormData.json';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-steps',
   templateUrl: './steps.component.html',
   styleUrls: ['./steps.component.scss'],
 })
-export class StepsComponent implements OnInit {
+export class StepsComponent implements OnInit
+{
+  closeResult = '';
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private modalService: NgbModal
   ) {}
   FormData = FormData;
   stepForm!: FormGroup;
@@ -50,6 +54,7 @@ export class StepsComponent implements OnInit {
               caseSupervisor: [0],
               caseWorker: [0],
               clientsInstruction: [''],
+              caseInstruction:[0],
               AdviceToClient: [''],
               agreedPlanAction: [''],
               chancesOfSuccess: [0],
@@ -84,5 +89,29 @@ export class StepsComponent implements OnInit {
   Navigation: number = 1;
   setNavigation(num: number) {
     this.Navigation = num;
+  }
+  open(content:any)
+  {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) =>
+    {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) =>
+    {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string
+  {
+    if (reason === ModalDismissReasons.ESC)
+    {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK)
+    {
+      return 'by clicking on a backdrop';
+    } else
+    {
+      return `with: ${reason}`;
+    }
   }
 }

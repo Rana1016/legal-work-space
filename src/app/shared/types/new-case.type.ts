@@ -65,6 +65,7 @@ export interface step2Interface
     caseSupervisor?: number,
     caseWorker?: number,
     clientsInstruction?: string,
+    caseInstruction:string,
     AdviceToClient?: string,
     agreedPlanAction?: string,
     chancesOfSuccess?: number,

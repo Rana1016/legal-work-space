@@ -436,7 +436,7 @@
                       {{ opt }}
                     </option>
                   </select>
-                  
+
                   <small class="text-muted"
                     >Select an appropriate option.</small
                   >
@@ -541,12 +541,12 @@
                   ></textarea>
                 </div>
               </div>
-               <div class="row">
+              <div class="row">
                 <div class="col-md-4">
                   <label for="inpINSTRUCTIONS">* Case Instructions</label>
                 </div>
-                
-                   <div class="col-md-8">
+
+                <div class="col-md-8">
                   <select
                     class="w-100 selectpicker form-control"
                     formControlName="caseInstruction"
@@ -562,13 +562,16 @@
                       {{ opt }}
                     </option>
                   </select>
-                  
-                  <span class="fa fa-plus fa-lg m-3" role="button" (click)="open(content)"></span>
-                  <br>
+
+                  <span
+                    class="fa fa-plus fa-lg m-3"
+                    role="button"
+                    (click)="open(content)"
+                  ></span>
+                  <br />
                   <small class="text-muted"
                     >Select an appropriate option.</small
                   >
-               
                 </div>
               </div>
               <!--  -->
@@ -916,11 +919,15 @@
   </div>
 </div>
 
-
 <ng-template #content let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -929,12 +936,22 @@
       <div class="form-group">
         <label for="dateOfBirth">Date of birth</label>
         <div class="input-group">
-          <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd">
+          <input
+            id="dateOfBirth"
+            class="form-control"
+            placeholder="yyyy-mm-dd"
+          />
         </div>
       </div>
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+    <button
+      type="button"
+      class="btn btn-outline-dark"
+      (click)="modal.close('Save click')"
+    >
+      Save
+    </button>
   </div>
 </ng-template>

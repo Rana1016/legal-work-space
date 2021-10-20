@@ -495,7 +495,12 @@
         "Housing Law (Property &amp; Conveyancing)"
     ],
     "subCategories": [
-        "Case Study"
+        "Inquiry",
+        "Termination/Dismissal",
+        "Minor Penalty",
+        "ACR Remarks",
+        "Other"
+
     ],
     "caseSupervisors": [
         "Dr. Mazhar Ilahi"

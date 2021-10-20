@@ -65,11 +65,31 @@
                       }" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </li>
+
+
+                                <li>
+                                    <a [routerLink]="['/new-case/step-5']" class="" [ngClass]="{
+                      'vbar_active progress-bar-success': Navigation == 5
+                    }">
+                    3
+                  </a>
+                                </li>
+                                <li>Court Details</li>
+                                <li>
+                                    <div class="progress vprogress">
+                                        <div [ngClass]="{
+                        'vbar_active progress-bar-success': Navigation >= 5
+                      }" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </li>
+
+
+
                                 <li>
                                     <a [routerLink]="['/new-case/step-3']" class="" [ngClass]="{
                       'vbar_active progress-bar-success': Navigation == 3
                     }">
-                    3
+                    4
                   </a>
                                 </li>
                                 <li>Payment Options</li>
@@ -80,10 +100,12 @@
                       }" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </li>
+
+
                                 <li>
                                     <a [routerLink]="['/new-case/step-4']" class="" [ngClass]="{
                       'vbar_active progress-bar-success': Navigation == 4
-                    }">4</a
+                    }">5</a
                   >
                 </li>
                 <li>Declarations &amp; Submit</li>
@@ -101,29 +123,53 @@
               [formGroup]="stepForm"
               *ngIf="Navigation == 1"
             >
-              <div class="row">
-                <div class="col-md-4"><label>Title</label></div>
+              
+<div class="row">
+                <div class="col-md-4">
+                  <label for="">*  Plaintiff/Claimant</label>
+                </div>
                 <div class="col-md-8">
                   <select
                     class="w-100 selectpicker form-control"
-                    formControlName="title"
                   >
+                 
                     <option value="0">Please Select</option>
-                    <option
-                      *ngFor="let opt of FormData.titles; let i = index"
-                      [value]="i + 1"
-                    >
-                      {{ opt }}
-                    </option>
+                     <option>single party matter</option>
+                      <option>No 1</option>
+                       <option>No 2</option>
+            
                   </select>
+
                   <small class="text-muted"
-                    >Select an appropriate option. (Optional)</small
+                    >Select an appropriate option.</small
+                  >
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="">*  Defendant/Respondent</label>
+                </div>
+                <div class="col-md-8">
+                  <select
+                    class="w-100 selectpicker form-control"
+                  >
+                 
+                    <option value="0">Please Select</option>
+                     <option>single party matter</option>
+                      <option>No 1</option>
+                       <option>No 2</option>
+            
+                  </select>
+
+                  <small class="text-muted"
+                    >Select an appropriate option.</small
                   >
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-4">
-                  <label>* First Name</label>
+                  <label>* Name</label>
                 </div>
                 <div class="col-md-8">
                   <input
@@ -138,7 +184,7 @@
               </div>
               <div class="row">
                 <div class="col-md-4">
-                  <label>* Last Name</label>
+                  <label>* Father's Name</label>
                 </div>
                 <div class="col-md-8">
                   <input
@@ -151,82 +197,94 @@
                   >
                 </div>
               </div>
-              <div class="row">
+            <div class="row">
                 <div class="col-md-4">
-                  <label>Date of Birth</label>
-                </div>
-                <div class="col-md-8">
-                  <input
-                    type="text"
-                    maxlength="10"
-                    class="mask_date form-control bt_datepicker span12"
-                    type="date"
-                  /><small class="text-muted">Format: dd-mm-yyyy</small>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-4">
-                  <label>* Gender?</label>
-                </div>
-                <div class="col-md-8">
-                  <select
-                    class="w-100 selectpicker form-control"
-                    formControlName="gender"
-                  >
-                    <option value="0">Please Select</option>
-                    <option
-                      *ngFor="let opt of FormData.genders; let i = index"
-                      [value]="i + 1"
-                    >
-                      {{ opt }}
-                    </option>
-                  </select>
-                  <small class="text-muted"
-                    >Select an appropriate option.</small
-                  >
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-4">
-                  <label>Nationality</label>
-                </div>
-                <div class="col-md-8">
-                  <select
-                    class="w-100 selectpicker form-control"
-                    formControlName="nationality"
-                  >
-                    <option value="0">Please Select</option>
-                    <option
-                      *ngFor="let opt of FormData.nationalities; let i = index"
-                      [value]="i + 1"
-                    >
-                      {{ opt }}
-                    </option>
-                  </select>
-                  <small class="text-muted"
-                    >Select an appropriate option.</small
-                  >
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-4">
-                  <label for="inpCOMPANY">Company Name (if any)</label>
+                  <label>* Company Name(if any) </label>
                 </div>
                 <div class="col-md-8">
                   <input
                     type="text"
                     maxlength="200"
                     class="form-control"
-                    id="inpCOMPANY"
-                    formControlName="companyName"
+                    formControlName="firstName"
                   /><small class="text-muted"
-                    >Example: XYZ Limited (Optional)</small
+                    >Note: Name exactly same .</small
                   >
                 </div>
               </div>
+ <div class="row">
+                <div class="col-md-4">
+                  <label>* CNIC</label>
+                </div>
+                <div class="col-md-8">
+                  <input
+                    type="text"
+                    maxlength="200"
+                    class="form-control"
+                    formControlName="lastName"
+                  /><small class="text-muted"
+                    >Note:Without Dashes.</small
+                  >
+                </div>
+              </div>
+
+         
+   <div class="row">
+                <div class="col-md-4">
+                  <label>Phone Number </label>
+                </div>
+                <div class="col-md-8">
+                  <input
+                    type="text"
+                    maxlength="16"
+                    class="form-control"
+                    id="inpPHONE1"
+                    formControlName="phonePrimary"
+                  /><small class="text-muted"
+                    >Note: Only digits without spaces. Example:
+                    07000111000</small
+                  >
+                </div>
+              </div>
+
+             <div class="row">
+                <div class="col-md-4">
+                  <label>Whatsaap Number</label>
+                </div>
+                <div class="col-md-8">
+                  <input
+                    type="text"
+                    maxlength="16"
+                    class="form-control"
+                    id="inpPHONE2"
+                    formControlName="phoneSecondary"
+                  /><small class="text-muted"
+                    >Note: Only digits without spaces. Example:
+                    02080111000</small
+                  >
+                </div>
+              </div>
+
+     <div class="row">
+                <div class="col-md-4">
+                  <label>Email Address</label>
+                </div>
+                <div class="col-md-8">
+                  <input
+                    type="text"
+                    maxlength="200"
+                    class="form-control"
+                    formControlName="email"
+                  /><small class="text-muted"
+                    >Example: user@company-name.co.uk (Optional)</small
+                  >
+                </div>
+              </div>
+             
+            
               <div class="row">
                 <div class="col-md-4">
-                  <label for="inpADDRESS">* Address</label>
+                  <label for="inpADDRESS">*Client Address</label>
                 </div>
                 <div class="col-md-8">
                   <input
@@ -242,148 +300,39 @@
               </div>
               <div class="row">
                 <div class="col-md-4">
-                  <label>* Town / City</label>
-                </div>
-                <div class="col-md-8">
-                  <input
-                    type="text"
-                    maxlength="100"
-                    class="form-control"
-                    id="inpCITY"
-                    formControlName="city"
-                  /><small class="text-muted">Example: London</small>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-4">
-                  <label>* Country</label>
-                </div>
-                <div class="col-md-8">
-                  <select
-                    class="w-100 selectpicker form-control"
-                    formControlName="country"
-                  >
-                    <option value="0">Please Select</option>
-                    <option
-                      *ngFor="let opt of FormData.countries; let i = index"
-                      [value]="i + 1"
-                    >
-                      {{ opt }}
-                    </option>
-                  </select>
-                  <small class="text-muted"
-                    >Select an appropriate option.</small
-                  >
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-4">
-                  <label>Zipcode / Postcode</label>
-                </div>
-                <div class="col-md-8">
-                  <input
-                    type="text"
-                    maxlength="16"
-                    class="form-control"
-                    formControlName="zipCode"
-                  /><small class="text-muted">Example: SW19 1AB</small>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-4">
-                  <label>Email Address</label>
+                  <label for="inpADDRESS">*Company Address</label>
                 </div>
                 <div class="col-md-8">
                   <input
                     type="text"
                     maxlength="200"
                     class="form-control"
-                    formControlName="email"
+                    id="inpADDRESS"
+                    formControlName="address"
                   /><small class="text-muted"
-                    >Example: user@company-name.co.uk (Optional)</small
+                    >Example: Flat A, 123 Abc Road, Xyx Ave.</small
                   >
                 </div>
               </div>
-              <div class="row">
+      
+             <div class="row">
                 <div class="col-md-4">
-                  <label>Phone Number (Primary)</label>
+                  <label>* Other Details</label>
                 </div>
                 <div class="col-md-8">
                   <input
                     type="text"
-                    maxlength="16"
+                    maxlength="200"
                     class="form-control"
-                    id="inpPHONE1"
-                    formControlName="phonePrimary"
+                    formControlName="firstName"
                   /><small class="text-muted"
-                    >Note: Only digits without spaces. Example:
-                    07000111000</small
+                    >Note: Any thing about you.</small
                   >
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-md-4">
-                  <label>Phone Number (Secondary)</label>
-                </div>
-                <div class="col-md-8">
-                  <input
-                    type="text"
-                    maxlength="16"
-                    class="form-control"
-                    id="inpPHONE2"
-                    formControlName="phoneSecondary"
-                  /><small class="text-muted"
-                    >Note: Only digits without spaces. Example:
-                    02080111000</small
-                  >
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-4">
-                  <label for="inpMODE"
-                    >* Preferred mode of correspondence ?</label
-                  >
-                </div>
-                <div class="col-md-8">
-                  <select
-                    class="w-100 selectpicker form-control"
-                    formControlName="preferredMode"
-                  >
-                    <option value="0">Please Select</option>
-                    <option
-                      *ngFor="let opt of FormData.preferredModes; let i = index"
-                      [value]="i + 1"
-                    >
-                      {{ opt }}
-                    </option>
-                  </select>
-                  <small class="text-muted"
-                    >Select an appropriate option.</small
-                  >
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-4">
-                  <label>* How did you hear about us?</label>
-                </div>
-                <div class="col-md-8">
-                  <select
-                    class="w-100 selectpicker form-control"
-                    formControlName="hearAboutUs"
-                  >
-                    <option value="0">Please Select</option>
-                    <option
-                      *ngFor="let opt of FormData.hearAboutUs; let i = index"
-                      [value]="i + 1"
-                    >
-                      {{ opt }}
-                    </option>
-                  </select>
-                  <small class="text-muted">
-                    Select an appropriate option.
-                  </small>
-                </div>
-              </div>
+              </div> 
+              
+             
+           
               <hr />
               <h5>Other applicants / parties</h5>
               <hr />
@@ -529,7 +478,7 @@
               <!--  -->
               <div class="row">
                 <div class="col-md-4">
-                  <label for="inpINSTRUCTIONS">* Client's Instructions</label>
+                  <label for="inpINSTRUCTIONS">*Client's Instructions</label>
                 </div>
                 <div class="col-md-8">
                   <textarea
@@ -543,7 +492,7 @@
               </div>
               <div class="row">
                 <div class="col-md-4">
-                  <label for="inpINSTRUCTIONS">* Case Instructions</label>
+                  <label for="inpINSTRUCTIONS">*Case Instructions</label>
                 </div>
 
                 <div class="col-md-8">
@@ -562,7 +511,40 @@
                       {{ opt }}
                     </option>
                   </select>
-
+                  <ng-template #content let-modal>
+                    <div class="modal-header">
+                      <h4 class="modal-title" id="modal-basic-title">
+                        Profile update
+                      </h4>
+                      <button
+                        type="button"
+                        class="close"
+                        aria-label="Close"
+                        (click)="modal.dismiss('Cross click')"
+                      >
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <form>
+                        <div class="form-group">
+                          <label for="dateOfBirth">Add More</label>
+                          <div class="input-group">
+                            <input id="dateOfBirth" class="form-control" />
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-outline-dark"
+                        (click)="modal.close('Save click')"
+                      >
+                        Save
+                      </button>
+                    </div>
+                  </ng-template>
                   <span
                     class="fa fa-plus fa-lg m-3"
                     role="button"
@@ -575,6 +557,75 @@
                 </div>
               </div>
               <!--  -->
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="inpDESC">* Litigation Case Title</label>
+                </div>
+                <div class="col-md-8">
+                  <input
+                    type="text"
+                    maxlength="120"
+                    class="form-control"
+                    formControlName="briefCaseDesc"
+                  /><small class="text-muted">Example: Title</small>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="inpDESC">*Substantive hearing date</label>
+                </div>
+                <div class="col-md-8">
+                  <input
+                    type="date"
+                    maxlength="120"
+                    class="form-control"
+                    formControlName="briefCaseDesc"
+                    placeholder="yyyy-mm-dd"
+                  />
+                  <!-- <small class="text-muted"
+                    >
+                    Example: Title</small
+                  > -->
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="inpDESC">* Interim hearing date (if any)</label>
+                </div>
+                <div class="col-md-8">
+                  <input
+                    type="date"
+                    maxlength="120"
+                    class="form-control"
+                    formControlName="briefCaseDesc"
+                    placeholder="yyyy-mm-dd"
+                  />
+                  <!-- <small class="text-muted"
+                    >Example: Title</small
+                  > -->
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="inpDESC">* Court Case number</label>
+                </div>
+                <div class="col-md-8">
+                  <input
+                    type="text"
+                    maxlength="120"
+                    class="form-control"
+                    formControlName="briefCaseDesc"
+                  />
+                  <!-- <small class="text-muted"
+                    >
+                    Example: Title</small
+                  > -->
+                </div>
+              </div>
+
               <div class="row">
                 <div class="col-md-4">
                   <label for="inpADVICE">Advice given to the client</label>
@@ -918,40 +969,3 @@
     </div>
   </div>
 </div>
-
-<ng-template #content let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
-    <button
-      type="button"
-      class="close"
-      aria-label="Close"
-      (click)="modal.dismiss('Cross click')"
-    >
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form>
-      <div class="form-group">
-        <label for="dateOfBirth">Date of birth</label>
-        <div class="input-group">
-          <input
-            id="dateOfBirth"
-            class="form-control"
-            placeholder="yyyy-mm-dd"
-          />
-        </div>
-      </div>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button
-      type="button"
-      class="btn btn-outline-dark"
-      (click)="modal.close('Save click')"
-    >
-      Save
-    </button>
-  </div>
-</ng-template>

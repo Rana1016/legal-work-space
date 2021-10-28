@@ -1,0 +1,12 @@
+.lw-tab {
+    cursor: pointer;
+    padding: 1rem;
+    background-color: #78b41e;
+    color: white;
+    margin: 0 5px 0 0;
+    border-radius: 10px 10px 0 0;
+    user-select: none;
+    &.active {
+        background-color: #507914;
+    }
+}

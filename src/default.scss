@@ -1347,7 +1347,7 @@ small {
     */
 }
 
-form {
+form:not(.no-form), .lw-form:not(form) {
     padding: 15px;
     background-color: #f0f0f0;
 }

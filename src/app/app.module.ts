@@ -17,6 +17,8 @@ import { CaseActivitiesModule } from './case-activities/case-activities.module';
 import { RouterModule } from '@angular/router';
 import { SettingsModule } from './settings/settings.module';
 import { TemplatesModule } from './templates/templates.module';
+import { NewCaseStepsService } from './shared/services/new-case-steps.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent, ConsultationsComponent],
@@ -30,6 +32,7 @@ import { TemplatesModule } from './templates/templates.module';
     ConsultationsModule,
     HighchartsChartModule,
     NgbModule,
+    HttpClientModule,
     NgbDropdownModule,
     NewCaseModule,
     CaseActivitiesModule,
@@ -37,7 +40,7 @@ import { TemplatesModule } from './templates/templates.module';
     SettingsModule,
     TemplatesModule
   ],
-  providers: [],
+  providers: [NewCaseStepsService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

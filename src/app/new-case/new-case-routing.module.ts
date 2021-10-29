@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path: 'steps',
     component: StepsComponent
+  },
+  {
+    path: 'steps/temp',
+    component: StepsComponent
   }
 ];
 

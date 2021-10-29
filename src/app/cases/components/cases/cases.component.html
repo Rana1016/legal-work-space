@@ -1,60 +1,48 @@
 <div class="row">
-    <div class="col-md-12" id="pg-title">Clients &amp; cases</div>
+  <div class="col-md-12" id="pg-title">Clients &amp; cases</div>
 </div>
 <div class="row">
-    <div class="col-md-12">
-        <div class="widget">
-            <div class="widget-body">
-                <div class="row">
-                    <div class="col-md-12" id="pg-nav">
-                        <ul class="list-inline d-flex">
-                            <li>
-                                <a class="btn" [routerLink]="['/new-case']"><span class="glyphicon glyphicon-plus"></span> Open new
-                  case</a
-                >
+  <div class="col-md-12">
+    <div class="widget">
+      <div class="widget-body">
+        <div class="row">
+          <div class="col-md-12" id="pg-nav">
+            <ul class="list-inline d-flex">
+              <li>
+                <a class="btn" [routerLink]="['/new-case']"><span class="glyphicon glyphicon-plus"></span> Open new
+                  case</a>
               </li>
               <li ngbDropdown>
                 <a ngbDropdownToggle class="btn btn-primary">
                   <i class="glyphicon glyphicon-th"></i>
                   Show my cases
                 </a>
-                                <ul ngbDropdownMenu>
-                                    <li ngbDropdownItem>
-                                        <a [routerLink]="['/cases/all']"><span class="glyphicon glyphicon-list-alt"></span> My all
-                      cases</a
-                    >
+                <ul ngbDropdownMenu>
+                  <li ngbDropdownItem>
+                    <a [routerLink]="['/cases/all']"><span class="glyphicon glyphicon-list-alt"></span> My all
+                      cases</a>
                   </li>
                   <li ngbDropdownItem>
-                    <a [routerLink]="['/cases/active']"
-                      ><span class="glyphicon glyphicon-list-alt"></span> My
-                      active cases</a
-                    >
+                    <a [routerLink]="['/cases/active']"><span class="glyphicon glyphicon-list-alt"></span> My
+                      active cases</a>
                   </li>
                   <li ngbDropdownItem>
-                    <a [routerLink]="['/cases/closed']"
-                      ><span class="glyphicon glyphicon-list-alt"></span> My
-                      closed cases</a
-                    >
+                    <a [routerLink]="['/cases/closed']"><span class="glyphicon glyphicon-list-alt"></span> My
+                      closed cases</a>
                   </li>
                 </ul>
               </li>
               <li>
-                <a class="btn"
-                  ><span class="glyphicon glyphicon-search"></span> Search by
-                  Matter</a
-                >
+                <a class="btn"><span class="glyphicon glyphicon-search"></span> Search by
+                  Matter</a>
               </li>
               <li>
-                <a class="btn"
-                  ><span class="glyphicon glyphicon-search"></span> Search by
-                  Caseworker</a
-                >
+                <a class="btn"><span class="glyphicon glyphicon-search"></span> Search by
+                  Caseworker</a>
               </li>
               <li>
-                <a class="btn"
-                  ><span class="glyphicon glyphicon-search"></span> Search by
-                  Category</a
-                >
+                <a class="btn"><span class="glyphicon glyphicon-search"></span> Search by
+                  Category</a>
               </li>
             </ul>
           </div>
@@ -70,35 +58,20 @@
       <div class="widget-body">
         <div class="row">
           <div class="col-sm-12 col-md-12">
-            <form
-              onsubmit="return false;"
-              id="data_form2"
-              name="data_form2"
-              class="form-horizontal"
-              accept-charset="UTF-8"
-            >
+            <form onsubmit="return false;" id="data_form2" name="data_form2" class="form-horizontal"
+              accept-charset="UTF-8">
               <p class="page-title">Are you looking for someone?</p>
               <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-                  <label for="inpCASEID"
-                    >Enter Case ID (example: 1425), Client's Name, Phone, Email
-                    or Address</label
-                  >
-                  <input
-                    type="text"
-                    maxlength="128"
-                    class="form-control search-box"
-                  />
+                  <label for="inpCASEID">Enter Case ID (example: 1425), Client's Name, Phone, Email
+                    or Address</label>
+                  <input type="text" maxlength="128" class="form-control search-box" />
                 </div>
               </div>
             </form>
 
-            <table
-              class="table table-hover table-bordered table-striped table-ajax"
-              cellspacing="0"
-              width="100%"
-              style="margin-bottom: 0"
-            >
+            <table class="table table-hover table-bordered table-striped table-ajax" cellspacing="0" width="100%"
+              style="margin-bottom: 0">
               <tbody id="case_result">
                 <tr>
                   <td>
@@ -127,183 +100,59 @@
         <hr />
 
         <div class="table-responsive">
-          <div
-            id="DataTables_Table_0_wrapper"
-            class="dataTables_wrapper no-footer"
-          >
-            <div
-              id="DataTables_Table_0_wrapper"
-              class="dataTables_wrapper no-footer"
-            >
+          <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper no-footer">
+            <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper no-footer">
               <div id="DataTables_Table_0_filter" class="dataTables_filter">
-                <label
-                  >Search:<input
-                    type="search"
-                    class="lw-ml-10 lw-mb-10"
-                    placeholder=""
-                    aria-controls="DataTables_Table_0"
-                /></label>
+                <label>Search:<input type="search" class="lw-ml-10 lw-mb-10" placeholder=""
+                    aria-controls="DataTables_Table_0" /></label>
               </div>
-              <table
-                class="
+              <table class="
                   table table table-striped
                   res_tab_full_desc
                   dataTable
                   no-footer
-                "
-                cellspacing="0"
-                width="100%"
-                id="DataTables_Table_0"
-                role="grid"
-                aria-describedby="DataTables_Table_0_info"
-              >
+                " cellspacing="0" width="100%" id="DataTables_Table_0" role="grid"
+                aria-describedby="DataTables_Table_0_info">
                 <thead>
                   <tr role="row">
-                    <th
-                      class="sorting_desc"
-                      tabindex="0"
-                      aria-controls="DataTables_Table_0"
-                      rowspan="1"
-                      colspan="1"
-                      aria-label="Date: activate to sort column ascending"
-                      aria-sort="descending"
-                    >
+                    <th class="sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                      aria-label="Date: activate to sort column ascending" aria-sort="descending">
                       Date
                     </th>
-                    <th
-                      class="sorting"
-                      tabindex="0"
-                      aria-controls="DataTables_Table_0"
-                      rowspan="1"
-                      colspan="1"
-                      aria-label="Case ref: activate to sort column ascending"
-                    >
+                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                      aria-label="Case ref: activate to sort column ascending">
                       Case ref
                     </th>
-                    <th
-                      class="sorting"
-                      tabindex="0"
-                      aria-controls="DataTables_Table_0"
-                      rowspan="1"
-                      colspan="1"
-                      aria-label="Client name: activate to sort column ascending"
-                    >
+                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                      aria-label="Client name: activate to sort column ascending">
                       Client name
                     </th>
-                    <th
-                      class="sorting"
-                      tabindex="0"
-                      aria-controls="DataTables_Table_0"
-                      rowspan="1"
-                      colspan="1"
-                      aria-label="Matter description: activate to sort column ascending"
-                    >
+                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1"
+                      aria-label="Matter description: activate to sort column ascending">
                       Matter description
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr role="row" class="odd">
+                  <tr role="row" class="odd" *ngFor="let case of Cases">
                     <td class="sorting_1">
-                      <span class="hideme">20210930</span> 30-09-2021
+                      <span class="hideme">20210930</span> {{ 'Hello' }}
                     </td>
                     <td>
-                      <a class="td_link">CL/1006.00/Sabir</a>
-                                        </td>
-                                        <td>Rizwan Sabir</td>
-                                        <td>test</td>
-                                        </tr>
-                                        <tr role="row" class="even">
-                                            <td class="sorting_1">
-                                                <span class="hideme">20210929</span> 29-09-2021
-                                            </td>
-                                            <td>
-                                                <a class="td_link">CL/1005.00/hussain</a>
-                                            </td>
-                                            <td>tahir hussain</td>
-                                            <td>illegal transfer of property</td>
-                                        </tr>
-                                        <tr role="row" class="odd">
-                                            <td class="sorting_1">
-                                                <span class="hideme">20210824</span> 24-08-2021
-                                            </td>
-                                            <td>
-                                                <a class="td_link">CL/1004.00/test</a>
-                                            </td>
-                                            <td>abc test</td>
-                                            <td>abc</td>
-                                        </tr>
-                                        <tr role="row" class="even">
-                                            <td class="sorting_1">
-                                                <span class="hideme">20210820</span> 20-08-2021
-                                            </td>
-                                            <td>
-                                                <a class="td_link">CON/1003.00/Aslam</a>
-                                            </td>
-                                            <td>Raza Aslam</td>
-                                            <td>Testing</td>
-                                        </tr>
-                                        <tr role="row" class="odd">
-                                            <td class="sorting_1">
-                                                <span class="hideme">20210820</span> 20-08-2021
-                                            </td>
-                                            <td>
-                                                <a class="td_link">CON/1003.01/Aslam</a>
-                                            </td>
-                                            <td>Raza Aslam</td>
-                                            <td>Conflict</td>
-                                        </tr>
-                                        <tr role="row" class="even">
-                                            <td class="sorting_1">
-                                                <span class="hideme">20210820</span> 20-08-2021
-                                            </td>
-                                            <td>
-                                                <a class="td_link">CRI/1002.00/ahmed</a>
-                                            </td>
-                                            <td>ali ahmed</td>
-                                            <td>abc</td>
-                                        </tr>
-                                        <tr role="row" class="odd">
-                                            <td class="sorting_1">
-                                                <span class="hideme">20210813</span> 13-08-2021
-                                            </td>
-                                            <td>
-                                                <a class="td_link">CRI/1001.00/Mazhar Hussain</a>
-                                            </td>
-                                            <td>Muhammad Salman Mazhar Hussain</td>
-                                            <td>Killed 125,000 People</td>
-                                        </tr>
-                                        <tr role="row" class="even">
-                                            <td class="sorting_1">
-                                                <span class="hideme">20210806</span> 06-08-2021
-                                            </td>
-                                            <td>
-                                                <a class="td_link">EMP/1000.01/Company Pvt Ltd</a>
-                                            </td>
-                                            <td>Johni Lever</td>
-                                            <td>
-                                                complainant was dismissed unfairly without prior o ...
-                                            </td>
-                                        </tr>
-                                        <tr role="row" class="odd">
-                                            <td class="sorting_1">
-                                                <span class="hideme">20210804</span> 04-08-2021
-                                            </td>
-                                            <td>
-                                                <a class="td_link">CL/1000.00/Company Pvt Ltd</a>
-                                            </td>
-                                            <td>Johni Lever</td>
-                                            <td>abc</td>
-                                        </tr>
-                                        </tbody>
-                                        </table>
-                                        <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">
-                                            Showing 1 to 9 of 9 entries
-                                        </div>
-                    </div>
-                </div>
+                      <a class="td_link">{{ case.caseId }}</a>
+                    </td>
+                    <td>{{case.clientName}}</td>
+                    <td>{{case.briefCaseDescription}}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">
+                Showing 1 to 9 of 9 entries
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
+  </div>
 </div>

@@ -53,75 +53,62 @@
                             <ul class="list-unstyled vbar">
                                 <li class="pointer">
                                     <a (click)="setNavigation(1)"
-                                        [ngClass]="{'vbar_active progress-bar-success': Navigation == 1}"
-                                        class="vbar_active progress-bar-success">
+                                        [ngClass]="{'progress-bar-danger': isTemporary ,'progress-bar-success': !isTemporary, 'vbar_active': Navigation == 1}"
+                                        class="progress-bar-success">
                                         1
                                     </a>
                                 </li>
-                             \   <li>Personal Information</li>
+                               <li>Personal Information</li>
                                 <li>
                                     <div class="progress vprogress">
-                                        <div [ngClass]="{'vbar_active progress-bar-success': Navigation > 1}"
-                                            class="progress-bar progress-bar-striped active" role="progressbar"
+                                        <div [ngClass]="{'progress-bar-danger': isTemporary ,'progress-bar-success': !isTemporary, 'vbar_active': Navigation > 1}"
+                                            class="progress-bar progress-bar-striped vbar_active" role="progressbar"
                                             aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
                                         </div>
                                     </div>
                                 </li>
                                 <li class="pointer">
                                     <a (click)="setNavigation(2)"
-                                        [ngClass]="{'vbar_active progress-bar-success': Navigation == 2}">2</a>
+                                        [ngClass]="{'progress-bar-danger': isTemporary ,'progress-bar-success': !isTemporary, 'vbar_active': Navigation == 2}">2</a>
                                 </li>
                                 <li>Case Details</li>
                                 <li>
                                     <div class="progress vprogress">
-                                        <div [ngClass]="{'vbar_active progress-bar-success': Navigation > 2}"
-                                            class="progress-bar progress-bar-striped active" role="progressbar"
+                                        <div [ngClass]="{'progress-bar-danger': isTemporary ,'progress-bar-success': !isTemporary, 'vbar_active': Navigation > 2}"
+                                            class="progress-bar progress-bar-striped vbar_active" role="progressbar"
                                             aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
                                         </div>
                                     </div>
                                 </li>
                                 <li class="pointer">
                                     <a (click)="setNavigation(3)" class=""
-                                        [ngClass]="{'vbar_active progress-bar-success': Navigation == 3}">3</a>
+                                        [ngClass]="{'progress-bar-danger': isTemporary,'progress-bar-success': !isTemporary, 'vbar_active': Navigation == 3}">3</a>
                                 </li>
                                 <li>Court Details</li>
                                 <li>
                                     <div class="progress vprogress">
-                                        <div [ngClass]="{'vbar_active progress-bar-success': Navigation > 3}"
-                                            class="progress-bar progress-bar-striped active" role="progressbar"
+                                        <div [ngClass]="{'progress-bar-danger': isTemporary,'progress-bar-success': !isTemporary, 'vbar_active': Navigation > 3}"
+                                            class="progress-bar progress-bar-striped vbar_active" role="progressbar"
                                             aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
                                         </div>
                                     </div>
                                 </li>
                                 <li class="pointer">
                                     <a (click)="setNavigation(4)" class=""
-                                        [ngClass]="{'vbar_active progress-bar-success': Navigation == 4}">4</a>
+                                        [ngClass]="{'progress-bar-danger': isTemporary,'progress-bar-success': !isTemporary, 'vbar_active': Navigation == 4}">4</a>
                                 </li>
-                                <li>Peshi List</li>
+                                <li>Payment Options</li>
                                 <li>
                                     <div class="progress vprogress">
-                                        <div [ngClass]="{'vbar_active progress-bar-success': Navigation > 4}"
-                                            class="progress-bar progress-bar-striped active" role="progressbar"
+                                        <div [ngClass]="{'progress-bar-danger': isTemporary,'progress-bar-success': !isTemporary, 'vbar_active': Navigation > 4}"
+                                            class="progress-bar progress-bar-striped vbar_active" role="progressbar"
                                             aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
                                         </div>
                                     </div>
                                 </li>
                                 <li class="pointer">
                                     <a (click)="setNavigation(5)" class=""
-                                        [ngClass]="{'vbar_active progress-bar-success': Navigation == 5}">5</a>
-                                </li>
-                                <li>Payment Options</li>
-                                <li>
-                                    <div class="progress vprogress">
-                                        <div [ngClass]="{'vbar_active progress-bar-success': Navigation > 5}"
-                                            class="progress-bar progress-bar-striped active" role="progressbar"
-                                            aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="pointer">
-                                    <a (click)="setNavigation(6)" class=""
-                                        [ngClass]="{'vbar_active progress-bar-success': Navigation == 6}">6</a>
+                                        [ngClass]="{'progress-bar-danger': isTemporary ,'progress-bar-success': !isTemporary, 'vbar_active': Navigation == 5}">5</a>
                                 </li>
                                 <li>Declarations &amp; Submit</li>
                             </ul>

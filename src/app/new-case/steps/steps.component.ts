@@ -29,6 +29,7 @@ export class StepsComponent implements OnInit {
     categoryTitle: [''];
   }[] = [];
   selectedClient: number = 0;
+  isTemporary?: boolean;
 
   selectPlaintiff = ['single party matter', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
@@ -45,10 +46,11 @@ export class StepsComponent implements OnInit {
     private modalService: NgbModal
   ) {}
   ngOnInit(): void {
+    if (this.router.url.includes('temp')) {this.isTemporary = true; console.log(this.isTemporary)}
     this.setNavigation(1);
     this.stepForm = this.fb.group({
       caseId: [0],
-      isTemporaryCase: [true],
+      isTemporaryCase: [this.isTemporary],
       modeOfCorrespondence: [''],
       howDidYouHear: [''],
       categoryId: [0],

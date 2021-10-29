@@ -100,4 +100,8 @@ export class NewCaseStepsService {
       installments: installments
     });
   }
+
+  getData(pgNum: number, pgSize: number) {
+    return this.http.post(`${this.baseUrl}case/getCases`+'?pageNumber='+pgNum+'&pageSize='+pgSize, {})
+  }
 }

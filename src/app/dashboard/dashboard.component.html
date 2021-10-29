@@ -7,22 +7,22 @@
           <div class="col-md-12" id="pg-nav">
             <ul class="list-inline">
               <li>
-                <a class="btn">
-                  <span class="glyphicon glyphicon-user"></span> Clients &amp; cases
+                <a class="btn" [routerLink]="['/cases']">
+                  <span class="glyphicon glyphicon-user"></span> Clients & cases
                 </a>
               </li>
               <li>
-                <a class="btn">
+                <a class="btn" [routerLink]="['/dashboard/installments']">
                   <span class="glyphicon glyphicon-bell"></span> Instalments overdue
                 </a>
               </li>
               <li>
-                <a class="btn">
+                <a class="btn" [routerLink]="['/keydates']">
                   <span class="glyphicon glyphicon-bell"></span> Key dates reminder
                 </a>
               </li>
               <li>
-                <a class="btn">
+                <a class="btn" [routerLink]="['/tasks']">
                   <span class="glyphicon glyphicon-tasks"></span> Tasks
                 </a>
               </li>

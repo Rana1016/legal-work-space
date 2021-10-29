@@ -16,6 +16,7 @@
     url("assets/fonts/fontawesome-webfont.woff?v=4.7.0") format("woff"),
     url("assets/fonts/fontawesome-webfont.ttf?v=4.7.0") format("truetype");
 }
+@import "~@ng-select/ng-select/themes/default.theme.css";
 * {
   box-sizing: border-box;
   margin: 0;
@@ -241,6 +242,6 @@
   margin: 8px auto !important;
 }
 
-// option:checked {
-//   background: #78b41e;
-// }
+.pointer {
+  cursor: pointer !important;
+}

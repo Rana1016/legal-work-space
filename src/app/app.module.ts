@@ -19,6 +19,7 @@ import { SettingsModule } from './settings/settings.module';
 import { TemplatesModule } from './templates/templates.module';
 import { NewCaseStepsService } from './shared/services/new-case-steps.service';
 import { HttpClientModule } from '@angular/common/http';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [AppComponent, ConsultationsComponent],
@@ -38,7 +39,8 @@ import { HttpClientModule } from '@angular/common/http';
     CaseActivitiesModule,
     RouterModule,
     SettingsModule,
-    TemplatesModule
+    TemplatesModule,
+    NgSelectModule
   ],
   providers: [NewCaseStepsService],
   bootstrap: [AppComponent],

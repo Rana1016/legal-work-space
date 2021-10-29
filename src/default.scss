@@ -8490,7 +8490,6 @@ button.close {
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 1040;
     display: none;
     overflow: hidden;
     -webkit-overflow-scrolling: touch;
@@ -8525,7 +8524,6 @@ button.close {
 }
 
 .modal-content {
-    position: relative;
     background-color: #fff;
     -webkit-background-clip: padding-box;
     background-clip: padding-box;

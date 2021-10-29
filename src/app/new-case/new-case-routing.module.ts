@@ -9,7 +9,7 @@ const routes: Routes = [
     component: NewCaseComponent
   },
   {
-    path: ':step',
+    path: 'steps',
     component: StepsComponent
   }
 ];

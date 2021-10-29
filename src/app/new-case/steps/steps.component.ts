@@ -11,7 +11,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import FormData from '../../../assets/JSONs/FormData.json';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { NewCaseStepsService } from 'src/app/shared/services/new-case-steps.service';
-
 @Component({
   selector: 'app-steps',
   templateUrl: './steps.component.html',
@@ -26,19 +25,18 @@ export class StepsComponent implements OnInit {
   applicantData: any;
   installmentData: any;
   categories: {
-    categoryId: number;
-    categoryTitle: string;
+    categoryId: [0];
+    categoryTitle: [''];
   }[] = [];
-  selectedClient!: number;
+  selectedClient: number = 0;
 
   selectPlaintiff = ['single party matter', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   subCategories: {
-    categoryId: number;
-    subCategoryId: number;
-    subCategoryTitle: string;
+    categoryId: [0];
+    subCategoryId: [0];
+    subCategoryTitle: [''];
   }[] = [];
-
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -46,39 +44,45 @@ export class StepsComponent implements OnInit {
     private caseService: NewCaseStepsService,
     private modalService: NgbModal
   ) {}
-  //  fa: FormArray;
   ngOnInit(): void {
     this.setNavigation(1);
     this.stepForm = this.fb.group({
       caseId: [0],
-      plaintiff: [''],
-      categoryId: [''],
-      subCategoryId: [''],
+      isTemporaryCase: [true],
+      modeOfCorrespondence: [''],
+      howDidYouHear: [''],
+      categoryId: [0],
+      subCategoryId: [0],
       briefCaseDescription: [''],
-      caseSuperVisor: [''],
-      caseworker: [''],
+      caseSuperVisor: [0],
+      caseworker: [0],
       clientInstructions: [''],
       adviceGivenToClient: [''],
       agreedPlanOfAction: [''],
       chancesOfSuccess: [''],
       weaknessesOfCase: [''],
-      conflictsOfInterest: [''],
+      conflictsOfInterest: [0],
       conflictsOfInterestDesc: [''],
-      haveCriminalConviction: [''],
+      haveCriminalConviction: [0],
       criminalConvictionDesc: [''],
       addtionalInfo: [''],
       feeType: [''],
       coveredByFee: [''],
-      agreedAmountOrPercentage: [''],
-      isVATIncluded: [''],
-      advancePayment: [''],
-      courtId: [''],
+      agreedAmountOrPercentage: [0],
+      isVATIncluded: [false],
+      advancePayment: [0],
+      courtId: [0],
       isMatter: [false],
       parentId: [0],
       hourlyRateCaseworker: [0],
+      isDeleted: true,
       clients: this.fb.array([]),
       installments: this.fb.array([]),
+      // Requirements
+      plaintiff: [0],
       personalInfo: this.fb.array([]),
+      categoryIDs: [[]],
+      subCategoryIDs: [[]],
     });
     this.getCategories();
   }
@@ -87,7 +91,6 @@ export class StepsComponent implements OnInit {
   clickEvent(type: any) {
     if (type == 'temporary') {
       this.status = true;
-      console.log(this.status);
     } else if (type == 'permanent') {
       this.status = false;
     }
@@ -110,25 +113,34 @@ export class StepsComponent implements OnInit {
   }
 
   createPersonalInfo() {
-    (this.stepForm.get('personalInfo') as FormArray).push(
-      this.fb.group({
-        name: [''],
-        fatherName: [''],
-        companyName: [''],
-        CNIC: [''],
-        phone: [''],
-        whatsApp: [''],
-        email: [''],
-        clientAddress: [''],
-        companyAddress: [''],
-        otherDetails: [''],
-      })
-    );
+    return this.fb.group({
+      name: [''],
+      fatherName: [''],
+      companyName: [''],
+      CNIC: [''],
+      phone: [''],
+      whatsApp: [''],
+      email: [''],
+      clientAddress: [''],
+      companyAddress: [''],
+      otherDetails: [''],
+      isContactPerson: [false],
+      cpName: [''],
+      cpFatherName: [''],
+      cpCompanyName: [''],
+      cpCNIC: [''],
+      cpPhone: [''],
+      cpWhatsApp: [''],
+      cpEmail: [''],
+      cpClientAddress: [''],
+      cpOtherDetails: [''],
+    });
   }
 
   createApplicantForm() {
     return this.fb.group({
       clientId: [0],
+      lead: [false],
       isContactPerson: [true],
       isOtherApplicant: [true],
       plaintiff: [''],
@@ -146,6 +158,14 @@ export class StepsComponent implements OnInit {
       otherDetails: [''],
       isMainClient: [true],
       caseId: [0],
+      lawyerName: [''],
+      lawyerFirmName: [''],
+      lawyerAddress: [''],
+      lawyerPhoneNumber: [''],
+      lawyerEmail: [''],
+      lawyerFax: [''],
+      lawyerWhatsAppNumber: [''],
+      lawyerOtherDetails: [''],
     });
   }
 
@@ -153,13 +173,16 @@ export class StepsComponent implements OnInit {
     let count = this.stepForm.get('plaintiff')?.value;
     (this.stepForm.get('personalInfo') as FormArray).clear();
     if (count == 'single party matter') {
-      count = 1
+      count = 1;
     }
     for (let i = 0; i < count; i++) {
-      this.createPersonalInfo();
+      (this.stepForm.get('personalInfo') as FormArray).push(
+        this.createPersonalInfo()
+      );
     }
-    console.log(this.getPersonalInfo());
   }
+
+  clog() {}
 
   addApplicantData() {
     this.applicantData = this.stepForm.get('clients') as FormArray;
@@ -175,15 +198,19 @@ export class StepsComponent implements OnInit {
     return (this.stepForm.get('installments') as FormArray).controls;
   }
 
-  createInstallments() {
+  createInstallment() {
     return this.fb.group({
-      companyName: [''],
+      installmentId: [0],
+      dueDate: [Date.now()],
+      amount: [0],
+      caseId: [0],
+      isDeleted: [false],
     });
   }
 
   addInstallments() {
     this.installmentData = this.stepForm.get('installments') as FormArray;
-    this.installmentData.push(this.createInstallments());
+    this.installmentData.push(this.createInstallment());
   }
 
   removeInstallments(index: any) {
@@ -210,9 +237,10 @@ export class StepsComponent implements OnInit {
   }
 
   getSubCategories() {
-    let categoryId = this.stepForm.value.categoryId;
-    this.caseService.getSubCategories(categoryId).subscribe((res) => {
-      this.subCategories = res;
+    this.subCategories = [];
+    console.log(this.stepForm.value.categoryIDs)
+    this.caseService.getSubCategories(this.stepForm.value.categoryIDs).subscribe((res) => {
+      this.subCategories = [...this.subCategories, ...res];
     });
   }
 
@@ -235,5 +263,9 @@ export class StepsComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
+  }
+
+  submitForm() {
+    this.caseService.submitData(this.stepForm.value).subscribe()
   }
 }

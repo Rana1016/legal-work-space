@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import stepValueInterface from 'src/app/new-case/steps/stepForm.interface';
 import { environment } from 'src/environments/environment';
 import { newCaseInterface } from '../types/new-case.type';
 
@@ -24,11 +25,79 @@ export class NewCaseStepsService {
     return this.http.get<any>(`${this.baseUrl}case/categories`);
   }
 
-  getSubCategories(id:any):Observable<any>{
-    return this.http.get<any>(`${this.baseUrl}case/subCategories?categoryid=${id}`);
+  getSubCategories(categories: any[]):Observable<any>{
+    return this.http.post<any[]>(`${this.baseUrl}case/subCategories`, {
+      categories
+    });
   }
 
-  submitData(data: any) {
-    
+  submitData({
+    caseId,
+      isTemporaryCase,
+      modeOfCorrespondence,
+      howDidYouHear,
+      categoryId,
+      subCategoryId,
+      briefCaseDescription,
+      caseSuperVisor,
+      caseworker,
+      clientInstructions,
+      adviceGivenToClient,
+      agreedPlanOfAction,
+      chancesOfSuccess,
+      weaknessesOfCase,
+      conflictsOfInterest,
+      conflictsOfInterestDesc,
+      haveCriminalConviction,
+      criminalConvictionDesc,
+      addtionalInfo,
+      feeType,
+      coveredByFee,
+      agreedAmountOrPercentage,
+      isVATIncluded,
+      advancePayment,
+      courtId,
+      isMatter,
+      parentId,
+      hourlyRateCaseworker,
+      isDeleted,
+      clients,
+      installments
+  } : any) {
+    return this.http.post<any[]>(`${this.baseUrl}case/newCase`, {
+      entityCase: {
+        caseId,
+        isTemporaryCase,
+        modeOfCorrespondence,
+        howDidYouHear,
+        categoryId,
+        subCategoryId,
+        briefCaseDescription,
+        caseSuperVisor,
+        caseworker,
+        clientInstructions,
+        adviceGivenToClient,
+        agreedPlanOfAction,
+        chancesOfSuccess,
+        weaknessesOfCase,
+        conflictsOfInterest,
+        conflictsOfInterestDesc,
+        haveCriminalConviction,
+        criminalConvictionDesc,
+        addtionalInfo,
+        feeType,
+        coveredByFee,
+        agreedAmountOrPercentage,
+        isVATIncluded,
+        advancePayment,
+        courtId,
+        isMatter,
+        parentId,
+        hourlyRateCaseworker,
+        isDeleted
+      } as stepValueInterface,
+      clients: clients,
+      installments: installments
+    });
   }
 }

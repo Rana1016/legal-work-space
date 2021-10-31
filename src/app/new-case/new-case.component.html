@@ -73,10 +73,16 @@
               <input type="hidden" name="inpTYPE" value="1" />
               <input type="hidden" name="inpCASEID" value="0" />
               <button
-                class="btn btn-primary"
+                class="btn btn-primary mr-2"
                 [routerLink]="['steps']"
               >
                 <span class="glyphicon glyphicon-play"></span> Start new case
+              </button>
+              <button
+                class="btn btn-primary"
+                [routerLink]="['steps/temp']"
+              >
+                <span class="glyphicon glyphicon-play"></span> Start new temporary case
               </button>
             </div>
           </div>

@@ -11,9 +11,11 @@ export class DefaultComponent implements OnInit {
 
   constructor(private caseService: NewCaseStepsService) { }
   Cases: any;
+  casedesc: any;
   ngOnInit(): void {
-    this.caseService.getData(1, 9).subscribe((data) => {
-      this.Cases = data;
+    this.caseService.getData(1, 9).subscribe((data : any) => {
+      this.Cases = data.ClientInfo;
+      this.casedesc = data.CaseInfo
     })
   }
   toDate(date?: Date) {

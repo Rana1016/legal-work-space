@@ -25,9 +25,9 @@ export class NewCaseStepsService {
     return this.http.get<any>(`${this.baseUrl}case/categories`);
   }
 
-  getSubCategories(categories: any[]):Observable<any>{
+  getSubCategories(categoriesIds: any[]):Observable<any>{
     return this.http.post<any[]>(`${this.baseUrl}case/subCategories`, {
-      categories
+      categoriesIds
     });
   }
 

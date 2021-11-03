@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TimeComponent } from './time.component';
+import { TimeKeepingComponent } from './time-keeping.component';
 
-describe('TimeComponent', () => {
-  let component: TimeComponent;
-  let fixture: ComponentFixture<TimeComponent>;
+describe('TimeKeepingComponent', () => {
+  let component: TimeKeepingComponent;
+  let fixture: ComponentFixture<TimeKeepingComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TimeComponent ]
+      declarations: [ TimeKeepingComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TimeComponent);
+    fixture = TestBed.createComponent(TimeKeepingComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

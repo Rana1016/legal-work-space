@@ -139,7 +139,7 @@
                       <span class="hideme">20210930</span> {{ 'Hello' }}
                     </td>
                     <td>
-                      <a class="td_link">{{ case.caseId }}</a>
+                      <a class="td_link" [routerLink]="['case-details/'+case.caseId]">{{ case.caseId }}</a>
                     </td>
                     <td>{{case.clientName}}</td>
                     <td>string</td>

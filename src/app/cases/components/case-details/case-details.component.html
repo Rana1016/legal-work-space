@@ -1,43 +1,24 @@
 <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="pg-title">
-        Cases
-        <span class="glyphicon glyphicon-chevron-right"></span> CL/1006.00/Sabir
-    </div>
+  <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12" id="pg-title">
+    Cases
+    <span class="glyphicon glyphicon-chevron-right"></span> CL/1006.00/Sabir
+  </div>
 </div>
 
 <div class="row">
-    <div class="col-md-12">
-        <div class="widget">
-            <div class="widget-body">
-                <div class="row">
-                    <div class="col-md-12" id="pg-nav">
-                        <ul class="list-inline">
-                            <li>
-                                <form id="data_form2" name="data_form2" class="form-horizontal" style="background-color: transparent; padding: 0" action="https://crescent.legalworkspace.co.uk/index.php/cms/secure/cases/new-case/" method="post" accept-charset="UTF-8">
-                                    <button class="btn btn-sm btn-primary" type="submit">
-                    <span class="glyphicon glyphicon-plus"></span> New matter
-                  </button>
-                                    <input type="hidden" name="inpCASEID" value="1006" />
-                                    <input type="hidden" name="inpTYPE" value="0" />
-                                </form>
-                            </li>
-                            <li>
-                                <ul class="nav">
-                                    <li class="toolbar_dd">
-                                        <a href="https://crescent.legalworkspace.co.uk/index.php/cms/secure/cases/case-details/5-1006-PSQKT/0/#" class="dropdown-toggle btn btn-primary" data-toggle="dropdown" aria-expanded="false"><i class="glyphicon glyphicon-th"></i> List of matters
-                      <span class="caret"></span
-                    ></a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li>
-                                                <a href="https://crescent.legalworkspace.co.uk/index.php/cms/secure/cases/case-details/5-1006-PSQKT/0/"><span class="glyphicon glyphicon-play"></span>
-                          <strong>1006.00</strong><br /><small class="muted"
-                            >test</small
-                          ></a
-                        >
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
+  <div class="col-md-12">
+    <div class="widget">
+      <div class="widget-body">
+        <div class="row">
+          <div class="col-md-12" id="pg-nav">
+            <ul class="list-inline">
+              <li>
+                <button class="btn btn-sm btn-primary">
+                  <span class="glyphicon glyphicon-plus"></span> New matter
+                </button>
+              </li>
+              <li>
+                <a class="btn btn-primary"><i class="glyphicon glyphicon-th"></i> List of matters</a>
               </li>
             </ul>
           </div>
@@ -52,51 +33,66 @@
     <div class="widget">
       <div class="widget-body">
         <div class="row">
-          <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+          <div class="col-sm-12 col-sm-8 col-md-8 col-lg-8">
             <h5>Rizwan Sabir</h5>
             <p style="margin: 20px 0">
-              <strong class="muted"
-                >Civil Litigation
+              <strong class="muted">Civil Litigation
                 <span class="fa fa-arrow-right"></span> Boundary and neighbour
-                disputes <span class="fa fa-arrow-right"></span> test</strong
-              >
+                disputes <span class="fa fa-arrow-right"></span> test</strong>
             </p>
           </div>
-          <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 text-right">
-            <span class="badge_cms badge_green" style="margin: 0 0 0 15px"
-              >In-Progress</span
-            >
+          <div class="col-sm-12 col-sm-4 col-md-4 col-lg-4 text-right">
+            <span class="badge_cms badge_green" style="margin: 0 0 0 15px">In-Progress</span>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+<div style="margin-top: 30px" class="r-tabs">
+  <ul class="r-tabs-nav">
+    <li *ngFor="let dT of detailsTabs; let i = index;" class="r-tabs-tab"
+      [ngClass]="{'r-tabs-state-active': dT.active, 'r-tabs-state-default': !dT.active}">
+      <a [routerLink]="[dT.selector]" (click)="activatePanel(dT)" class="r-tabs-anchor">{{ dT.title }}</a>
+    </li>
+  </ul>
 
+  <ng-container *ngFor="let dT of detailsTabs">
+    <div class="r-tabs-accordion-title r-tabs-state-default"
+      [ngClass]="{'r-tabs-state-active': dT.active, 'r-tabs-state-default': !dT.active}">
+      <a class="r-tabs-anchor" [routerLink]="[dT.selector]" (click)="activatePanel(dT)">{{dT.title}}</a>
+    </div>
+    <div class="r-tabs-panel r-tabs-state-default r-tabs-state-active" *ngIf="dT.active">
+      <div class="col-sm-12 col-md-12">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </ng-container>
+</div>
 <div class="row">
   <div class="col-sm-12 col-md-12">
     <div class="widget">
       <div class="widget-body">
         <div class="row">
-          <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+          <div class="col-sm-12 col-sm-12 col-md-3 col-lg-3">
             <div class="dash_blocks dash_green">
               <p><strong>Invoices Raised</strong></p>
               <p class="dash_strong"><span class="fa fa-gbp"></span> 3.00</p>
             </div>
           </div>
-          <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+          <div class="col-sm-12 col-sm-12 col-md-3 col-lg-3">
             <div class="dash_blocks dash_red">
               <p><strong>Invoices Outstanding</strong></p>
               <p class="dash_strong"><span class="fa fa-gbp"></span> 3.00</p>
             </div>
           </div>
-          <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+          <div class="col-sm-12 col-sm-12 col-md-3 col-lg-3">
             <div class="dash_blocks dash_yellow">
               <p><strong>Disbursements Incurred</strong></p>
               <p class="dash_strong"><span class="fa fa-gbp"></span> 0.00</p>
             </div>
           </div>
-          <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+          <div class="col-sm-12 col-sm-12 col-md-3 col-lg-3">
             <div class="dash_blocks dash_blue">
               <p><strong>Disbursements Outstanding</strong></p>
               <p class="dash_strong"><span class="fa fa-gbp"></span> 0.00</p>

@@ -1,62 +1,66 @@
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
+import { CaseDetailsComponent as ParentComponent } from './case-details.component'
+import { CaseDetailsComponent } from './children/case-details/case-details.component';
 import { StatusComponent } from './children/status/status.component';
 import { ActivitiesComponent } from './children/activities/activities.component';
 import { AmlComponent } from './children/aml/aml.component';
-
-import { CaseDetailsComponent } from './case-details.component';
 import { WorkflowComponent } from './children/workflow/workflow.component';
-import { KeydatesComponent } from './../../../keydates/keydates.component';
-import { AttendanceComponent } from './children/attendance/attendance.component';
 import { NotesComponent } from './children/notes/notes.component';
 import { DocumentsComponent } from './children/documents/documents.component';
-import { TimeComponent } from './children/time/time.component';
-import { AccountsComponent } from './../../../accounts/accounts.component';
-import { DetailsComponent } from './children/details/details.component';
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { ProfileComponent } from './children/profile/profile.component';
+import { PersonalDetailsComponent } from './children/personal-details/personal-details.component';
+import { AccountDetailsComponent } from './children/account-details/account-details.component';
+import { TimeKeepingComponent } from './children/time-keeping/time-keeping.component';
+import { PeshiListComponent } from './children/peshi-list/peshi-list.component';
+import { AttendanceNotesComponent } from './children/attendance-notes/attendance-notes.component';
+import { DeadLinesComponent } from './children/dead-lines/dead-lines.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'profile',
+    redirectTo: 'personal-details',
     pathMatch: "full",
   },
   {
     path: '',
-    component: CaseDetailsComponent,
+    component: ParentComponent,
     children: [
-
       {
-        path: 'profile',
-        component: ProfileComponent
+        path: 'personal-details',
+        component: PersonalDetailsComponent
       },
       {
-        path: 'details',
-        component: DetailsComponent
+        path: 'case-details',
+        component: CaseDetailsComponent
       },
       {
-        path: 'accounts',
-        component: AccountsComponent
+        path: 'account-details',
+        component: AccountDetailsComponent
       },
       {
-        path: 'time',
-        component: TimeComponent
+        path: 'time-keeping',
+        component: TimeKeepingComponent
       },
       {
         path: 'documents',
         component: DocumentsComponent
       },
       {
+        path: 'peshi-list',
+        component: PeshiListComponent
+      },
+      {
         path: 'notes',
         component: NotesComponent
       },
       {
-        path: 'attd',
-        component: AttendanceComponent
+        path: 'attendance-notes',
+        component: AttendanceNotesComponent
       },
       {
         path: 'deadlines',
-        component: KeydatesComponent
+        component: DeadLinesComponent
       },
       {
         path: 'workflow',

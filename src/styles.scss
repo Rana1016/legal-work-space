@@ -245,3 +245,45 @@
 .pointer {
   cursor: pointer !important;
 }
+
+.lw-btn {
+  display: inline-block;
+  white-space: nowrap;
+  border-radius: 0.2em;
+  -moz-border-radius: 0.2em;
+  -webkit-border-radius: 0.2em;
+  margin: 5px;
+  padding: 5px 15px;
+  text-decoration: none;
+  &.primary {
+    color: #fff;
+    background-color: #78b41e;
+    border: 1px solid #558d00;
+    &:hover {
+      background-color: #558d00;
+      border: 1px solid #558d00;
+    }
+    &:focus {
+      color: #558d00;
+      background-color: #fff;
+    }
+  }
+  &.danger {
+    color: #fff;
+    background-color: #ed0000;
+    border: 1px solid #c20000;
+    &:hover {
+      background-color: #c20000;
+      border: 1px solid #c20000;
+    }
+    &:focus {
+      color: #c20000;
+      background-color: #fff;
+    }
+  }
+}
+.progress-bar-active {
+  &.primary {
+    
+  }
+}

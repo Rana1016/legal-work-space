@@ -3,14 +3,16 @@ import {
   FormBuilder,
   FormGroup,
   FormArray,
-  Validators,
-  Form,
-  FormControl,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import FormData from '../../../assets/JSONs/FormData.json';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { NewCaseStepsService } from 'src/app/shared/services/new-case-steps.service';
+
+enum ClientTypes {
+  PLAINTIFF = 'plaintiff',
+  DEFENDANT = 'defendant'
+}
 @Component({
   selector: 'app-steps',
   templateUrl: './steps.component.html',
@@ -24,20 +26,42 @@ export class StepsComponent implements OnInit {
   stepForm!: FormGroup;
   applicantData: any;
   installmentData: any;
+  CTypes = ClientTypes;
   categories: {
     categoryId: [0];
     categoryTitle: [''];
   }[] = [];
   selectedClient: number = 0;
+  selectedType: string = ClientTypes.PLAINTIFF;
+  leadClient!: any;
+  leadType!: string;
+  showModal: boolean = false;
   isTemporary?: boolean;
-
   selectPlaintiff = ['single party matter', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
+  showPersonalDetails!: boolean;
   subCategories: {
-    categoryId: [0];
-    subCategoryId: [0];
-    subCategoryTitle: [''];
+    categoryId: number[];
+    subCategoryId: number[];
+    subCategoryTitle: string[];
   }[] = [];
+  subCategoriesOffense: {
+    categoryId: number[];
+    subCategoryId: number[];
+    subCategoryTitle: string[];
+  }[] = [];
+  subCategoriesDescription: {
+    categoryId: number[];
+    subCategoryId: number[];
+    subCategoryTitle: string[];
+  }[] = [];
+  navItems: string[] = [
+    'Personal Information',
+    'Case Details',
+    'Team Details',
+    'Court Details',
+    'Payment Options',
+    'Declarations & Submit'
+  ]
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -46,7 +70,7 @@ export class StepsComponent implements OnInit {
     private modalService: NgbModal
   ) {}
   ngOnInit(): void {
-    if (this.router.url.includes('temp')) {this.isTemporary = true; console.log(this.isTemporary)}
+    if (this.router.url.includes('temp')) {this.isTemporary = true;}
     this.setNavigation(1);
     this.stepForm = this.fb.group({
       caseId: [0],
@@ -56,8 +80,11 @@ export class StepsComponent implements OnInit {
       categoryId: [0],
       subCategoryId: [0],
       briefCaseDescription: [''],
-      caseSuperVisor: [0],
-      caseworker: [0],
+      caseSource: [''],
+      caseOwner: [''],
+      caseSuperVisor: [''],
+      caseWorker: [''],
+      caseClerk: [''],
       clientInstructions: [''],
       adviceGivenToClient: [''],
       agreedPlanOfAction: [''],
@@ -68,6 +95,11 @@ export class StepsComponent implements OnInit {
       haveCriminalConviction: [0],
       criminalConvictionDesc: [''],
       addtionalInfo: [''],
+      nameOfCourt: [0],
+      typeOfBench: [1],
+      judges: this.fb.array([this.fb.control('')]),
+      districtOrBenchOrTehsil: [''],
+      anyOtherDetails: [''],
       feeType: [''],
       coveredByFee: [''],
       agreedAmountOrPercentage: [0],
@@ -82,48 +114,89 @@ export class StepsComponent implements OnInit {
       installments: this.fb.array([]),
       // Requirements
       plaintiff: [0],
-      personalInfo: this.fb.array([]),
-      categoryIDs: [[]],
-      subCategoryIDs: [[]],
+      defendant: [0],
+      plaintiffs: this.fb.array([]),
+      defendants: this.fb.array([]),
+      isContactPerson: [false],
+      cpName: [''],
+      cpFatherName: [''],
+      cpCompanyName: [''],
+      cpCNIC: [''],
+      cpPhone: [''],
+      cpWhatsApp: [''],
+      cpEmail: [''],
+      cpAddress: [''],
+      cpOtherDetails: [''],
+      categories: [[]],
+      subcategories: [[]],
     });
     this.getCategories();
   }
 
-  status: any;
-  clickEvent(type: any) {
-    if (type == 'temporary') {
-      this.status = true;
-    } else if (type == 'permanent') {
-      this.status = false;
+  onSelectClient(type: string) {
+    switch (type) {
+      case ClientTypes.PLAINTIFF: {
+        let count = this.stepForm.get(ClientTypes.PLAINTIFF)?.value;
+        (this.stepForm.get(ClientTypes.PLAINTIFF+'s') as FormArray).clear();
+        if (count == 'single party matter') {
+          count = 1;
+        }
+        for (let i = 0; i < count; i++) {
+          (this.stepForm.get(ClientTypes.PLAINTIFF+'s') as FormArray).push(
+            this.createClient()
+          );
+        }
+        break
+      }
+      case ClientTypes.DEFENDANT: {
+        let count = this.stepForm.get(ClientTypes.DEFENDANT)?.value;
+        (this.stepForm.get(ClientTypes.DEFENDANT+'s') as FormArray).clear();
+        if (count == 'single party matter') {
+          count = 1;
+        }
+        for (let i = 0; i < count; i++) {
+          (this.stepForm.get(ClientTypes.DEFENDANT+'s') as FormArray).push(
+            this.createClient()
+          );
+        }
+        break
+      }
+      default: {
+        break
+      }
     }
   }
-  Appropriate: boolean = true;
-  selectAppropriate(Appropriate: any) {
-    if (Appropriate == 'Plaintiff') {
-      this.Appropriate = true;
-    } else if (Appropriate == 'Defendant') {
-      this.Appropriate = false;
+
+  getClients(type: string) {
+    switch (type) {
+      case ClientTypes.PLAINTIFF: {
+        return (this.stepForm.get(ClientTypes.PLAINTIFF+'s') as FormArray).controls;
+      }
+      case ClientTypes.DEFENDANT: {
+        return (this.stepForm.get(ClientTypes.DEFENDANT+'s') as FormArray).controls;
+      }
+      default: {
+        return
+      }
     }
   }
 
-  getPersonalInfo() {
-    return (this.stepForm.get('personalInfo') as FormArray).controls;
-  }
-
-  getOtherApplicants() {
-    return (this.stepForm.get('clients') as FormArray).controls;
-  }
-
-  createPersonalInfo() {
+  createClient() {
     return this.fb.group({
+      isLead: [false],
+      isClient: [false],
+      isNonClient: [false],
+      title: [0],
       name: [''],
+      nickName: [''],
+      gender: [0],
       fatherName: [''],
       companyName: [''],
       CNIC: [''],
       phone: [''],
       whatsApp: [''],
       email: [''],
-      clientAddress: [''],
+      address: [''],
       companyAddress: [''],
       otherDetails: [''],
       isContactPerson: [false],
@@ -134,24 +207,61 @@ export class StepsComponent implements OnInit {
       cpPhone: [''],
       cpWhatsApp: [''],
       cpEmail: [''],
-      cpClientAddress: [''],
+      cpAddress: [''],
       cpOtherDetails: [''],
+      applicants: this.fb.array([]),
     });
+  }
+
+  setLead(c: number, type: string, isLead: HTMLInputElement, e: MouseEvent, modal: any) {
+    if (this.leadClient == null) {
+      this.leadClient = c;
+      this.leadType = type;
+    } else if ((this.leadClient == c && this.leadType == type)) {
+      isLead.checked = false;
+      this.leadClient = null;
+    } else {
+      isLead.checked = false;
+      e.stopPropagation();
+      this.open(modal)
+    }
+  }
+
+  setClient(isClient: boolean, i: number, type: string, checkClient: HTMLInputElement, checkNonClient: HTMLInputElement, e: MouseEvent) {
+    switch (isClient) {
+      case true: {
+        if (checkNonClient.checked) {
+          (this.stepForm.controls[type+'s'] as FormArray).controls[i].patchValue({
+            isNonClient: false
+          });
+          checkNonClient.checked = false;
+        }
+        break
+      }
+      case false:
+        if (checkClient.checked) {
+          (this.stepForm.controls[type+'s'] as FormArray).controls[i].patchValue({
+            isClient: false
+          });
+          checkClient.checked = false;
+        }
+        break
+    }
+    e.stopPropagation();
   }
 
   createApplicantForm() {
     return this.fb.group({
       clientId: [0],
-      lead: [false],
-      isContactPerson: [true],
+      isLead: [false],
+      isClient: [false],
+      isNonClient: [false],
       isOtherApplicant: [true],
-      plaintiff: [''],
-      defendant: [''],
       clientName: [''],
       fatherName: [''],
       companyName: [''],
       cnic: [''],
-      clientAddress: [''],
+      address: [''],
       companyAddress: [''],
       phoneNumber: [''],
       clientEmail: [''],
@@ -171,29 +281,70 @@ export class StepsComponent implements OnInit {
     });
   }
 
-  onSelectPlaintiff() {
-    let count = this.stepForm.get('plaintiff')?.value;
-    (this.stepForm.get('personalInfo') as FormArray).clear();
-    if (count == 'single party matter') {
-      count = 1;
-    }
-    for (let i = 0; i < count; i++) {
-      (this.stepForm.get('personalInfo') as FormArray).push(
-        this.createPersonalInfo()
-      );
-    }
+  setLeadApplicant(c: number, type: string, isLead: HTMLInputElement, e: MouseEvent, modal: any) {
+    // if (this.leadClient == null) {
+    //   this.leadClient = c;
+    //   this.leadType = type;
+    // } else if ((this.leadClient == c && this.leadType == type)) {
+    //   isLead.checked = false;
+    //   this.leadClient = null;
+    // } else {
+    //   isLead.checked = false;
+    //   e.stopPropagation();
+    //   this.open(modal)
+    // }
   }
 
-  clog() {}
+  setClientApplicant(isClient: boolean, i: number, type: string, checkClient: HTMLInputElement, checkNonClient: HTMLInputElement, e: MouseEvent) {
+    switch (isClient) {
+      case true: {
+        if (checkNonClient.checked) {
+          // (this.stepForm.controls[type+'s'] as FormArray).controls[i].patchValue({
+          //   isNonClient: false
+          // });
+          checkNonClient.checked = false;
+        }
+        break
+      }
+      case false:
+        if (checkClient.checked) {
+          // (this.stepForm.controls[type+'s'] as FormArray).controls[i].patchValue({
+          //   isClient: false
+          // });
+          checkClient.checked = false;
+        }
+        break
+    }
+    e.stopPropagation();
+  }
 
-  addApplicantData() {
-    this.applicantData = this.stepForm.get('clients') as FormArray;
+  getOtherApplicants(type: string, i: number) {
+    return (((this.stepForm.controls[type+'s'] as FormArray).controls[i] as FormGroup).controls['applicants'] as FormArray).controls;
+  }
+
+  addApplicantData(type: string, i: number) {
+    this.applicantData = ((this.stepForm.controls[type+'s'] as FormArray).controls[i] as FormGroup).controls['applicants'] as FormArray;
     this.applicantData.push(this.createApplicantForm());
   }
 
-  removeApplicantData(index: any) {
-    const control = <FormArray>this.stepForm.controls['clients'];
-    control.removeAt(index);
+  removeApplicantData(type: string, i: number, a: number) {
+    const control = ((this.stepForm.controls[type+'s'] as FormArray).controls[i] as FormGroup).controls['applicants'] as FormArray;
+    control.removeAt(a);
+  }
+
+  addJudges() {
+    (this.stepForm.controls['judges'] as FormArray).clear();
+    for (var i = 0; i < (this.stepForm.value.typeOfBench); i++) {
+      (this.stepForm.controls['judges'] as FormArray).controls.push(this.fb.control(''))
+    }
+  }
+  addJudge() {
+    (this.stepForm.controls['judges'] as FormArray).controls.push(this.fb.control(''))
+  }
+
+  removeJudge(i: number) {
+    const Judges = (this.stepForm.get('judges') as FormArray);
+    Judges.removeAt(i);
   }
 
   getInstallments() {
@@ -240,9 +391,20 @@ export class StepsComponent implements OnInit {
 
   getSubCategories() {
     this.subCategories = [];
-    console.log(this.stepForm.value.categoryIDs)
-    this.caseService.getSubCategories(this.stepForm.value.categoryIDs).subscribe((res) => {
-      this.subCategories = [...this.subCategories, ...res];
+    this.caseService.getSubCategories(this.stepForm.value.categories).subscribe((res) => {
+      Object.keys(res).forEach((key, i) => {
+        if (this.stepForm.value.categories.includes(12)) {
+          this.subCategoriesOffense = [...this.subCategoriesOffense, ...res[key].filter((r: any) => r.categoryId == 12)];
+          this.subCategoriesDescription = [...this.subCategoriesDescription, ...res[key].filter((r: any) => r.categoryId == 13)];
+          res[key] = res[key].filter((r: any) => r.categoryId !== 12)
+          res[key] = res[key].filter((r: any) => r.categoryId !== 13)
+        }
+        if (i !== Object.keys(res).length-1) {
+          res[key] = res[key].filter((r: any) => r.subCategoryId !== 0)
+        }
+          this.subCategories = [...this.subCategories, ...res[key]]
+
+      })
     });
   }
 

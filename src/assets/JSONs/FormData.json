@@ -10,26 +10,18 @@
         "Litigation consultation only",
         "Other please specify option",
         "Add more option"
-
     ],
-
-
     "titles": [
         "Mr",
-        "Mrs",
+        "Mrs.",
         "Miss",
-        "Ms",
-        "Mx (gender-netural)",
-        "Master",
-        "Dr",
-        "Sir",
-        "Prof"
+        "Mst",
+        "Other"
     ],
     "genders": [
         "Male",
         "Female",
-        "Other",
-        "Unknown"
+        "Other"
     ],
     "countries": [
         "Afghanistan",
@@ -500,7 +492,17 @@
         "Minor Penalty",
         "ACR Remarks",
         "Other"
-
+    ],
+    "subCategoryOffense": [
+        "Pakistan Penal Code",
+        "Anti-Corruption Laws",
+        "NAB Laws",
+        "Illegal dispossession Act",
+        "Control of Narcotics Substance Act",
+        "Telegraph Act",
+        "Illegal Arms",
+        "Passport Act",
+        "Banking Laws"
     ],
     "caseSupervisors": [
         "Dr. Mazhar Ilahi"
@@ -521,5 +523,83 @@
         "Contingency Billing",
         "ProBono",
         "Legal Aid"
+    ],
+    "courts": [
+        "Supreme Court of Pakistan",
+        "Lahore High Court",
+        "Sindh High Court",
+        "(KPK) Peshawar High Court",
+        "Balochistan High Court",
+        "Gilgit Baltistan High Court",
+        "Islamabad High Court",
+        "Federal Shariat Court",
+        "District & Sessions Judge",
+        "Additional District & Sessions Judge",
+        "Senior Civil Judge",
+        "Civil Judge Class",
+        "Judicial Magistrate",
+        "Special Judicial Magistrate",
+        "Family Court",
+        "Guardian and Ward Court",
+        "Anti-Terrorism Court",
+        "Anti-Corruption Court",
+        "Special Judge Central",
+        "Special Court for offence in Banks",
+        "National Accountability Court ",
+        "Banking Court",
+        "Collector of Customs",
+        "Collector of Customs (Appeals)",
+        "Customs Tribunal",
+        "Drug Courts",
+        "Labour Courts",
+        "National Industrial Relation Commission",
+        "Board of Revenue",
+        "Consumer Court",
+        "Secretary Cooperative Societies",
+        "Labour Appellate Tribunal",
+        "Intellectual Property Tribunal",
+        "Anti-Dumping Appellate Tribunal",
+        "Federal Services Tribunal",
+        "Provincial Services Tribunal",
+        "Subordinate Judiciary  Services Tribunal",
+        "Environmental Law Tribunal",
+        "Modarba Tribunal",
+        "Appellate Tribunal Inland Revenue",
+        "Commissioner Appeals",
+        "Punjab Revenue Authority",
+        "Appellate Tribunal Sindh Revenue Board",
+        "Commissioner Inland Revenue (Appeals)",
+        "Zonal Commissioner of Income Tax",
+        "Federal Tax Ombudsman",
+        "Federal Ombudsman/Wafaqi Mohtasib",
+        "Provincial Ombudsman/Subai Mohtasib",
+        "Banking Ombudsman/Banking Mohtasib",
+        "Federal Insurance Ombudsman",
+        "Federal Ombudsperson for protection against Harassment of Women at Workplace ",
+        "Pakistan Electronic Media Regulatory Authority",
+        "Securities and Exchange Commission of Pakistan",
+        "Competition Commission of Pakistan ",
+        "Competition Appellate Tribunal",
+        "Election Commission of Pakistan",
+        "Other (Please specify option)",
+        "Or leave blank option"
+    ],
+    "benches": [
+        {
+            "label": "Single Bench",
+            "value": 1
+        },
+        {
+            "label": "Division Bench",
+            "value": 2
+        },
+        {
+            "label": "Full Bench",
+            "value": 3
+        },
+        {
+            "label": "Full Court",
+            "value": 7
+        }
     ]
 }

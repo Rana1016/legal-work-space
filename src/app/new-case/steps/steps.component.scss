@@ -1,12 +1,37 @@
 .lw-tab {
     cursor: pointer;
     padding: 1rem;
-    background-color: #78b41e;
     color: white;
     margin: 0 5px 0 0;
     border-radius: 10px 10px 0 0;
+    white-space: nowrap;
     user-select: none;
-    &.active {
-        background-color: #507914;
+    &.success {
+        background-color: #78b41e;
+        &.active {
+            background-color: #507914;
+        }
+    }
+    &.danger {
+        background-color: #ed0000;
+        &.active {
+            background-color: #c20000;
+        }
+    }
+}
+.lw-inline {
+    max-width: 100%;
+    overflow-x: auto;
+    &::-webkit-scrollbar {
+        height: 5px;
+    }
+    &::-webkit-scrollbar-track {
+        background-color: #dee2e6;
+        border-radius: 8px;
+        padding: 0 5px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: #999;
+        border-radius: 8px;
     }
 }

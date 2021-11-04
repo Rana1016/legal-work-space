@@ -20,21 +20,6 @@
                                     <span class="glyphicon glyphicon-arrow-left"></span> Back
                                 </a>
                             </li>
-                            <li ngbDropdown>
-                                <a ngbDropdownToggle class="btn btn-danger">
-                                    <i class="glyphicon glyphicon-th"></i> Case type
-                                </a>
-                                <ul ngbDropdownMenu>
-                                    <li ngbDropdownItem>
-                                        <a (click)="clickEvent('permanent')">
-                                            Permanent
-                                        </a>
-                                    </li>
-                                    <li ngbDropdownItem>
-                                        <a (click)="clickEvent('temporary')"> Temporary</a>
-                                    </li>
-                                </ul>
-                            </li>
                         </ul>
                     </div>
                 </div>
@@ -51,90 +36,56 @@
                     <div class="col-md-3">
                         <div class="steps">
                             <ul class="list-unstyled vbar">
-                                <li class="pointer">
-                                    <a (click)="setNavigation(1)"
-                                        [ngClass]="{'progress-bar-danger': isTemporary ,'progress-bar-success': !isTemporary, 'vbar_active': Navigation == 1}"
-                                        class="progress-bar-success">
-                                        1
-                                    </a>
-                                </li>
-                               <li>Personal Information</li>
-                                <li>
-                                    <div class="progress vprogress">
-                                        <div [ngClass]="{'progress-bar-danger': isTemporary ,'progress-bar-success': !isTemporary, 'vbar_active': Navigation > 1}"
-                                            class="progress-bar progress-bar-striped vbar_active" role="progressbar"
-                                            aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                                <ng-container *ngFor="let navItem of navItems; let i = index; let l = last;">
+                                    <li class="pointer">
+                                        <a (click)="setNavigation(i+1)"
+                                            [ngClass]="{'danger': isTemporary ,'success': !isTemporary, 'vbar_active': Navigation == (i+1)}"
+                                            class="progress-bar-success">
+                                            {{i+1}}
+                                        </a>
+                                    </li>
+                                    <li>{{navItem}}</li>
+                                    <li *ngIf="!l">
+                                        <div class="progress vprogress">
+                                            <div [ngClass]="{'progress-bar-danger': isTemporary ,'progress-bar-success': !isTemporary, 'vbar_active active': Navigation > (i+1)}"
+                                                class="progress-bar progress-bar-striped vbar_active" role="progressbar"
+                                                aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                                            </div>
                                         </div>
-                                    </div>
-                                </li>
-                                <li class="pointer">
-                                    <a (click)="setNavigation(2)"
-                                        [ngClass]="{'progress-bar-danger': isTemporary ,'progress-bar-success': !isTemporary, 'vbar_active': Navigation == 2}">2</a>
-                                </li>
-                                <li>Case Details</li>
-                                <li>
-                                    <div class="progress vprogress">
-                                        <div [ngClass]="{'progress-bar-danger': isTemporary ,'progress-bar-success': !isTemporary, 'vbar_active': Navigation > 2}"
-                                            class="progress-bar progress-bar-striped vbar_active" role="progressbar"
-                                            aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="pointer">
-                                    <a (click)="setNavigation(3)" class=""
-                                        [ngClass]="{'progress-bar-danger': isTemporary,'progress-bar-success': !isTemporary, 'vbar_active': Navigation == 3}">3</a>
-                                </li>
-                                <li>Court Details</li>
-                                <li>
-                                    <div class="progress vprogress">
-                                        <div [ngClass]="{'progress-bar-danger': isTemporary,'progress-bar-success': !isTemporary, 'vbar_active': Navigation > 3}"
-                                            class="progress-bar progress-bar-striped vbar_active" role="progressbar"
-                                            aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="pointer">
-                                    <a (click)="setNavigation(4)" class=""
-                                        [ngClass]="{'progress-bar-danger': isTemporary,'progress-bar-success': !isTemporary, 'vbar_active': Navigation == 4}">4</a>
-                                </li>
-                                <li>Payment Options</li>
-                                <li>
-                                    <div class="progress vprogress">
-                                        <div [ngClass]="{'progress-bar-danger': isTemporary,'progress-bar-success': !isTemporary, 'vbar_active': Navigation > 4}"
-                                            class="progress-bar progress-bar-striped vbar_active" role="progressbar"
-                                            aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="pointer">
-                                    <a (click)="setNavigation(5)" class=""
-                                        [ngClass]="{'progress-bar-danger': isTemporary ,'progress-bar-success': !isTemporary, 'vbar_active': Navigation == 5}">5</a>
-                                </li>
-                                <li>Declarations &amp; Submit</li>
+                                    </li>
+                                </ng-container>
                             </ul>
                         </div>
                     </div>
                     <div class="col-md-9">
-                        <div class="alert alert-info" role="alert" (click)="clog()">
+                        <div class="alert alert-info" role="alert">
                             <strong>Note:</strong> All fields marked with an asterisk (*) are required.
                         </div>
                         <form class="no-form" [formGroup]="stepForm">
-                            <ul class="d-flex mb-0"
-                                *ngIf="Navigation == 1 &&stepForm.get('plaintiff')?.value !== 'single party matter'">
-                                <li class="d-block pointer lw-tab" (click)="selectedClient = i"
-                                    [ngClass]="{'active': selectedClient == i || getPersonalInfo().length == 1}"
-                                    *ngFor="let client of getPersonalInfo(); let i = index">Client {{i+1}}</li>
+                            <ul class="d-flex mb-0 lw-inline"
+                                *ngIf="Navigation == 1 && showPersonalDetails && (stepForm.get('plaintiff')?.value !== 'single party matter')">
+                                <li class="d-block pointer lw-tab"
+                                    (click)="selectedClient = i; selectedType = 'plaintiff'"
+                                    [ngClass]="{'success': !isTemporary, 'danger': isTemporary, 'active': selectedClient == i && selectedType == 'plaintiff' || getClients('plaintiff')?.length == 1}"
+                                    *ngFor="let client of getClients('plaintiff'); let i = index">Plaintiff
+                                    ({{getClients('plaintiff')![i].value?.nickName?.length !== 0 ?
+                                    getClients('plaintiff')![i].value.nickName : i+1}})</li>
+                                <li class="d-block pointer lw-tab"
+                                    (click)="selectedClient = i; selectedType = 'defendant'"
+                                    [ngClass]="{'success': !isTemporary, 'danger': isTemporary, 'active': selectedClient == i && (getClients('plaintiff')?.length == 0 || selectedType == 'defendant'), 'ml-4': f && getClients('plaintiff')?.length !== 0, 'mr-0': l }"
+                                    *ngFor="let client of getClients('defendant'); let i = index; let f = first; let l = last">
+                                    Defendant ({{getClients('defendant')![i].value?.nickName?.length !== 0 ?
+                                    getClients('defendant')![i].value.nickName : i+1}})</li>
                             </ul>
                             <div class="lw-form">
-                                <!-- Personal Details -->
-                                <div *ngIf="Navigation == 1">
+                                <div *ngIf="Navigation === 1 && !showPersonalDetails">
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <label>*  Plaintiff/Claimant</label>
+                                            <label>*  Plaintiff > Plaintiff/Applicant/Petitioner</label>
                                         </div>
                                         <div class="col-md-8">
                                             <select class="w-100 selectpicker form-control" formControlName="plaintiff"
-                                                (change)="onSelectPlaintiff()">
+                                                (change)="onSelectClient('plaintiff')">
                                                 <option value="0">Please Select</option>
                                                 <option *ngFor="let no of selectPlaintiff">{{no}}</option>
                                             </select>
@@ -146,18 +97,74 @@
                                             <label>*  Defendant/Respondent</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <select class="w-100 selectpicker form-control">
+                                            <select class="w-100 selectpicker form-control" formControlName="defendant"
+                                                (change)="onSelectClient('defendant')">
                                                 <option value="0">Please Select</option>
-                                                <option>single party matter</option>
-                                                <option>No 1</option>
-                                                <option>No 2</option>
+                                                <option *ngFor="let no of selectPlaintiff">{{no}}</option>
                                             </select>
                                             <small class="text-muted">Select an appropriate option.</small>
                                         </div>
                                     </div>
-                                    <div formArrayName="personalInfo" *ngIf="Navigation == 1">
-                                        <div *ngFor="let client of getPersonalInfo(); let i = index"
+                                </div>
+                                <div *ngIf="Navigation === 1 && showPersonalDetails">
+                                    <ng-template #leader let-modal>
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Set Lead Client</h4>
+                                            <button type="button" class="close" aria-label="Close"
+                                                (click)="modal.dismiss('Cross click')">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form>
+                                                <div class="form-group">
+                                                    <label>You have already selected {{ leadType + ' (' +
+                                                        (getClients(leadType)![leadClient].value?.nickName?.length !== 0
+                                                        ? getClients(leadType)![leadClient].value.nickName :
+                                                        leadClient+1)+ ')' | titlecase}} as the lead. Do you want to
+                                                        change the lead?</label>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </ng-template>
+                                    <div *ngIf="selectedType == 'plaintiff'" formArrayName="plaintiffs">
+                                        <div *ngFor="let client of getClients('plaintiff'); let i = index"
                                             [hidden]="selectedClient !== i" [formGroupName]="i">
+                                            <div class="row">
+                                                <div class="col-md-4 d-flex align-items-center my-auto">
+                                                    <input type="checkbox" #isLeadPlaintiff
+                                                        (click)="setLead(i, 'plaintiff', isLeadPlaintiff, $event, leader);"
+                                                        name="isLead" [value]="false" formControlName="isLead">
+                                                    Lead
+                                                </div>
+                                                <div class="col-md-4 d-flex align-items-center my-auto">
+                                                    <input type="checkbox" #isClient name="isClient"
+                                                        (click)="setClient(true, i, 'plaintiff', isClient, isNonClient, $event)"
+                                                        [value]="false" formControlName="isClient">
+                                                    Client
+                                                </div>
+                                                <div class="col-md-4 d-flex align-items-center my-auto">
+                                                    <input type="checkbox" #isNonClient name="isNonClient"
+                                                        (click)="setClient(false, i, 'plaintiff', isClient, isNonClient, $event)"
+                                                        [value]="false" formControlName="isNonClient">
+                                                    Non-Client
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>* Title</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <select class="w-100 selectpicker form-control"
+                                                        formControlName="title">
+                                                        <option value="0">Please Select</option>
+                                                        <option [value]="i + 1"
+                                                            *ngFor="let title of FormData.titles; let i = index;">
+                                                            {{title}}</option>
+                                                    </select>
+                                                    <small class="text-muted">Select an appropriate option.</small>
+                                                </div>
+                                            </div>
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <label>* Name</label>
@@ -167,6 +174,32 @@
                                                         formControlName="name" />
                                                     <small class="text-muted">Note: Name exactly as appears on Photo
                                                         ID.</small>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>Nick Name</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" maxlength="200" class="form-control"
+                                                        formControlName="nickName" />
+                                                    <small class="text-muted">Note: Name exactly as appears on Photo
+                                                        ID.</small>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>* Gender</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <select class="w-100 selectpicker form-control"
+                                                        formControlName="gender">
+                                                        <option value="0">Please Select</option>
+                                                        <option [value]="i + 1"
+                                                            *ngFor="let gender of FormData.genders; let i = index;">
+                                                            {{gender}}</option>
+                                                    </select>
+                                                    <small class="text-muted">Select an appropriate option.</small>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -205,17 +238,19 @@
                                                     <label>Phone Number </label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <input type="text" maxlength="16" class="form-control" formControlName="phone" />
+                                                    <input type="text" maxlength="16" class="form-control"
+                                                        formControlName="phone" />
                                                     <small class="text-muted">Note: Only digits without spaces.
                                                         Example:07000111000</small>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-4">
-                                                    <label>Whatsaap Number</label>
+                                                    <label>WhatsApp Number</label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <input type="text" maxlength="16" class="form-control" formControlName="whatsApp"/>
+                                                    <input type="text" maxlength="16" class="form-control"
+                                                        formControlName="whatsApp" />
                                                     <small class="text-muted">Note: Only digits without spaces.
                                                         Example:02080111000</small>
                                                 </div>
@@ -227,16 +262,17 @@
                                                 <div class="col-md-8">
                                                     <input type="text" maxlength="200" class="form-control"
                                                         formControlName="email" />
-                                                    <small class="text-muted">Example: user@company-name.co.uk
+                                                    <small class="text-muted">Example: user@company-name.co.pk
                                                         (Optional)</small>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-4">
-                                                    <label for="inpADDRESS">*Client Address</label>
+                                                    <label for="inpADDRESS">*Address</label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <input type="text" maxlength="200" class="form-control" formControlName="clientAddress" />
+                                                    <input type="text" maxlength="200" class="form-control"
+                                                        formControlName="address" />
                                                     <small class="text-muted">Example: Flat A, 123 Abc Road, Xyx
                                                         Ave.</small>
                                                 </div>
@@ -246,7 +282,8 @@
                                                     <label for="inpADDRESS">*Company Address</label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <input type="text" maxlength="200" class="form-control" formControlName="companyAddress"/>
+                                                    <input type="text" maxlength="200" class="form-control"
+                                                        formControlName="companyAddress" />
                                                     <small class="text-muted">Example: Flat A, 123 Abc Road, Xyx
                                                         Ave.</small>
                                                 </div>
@@ -256,7 +293,8 @@
                                                     <label>* Other Details</label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <textarea class="form-control" formControlName="otherDetails" rows="3"></textarea>
+                                                    <textarea class="form-control" formControlName="otherDetails"
+                                                        rows="3"></textarea>
                                                     <small class="text-muted">Note: Any thing about you.</small>
                                                 </div>
                                             </div>
@@ -264,10 +302,12 @@
                                                 <div class="col-md-12">
                                                     <input type="checkbox" formControlName="isContactPerson" />
                                                     <span class="ml-3">Contact Person Details</span>
-                                                    <small class="text-muted">- If different from client details</small>
+                                                    <small class="text-muted">- If different from the General Contact
+                                                        Person</small>
                                                 </div>
                                             </div>
-                                            <div id="contact-person-detail" *ngIf="stepForm.value.personalInfo[i].isContactPerson">
+                                            <div id="contact-person-detail"
+                                                *ngIf="stepForm.value.plaintiffs[i].isContactPerson">
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <label>* Name</label>
@@ -305,7 +345,8 @@
                                                         <label>Phone Number </label>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <input type="text" maxlength="16" class="form-control" formControlName="cpPhone" />
+                                                        <input type="text" maxlength="16" class="form-control"
+                                                            formControlName="cpPhone" />
                                                         <small class="text-muted">Note: Only digits without spaces.
                                                             Example:07000111000</small>
                                                     </div>
@@ -315,7 +356,8 @@
                                                         <label>WhatsApp Number</label>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <input type="text" maxlength="16" class="form-control" formControlName="cpWhatsApp"/>
+                                                        <input type="text" maxlength="16" class="form-control"
+                                                            formControlName="cpWhatsApp" />
                                                         <small class="text-muted">Note: Only digits without spaces.
                                                             Example:02080111000</small>
                                                     </div>
@@ -336,7 +378,8 @@
                                                         <label for="inpADDRESS">*Client Address</label>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <input type="text" maxlength="200" class="form-control" formControlName="cpClientAddress"/>
+                                                        <input type="text" maxlength="200" class="form-control"
+                                                            formControlName="cpAddress" />
                                                         <small class="text-muted">Example: Flat A, 123 Abc Road, Xyx
                                                             Ave.</small>
                                                     </div>
@@ -346,52 +389,477 @@
                                                         <label>* Other Details</label>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <textarea class="form-control" formControlName="cpOtherDetails" id="" rows="3"></textarea>
+                                                        <textarea class="form-control" formControlName="cpOtherDetails"
+                                                            id="" rows="3"></textarea>
                                                         <small class="text-muted">Note: Any thing about you.</small>
                                                     </div>
+                                                </div>
+                                            </div>
+                                            <div class="input_fields_wrap3" formArrayName="applicants">
+                                                <div class="row dep_blk alert alert-info" role="alert"
+                                                    *ngFor="let applicant of getOtherApplicants('plaintiff', i); let a = index">
+                                                    <div class="col-md-4">
+                                                        <label>{{'Plaintiff - ' + (i+1) +
+                                                            (a+10).toString(36).toUpperCase()}}</label>
+                                                        <br>
+                                                        <button type="button" class="btn btn-primary"
+                                                            style="opacity:1; float:left;"
+                                                            (click)="removeApplicantData('plaintiff', i, a)">
+                                                            <span aria-hidden="true">×</span> Remove
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-8" formGroupName="{{a}}">
+                                                        <div class="row">
+                                                            <div class="col-md-4 d-flex align-items-center my-auto">
+                                                                <input type="checkbox" #isLeadDefendant
+                                                                    (click)="setLeadApplicant(i, 'plaintiff', isLeadDefendant, $event, leader);"
+                                                                    name="isLead" [value]="false"
+                                                                    formControlName="isLead">
+                                                                Lead
+                                                            </div>
+                                                            <div class="col-md-4 d-flex align-items-center my-auto">
+                                                                <input type="checkbox" #isClient name="isClient"
+                                                                    (click)="setClientApplicant(true, i, 'plaintiff', isClient, isNonClient, $event)"
+                                                                    [value]="false" formControlName="isClient">
+                                                                Client
+                                                            </div>
+                                                            <div class="col-md-4 d-flex align-items-center my-auto">
+                                                                <input type="checkbox" #isNonClient name="isNonClient"
+                                                                    (click)="setClientApplicant(false, i, 'plaintiff', isClient, isNonClient, $event)"
+                                                                    [value]="false" formControlName="isNonClient">
+                                                                Non-Client
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <label>* Name Of the Client</label>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <input type="text" maxlength="200" class="form-control"
+                                                                    formControlName="clientName" />
+                                                                <small class="text-muted">Note: Name exactly as appears
+                                                                    on Photo
+                                                                    ID.</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <label>* Father's Name</label>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <input type="text" maxlength="200" class="form-control"
+                                                                    formControlName="fatherName" />
+                                                                <small class="text-muted">Note: Name exactly as appears
+                                                                    on Photo
+                                                                    ID.</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <label>* Company Name</label>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <input type="text" maxlength="200" class="form-control"
+                                                                    formControlName="companyName" />
+                                                                <small class="text-muted">Note: Name exactly same
+                                                                    .</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <label>* CNIC</label>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <input type="text" maxlength="200" class="form-control"
+                                                                    formControlName="cnic" />
+                                                                <small class="text-muted">Note:Without Dashes.</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <label for="inpADDRESS">*Address</label>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <input type="text" maxlength="200" class="form-control"
+                                                                    formControlName="address" />
+                                                                <small class="text-muted">Example: Flat A, 123 Abc Road,
+                                                                    Xyx
+                                                                    Ave.</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <label for="inpADDRESS">*Company Address</label>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <input type="text" maxlength="200" class="form-control"
+                                                                    formControlName="companyAddress" />
+                                                                <small class="text-muted">Example: Flat A, 123 Abc Road,
+                                                                    Xyx
+                                                                    Ave.</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <label>* Fax</label>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <input type="text" maxlength="200" class="form-control"
+                                                                    formControlName="fax" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <label>Phone Number </label>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <input type="text" maxlength="16" class="form-control"
+                                                                    formControlName="phoneNumber" />
+                                                                <small class="text-muted">Note: Only digits without
+                                                                    spaces.
+                                                                    Example:07000111000</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <label>WhatsApp Number</label>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <input type="text" maxlength="16" class="form-control"
+                                                                    formControlName="whatsAppNumber" />
+                                                                <small class="text-muted">Note: Only digits without
+                                                                    spaces.
+                                                                    Example:02080111000</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <label>Email Address</label>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <input type="text" maxlength="200" class="form-control"
+                                                                    formControlName="clientEmail" />
+                                                                <small class="text-muted">Example:
+                                                                    user@company-name.co.pk
+                                                                    (Optional)</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <label>* Any Other Details</label>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <input type="text" maxlength="200" class="form-control"
+                                                                    formControlName="otherDetails" />
+                                                            </div>
+                                                        </div>
+                                                        <ng-container *ngIf="stepForm.value.plaintiffs[i].isNonClient">
+                                                            <div class="row">
+                                                                <div class="col-md-8">
+                                                                    <h3>Other party lawyer details </h3>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <label>* Name</label>
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" maxlength="200"
+                                                                        class="form-control"
+                                                                        formControlName="lawyerName" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <label>* Firm name</label>
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" maxlength="200"
+                                                                        class="form-control"
+                                                                        formControlName="lawyerFirmName" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <label for="inpADDRESS">* Address</label>
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" maxlength="200"
+                                                                        class="form-control"
+                                                                        formControlName="lawyerAddress" />
+                                                                    <small class="text-muted">Example: Flat A, 123 Abc
+                                                                        Road, Xyx
+                                                                        Ave.</small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <label>Phone Number </label>
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" maxlength="16"
+                                                                        class="form-control"
+                                                                        formControlName="lawyerPhoneNumber" />
+                                                                    <small class="text-muted">Note: Only digits without
+                                                                        spaces.
+                                                                        Example:07000111000</small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <label>Email</label>
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" maxlength="200"
+                                                                        class="form-control"
+                                                                        formControlName="lawyerEmail" />
+                                                                    <small class="text-muted">Example:
+                                                                        user@company-name.co.pk
+                                                                        (Optional)</small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <label>* Fax</label>
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" maxlength="200"
+                                                                        class="form-control"
+                                                                        formControlName="lawyerFax" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <label>WhatsApp Number</label>
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" maxlength="16"
+                                                                        class="form-control"
+                                                                        formControlName="lawyerWhatsAppNumber" />
+                                                                    <small class="text-muted">Note: Only digits without
+                                                                        spaces.
+                                                                        Example:02080111000</small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <label>* Other details specify</label>
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                    <textarea class="form-control"
+                                                                        formControlName="lawyerOtherDetails"
+                                                                        rows="3"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </ng-container>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h5>Other applicants / parties</h5>
+                                            <hr />
+                                            <div class="input_fields_wrap3"></div>
+                                            <div class="row" style="margin-top: 20px">
+                                                <div class="col-md-12">
+                                                    <button class="add_field_button3 btn btn-danger"
+                                                        (click)="addApplicantData('plaintiff', i)">
+                                                        <span class="fa fa-plus"></span>
+                                                        Add More Applicants
+                                                    </button>
                                                 </div>
                                             </div>
                                             <hr />
                                         </div>
                                     </div>
-                                    <div class="row" *ngIf="getOtherApplicants().length !== 0">
-                                        <div class="col-md-12">
-                                            <div ngbDropdown>
-                                                <a ngbDropdownToggle class="btn btn-primary">
-                                                    <i class="glyphicon glyphicon-th"></i> Appropriate
-                                                </a>
-                                                <ul ngbDropdownMenu>
-                                                    <li class="pointer" ngbDropdownItem>
-                                                        <a (click)="selectAppropriate('Plaintiff') ">
-                                                            Plaintiff/Claimants</a>
-                                                    </li>
-                                                    <li class="pointer" ngbDropdownItem>
-                                                        <a (click)="selectAppropriate('Defendant')">
-                                                            Defendant/Respondent</a>
-                                                    </li>
-                                                </ul>
+                                    <div *ngIf="(getClients('plaintiff')?.length == 0 || selectedType == 'defendant')"
+                                        formArrayName="defendants">
+                                        <div *ngFor="let client of getClients('defendant'); let i = index"
+                                            [hidden]="selectedClient !== i" [formGroupName]="i">
+                                            <div class="row">
+                                                <div class="col-md-4 d-flex align-items-center my-auto">
+                                                    <input type="checkbox" #isLeadDefendant
+                                                        (click)="setLead(i, 'defendant', isLeadDefendant, $event, leader);"
+                                                        name="isLead" [value]="false" formControlName="isLead">
+                                                    Lead
+                                                </div>
+                                                <div class="col-md-4 d-flex align-items-center my-auto">
+                                                    <input type="checkbox" #isClient name="isClient"
+                                                        (click)="setClient(true, i, 'defendant', isClient, isNonClient, $event)"
+                                                        [value]="false" formControlName="isClient">
+                                                    Client
+                                                </div>
+                                                <div class="col-md-4 d-flex align-items-center my-auto">
+                                                    <input type="checkbox" #isNonClient name="isNonClient"
+                                                        (click)="setClient(false, i, 'defendant', isClient, isNonClient, $event)"
+                                                        [value]="false" formControlName="isNonClient">
+                                                    Non-Client
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="input_fields_wrap3" formArrayName="clients">
-                                        <div class="row dep_blk alert alert-info" role="alert"
-                                            *ngFor="let applicant of getOtherApplicants(); let i = index">
-                                            <div class="col-md-4">
-                                                <label>Other applicants / parties </label>
-                                                <br>
-                                                <button type="button" class="btn btn-primary"
-                                                    style="opacity:1; float:left;" (click)="removeApplicantData(i)">
-                                                    <span aria-hidden="true">×</span> Remove
-                                                </button>
+
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>* Title</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <select class="w-100 selectpicker form-control"
+                                                        formControlName="title">
+                                                        <option value="0">Please Select</option>
+                                                        <option [value]="i + 1"
+                                                            *ngFor="let title of FormData.titles; let i = index;">
+                                                            {{title}}</option>
+                                                    </select>
+                                                    <small class="text-muted">Select an appropriate option.</small>
+                                                </div>
                                             </div>
-                                            <div class="col-md-8" formGroupName="{{i}}">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>* Name</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" maxlength="200" class="form-control"
+                                                        formControlName="name" />
+                                                    <small class="text-muted">Note: Name exactly as appears on Photo
+                                                        ID.</small>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>Nick Name</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" maxlength="200" class="form-control"
+                                                        formControlName="nickName" />
+                                                    <small class="text-muted">Note: Name exactly as appears on Photo
+                                                        ID.</small>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>* Gender</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <select class="w-100 selectpicker form-control"
+                                                        formControlName="gender">
+                                                        <option value="0">Please Select</option>
+                                                        <option [value]="i + 1"
+                                                            *ngFor="let gender of FormData.genders; let i = index;">
+                                                            {{gender}}</option>
+                                                    </select>
+                                                    <small class="text-muted">Select an appropriate option.</small>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>* Father's Name</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" maxlength="200" class="form-control"
+                                                        formControlName="fatherName" />
+                                                    <small class="text-muted">Note: Name exactly as appears on Photo
+                                                        ID.</small>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>* Company Name(if any) </label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" maxlength="200" class="form-control"
+                                                        formControlName="companyName" />
+                                                    <small class="text-muted">Note: Name exactly same .</small>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>* CNIC</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" maxlength="200" class="form-control"
+                                                        formControlName="CNIC" />
+                                                    <small class="text-muted">Note: Without dashes.</small>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>Phone Number </label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" maxlength="16" class="form-control"
+                                                        formControlName="phone" />
+                                                    <small class="text-muted">Note: Only digits without spaces.
+                                                        Example:07000111000</small>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>WhatsApp Number</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" maxlength="16" class="form-control"
+                                                        formControlName="whatsApp" />
+                                                    <small class="text-muted">Note: Only digits without spaces.
+                                                        Example:02080111000</small>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>Email Address</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" maxlength="200" class="form-control"
+                                                        formControlName="email" />
+                                                    <small class="text-muted">Example: user@company-name.co.pk
+                                                        (Optional)</small>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label for="inpADDRESS">*Address</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" maxlength="200" class="form-control"
+                                                        formControlName="address" />
+                                                    <small class="text-muted">Example: Flat A, 123 Abc Road, Xyx
+                                                        Ave.</small>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label for="inpADDRESS">*Company Address</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" maxlength="200" class="form-control"
+                                                        formControlName="companyAddress" />
+                                                    <small class="text-muted">Example: Flat A, 123 Abc Road, Xyx
+                                                        Ave.</small>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>* Other Details</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <textarea class="form-control" formControlName="otherDetails"
+                                                        rows="3"></textarea>
+                                                    <small class="text-muted">Note: Any thing about you.</small>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <input type="checkbox" formControlName="isContactPerson" />
+                                                    <span class="ml-3">Contact Person Details</span>
+                                                    <small class="text-muted">- If different from the General Contact
+                                                        Person</small>
+                                                </div>
+                                            </div>
+                                            <div id="contact-person-detail"
+                                                *ngIf="stepForm.value.defendants[i].isContactPerson">
                                                 <div class="row">
                                                     <div class="col-md-4">
-                                                        <label>* Name Of the Client</label>
+                                                        <label>* Name</label>
                                                     </div>
                                                     <div class="col-md-8">
                                                         <input type="text" maxlength="200" class="form-control"
-                                                            formControlName="clientName" />
+                                                            formControlName="cpName" />
                                                         <small class="text-muted">Note: Name exactly as appears on Photo
                                                             ID.</small>
                                                     </div>
@@ -402,19 +870,9 @@
                                                     </div>
                                                     <div class="col-md-8">
                                                         <input type="text" maxlength="200" class="form-control"
-                                                            formControlName="fatherName" />
+                                                            formControlName="cpFatherName" />
                                                         <small class="text-muted">Note: Name exactly as appears on Photo
                                                             ID.</small>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <label>* Company Name</label>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <input type="text" maxlength="200" class="form-control"
-                                                            formControlName="companyName" />
-                                                        <small class="text-muted">Note: Name exactly same .</small>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -423,65 +881,8 @@
                                                     </div>
                                                     <div class="col-md-8">
                                                         <input type="text" maxlength="200" class="form-control"
-                                                            formControlName="cnic" />
-                                                        <small class="text-muted">Note:Without Dashes.</small>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <label for="inpADDRESS">*Client Address</label>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <input type="text" maxlength="200" class="form-control" formControlName="clientAddress"/>
-                                                        <small class="text-muted">Example: Flat A, 123 Abc Road, Xyx
-                                                            Ave.</small>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <label for="inpADDRESS">*Company Address</label>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <input type="text" maxlength="200" class="form-control" formControlName="companyAddress"/>
-                                                        <small class="text-muted">Example: Flat A, 123 Abc Road, Xyx
-                                                            Ave.</small>
-                                                    </div>
-                                                </div>
-                                                <div class="row" *ngIf="Appropriate">
-                                                    <div class="col-md-4">
-                                                        <label>*  Plaintiff/Claimant</label>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <select class="w-100 selectpicker form-control" formControlName="plaintiff">
-                                                            <option value="0">Please Select</option>
-                                                            <option>single party matter</option>
-                                                            <option>No 1</option>
-                                                            <option>No 2</option>
-                                                        </select>
-                                                        <small class="text-muted">Select an appropriate option.</small>
-                                                    </div>
-                                                </div>
-                                                <div class="row" *ngIf="!Appropriate">
-                                                    <div class="col-md-4">
-                                                        <label>*  Defendant/Respondent</label>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <select class="w-100 selectpicker form-control" formControlName="defendant">
-                                                            <option value="0">Please Select</option>
-                                                            <option>single party matter</option>
-                                                            <option>No 1</option>
-                                                            <option>No 2</option>
-                                                        </select>
-                                                        <small class="text-muted">Select an appropriate option.</small>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <label>* Fax</label>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <input type="text" maxlength="200" class="form-control"
-                                                            formControlName="fax" />
+                                                            formControlName="cpCNIC" />
+                                                        <small class="text-muted">Note: Without Dashes.</small>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -489,7 +890,8 @@
                                                         <label>Phone Number </label>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <input type="text" maxlength="16" class="form-control" formControlName="phoneNumber"/>
+                                                        <input type="text" maxlength="16" class="form-control"
+                                                            formControlName="cpPhone" />
                                                         <small class="text-muted">Note: Only digits without spaces.
                                                             Example:07000111000</small>
                                                     </div>
@@ -499,7 +901,8 @@
                                                         <label>WhatsApp Number</label>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <input type="text" maxlength="16" class="form-control" formControlName="whatsAppNumber"/>
+                                                        <input type="text" maxlength="16" class="form-control"
+                                                            formControlName="cpWhatsApp" />
                                                         <small class="text-muted">Note: Only digits without spaces.
                                                             Example:02080111000</small>
                                                     </div>
@@ -510,130 +913,420 @@
                                                     </div>
                                                     <div class="col-md-8">
                                                         <input type="text" maxlength="200" class="form-control"
-                                                            formControlName="clientEmail" />
+                                                            formControlName="cpEmail" />
                                                         <small class="text-muted">Example: user@company-name.co.uk
                                                             (Optional)</small>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-4">
-                                                        <label>* Any Other Details</label>
+                                                        <label for="inpADDRESS">*Client Address</label>
                                                     </div>
                                                     <div class="col-md-8">
                                                         <input type="text" maxlength="200" class="form-control"
-                                                            formControlName="otherDetails" />
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-8">
-                                                        <h3>Other party lawyer details </h3>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <label>* Name</label>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <input type="text" maxlength="200" class="form-control"
-                                                            formControlName="lawyerName" />
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <label>* Firm name</label>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <input type="text" maxlength="200" class="form-control"
-                                                            formControlName="lawyerFirmName" />
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <label for="inpADDRESS">* Address</label>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <input type="text" maxlength="200" class="form-control" formControlName="lawyerAddress"/>
+                                                            formControlName="cpAddress" />
                                                         <small class="text-muted">Example: Flat A, 123 Abc Road, Xyx
                                                             Ave.</small>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-4">
-                                                        <label>Phone Number </label>
+                                                        <label>* Other Details</label>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <input type="text" maxlength="16" class="form-control" formControlName="lawyerPhoneNumber" />
-                                                        <small class="text-muted">Note: Only digits without spaces.
-                                                            Example:07000111000</small>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <label>Email</label>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <input type="text" maxlength="200" class="form-control"
-                                                            formControlName="lawyerEmail" />
-                                                        <small class="text-muted">Example: user@company-name.co.uk
-                                                            (Optional)</small>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <label>* Fax</label>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <input type="text" maxlength="200" class="form-control"
-                                                            formControlName="lawyerFax" />
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <label>WhatsApp Number</label>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <input type="text" maxlength="16" class="form-control" formControlName="lawyerWhatsAppNumber"/>
-                                                        <small class="text-muted">Note: Only digits without spaces.
-                                                            Example:02080111000</small>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <label>* Other details specify</label>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <textarea class="form-control" formControlName="lawyerOtherDetails" rows="3"></textarea>
+                                                        <textarea class="form-control" formControlName="cpOtherDetails"
+                                                            id="" rows="3"></textarea>
+                                                        <small class="text-muted">Note: Any thing about you.</small>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="input_fields_wrap3" formArrayName="applicants">
+                                                <div class="row dep_blk alert alert-info" role="alert"
+                                                    *ngFor="let applicant of getOtherApplicants('defendant', i); let a = index">
+                                                    <div class="col-md-4">
+                                                        <label>{{'Defendant - ' + (i+1) +
+                                                            (a+10).toString(36).toUpperCase()}}</label>
+                                                        <br>
+                                                        <button type="button" class="btn btn-primary"
+                                                            style="opacity:1; float:left;"
+                                                            (click)="removeApplicantData('defendant', i, a)">
+                                                            <span aria-hidden="true">×</span> Remove
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-8" formGroupName="{{a}}">
+                                                        <div class="row">
+                                                            <div class="col-md-4 d-flex align-items-center my-auto">
+                                                                <input type="checkbox" #isLeadDefendant
+                                                                    (click)="setLeadApplicant(i, 'defendant', isLeadDefendant, $event, leader);"
+                                                                    name="isLead" [value]="false"
+                                                                    formControlName="isLead">
+                                                                Lead
+                                                            </div>
+                                                            <div class="col-md-4 d-flex align-items-center my-auto">
+                                                                <input type="checkbox" #isClient name="isClient"
+                                                                    (click)="setClientApplicant(true, i, 'defendant', isClient, isNonClient, $event)"
+                                                                    [value]="false" formControlName="isClient">
+                                                                Client
+                                                            </div>
+                                                            <div class="col-md-4 d-flex align-items-center my-auto">
+                                                                <input type="checkbox" #isNonClient name="isNonClient"
+                                                                    (click)="setClientApplicant(false, i, 'defendant', isClient, isNonClient, $event)"
+                                                                    [value]="false" formControlName="isNonClient">
+                                                                Non-Client
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <label>* Name Of the Client</label>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <input type="text" maxlength="200" class="form-control"
+                                                                    formControlName="clientName" />
+                                                                <small class="text-muted">Note: Name exactly as appears
+                                                                    on Photo
+                                                                    ID.</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <label>* Father's Name</label>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <input type="text" maxlength="200" class="form-control"
+                                                                    formControlName="fatherName" />
+                                                                <small class="text-muted">Note: Name exactly as appears
+                                                                    on Photo
+                                                                    ID.</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <label>* Company Name</label>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <input type="text" maxlength="200" class="form-control"
+                                                                    formControlName="companyName" />
+                                                                <small class="text-muted">Note: Name exactly same
+                                                                    .</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <label>* CNIC</label>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <input type="text" maxlength="200" class="form-control"
+                                                                    formControlName="cnic" />
+                                                                <small class="text-muted">Note:Without Dashes.</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <label for="inpADDRESS">*Address</label>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <input type="text" maxlength="200" class="form-control"
+                                                                    formControlName="address" />
+                                                                <small class="text-muted">Example: Flat A, 123 Abc Road,
+                                                                    Xyx
+                                                                    Ave.</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <label for="inpADDRESS">*Company Address</label>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <input type="text" maxlength="200" class="form-control"
+                                                                    formControlName="companyAddress" />
+                                                                <small class="text-muted">Example: Flat A, 123 Abc Road,
+                                                                    Xyx
+                                                                    Ave.</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <label>* Fax</label>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <input type="text" maxlength="200" class="form-control"
+                                                                    formControlName="fax" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <label>Phone Number </label>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <input type="text" maxlength="16" class="form-control"
+                                                                    formControlName="phoneNumber" />
+                                                                <small class="text-muted">Note: Only digits without
+                                                                    spaces.
+                                                                    Example:07000111000</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <label>WhatsApp Number</label>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <input type="text" maxlength="16" class="form-control"
+                                                                    formControlName="whatsAppNumber" />
+                                                                <small class="text-muted">Note: Only digits without
+                                                                    spaces.
+                                                                    Example:02080111000</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <label>Email Address</label>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <input type="text" maxlength="200" class="form-control"
+                                                                    formControlName="clientEmail" />
+                                                                <small class="text-muted">Example:
+                                                                    user@company-name.co.pk
+                                                                    (Optional)</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <label>* Any Other Details</label>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <input type="text" maxlength="200" class="form-control"
+                                                                    formControlName="otherDetails" />
+                                                            </div>
+                                                        </div>
+                                                        <ng-container *ngIf="stepForm.value.defendants[i].isNonClient">
+                                                            <div class="row">
+                                                                <div class="col-md-8">
+                                                                    <h3>Other party lawyer details </h3>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <label>* Name</label>
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" maxlength="200"
+                                                                        class="form-control"
+                                                                        formControlName="lawyerName" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <label>* Firm name</label>
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" maxlength="200"
+                                                                        class="form-control"
+                                                                        formControlName="lawyerFirmName" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <label for="inpADDRESS">* Address</label>
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" maxlength="200"
+                                                                        class="form-control"
+                                                                        formControlName="lawyerAddress" />
+                                                                    <small class="text-muted">Example: Flat A, 123 Abc
+                                                                        Road, Xyx
+                                                                        Ave.</small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <label>Phone Number </label>
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" maxlength="16"
+                                                                        class="form-control"
+                                                                        formControlName="lawyerPhoneNumber" />
+                                                                    <small class="text-muted">Note: Only digits without
+                                                                        spaces.
+                                                                        Example:07000111000</small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <label>Email</label>
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" maxlength="200"
+                                                                        class="form-control"
+                                                                        formControlName="lawyerEmail" />
+                                                                    <small class="text-muted">Example:
+                                                                        user@company-name.co.pk
+                                                                        (Optional)</small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <label>* Fax</label>
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" maxlength="200"
+                                                                        class="form-control"
+                                                                        formControlName="lawyerFax" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <label>WhatsApp Number</label>
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" maxlength="16"
+                                                                        class="form-control"
+                                                                        formControlName="lawyerWhatsAppNumber" />
+                                                                    <small class="text-muted">Note: Only digits without
+                                                                        spaces.
+                                                                        Example:02080111000</small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <label>* Other details specify</label>
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                    <textarea class="form-control"
+                                                                        formControlName="lawyerOtherDetails"
+                                                                        rows="3"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </ng-container>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h5>Other applicants / parties</h5>
+                                            <hr />
+                                            <div class="input_fields_wrap3"></div>
+                                            <div class="row" style="margin-top: 20px">
+                                                <div class="col-md-12">
+                                                    <button class="add_field_button3 btn btn-danger"
+                                                        (click)="addApplicantData('defendant', i)">
+                                                        <span class="fa fa-plus"></span>
+                                                        Add More Applicants
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <hr />
                                         </div>
                                     </div>
-                                    <h5>Other applicants / parties</h5>
-                                    <hr />
-                                    <div class="input_fields_wrap3"></div>
-                                    <div class="row" style="margin-bottom: 100px">
+                                    <div class="row">
                                         <div class="col-md-12">
-                                            <button class="add_field_button3 btn btn-danger"
-                                                (click)="addApplicantData()">
-                                                <span class="fa fa-plus"></span>
-                                                Add More Applicants
-                                            </button>
+                                            <span class="ml-3">General Contact Person Details</span>
+                                        </div>
+                                    </div>
+                                    <div id="contact-person-detail">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label>* Name</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" maxlength="200" class="form-control"
+                                                    formControlName="cpName" />
+                                                <small class="text-muted">Note: Name exactly as appears on Photo
+                                                    ID.</small>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label>* Father's Name</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" maxlength="200" class="form-control"
+                                                    formControlName="cpFatherName" />
+                                                <small class="text-muted">Note: Name exactly as appears on Photo
+                                                    ID.</small>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label>* CNIC</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" maxlength="200" class="form-control"
+                                                    formControlName="cpCNIC" />
+                                                <small class="text-muted">Note: Without Dashes.</small>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label>Phone Number </label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" maxlength="16" class="form-control"
+                                                    formControlName="cpPhone" />
+                                                <small class="text-muted">Note: Only digits without spaces.
+                                                    Example:07000111000</small>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label>WhatsApp Number</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" maxlength="16" class="form-control"
+                                                    formControlName="cpWhatsApp" />
+                                                <small class="text-muted">Note: Only digits without spaces.
+                                                    Example:02080111000</small>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label>Email Address</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" maxlength="200" class="form-control"
+                                                    formControlName="cpEmail" />
+                                                <small class="text-muted">Example: user@company-name.co.uk
+                                                    (Optional)</small>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label for="inpADDRESS">*Client Address</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" maxlength="200" class="form-control"
+                                                    formControlName="cpAddress" />
+                                                <small class="text-muted">Example: Flat A, 123 Abc Road, Xyx
+                                                    Ave.</small>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label>* Other Details</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <textarea class="form-control" formControlName="cpOtherDetails" id=""
+                                                    rows="3"></textarea>
+                                                <small class="text-muted">Note: Any thing about you.</small>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Personal Details End -->
-
-                                <!-- Case Details -->
                                 <div *ngIf="Navigation == 2">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label>*Client's Instructions</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <textarea class="form-control" formControlName="clientInstructions"
+                                                rows="3"></textarea>
+                                        </div>
+                                    </div>
                                     <div class="row">
                                         <div class="col-md-4">
                                             <label>* Categories</label>
                                         </div>
                                         <div class="col-md-8">
                                             <ng-select class="ng-select" [items]="categories" [multiple]="true"
-                                                bindLabel="categoryTitle" [selectableGroup]="true"
-                                                [closeOnSelect]="false" bindValue="categoryId"
-                                                placeholder="Please Select" formControlName="categoryIDs"
+                                                bindLabel="categoryTitle" [closeOnSelect]="false" bindValue="categoryId"
+                                                placeholder="Please Select" formControlName="categories"
                                                 (change)="getSubCategories()">
                                                 <ng-template ng-option-tmp let-item="item" let-item$="item$"
                                                     let-index="index">
@@ -642,19 +1335,68 @@
                                                         [ngModelOptions]="{standalone: true}" />
                                                     {{item.categoryTitle}}
                                                 </ng-template>
+                                                <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+                                                    <div class="ng-value py-1"
+                                                        *ngFor="let item of items; let f = first">
+                                                        <span class="ng-value-label">{{f ? item.categoryTitle + ' > ' :
+                                                            item.categoryTitle}}<strong *ngIf="f">Main
+                                                                Category</strong></span>
+                                                        <span class="ng-value-icon right" (click)="clear(item)"
+                                                            aria-hidden="true">×</span>
+                                                    </div>
+                                                </ng-template>
                                             </ng-select>
                                             <small class="text-muted">Select an appropriate option.</small>
                                         </div>
                                     </div>
-                                    <div class="row" *ngIf="stepForm.value.categoryIDs.length !== 1 || !stepForm.value.categoryIDs.includes(12)">
+                                    <div class="row"
+                                        *ngIf="stepForm.value.categories.length !== 1 || !stepForm.value.categories.includes(12)">
                                         <div class="col-md-4">
                                             <label>* Sub-Categories</label>
                                         </div>
                                         <div class="col-md-8">
                                             <ng-select class="ng-select" [items]="subCategories" [multiple]="true"
-                                                bindLabel="subCategoryTitle" [selectableGroup]="true"
-                                                [closeOnSelect]="false" bindValue="subCategoryId"
-                                                placeholder="Please Select" formControlName="subCategoryIDs">
+                                                bindLabel="subCategoryTitle" [closeOnSelect]="false"
+                                                bindValue="subCategoryId" placeholder="Please Select"
+                                                formControlName="subcategories">
+                                                <ng-template ng-option-tmp let-item="item" let-item$="item$"
+                                                    let-index="index">
+                                                    <input id="item-{{index}}" type="checkbox"
+                                                        [(ngModel)]="item$.selected"
+                                                        [ngModelOptions]="{standalone: true}" />
+                                                    {{item.subCategoryTitle}}
+                                                </ng-template>
+                                            </ng-select>
+                                            <small class="text-muted">Select an appropriate option.</small>
+                                        </div>
+                                    </div>
+                                    <div class="row" *ngIf="stepForm.value.categories.includes(12)">
+                                        <div class="col-md-4">
+                                            <label>* Sub-Category Offence</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <ng-select class="ng-select" [items]="subCategoriesOffense"
+                                                [multiple]="true" bindLabel="subCategoryTitle" [closeOnSelect]="false"
+                                                bindValue="subCategoryId" placeholder="Please Select">
+                                                <ng-template ng-option-tmp let-item="item" let-item$="item$"
+                                                    let-index="index">
+                                                    <input id="item-{{index}}" type="checkbox"
+                                                        [(ngModel)]="item$.selected"
+                                                        [ngModelOptions]="{standalone: true}" />
+                                                    {{item.subCategoryTitle}}
+                                                </ng-template>
+                                            </ng-select>
+                                            <small class="text-muted">Select an appropriate option.</small>
+                                        </div>
+                                    </div>
+                                    <div class="row" *ngIf="stepForm.value.categories.includes(12)">
+                                        <div class="col-md-4">
+                                            <label>* Sub-Category Description</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <ng-select class="ng-select" [items]="subCategoriesDescription"
+                                                [multiple]="true" bindLabel="subCategoryTitle" [closeOnSelect]="false"
+                                                bindValue="subCategoryId" placeholder="Please Select">
                                                 <ng-template ng-option-tmp let-item="item" let-item$="item$"
                                                     let-index="index">
                                                     <input id="item-{{index}}" type="checkbox"
@@ -678,57 +1420,16 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <label for="inpSUPERVISOR">* Case Supervisor</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <select class="w-100 selectpicker form-control" formControlName="caseSuperVisor">
-                                                <option value="0">Please Select</option>
-                                                <option *ngFor="let opt of FormData.caseSupervisors;let i = index"
-                                                    [value]="i + 1">
-                                                    {{ opt }}
-                                                </option>
-                                            </select>
-                                            <small class="text-muted">Select an appropriate option.</small>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label>* Caseworker</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <select class="w-100 selectpicker form-control" formControlName="caseworker">
-                                                <option value="0">Please Select</option>
-                                                <option *ngFor="let opt of FormData.caseWorkers; let i = index"
-                                                    [value]="i + 1">
-                                                    {{ opt }}
-                                                </option>
-                                            </select>
-                                            <small class="text-muted">Select an appropriate option.</small>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label>*Client's Instructions</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <textarea class="form-control" formControlName="clientInstructions" rows="3"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
                                             <label>*Case Instructions</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <select class="w-100 selectpicker form-control" formControlName="">
+                                            <select class="w-100 selectpicker form-control">
                                                 <option value="0">Please Select</option>
-                                                <option *ngFor="let opt of FormData.caseInstruction;let i = index"
+                                                <option *ngFor="let opt of FormData.caseInstruction; let i = index"
                                                     [value]="i + 1">
                                                     {{ opt }}
                                                 </option>
                                             </select>
-                                            <span class="fa fa-plus fa-lg m-3" role="button"
-                                                (click)="open(content)"></span>
-                                            <br />
                                             <small class="text-muted">Select an appropriate option.</small>
                                         </div>
                                     </div>
@@ -737,26 +1438,34 @@
                                             <label for="inpDESC">* Litigation Case Title</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <input type="text" maxlength="120" class="form-control"
-                                                formControlName="" />
+                                            <input type="text" maxlength="120" class="form-control" />
                                             <small class="text-muted">Example: Title</small>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <label for="inpDESC">*Substantive hearing date</label>
+                                            <label>Date of last hearing (if any)</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <input type="date" maxlength="120" class="form-control" formControlName=""
+                                            <input type="date" maxlength="120" class="form-control"
                                                 placeholder="yyyy-mm-dd" />
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <label for="inpDESC">* Interim hearing date (if any)</label>
+                                            <label>Date of next hearing (if any)</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <input type="date" maxlength="120" class="form-control" formControlName=""
+                                            <input type="date" maxlength="120" class="form-control"
+                                                placeholder="yyyy-mm-dd" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label>* Date of filing</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="date" maxlength="120" class="form-control"
                                                 placeholder="yyyy-mm-dd" />
                                         </div>
                                     </div>
@@ -765,8 +1474,7 @@
                                             <label for="inpDESC">* Court Case number</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <input type="text" maxlength="120" class="form-control"
-                                                formControlName="" />
+                                            <input type="text" maxlength="120" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="row">
@@ -774,7 +1482,8 @@
                                             <label for="inpADVICE">Advice given to the client</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <textarea class="form-control" formControlName="adviceGivenToClient" rows="3"></textarea>
+                                            <textarea class="form-control" formControlName="adviceGivenToClient"
+                                                rows="3"></textarea>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -782,7 +1491,8 @@
                                             <label for="inpPLAN">Agreed plan of action</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <textarea class="form-control" formControlName="agreedPlanOfAction" rows="3"></textarea>
+                                            <textarea class="form-control" formControlName="agreedPlanOfAction"
+                                                rows="3"></textarea>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -790,7 +1500,8 @@
                                             <label for="inpSUCCESS">* Chances of Success</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <select class="w-100 selectpicker form-control" formControlName="chancesOfSuccess">
+                                            <select class="w-100 selectpicker form-control"
+                                                formControlName="chancesOfSuccess">
                                                 <option value="0">Please Select</option>
                                                 <option *ngFor=" let opt of FormData.chancesOfSuccess;let i = index"
                                                     [value]="i + 1">
@@ -805,7 +1516,8 @@
                                             <label for="inpWEAKNESS">Weaknesses of case (if any)</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <textarea class="form-control" rows="3" formControlName="weaknessesOfCase"></textarea>
+                                            <textarea class="form-control" rows="3"
+                                                formControlName="weaknessesOfCase"></textarea>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -813,7 +1525,8 @@
                                             <label>* Conflicts of interest check made?</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <select class="w-100 selectpicker form-control" formControlName="conflictsOfInterest">
+                                            <select class="w-100 selectpicker form-control"
+                                                formControlName="conflictsOfInterest">
                                                 <option value="0">No</option>
                                                 <option value="1">Yes</option>
                                             </select>
@@ -829,15 +1542,18 @@
                                                 explain</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <textarea class="form-control" formControlName="conflictsOfInterestDesc" rows="3"></textarea>
+                                            <textarea class="form-control" formControlName="conflictsOfInterestDesc"
+                                                rows="3"></textarea>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <label>* Do you have any criminal convictions/trafficoffences/civil judgments in the UK or outside the UK?</label>
+                                            <label>* Do you have any criminal convictions/trafficoffences/civil
+                                                judgments in the Pakistan or outside the Pakistan?</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <select class="w-100 selectpicker form-control" formControlName="haveCriminalConviction">
+                                            <select class="w-100 selectpicker form-control"
+                                                formControlName="haveCriminalConviction">
                                                 <option value="0">No</option>
                                                 <option value="1">Yes</option>
                                             </select>
@@ -849,7 +1565,8 @@
                                             <label> If YES, please explain</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <textarea class="form-control" formControlName="criminalConvictionDesc" rows="3"></textarea>
+                                            <textarea class="form-control" formControlName="criminalConvictionDesc"
+                                                rows="3"></textarea>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -857,20 +1574,71 @@
                                             <label>Additional Information</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <textarea class="form-control" formControlName="addtionalInfo" rows="3"></textarea>
+                                            <textarea class="form-control" formControlName="addtionalInfo"
+                                                rows="3"></textarea>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Case Details End -->
-
-                                <!-- Court Details -->
                                 <div *ngIf="Navigation == 3">
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <label for="inpFEE">* Name Of The Court?</label>
+                                            <label>* Case Source</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <select class="w-100 selectpicker form-control">
+                                            <input type="text" maxlength="120" class="form-control"
+                                                formControlName="caseSource" />
+                                            <small class="text-muted">Example: Case Source</small>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label>* Case Owner</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" maxlength="120" class="form-control"
+                                                formControlName="caseOwner" />
+                                            <small class="text-muted">Example: Case Owner</small>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label>* Case Supervisor</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" maxlength="120" class="form-control"
+                                                formControlName="caseSuperVisor" />
+                                            <small class="text-muted">Example: Case Supervisor</small>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label>* Case Worker</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" maxlength="120" class="form-control"
+                                                formControlName="caseWorker" />
+                                            <small class="text-muted">Example: Case Worker</small>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label>* Case Clerk</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" maxlength="120" class="form-control"
+                                                formControlName="caseClerk" />
+                                            <small class="text-muted">Example: Case Clerk</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="Navigation == 4">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label for="inpFEE">* Name Of The Court</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <select class="w-100 selectpicker form-control"
+                                                formControlName="nameOfCourt">
                                                 <option value="0">Please Select</option>
                                                 <option *ngFor="let opt of FormData.courts; let i = index"
                                                     [value]="i + 1">
@@ -882,21 +1650,57 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <label>* Name Of the Judge</label>
+                                            <label for="inpFEE">* Type of Bench</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <input type="text" maxlength="200" class="form-control"
-                                                formControlName="" />
-                                            <small class="text-muted">Note: Exact Name.</small>
+                                            <select class="w-100 selectpicker form-control"
+                                                formControlName="typeOfBench" (change)="addJudges()">
+                                                <option *ngFor="let opt of FormData.benches;" [value]="opt.value">
+                                                    {{ opt.label }}
+                                                </option>
+                                            </select>
+                                            <small class="text-muted">Select an appropriate option.</small>
                                         </div>
                                     </div>
+                                    <ng-container formArrayName="judges">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label>* Name Of the Judge</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <ng-container
+                                                    *ngFor="let judge of $any(stepForm.controls.judges).controls; let j = index; let f = first; let l = last;">
+                                                    <input type="text" maxlength="200" class="form-control"
+                                                        [ngClass]="{'mt-2': !f}" formControlName="{{j}}" />
+                                                    <div class="d-flex align-items-start justify-content-between mt-2">
+                                                        <small class="text-muted">Note: Exact Name.</small>
+                                                        <span *ngIf="l">
+                                                            <button
+                                                                *ngIf="$any(this.stepForm.controls['judges']).controls.length !== 1"
+                                                                class="add_field_button0 btn btn-danger"
+                                                                [ngClass]="{'mr-2': $any(this.stepForm.controls['judges']).controls.length < stepForm.value.typeOfBench}"
+                                                                (click)="removeJudge(j)">
+                                                                <span class="fa fa-close"></span>
+                                                            </button>
+                                                            <button
+                                                                *ngIf="$any(this.stepForm.controls['judges']).controls.length < stepForm.value.typeOfBench"
+                                                                class="add_field_button0 btn btn-success"
+                                                                (click)="addJudge()">
+                                                                <span class="fa fa-plus"></span>
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                </ng-container>
+                                            </div>
+                                        </div>
+                                    </ng-container>
                                     <div class="row">
                                         <div class="col-md-4">
                                             <label>* District/Bench/Tehsil</label>
                                         </div>
                                         <div class="col-md-8">
                                             <input type="text" maxlength="200" class="form-control"
-                                                formControlName="" />
+                                                formControlName="districtOrBenchOrTehsil" />
                                             <small class="text-muted">Note: Exact Name.</small>
                                         </div>
                                     </div>
@@ -905,176 +1709,12 @@
                                             <label>* Any Other Details</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <textarea class="form-control" id="" rows="3"></textarea>
+                                            <textarea class="form-control" rows="3"
+                                                formControlName="anyOtherDetails"></textarea>
                                             <small class="text-muted">Note: Details.</small>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Court details end -->
-                                <!-- peshi list start -->
-                                <div *ngIf="Navigation == 4">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label for="inpFEE">* File Ref.</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input type="text" maxlength="10" class="form-control" name="inpAGREED" />
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label for="inpCOVER">
-                                                * Court Case No.
-                                            </label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input type="text" maxlength="10" class="form-control" name="inpAGREED" />
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label for="inpAGREED">* Case Title</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input type="text" maxlength="10" class="form-control" name="inpAGREED" />
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label for="inpISVAT">
-                                                * Nature of Case
-                                            </label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input type="text" maxlength="10" class="form-control" name="inpAGREED" />
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label>* Categories</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <select class="w-100 selectpicker form-control"
-                                                formControlName="categoryId">
-                                                <option value="0">Please Select</option>
-                                                <option *ngFor="let opt of categories; let i = index"
-                                                    [value]="opt.categoryId">
-                                                    {{ opt.categoryTitle }}
-                                                </option>
-                                            </select>
-                                            <small class="text-muted">Select an appropriate option.</small>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label for="inpFEE">* Court</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <select class="w-100 selectpicker form-control">
-                                                <option value="0">Please Select</option>
-                                                <option *ngFor="let opt of FormData.courts; let i = index"
-                                                    [value]="i + 1">
-                                                    {{ opt }}
-                                                </option>
-                                            </select>
-                                            <small class="text-muted">Select an appropriate option.</small>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label>* Name Of the Judge</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input type="text" maxlength="200" class="form-control"
-                                                formControlName="" />
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label>* District/Bench</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input type="text" maxlength="200" class="form-control"
-                                                formControlName="" />
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label for="inpADVANCE">* Previous proceedings</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input type="text" maxlength="10" class="form-control" name="inpADVANCE" />
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label>Previous date</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input type="date" maxlength="10" class="form-control bt_datepicker span12"
-                                                name="inpINSTALMENT_DATE_1000" />
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label>Next date</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input type="date" maxlength="10" class="form-control bt_datepicker span12"
-                                                name="inpINSTALMENT_DATE_1000" />
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label>Remarks</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <textarea id="" rows="3" class="form-control"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label>Case Owner</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input type="text" maxlength="10" class="form-control" name="inpADVANCE" />
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label>Case Supervisor</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input type="text" maxlength="10" class="form-control" name="inpADVANCE" />
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label>Case worker</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input type="text" maxlength="10" class="form-control" name="inpADVANCE" />
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label>Case Clerk</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input type="text" maxlength="10" class="form-control" name="inpADVANCE" />
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label>Other party lawyer</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input type="text" maxlength="10" class="form-control" name="inpADVANCE" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- peshi list end -->
-                                <!-- payment start -->
                                 <div *ngIf="Navigation == 5">
                                     <div class="row">
                                         <div class="col-md-4">
@@ -1173,7 +1813,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row" style="margin-bottom: 100px">
+                                    <div class="row" style="margin-top: 20px">
                                         <div class="col-md-12">
                                             <button class="add_field_button0 btn btn-danger"
                                                 (click)="addInstallments()">
@@ -1183,11 +1823,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- payment end -->
                                 <div class="row">
                                     <div class="col-md-12 text-right">
                                         <button *ngIf="Navigation > 0 && Navigation < 6" class="btn btn-primary"
-                                            type="button" (click)="setNavigation(Navigation + 1)">
+                                            type="button"
+                                            (click)="showPersonalDetails ? setNavigation(Navigation + 1) : stepForm.value.plaintiffs?.length !== 0 || stepForm.value.defendants?.length !== 0 ? showPersonalDetails = true : setNavigation(Navigation + 1)">
                                             Continue
                                             <span class="fa fa-arrow-right"></span>
                                         </button>
@@ -1225,7 +1865,7 @@
             <div class="form-group">
                 <label for="dateOfBirth">Add More</label>
                 <div class="input-group">
-                    <input id="dateOfBirth" class="form-control" formControlName="" />
+                    <input id="dateOfBirth" class="form-control" />
                 </div>
             </div>
         </form>

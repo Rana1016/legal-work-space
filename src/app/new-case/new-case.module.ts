@@ -23,7 +23,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    NgSelectModule
+    NgSelectModule,
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

@@ -601,5 +601,11 @@
             "label": "Full Court",
             "value": 7
         }
+    ],
+    "seCircles": [
+        "SE-Circle 1",
+        "SE-Circle 2",
+        "SE-Circle 3",
+        "Add more option"
     ]
 }

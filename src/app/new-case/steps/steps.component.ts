@@ -69,9 +69,9 @@ export class StepsComponent implements OnInit {
     private fb: FormBuilder,
     private caseService: NewCaseStepsService,
     private modalService: NgbModal
-  ) {}
+  ) { }
   ngOnInit(): void {
-    if (this.router.url.includes('temp')) {this.isTemporary = true;}
+    if (this.router.url.includes('temp')) { this.isTemporary = true; }
     this.setNavigation(1);
     this.stepForm = this.fb.group({
       caseId: [0],
@@ -80,6 +80,7 @@ export class StepsComponent implements OnInit {
       howDidYouHear: [''],
       categoryId: [0],
       subCategoryId: [0],
+      lescoCase: [false],
       briefCaseDescription: [''],
       caseSource: [''],
       caseOwner: [''],
@@ -114,6 +115,7 @@ export class StepsComponent implements OnInit {
       clients: this.fb.array([]),
       installments: this.fb.array([]),
       // Requirements
+      plaintiffType: ['plaintiff'],
       plaintiff: [0],
       defendant: [0],
       thirdParty: [0],
@@ -134,18 +136,45 @@ export class StepsComponent implements OnInit {
       subcategories: [[]],
     });
     this.getCategories();
+
+    this.stepForm.controls.lescoCase.valueChanges.subscribe((bool) => {
+      if (bool) {
+        this.stepForm.addControl('lescoType', this.fb.control([null]));
+        this.stepForm.controls.lescoType.valueChanges.subscribe((val) => {
+          this.stepForm.removeControl('lescoGroup');
+          if (val == 'CLO') {
+            this.stepForm.addControl('lescoGroup', this.fb.group({
+              cloDivision: [''],
+              cloSubDivision: [''],
+              cloConsumerRef: [''],
+              cloClerkName: ['']
+            }))
+          } else if (val == 'SE') {
+            this.stepForm.addControl('lescoGroup', this.fb.group({
+              seCircle: [0],
+              seDivision: [''],
+              seSubDivision: [''],
+              seConsumer: [''],
+              seClerkName: ['']
+            }))
+          }
+        })
+      } else {
+        this.stepForm.removeControl('lescoType');
+      }
+    });
   }
 
   onSelectClient(type: string) {
     switch (type) {
       case ClientTypes.PLAINTIFF: {
         let count = this.stepForm.get(ClientTypes.PLAINTIFF)?.value;
-        (this.stepForm.get(ClientTypes.PLAINTIFF+'s') as FormArray).clear();
+        (this.stepForm.get(ClientTypes.PLAINTIFF + 's') as FormArray).clear();
         if (count == 'single party matter') {
           count = 1;
         }
         for (let i = 0; i < count; i++) {
-          (this.stepForm.get(ClientTypes.PLAINTIFF+'s') as FormArray).push(
+          (this.stepForm.get(ClientTypes.PLAINTIFF + 's') as FormArray).push(
             this.createClient()
           );
         }
@@ -153,12 +182,12 @@ export class StepsComponent implements OnInit {
       }
       case ClientTypes.DEFENDANT: {
         let count = this.stepForm.get(ClientTypes.DEFENDANT)?.value;
-        (this.stepForm.get(ClientTypes.DEFENDANT+'s') as FormArray).clear();
+        (this.stepForm.get(ClientTypes.DEFENDANT + 's') as FormArray).clear();
         if (count == 'single party matter') {
           count = 1;
         }
         for (let i = 0; i < count; i++) {
-          (this.stepForm.get(ClientTypes.DEFENDANT+'s') as FormArray).push(
+          (this.stepForm.get(ClientTypes.DEFENDANT + 's') as FormArray).push(
             this.createClient()
           );
         }
@@ -186,10 +215,13 @@ export class StepsComponent implements OnInit {
   getClients(type: string) {
     switch (type) {
       case ClientTypes.PLAINTIFF: {
-        return (this.stepForm.get(ClientTypes.PLAINTIFF+'s') as FormArray).controls;
+        return (this.stepForm.get(ClientTypes.PLAINTIFF + 's') as FormArray).controls;
       }
       case ClientTypes.DEFENDANT: {
-        return (this.stepForm.get(ClientTypes.DEFENDANT+'s') as FormArray).controls;
+        return (this.stepForm.get(ClientTypes.DEFENDANT + 's') as FormArray).controls;
+      }
+      case ClientTypes.THIRDPARTY: {
+        return (this.stepForm.get('thirdParties') as FormArray).controls;
       }
       default: {
         return
@@ -247,7 +279,7 @@ export class StepsComponent implements OnInit {
     switch (isClient) {
       case true: {
         if (checkNonClient.checked) {
-          (this.stepForm.controls[type+'s'] as FormArray).controls[i].patchValue({
+          (this.stepForm.controls[type !== ClientTypes.THIRDPARTY ? type + 's' : 'thirdParties'] as FormArray).controls[i].patchValue({
             isNonClient: false
           });
           checkNonClient.checked = false;
@@ -256,7 +288,7 @@ export class StepsComponent implements OnInit {
       }
       case false:
         if (checkClient.checked) {
-          (this.stepForm.controls[type+'s'] as FormArray).controls[i].patchValue({
+          (this.stepForm.controls[type !== ClientTypes.THIRDPARTY ? type + 's' : 'thirdParties'] as FormArray).controls[i].patchValue({
             isClient: false
           });
           checkClient.checked = false;
@@ -335,16 +367,16 @@ export class StepsComponent implements OnInit {
   }
 
   getOtherApplicants(type: string, i: number) {
-    return (((this.stepForm.controls[type+'s'] as FormArray).controls[i] as FormGroup).controls['applicants'] as FormArray).controls;
+    return (((this.stepForm.controls[type !== ClientTypes.THIRDPARTY ? type + 's' : 'thirdParties'] as FormArray).controls[i] as FormGroup).controls['applicants'] as FormArray).controls;
   }
 
   addApplicantData(type: string, i: number) {
-    this.applicantData = ((this.stepForm.controls[type+'s'] as FormArray).controls[i] as FormGroup).controls['applicants'] as FormArray;
+    this.applicantData = ((this.stepForm.controls[type !== ClientTypes.THIRDPARTY ? type + 's' : 'thirdParties'] as FormArray).controls[i] as FormGroup).controls['applicants'] as FormArray;
     this.applicantData.push(this.createApplicantForm());
   }
 
   removeApplicantData(type: string, i: number, a: number) {
-    const control = ((this.stepForm.controls[type+'s'] as FormArray).controls[i] as FormGroup).controls['applicants'] as FormArray;
+    const control = ((this.stepForm.controls[type !== ClientTypes.THIRDPARTY ? type + 's' : 'thirdParties'] as FormArray).controls[i] as FormGroup).controls['applicants'] as FormArray;
     control.removeAt(a);
   }
 
@@ -410,15 +442,15 @@ export class StepsComponent implements OnInit {
     this.caseService.getSubCategories(this.stepForm.value.categories).subscribe((res) => {
       Object.keys(res).forEach((key, i) => {
         if (this.stepForm.value.categories.includes(12)) {
-          this.subCategoriesOffense = [...this.subCategoriesOffense, ...res[key].filter((r: any) => r.categoryId == 12)];
-          this.subCategoriesDescription = [...this.subCategoriesDescription, ...res[key].filter((r: any) => r.categoryId == 13)];
+          this.subCategoriesDescription = [...this.subCategoriesDescription, ...res[key].filter((r: any) => r.categoryId == 12)];
+          this.subCategoriesOffense = [...this.subCategoriesOffense, ...res[key].filter((r: any) => r.categoryId == 13)];
           res[key] = res[key].filter((r: any) => r.categoryId !== 12)
           res[key] = res[key].filter((r: any) => r.categoryId !== 13)
         }
-        if (i !== Object.keys(res).length-1) {
+        if (i !== Object.keys(res).length - 1) {
           res[key] = res[key].filter((r: any) => r.subCategoryId !== 0)
         }
-          this.subCategories = [...this.subCategories, ...res[key]]
+        this.subCategories = [...this.subCategories, ...res[key]]
 
       })
     });

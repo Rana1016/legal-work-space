@@ -39,7 +39,7 @@
     <div class="widget">
       <div class="widget-body">
         <div class="row">
-          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+          <div class="col-sm-12 col-md-4 col-lg-4">
             <div class="dash_blocks dash_green">
               <p><strong>My Cases In-Progress</strong></p>
               <p class="dash_strong">
@@ -52,7 +52,7 @@
               </p>
             </div>
           </div>
-          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+          <div class="col-sm-12 col-md-4 col-lg-4">
             <div class="dash_blocks dash_red">
               <p><strong>My Closed Cases</strong></p>
               <p class="dash_strong">
@@ -65,7 +65,7 @@
               </p>
             </div>
           </div>
-          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+          <div class="col-sm-12 col-md-4 col-lg-4">
             <div class="dash_blocks dash_yellow">
               <p><strong>My Total Cases</strong></p>
               <p class="dash_strong">
@@ -89,10 +89,10 @@
     <div class="widget">
       <div class="widget-body">
         <div class="row">
-          <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+          <div class="col-sm-4 col-md-4 col-lg-4">
             <h5 style="margin-bottom: 20px;">My Cases</h5>
           </div>
-          <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 toolbar">
+          <div class="col-sm-12 col-md-8 col-lg-8 toolbar">
             <strong class="lw-fs-15 lw-mr-10">YEAR:</strong>
             <select [(ngModel)]="selectedYear" class="min-select" (ngModelChange)="changeYear()">
               <option *ngFor="let year of registrationYears" [value]="year">{{year}}</option>
@@ -100,11 +100,11 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+          <div class="col-sm-12 col-md-8 col-lg-8">
             <highcharts-chart style="width: 100%; height: 500px; display: block;" class="my-auto"
               [Highcharts]="caseChart" [options]="caseChartOpt"></highcharts-chart>
           </div>
-          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+          <div class="col-sm-12 col-md-4 col-lg-4">
             <table class="table table-striped table-bordered" cellspacing="0" width="100%" style="margin-top: 6px;">
               <thead>
                 <tr>
@@ -133,7 +133,7 @@
 </div>
 
 <div class="row">
-  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+  <div class="col-sm-12 col-md-6 col-lg-6">
     <div class="widget">
       <div class="widget-body">
         <div class="row">
@@ -145,7 +145,7 @@
       </div>
     </div>
   </div>
-  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+  <div class="col-sm-12 col-md-6 col-lg-6">
     <div class="widget">
       <div class="widget-body">
         <div class="row">

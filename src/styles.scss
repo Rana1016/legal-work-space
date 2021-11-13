@@ -7,21 +7,40 @@
     url("assets/fonts/glyphicons-halflings-regular.woff") format("woff"),
     url("assets/fonts/glyphicons-halflings-regular.ttf") format("truetype");
 }
-@font-face {
-  font-family: "FontAwesome";
-  src: url("assets/fonts/fontawesome-webfont.eot?v=4.7.0");
-  src: url("assets/fonts/fontawesome-webfont.eot?#iefix&v=4.7.0")
-      format("embedded-opentype"),
-    url("assets/fonts/fontawesome-webfont.woff2?v=4.7.0") format("woff2"),
-    url("assets/fonts/fontawesome-webfont.woff?v=4.7.0") format("woff"),
-    url("assets/fonts/fontawesome-webfont.ttf?v=4.7.0") format("truetype");
-}
+
 @import "~@ng-select/ng-select/themes/default.theme.css";
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #cecfd1;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  border-radius: 10px;
+  background-color: #ababac;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
 .badge {
   background-color: #ff9600;
   border: 2px solid #ff9600;
@@ -280,10 +299,5 @@
       color: #c20000;
       background-color: #fff;
     }
-  }
-}
-.progress-bar-active {
-  &.primary {
-    
   }
 }

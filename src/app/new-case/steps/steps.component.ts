@@ -11,7 +11,8 @@ import { NewCaseStepsService } from 'src/app/shared/services/new-case-steps.serv
 
 enum ClientTypes {
   PLAINTIFF = 'plaintiff',
-  DEFENDANT = 'defendant'
+  DEFENDANT = 'defendant',
+  THIRDPARTY = 'thirdParty'
 }
 @Component({
   selector: 'app-steps',
@@ -115,8 +116,10 @@ export class StepsComponent implements OnInit {
       // Requirements
       plaintiff: [0],
       defendant: [0],
+      thirdParty: [0],
       plaintiffs: this.fb.array([]),
       defendants: this.fb.array([]),
+      thirdParties: this.fb.array([]),
       isContactPerson: [false],
       cpName: [''],
       cpFatherName: [''],
@@ -156,6 +159,19 @@ export class StepsComponent implements OnInit {
         }
         for (let i = 0; i < count; i++) {
           (this.stepForm.get(ClientTypes.DEFENDANT+'s') as FormArray).push(
+            this.createClient()
+          );
+        }
+        break
+      }
+      case ClientTypes.THIRDPARTY: {
+        let count = this.stepForm.get(ClientTypes.THIRDPARTY)?.value;
+        (this.stepForm.get('thirdParties') as FormArray).clear();
+        if (count == 'single party matter') {
+          count = 1;
+        }
+        for (let i = 0; i < count; i++) {
+          (this.stepForm.get('thirdParties') as FormArray).push(
             this.createClient()
           );
         }

@@ -35,7 +35,7 @@ export class StepsComponent implements OnInit {
   selectedClient: number = 0;
   selectedType: string = ClientTypes.PLAINTIFF;
   leadClient!: any;
-  leadType!: string;
+  leadType!: any;
   showModal: boolean = false;
   isTemporary?: boolean;
   selectPlaintiff = ['single party matter', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -231,9 +231,7 @@ export class StepsComponent implements OnInit {
 
   createClient() {
     return this.fb.group({
-      isLead: [false],
-      isClient: [false],
-      isNonClient: [false],
+      status: [],
       title: [0],
       name: [''],
       nickName: [''],
@@ -261,49 +259,39 @@ export class StepsComponent implements OnInit {
     });
   }
 
-  setLead(c: number, type: string, isLead: HTMLInputElement, e: MouseEvent, modal: any) {
+  setLead(i: number, type: string, modal: any, e: MouseEvent) {
     if (this.leadClient == null) {
-      this.leadClient = c;
+      this.leadClient = i;
       this.leadType = type;
-    } else if ((this.leadClient == c && this.leadType == type)) {
-      isLead.checked = false;
+    } else if (this.leadClient == i && this.leadType == type) {
+      (<FormArray>this.stepForm.controls[type !== ClientTypes.THIRDPARTY ? type + 's' : 'thirdParties']!).controls[i]
+      .patchValue({
+        status: null
+      });
       this.leadClient = null;
+      this.leadType = null;
     } else {
-      isLead.checked = false;
+      (<FormArray>this.stepForm.controls[type !== ClientTypes.THIRDPARTY ? type + 's' : 'thirdParties']!).controls[i]
+      .patchValue({
+        status: null
+      });
       e.stopPropagation();
       this.open(modal)
     }
   }
 
-  setClient(isClient: boolean, i: number, type: string, checkClient: HTMLInputElement, checkNonClient: HTMLInputElement, e: MouseEvent) {
-    switch (isClient) {
-      case true: {
-        if (checkNonClient.checked) {
-          (this.stepForm.controls[type !== ClientTypes.THIRDPARTY ? type + 's' : 'thirdParties'] as FormArray).controls[i].patchValue({
-            isNonClient: false
-          });
-          checkNonClient.checked = false;
-        }
-        break
-      }
-      case false:
-        if (checkClient.checked) {
-          (this.stepForm.controls[type !== ClientTypes.THIRDPARTY ? type + 's' : 'thirdParties'] as FormArray).controls[i].patchValue({
-            isClient: false
-          });
-          checkClient.checked = false;
-        }
-        break
-    }
+  setStatus(i: number, type: string, e: MouseEvent) {
+    if ((<FormArray>this.stepForm.controls[type !== ClientTypes.THIRDPARTY ? type + 's' : 'thirdParties']!).controls[i].value.status == 'lead') {
+      this.leadClient = null;
+      this.leadType = null;
+    };
     e.stopPropagation();
   }
 
   createApplicantForm() {
     return this.fb.group({
       clientId: [0],
-      isLead: [false],
-      isClient: [false],
-      isNonClient: [false],
+      status: [null],
       isOtherApplicant: [true],
       clientName: [''],
       fatherName: [''],
@@ -347,7 +335,8 @@ export class StepsComponent implements OnInit {
     switch (isClient) {
       case true: {
         if (checkNonClient.checked) {
-          // (this.stepForm.controls[type+'s'] as FormArray).controls[i].patchValue({
+          // (this.stepForm.controls[type+'s'] as FormArray).controls[i]
+          // .patchValue({
           //   isNonClient: false
           // });
           checkNonClient.checked = false;
@@ -356,7 +345,8 @@ export class StepsComponent implements OnInit {
       }
       case false:
         if (checkClient.checked) {
-          // (this.stepForm.controls[type+'s'] as FormArray).controls[i].patchValue({
+          // (this.stepForm.controls[type+'s'] as FormArray).controls[i]
+          // .patchValue({
           //   isClient: false
           // });
           checkClient.checked = false;

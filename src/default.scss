@@ -216,6 +216,8 @@ form p.desc {
     padding-right: 15px;
     padding-left: 15px;
     padding-bottom: 100px;
+    max-height: 100%;
+    overflow-y: auto;
 }
 
 @media (min-width: 1200px) {
@@ -334,7 +336,7 @@ ul.dropdown-menu hr {
 
 .richtext,
 .mce-fullscreen {
-    z-index: 10000 !important;
+    z-index: 1000 !important;
 }
 
 .wflist td {
@@ -728,13 +730,6 @@ input.toolbar_search {
     margin-bottom: 5px;
 }
 
-div.datepicker {
-    z-index: 10002 !important;
-}
-
-.fa {
-    font-family: "FontAwesome" !important;
-}
 
 .blk_color {
     display: inline-block;
@@ -1916,7 +1911,7 @@ a.btn-default:focus {
         padding: 3px 10px;
         text-align: center;
         top: 0;
-        z-index: 10000;
+        z-index: 100;
     }
     @media (min-width: 990px) and (max-width: 1200px) {
         left: 20rem;
@@ -1926,7 +1921,7 @@ a.btn-default:focus {
         padding: 5px 10px;
         text-align: center;
         top: 0;
-        z-index: 10000;
+        z-index: 100;
     }
 }
 
@@ -2424,7 +2419,7 @@ a.btn-default:focus {
 /* MOBILE MENU - MODAL WINDOW [START] */
 
 .modal-left {
-    z-index: 10000;
+    z-index: 1000;
 }
 
 #mobile-menu-bar {
@@ -8548,14 +8543,6 @@ button.close {
     outline: 0;
     -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
     box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
-}
-
-.modal-backdrop {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    background-color: #000;
 }
 
 // .modal-backdrop.fade {

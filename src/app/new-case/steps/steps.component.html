@@ -69,10 +69,9 @@
                                     [ngClass]="{'success': !isTemporary, 'danger': isTemporary, 'active': selectedClient == i && selectedType == 'plaintiff' || getClients('plaintiff')?.length == 1, 'mr-0': l}"
                                     *ngFor="let client of getClients('plaintiff'); let i = index; let l = last;">
                                     <div class="d-flex align-items-center">
-                                        <span *ngIf="leadType == 'plaintiff' && leadClient == i"
+                                        <span *ngIf="stepForm.value.plaintiffs[i].status == 'lead'"
                                             class="fa fa-check-double mr-2"></span>
-                                        <span
-                                            *ngIf="(leadType !== 'plaintiff' || leadClient !== i) && stepForm.value.plaintiffs![i].isClient"
+                                        <span *ngIf="stepForm.value.plaintiffs[i].status == 'client'"
                                             class="fa fa-check mr-2"></span>
                                         {{stepForm.value.plaintiffType | titlecase}}
                                         ({{i+1}})
@@ -91,10 +90,9 @@
                                     [ngClass]="{'success': !isTemporary, 'danger': isTemporary, 'active': selectedClient == i && (getClients('plaintiff')?.length == 0 || selectedType == 'defendant'), 'mr-0': l}"
                                     *ngFor="let client of getClients('defendant'); let i = index; let l = last;">
                                     <div class="d-flex align-items-center">
-                                        <span *ngIf="leadType == 'defendant' && leadClient == i"
+                                        <span *ngIf="stepForm.value.defendants[i].status == 'lead'"
                                             class="fa fa-check-double mr-2"></span>
-                                        <span
-                                            *ngIf="(leadType !== 'defendant' || leadClient !== i) && stepForm.value.defendants![i].isClient"
+                                        <span *ngIf="stepForm.value.defendants[i].status == 'client'"
                                             class="fa fa-check mr-2"></span>
                                         Defendant
                                         ({{i+1}})
@@ -113,10 +111,9 @@
                                     [ngClass]="{'success': !isTemporary, 'danger': isTemporary, 'active': selectedClient == i && (getClients('plaintiff')?.length == 0 && getClients('defendant')?.length == 0 || selectedType == 'thirdParty'), 'mr-0': l}"
                                     *ngFor="let client of getClients('thirdParty'); let i = index; let l = last;">
                                     <div class="d-flex align-items-center">
-                                        <span *ngIf="leadType == 'thirdParty' && leadClient == i"
+                                        <span *ngIf="stepForm.value.thirdParties[i].status == 'lead'"
                                             class="fa fa-check-double mr-2"></span>
-                                        <span
-                                            *ngIf="(leadType !== 'thirdParty' || leadClient !== i) && stepForm.value.thirdParties![i].isClient"
+                                        <span *ngIf="stepForm.value.thirdParties[i].status == 'client'"
                                             class="fa fa-check mr-2"></span>
                                         Third Party
                                         ({{i+1}})
@@ -210,21 +207,18 @@
                                             [hidden]="selectedClient !== i" [formGroupName]="i">
                                             <div class="row">
                                                 <div class="col-md-4 d-flex align-items-center my-auto">
-                                                    <input type="checkbox" #isLeadPlaintiff
-                                                        (click)="setLead(i, 'plaintiff', isLeadPlaintiff, $event, leader);"
-                                                        name="isLead" [value]="false" formControlName="isLead">
+                                                    <input type="radio" value="lead" formControlName="status"
+                                                        (click)="setLead(i, 'plaintiff', leader, $event)">
                                                     Lead
                                                 </div>
                                                 <div class="col-md-4 d-flex align-items-center my-auto">
-                                                    <input type="checkbox" #isClient name="isClient"
-                                                        (click)="setClient(true, i, 'plaintiff', isClient, isNonClient, $event)"
-                                                        [value]="false" formControlName="isClient">
+                                                    <input type="radio" value="client" formControlName="status"
+                                                        (click)="setStatus(i, 'plaintiff', $event)">
                                                     Client
                                                 </div>
                                                 <div class="col-md-4 d-flex align-items-center my-auto">
-                                                    <input type="checkbox" #isNonClient name="isNonClient"
-                                                        (click)="setClient(false, i, 'plaintiff', isClient, isNonClient, $event)"
-                                                        [value]="false" formControlName="isNonClient">
+                                                    <input type="radio" value="nonClient" formControlName="status"
+                                                        (click)="setStatus(i, 'plaintiff', $event)">
                                                     Non-Client
                                                 </div>
                                             </div>
@@ -293,7 +287,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-4">
-                                                    <label>* Company Name(if any) </label>
+                                                    <label>* Company Name (if any) </label>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <input type="text" maxlength="200" class="form-control"
@@ -490,22 +484,18 @@
                                                     <div class="col-md-8" formGroupName="{{a}}">
                                                         <div class="row">
                                                             <div class="col-md-4 d-flex align-items-center my-auto">
-                                                                <input type="checkbox" #isLeadDefendant
-                                                                    (click)="setLeadApplicant(i, 'plaintiff', isLeadDefendant, $event, leader);"
-                                                                    name="isLead" [value]="false"
-                                                                    formControlName="isLead">
+                                                                <input type="radio" value="lead"
+                                                                    formControlName="status">
                                                                 Lead
                                                             </div>
                                                             <div class="col-md-4 d-flex align-items-center my-auto">
-                                                                <input type="checkbox" #isClient name="isClient"
-                                                                    (click)="setClientApplicant(true, i, 'plaintiff', isClient, isNonClient, $event)"
-                                                                    [value]="false" formControlName="isClient">
+                                                                <input type="radio" value="client"
+                                                                    formControlName="status">
                                                                 Client
                                                             </div>
                                                             <div class="col-md-4 d-flex align-items-center my-auto">
-                                                                <input type="checkbox" #isNonClient name="isNonClient"
-                                                                    (click)="setClientApplicant(false, i, 'plaintiff', isClient, isNonClient, $event)"
-                                                                    [value]="false" formControlName="isNonClient">
+                                                                <input type="radio" value="nonClient"
+                                                                    formControlName="status">
                                                                 Non-Client
                                                             </div>
                                                         </div>
@@ -755,21 +745,18 @@
                                             [hidden]="selectedClient !== i" [formGroupName]="i">
                                             <div class="row">
                                                 <div class="col-md-4 d-flex align-items-center my-auto">
-                                                    <input type="checkbox" #isLeadDefendant
-                                                        (click)="setLead(i, 'defendant', isLeadDefendant, $event, leader);"
-                                                        name="isLead" [value]="false" formControlName="isLead">
+                                                    <input type="radio" value="lead" formControlName="status"
+                                                        (click)="setLead(i, 'defendant', leader, $event)">
                                                     Lead
                                                 </div>
                                                 <div class="col-md-4 d-flex align-items-center my-auto">
-                                                    <input type="checkbox" #isClient name="isClient"
-                                                        (click)="setClient(true, i, 'defendant', isClient, isNonClient, $event)"
-                                                        [value]="false" formControlName="isClient">
+                                                    <input type="radio" value="client" formControlName="status"
+                                                        (click)="setStatus(i, 'defendant', $event)">
                                                     Client
                                                 </div>
                                                 <div class="col-md-4 d-flex align-items-center my-auto">
-                                                    <input type="checkbox" #isNonClient name="isNonClient"
-                                                        (click)="setClient(false, i, 'defendant', isClient, isNonClient, $event)"
-                                                        [value]="false" formControlName="isNonClient">
+                                                    <input type="radio" value="nonClient" formControlName="status"
+                                                        (click)="setStatus(i, 'defendant', $event)">
                                                     Non-Client
                                                 </div>
                                             </div>
@@ -839,7 +826,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-4">
-                                                    <label>* Company Name(if any) </label>
+                                                    <label>* Company Name (if any) </label>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <input type="text" maxlength="200" class="form-control"
@@ -1035,22 +1022,18 @@
                                                     <div class="col-md-8" formGroupName="{{a}}">
                                                         <div class="row">
                                                             <div class="col-md-4 d-flex align-items-center my-auto">
-                                                                <input type="checkbox" #isLeadDefendant
-                                                                    (click)="setLeadApplicant(i, 'defendant', isLeadDefendant, $event, leader);"
-                                                                    name="isLead" [value]="false"
-                                                                    formControlName="isLead">
+                                                                <input type="radio" value="lead"
+                                                                    formControlName="status">
                                                                 Lead
                                                             </div>
                                                             <div class="col-md-4 d-flex align-items-center my-auto">
-                                                                <input type="checkbox" #isClient name="isClient"
-                                                                    (click)="setClientApplicant(true, i, 'defendant', isClient, isNonClient, $event)"
-                                                                    [value]="false" formControlName="isClient">
+                                                                <input type="radio" value="client"
+                                                                    formControlName="status">
                                                                 Client
                                                             </div>
                                                             <div class="col-md-4 d-flex align-items-center my-auto">
-                                                                <input type="checkbox" #isNonClient name="isNonClient"
-                                                                    (click)="setClientApplicant(false, i, 'defendant', isClient, isNonClient, $event)"
-                                                                    [value]="false" formControlName="isNonClient">
+                                                                <input type="radio" value="nonClient"
+                                                                    formControlName="status">
                                                                 Non-Client
                                                             </div>
                                                         </div>
@@ -1300,21 +1283,18 @@
                                             [hidden]="selectedClient !== i" [formGroupName]="i">
                                             <div class="row">
                                                 <div class="col-md-4 d-flex align-items-center my-auto">
-                                                    <input type="checkbox" #isLeadThirdParty
-                                                        (click)="setLead(i, 'thirdParty', isLeadThirdParty, $event, leader);"
-                                                        name="isLead" [value]="false" formControlName="isLead">
+                                                    <input type="radio" value="lead" formControlName="status"
+                                                        (click)="setLead(i, 'thirdParty', leader, $event)">
                                                     Lead
                                                 </div>
                                                 <div class="col-md-4 d-flex align-items-center my-auto">
-                                                    <input type="checkbox" #isClient name="isClient"
-                                                        (click)="setClient(true, i, 'thirdParty', isClient, isNonClient, $event)"
-                                                        [value]="false" formControlName="isClient">
+                                                    <input type="radio" value="client" formControlName="status"
+                                                        (click)="setStatus(i, 'thirdParty', $event)">
                                                     Client
                                                 </div>
                                                 <div class="col-md-4 d-flex align-items-center my-auto">
-                                                    <input type="checkbox" #isNonClient name="isNonClient"
-                                                        (click)="setClient(false, i, 'thirdParty', isClient, isNonClient, $event)"
-                                                        [value]="false" formControlName="isNonClient">
+                                                    <input type="radio" value="nonClient" formControlName="status"
+                                                        (click)="setStatus(i, 'thirdParty', $event)">
                                                     Non-Client
                                                 </div>
                                             </div>
@@ -1384,7 +1364,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-4">
-                                                    <label>* Company Name(if any) </label>
+                                                    <label>* Company Name (if any) </label>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <input type="text" maxlength="200" class="form-control"
@@ -1580,22 +1560,18 @@
                                                     <div class="col-md-8" formGroupName="{{a}}">
                                                         <div class="row">
                                                             <div class="col-md-4 d-flex align-items-center my-auto">
-                                                                <input type="checkbox" #isLeadThirdParty
-                                                                    (click)="setLeadApplicant(i, 'thirdParty', isLeadThirdParty, $event, leader);"
-                                                                    name="isLead" [value]="false"
-                                                                    formControlName="isLead">
+                                                                <input type="radio" value="lead"
+                                                                    formControlName="status">
                                                                 Lead
                                                             </div>
                                                             <div class="col-md-4 d-flex align-items-center my-auto">
-                                                                <input type="checkbox" #isClient name="isClient"
-                                                                    (click)="setClientApplicant(true, i, 'thirdParty', isClient, isNonClient, $event)"
-                                                                    [value]="false" formControlName="isClient">
+                                                                <input type="radio" value="client"
+                                                                    formControlName="status">
                                                                 Client
                                                             </div>
                                                             <div class="col-md-4 d-flex align-items-center my-auto">
-                                                                <input type="checkbox" #isNonClient name="isNonClient"
-                                                                    (click)="setClientApplicant(false, i, 'thirdParty', isClient, isNonClient, $event)"
-                                                                    [value]="false" formControlName="isNonClient">
+                                                                <input type="radio" value="nonClient"
+                                                                    formControlName="status">
                                                                 Non-Client
                                                             </div>
                                                         </div>
@@ -2318,7 +2294,7 @@
                                                         [ngClass]="{'mt-2': !f}" formControlName="{{j}}" />
                                                     <div class="d-flex align-items-start justify-content-between mt-2">
                                                         <small class="text-muted">Note: Exact Name.</small>
-                                                        <span *ngIf="l">
+                                                        <!-- <span *ngIf="l">
                                                             <button
                                                                 *ngIf="$any(this.stepForm.controls['judges']).controls.length !== 1"
                                                                 class="add_field_button0 btn btn-danger"
@@ -2332,7 +2308,7 @@
                                                                 (click)="addJudge()">
                                                                 <span class="fa fa-plus"></span>
                                                             </button>
-                                                        </span>
+                                                        </span> -->
                                                     </div>
                                                 </ng-container>
                                             </div>

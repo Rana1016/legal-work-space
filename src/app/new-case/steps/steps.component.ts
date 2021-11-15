@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import FormData from '../../../assets/JSONs/FormData.json';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { NewCaseStepsService } from 'src/app/shared/services/new-case-steps.service';
+import { TitleCasePipe } from '@angular/common';
 
 enum ClientTypes {
   PLAINTIFF = 'plaintiff',
@@ -68,7 +69,8 @@ export class StepsComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private caseService: NewCaseStepsService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private capitalize: TitleCasePipe
   ) { }
   ngOnInit(): void {
     if (this.router.url.includes('temp')) { this.isTemporary = true; }
@@ -78,8 +80,6 @@ export class StepsComponent implements OnInit {
       isTemporaryCase: [this.isTemporary],
       modeOfCorrespondence: [''],
       howDidYouHear: [''],
-      categoryId: [0],
-      subCategoryId: [0],
       lescoCase: [false],
       briefCaseDescription: [''],
       caseSource: [''],
@@ -271,10 +271,13 @@ export class StepsComponent implements OnInit {
       this.leadClient = null;
       this.leadType = null;
     } else {
-      (<FormArray>this.stepForm.controls[type !== ClientTypes.THIRDPARTY ? type + 's' : 'thirdParties']!).controls[i]
-      .patchValue({
-        status: null
-      });
+        (<FormArray>this.stepForm.controls[type !== ClientTypes.THIRDPARTY ? type + 's' : 'thirdParties']!).controls[i]
+        .patchValue({
+          status: 
+          (<FormArray>this.stepForm.controls[type !== ClientTypes.THIRDPARTY ? type + 's' : 'thirdParties']!).controls[i].value.status == null ?
+          null :
+          (<FormArray>this.stepForm.controls[type !== ClientTypes.THIRDPARTY ? type + 's' : 'thirdParties']!).controls[i].value.status
+        });
       e.stopPropagation();
       this.open(modal)
     }
@@ -409,6 +412,24 @@ export class StepsComponent implements OnInit {
     control.removeAt(index);
   }
 
+  get caseTitle() {
+    let title = this.capitalize.transform(this.stepForm.value.plaintiffType);
+    if (this.stepForm.value.plaintiff == 'single party matter' && this.stepForm.value.defendant == 'single party matter') {
+      return `${title} vs Defendant`
+    } else if (this.stepForm.value.plaintiff  !== 0 && this.stepForm.value.defendant !== 0) {
+      if (this.stepForm.value.plaintiffs[0].nickName) {
+        return `${title} (1) - (${this.stepForm.value.plaintiffs[0].nickName.length <= 5 ? this.stepForm.value.plaintiffs[0].nickName : this.stepForm.value.plaintiffs[0].nickName.slice(0, 5) + '...' }) etc vs Defendant (1) etc`
+      } else if (this.stepForm.value.defendants[0].nickName) {
+        return `${title} (1) etc vs Defendant (1) (${this.stepForm.value.defendants[0].nickName.length <= 5 ? this.stepForm.value.defendants[0].nickName : this.stepForm.value.defendants[0].nickName.slice(0, 5) + '...' }) etc`
+      } else if (this.stepForm.value.plaintiffs[0].nickName && this.stepForm.value.defendants[0].nickName) {
+        return `${title} (1) - (${this.stepForm.value.plaintiffs[0].nickName.length <= 5 ? this.stepForm.value.plaintiffs[0].nickName : this.stepForm.value.plaintiffs[0].nickName.slice(0, 5) + '...' }) etc vs Defendant (1) - (${this.stepForm.value.defendants[0].nickName.length <= 5 ? this.stepForm.value.defendants[0].nickName : this.stepForm.value.defendants[0].nickName.slice(0, 5) + '...' }) etc`
+      } else {
+        return `${title} (1) etc vs Defendant (1) etc`  
+      }
+    }
+    return
+  }
+
   setNavigation(num: number) {
     this.Navigation = num;
   }
@@ -423,27 +444,33 @@ export class StepsComponent implements OnInit {
 
   getCategories() {
     this.caseService.getCategories().subscribe((res) => {
-      this.categories = res;
+      this.categories = res.filter(({categoryId}: any) => categoryId !== 11);
     });
   }
 
   getSubCategories() {
     this.subCategories = [];
-    this.caseService.getSubCategories(this.stepForm.value.categories).subscribe((res) => {
-      Object.keys(res).forEach((key, i) => {
-        if (this.stepForm.value.categories.includes(12)) {
-          this.subCategoriesDescription = [...this.subCategoriesDescription, ...res[key].filter((r: any) => r.categoryId == 12)];
-          this.subCategoriesOffense = [...this.subCategoriesOffense, ...res[key].filter((r: any) => r.categoryId == 13)];
-          res[key] = res[key].filter((r: any) => r.categoryId !== 12)
-          res[key] = res[key].filter((r: any) => r.categoryId !== 13)
-        }
-        if (i !== Object.keys(res).length - 1) {
-          res[key] = res[key].filter((r: any) => r.subCategoryId !== 0)
-        }
-        this.subCategories = [...this.subCategories, ...res[key]]
-
+    if (this.stepForm.value.categories.length == 0) {
+      this.stepForm.controls.subcategories?.reset()
+    } else {
+      this.caseService.getSubCategories(this.stepForm.value.categories).subscribe((res) => {
+        Object.keys(res).forEach((key, i) => {
+          if (this.stepForm.value.categories.includes(12)) {
+            this.subCategoriesDescription = [...this.subCategoriesDescription, ...res[key].filter((r: any) => r.categoryId == 12)];
+            this.subCategoriesOffense = [...this.subCategoriesOffense, ...res[key].filter((r: any) => r.categoryId == 13)];
+            res[key] = res[key].filter(({categoryId}: any) => categoryId !== 12)
+            res[key] = res[key].filter(({categoryId}: any) => categoryId !== 13)
+          }
+          if (i !== Object.keys(res).length - 1) {
+            res[key] = res[key].filter((r: any) => r.subCategoryId !== 0)
+          }
+          this.subCategories = [...this.subCategories, ...res[key]]
+        });
+        let subIDs = this.subCategories.map(({subCategoryId}) => subCategoryId);
+        this.stepForm.controls.subcategories
+        .setValue(this.stepForm.value.subcategories.filter((subCategoryId: any) => subIDs.includes(subCategoryId)))
       })
-    });
+    }
   }
 
   open(content: any) {

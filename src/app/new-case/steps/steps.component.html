@@ -33,7 +33,7 @@
         <div class="widget">
             <div class="widget-body">
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-3" *ngIf="showPersonalDetails">
                         <div class="steps">
                             <ul class="list-unstyled vbar">
                                 <ng-container *ngFor="let navItem of navItems; let i = index; let l = last;">
@@ -57,7 +57,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-md-9">
+                    <div [ngClass]="{'col-md-9': showPersonalDetails, 'col-md-12': !showPersonalDetails}">
                         <div class="alert alert-info" role="alert">
                             <strong>Note:</strong> All fields marked with an asterisk (*) are required.
                         </div>
@@ -129,15 +129,15 @@
                                 <div *ngIf="Navigation === 1 && !showPersonalDetails">
                                     <div class="row">
                                         <div class="col-4">
-                                            <input type="radio" value="plaintiff"
+                                            <input class="pointer" type="radio" value="plaintiff"
                                                 formControlName="plaintiffType">Plaintiff
                                         </div>
                                         <div class="col-4">
-                                            <input type="radio" value="applicant"
+                                            <input class="pointer" type="radio" value="applicant"
                                                 formControlName="plaintiffType">Applicant
                                         </div>
                                         <div class="col-4">
-                                            <input type="radio" value="petitioner"
+                                            <input class="pointer" type="radio" value="petitioner"
                                                 formControlName="plaintiffType">Petitioner
                                         </div>
                                     </div>
@@ -207,17 +207,17 @@
                                             [hidden]="selectedClient !== i" [formGroupName]="i">
                                             <div class="row">
                                                 <div class="col-md-4 d-flex align-items-center my-auto">
-                                                    <input type="radio" value="lead" formControlName="status"
+                                                    <input class="pointer" type="radio" value="lead" formControlName="status"
                                                         (click)="setLead(i, 'plaintiff', leader, $event)">
                                                     Lead
                                                 </div>
                                                 <div class="col-md-4 d-flex align-items-center my-auto">
-                                                    <input type="radio" value="client" formControlName="status"
+                                                    <input class="pointer" type="radio" value="client" formControlName="status"
                                                         (click)="setStatus(i, 'plaintiff', $event)">
                                                     Client
                                                 </div>
                                                 <div class="col-md-4 d-flex align-items-center my-auto">
-                                                    <input type="radio" value="nonClient" formControlName="status"
+                                                    <input class="pointer" type="radio" value="nonClient" formControlName="status"
                                                         (click)="setStatus(i, 'plaintiff', $event)">
                                                     Non-Client
                                                 </div>
@@ -484,17 +484,17 @@
                                                     <div class="col-md-8" formGroupName="{{a}}">
                                                         <div class="row">
                                                             <div class="col-md-4 d-flex align-items-center my-auto">
-                                                                <input type="radio" value="lead"
+                                                                <input class="pointer" type="radio" value="lead"
                                                                     formControlName="status">
                                                                 Lead
                                                             </div>
                                                             <div class="col-md-4 d-flex align-items-center my-auto">
-                                                                <input type="radio" value="client"
+                                                                <input class="pointer" type="radio" value="client"
                                                                     formControlName="status">
                                                                 Client
                                                             </div>
                                                             <div class="col-md-4 d-flex align-items-center my-auto">
-                                                                <input type="radio" value="nonClient"
+                                                                <input class="pointer" type="radio" value="nonClient"
                                                                     formControlName="status">
                                                                 Non-Client
                                                             </div>
@@ -745,17 +745,17 @@
                                             [hidden]="selectedClient !== i" [formGroupName]="i">
                                             <div class="row">
                                                 <div class="col-md-4 d-flex align-items-center my-auto">
-                                                    <input type="radio" value="lead" formControlName="status"
+                                                    <input class="pointer" type="radio" value="lead" formControlName="status"
                                                         (click)="setLead(i, 'defendant', leader, $event)">
                                                     Lead
                                                 </div>
                                                 <div class="col-md-4 d-flex align-items-center my-auto">
-                                                    <input type="radio" value="client" formControlName="status"
+                                                    <input class="pointer" type="radio" value="client" formControlName="status"
                                                         (click)="setStatus(i, 'defendant', $event)">
                                                     Client
                                                 </div>
                                                 <div class="col-md-4 d-flex align-items-center my-auto">
-                                                    <input type="radio" value="nonClient" formControlName="status"
+                                                    <input class="pointer" type="radio" value="nonClient" formControlName="status"
                                                         (click)="setStatus(i, 'defendant', $event)">
                                                     Non-Client
                                                 </div>
@@ -1022,17 +1022,17 @@
                                                     <div class="col-md-8" formGroupName="{{a}}">
                                                         <div class="row">
                                                             <div class="col-md-4 d-flex align-items-center my-auto">
-                                                                <input type="radio" value="lead"
+                                                                <input class="pointer" type="radio" value="lead"
                                                                     formControlName="status">
                                                                 Lead
                                                             </div>
                                                             <div class="col-md-4 d-flex align-items-center my-auto">
-                                                                <input type="radio" value="client"
+                                                                <input class="pointer" type="radio" value="client"
                                                                     formControlName="status">
                                                                 Client
                                                             </div>
                                                             <div class="col-md-4 d-flex align-items-center my-auto">
-                                                                <input type="radio" value="nonClient"
+                                                                <input class="pointer" type="radio" value="nonClient"
                                                                     formControlName="status">
                                                                 Non-Client
                                                             </div>
@@ -1283,17 +1283,17 @@
                                             [hidden]="selectedClient !== i" [formGroupName]="i">
                                             <div class="row">
                                                 <div class="col-md-4 d-flex align-items-center my-auto">
-                                                    <input type="radio" value="lead" formControlName="status"
+                                                    <input class="pointer" type="radio" value="lead" formControlName="status"
                                                         (click)="setLead(i, 'thirdParty', leader, $event)">
                                                     Lead
                                                 </div>
                                                 <div class="col-md-4 d-flex align-items-center my-auto">
-                                                    <input type="radio" value="client" formControlName="status"
+                                                    <input class="pointer" type="radio" value="client" formControlName="status"
                                                         (click)="setStatus(i, 'thirdParty', $event)">
                                                     Client
                                                 </div>
                                                 <div class="col-md-4 d-flex align-items-center my-auto">
-                                                    <input type="radio" value="nonClient" formControlName="status"
+                                                    <input class="pointer" type="radio" value="nonClient" formControlName="status"
                                                         (click)="setStatus(i, 'thirdParty', $event)">
                                                     Non-Client
                                                 </div>
@@ -1560,17 +1560,17 @@
                                                     <div class="col-md-8" formGroupName="{{a}}">
                                                         <div class="row">
                                                             <div class="col-md-4 d-flex align-items-center my-auto">
-                                                                <input type="radio" value="lead"
+                                                                <input class="pointer" type="radio" value="lead"
                                                                     formControlName="status">
                                                                 Lead
                                                             </div>
                                                             <div class="col-md-4 d-flex align-items-center my-auto">
-                                                                <input type="radio" value="client"
+                                                                <input class="pointer" type="radio" value="client"
                                                                     formControlName="status">
                                                                 Client
                                                             </div>
                                                             <div class="col-md-4 d-flex align-items-center my-auto">
-                                                                <input type="radio" value="nonClient"
+                                                                <input class="pointer" type="radio" value="nonClient"
                                                                     formControlName="status">
                                                                 Non-Client
                                                             </div>
@@ -1923,11 +1923,11 @@
                                     </div>
                                     <div class="row" *ngIf="stepForm.value.lescoCase">
                                         <div class="col-6">
-                                            <input type="radio" value="CLO" formControlName="lescoType">Chief Law
+                                            <input class="pointer" type="radio" value="CLO" formControlName="lescoType">Chief Law
                                             Officer
                                         </div>
                                         <div class="col-6">
-                                            <input type="radio" value="SE" formControlName="lescoType">Superintending
+                                            <input class="pointer" type="radio" value="SE" formControlName="lescoType">Superintending
                                             Engineer
                                         </div>
                                     </div>
@@ -2057,7 +2057,7 @@
                                         </div>
                                         <div class="col-md-8">
                                             <input type="text" maxlength="120" class="form-control"
-                                                [value]="stepForm.value.plaintiffType.charAt(0).toUpperCase() + stepForm.value.plaintiffType.slice(1) + ' ('+ (selectedClient+1) + ') vs Defendant'"
+                                                [value]="caseTitle"
                                                 disabled />
                                             <small class="text-muted">Example: Title</small>
                                         </div>
@@ -2260,7 +2260,7 @@
                                             <select class="w-100 selectpicker form-control"
                                                 formControlName="nameOfCourt">
                                                 <option value="0">Please Select</option>
-                                                <option *ngFor="let opt of FormData.courts; let i = index"
+                                                <option *ngFor="let opt of FormData.courts.sort(); let i = index"
                                                     [value]="i + 1">
                                                     {{ opt }}
                                                 </option>
@@ -2446,7 +2446,7 @@
                                 <div class="row">
                                     <div class="col-md-12 text-right">
                                         <button *ngIf="Navigation > 0 && Navigation < 6" class="btn btn-primary"
-                                            type="button"
+                                            type="button" [disabled]="stepForm.value.plaintiff == 0 || stepForm.value.defendant == 0"
                                             (click)="showPersonalDetails ? setNavigation(Navigation + 1) : stepForm.value.plaintiffs?.length !== 0 || stepForm.value.defendants?.length !== 0 || stepForm.value.thirdParties?.length !== 0 ? showPersonalDetails = true : setNavigation(Navigation + 1)">
                                             Continue
                                             <span class="fa fa-arrow-right"></span>

@@ -1,5 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, TitleCasePipe } from '@angular/common';
 
 import { NewCaseRoutingModule } from './new-case-routing.module';
 import { NewCaseComponent } from './new-case.component';
@@ -23,10 +23,13 @@ import { NgSelectModule } from '@ng-select/ng-select';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    NgSelectModule,
+    NgSelectModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
+  ],
+  providers: [
+    TitleCasePipe
   ]
 })
 export class NewCaseModule { }

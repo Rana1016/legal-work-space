@@ -6,6 +6,7 @@
     url("assets/fonts/glyphicons-halflings-regular.woff2") format("woff2"),
     url("assets/fonts/glyphicons-halflings-regular.woff") format("woff"),
     url("assets/fonts/glyphicons-halflings-regular.ttf") format("truetype");
+    font-display: block;
 }
 
 @import "~@ng-select/ng-select/themes/default.theme.css";
@@ -124,7 +125,7 @@
       font-weight: 600;
       text-decoration: none;
       cursor: pointer;
-      padding: 1.25rem 0.75rem;
+      padding: 0.25rem 0.75rem;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -183,11 +184,6 @@
   float: left;
 }
 [ngbdropdownmenu] {
-  .lw-header & {
-    top: 48px !important;
-    left: unset;
-    right: 0;
-  }
   & > li {
     &:active {
       background-color: unset;

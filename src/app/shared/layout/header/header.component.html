@@ -10,12 +10,12 @@
             </span>
         </div>
         <ul class="col-xs-3 col-sm-8 col-md-10 col-lg-10 d-none d-xl-flex nav main-menu">
-            <li ngbDropdown ngbDropdownToggle>
-                <a>
+            <li ngbDropdown>
+                <a ngbDropdownToggle class="nav-link" role="button">
                     <span class="glyphicon glyphicon-bell"></span> Notifications
                     <span class="badge">7</span>
                 </a>
-                <ul ngbDropdownMenu>
+                <ul ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
                     <li ngbDropdownItem>
                         <a>
                             <span class="glyphicon glyphicon-bell"></span> Instalments
@@ -34,9 +34,11 @@
                 </ul>
             </li>
 
-            <li ngbDropdown ngbDropdownToggle>
-                <a> <i class="fa fa-calculator"></i> Calculators </a>
-                <ul ngbDropdownMenu>
+            <li ngbDropdown>
+                <a ngbDropdownToggle class="nav-link" role="button">
+                    <i class="fa fa-calculator"></i> Calculators
+                </a>
+                <ul ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
                     <li ngbDropdownItem>
                         <a data-toggle="modal" data-target="#myModalVAT">
                             <i class="fa fa-calculator"></i> VAT Calculator
@@ -90,11 +92,11 @@
                     </li>
                 </ul>
             </li>
-            <li ngbDropdown ngbDropdownToggle class="no-caret">
-                <a>
+            <li ngbDropdown>
+                <a  ngbDropdownToggle class="nav-link no-caret" role="button">
                     <span style="font-size: 18px" class="glyphicon glyphicon-cog"></span>
                 </a>
-                <ul ngbDropdownMenu>
+                <ul ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
                     <li ngbDropdownItem>
                         <a [routerLink]="['/settings/global-settings']">
                             <span class="glyphicon glyphicon-cog"></span> Global Settings
@@ -163,14 +165,14 @@
                 </ul>
             </li>
 
-            <li ngbDropdown ngbDropdownToggle class="no-caret none">
-                <a>
+            <li ngbDropdown>
+                <a ngbDropdownToggle class="nav-link no-caret none" role="button">
                     <span class="badge green">
                         <span class="glyphicon glyphicon-user"></span> Dr. Mazhar Ilahi
                         <b class="hideme">DMI</b>
                     </span>
                 </a>
-                <ul ngbDropdownMenu>
+                <ul ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
                     <li ngbDropdownItem>
                         <a> <span class="fa fa-key"></span> Change Password </a>
                     </li>

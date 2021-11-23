@@ -1,20 +1,37 @@
+<ng-template #newOption let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">{{modalType == 'add' ? 'Add New': 'Edit'}} Option</h4>
+        <button type="button" class="close" aria-label="Close"
+            (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="optionForm">
+            <div class="form-group">
+                <label>{{modalType == 'add' ? 'Add new' : 'Edit'}} option {{modalType == 'add' ? 'to': 'in'}} {{control | titlecase}}</label>
+                <input class="w-100 form-control" formControlName="label"/>
+            </div>
+            <div class="w-100 d-flex justify-content-end">
+                <button class="btn btn-primary" (click)="addNewOption(modal)">{{modalType == 'add' ? 'Add' : 'Edit'}}</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
 <ng-container [formGroup]="$any($any(form.controls[type !== 'thirdParty' ? type + 's' : 'thirdParties']).controls)[index]">
-    <select class="w-100 selectpicker form-control" [formControlName]="control">
+    <select class="w-100 selectpicker form-control" #lwSELECT [formControlName]="control">
         <option value="0">Please Select</option>
-        <option [value]="i + 1" *ngFor="let option of options; let i = index">
-            {{ option }}
+        <option [value]="!bindValue ? i + 1 : option[bindValue]" *ngFor="let option of options; let i = index">
+            {{ !bindLabel ? option : option[bindLabel] }}
         </option>
     </select>
     <small class="text-muted">Select an appropriate option.</small>
     <span class="float-right mt-3">
-        <!-- <button
-            class="add_field_button0 btn btn-danger"
-            [ngClass]="{'mr-2': $any(this.form.controls['judges']).controls.length < stepForm.value.typeOfBench}"
-            (click)="removeJudge(j)">
-            <span class="fa fa-close"></span>
-        </button> -->
+         <button class="btn btn-primary mr-2" (click)="openModel('edit', newOption)" [disabled]="form.value[type !== 'thirdParty' ? type + 's' : 'thirdParties'][index][control] == 0 || form.value[type !== 'thirdParty' ? type + 's' : 'thirdParties'][index][control] == null">
+            <span class="fa fa-edit "></span>
+        </button>
         <button
-            class="add_field_button0 btn btn-success" (click)="addNewOption()">
+            class="btn btn-success" (click)="openModel('add', newOption)">
             <span class="fa fa-plus"></span>
         </button>
     </span>

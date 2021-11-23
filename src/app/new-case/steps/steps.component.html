@@ -227,14 +227,8 @@
                                                     <label>* Title</label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <select class="w-100 selectpicker form-control"
-                                                        formControlName="title">
-                                                        <option value="0">Please Select</option>
-                                                        <option [value]="i + 1"
-                                                            *ngFor="let title of FormData.titles; let i = index;">
-                                                            {{title}}</option>
-                                                    </select>
-                                                    <small class="text-muted">Select an appropriate option.</small>
+                                                    <lw-select [control]="'title'" [form]="stepForm" [options]="FormData.titles" [type]="'plaintiff'" [index]="i">
+                                                    </lw-select>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -264,8 +258,8 @@
                                                     <label>* Gender</label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <app-lw-select [control]="'gender'" [form]="stepForm" [options]="FormData.genders" [type]="'plaintiff'" [index]="i">
-                                                    </app-lw-select>
+                                                    <lw-select [control]="'gender'" [form]="stepForm" [options]="FormData.genders" [type]="'plaintiff'" [index]="i">
+                                                    </lw-select>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -760,14 +754,8 @@
                                                     <label>* Title</label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <select class="w-100 selectpicker form-control"
-                                                        formControlName="title">
-                                                        <option value="0">Please Select</option>
-                                                        <option [value]="i + 1"
-                                                            *ngFor="let title of FormData.titles; let i = index;">
-                                                            {{title}}</option>
-                                                    </select>
-                                                    <small class="text-muted">Select an appropriate option.</small>
+                                                    <lw-select [control]="'title'" [form]="stepForm" [options]="FormData.titles" [type]="'defendant'" [index]="i">
+                                                    </lw-select>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -797,14 +785,8 @@
                                                     <label>* Gender</label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <select class="w-100 selectpicker form-control"
-                                                        formControlName="gender">
-                                                        <option value="0">Please Select</option>
-                                                        <option [value]="i + 1"
-                                                            *ngFor="let gender of FormData.genders; let i = index;">
-                                                            {{gender}}</option>
-                                                    </select>
-                                                    <small class="text-muted">Select an appropriate option.</small>
+                                                    <lw-select [control]="'gender'" [form]="stepForm" [options]="FormData.genders" [type]="'defendant'" [index]="i">
+                                                    </lw-select>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -1298,14 +1280,8 @@
                                                     <label>* Title</label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <select class="w-100 selectpicker form-control"
-                                                        formControlName="title">
-                                                        <option value="0">Please Select</option>
-                                                        <option [value]="i + 1"
-                                                            *ngFor="let title of FormData.titles; let i = index;">
-                                                            {{title}}</option>
-                                                    </select>
-                                                    <small class="text-muted">Select an appropriate option.</small>
+                                                    <lw-select [control]="'title'" [form]="stepForm" [options]="FormData.titles" [type]="'thirdParty'" [index]="i">
+                                                    </lw-select>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -1335,14 +1311,8 @@
                                                     <label>* Gender</label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <select class="w-100 selectpicker form-control"
-                                                        formControlName="gender">
-                                                        <option value="0">Please Select</option>
-                                                        <option [value]="i + 1"
-                                                            *ngFor="let gender of FormData.genders; let i = index;">
-                                                            {{gender}}</option>
-                                                    </select>
-                                                    <small class="text-muted">Select an appropriate option.</small>
+                                                    <lw-select [control]="'gender'" [form]="stepForm" [options]="FormData.genders" [type]="'thirdParty'" [index]="i">
+                                                    </lw-select>
                                                 </div>
                                             </div>
                                             <div class="row">

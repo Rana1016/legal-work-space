@@ -70,8 +70,6 @@
                   declarations
                 </li>
               </ul>
-              <input type="hidden" name="inpTYPE" value="1" />
-              <input type="hidden" name="inpCASEID" value="0" />
               <button
                 class="lw-btn primary mr-3"
                 [routerLink]="['steps']"
@@ -88,8 +86,6 @@
           </div>
           <div class="col-sm-12 col-md-6 col-lg-6">
             <form
-              id="data_form2"
-              name="data_form2"
               class="form-horizontal"
               accept-charset="UTF-8"
               style="min-height: 250px"
@@ -106,11 +102,8 @@
                 type="text"
                 maxlength="16"
                 class="form-control search-box"
-                id="inpCASEID"
-                name="inpCASEID"
-                value=""
               />
-              <input type="hidden" name="inpTYPE" value="0" />
+              <input type="hidden" />
               <p id="case_result" style="margin: 10px 0">
                 Please enter a valid Case ID.
               </p>

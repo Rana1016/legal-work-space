@@ -1,0 +1,21 @@
+<ng-container [formGroup]="$any($any(form.controls[type !== 'thirdParty' ? type + 's' : 'thirdParties']).controls)[index]">
+    <select class="w-100 selectpicker form-control" [formControlName]="control">
+        <option value="0">Please Select</option>
+        <option [value]="i + 1" *ngFor="let option of options; let i = index">
+            {{ option }}
+        </option>
+    </select>
+    <small class="text-muted">Select an appropriate option.</small>
+    <span class="float-right mt-3">
+        <!-- <button
+            class="add_field_button0 btn btn-danger"
+            [ngClass]="{'mr-2': $any(this.form.controls['judges']).controls.length < stepForm.value.typeOfBench}"
+            (click)="removeJudge(j)">
+            <span class="fa fa-close"></span>
+        </button> -->
+        <button
+            class="add_field_button0 btn btn-success" (click)="addNewOption()">
+            <span class="fa fa-plus"></span>
+        </button>
+    </span>
+</ng-container>

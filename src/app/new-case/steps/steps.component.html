@@ -264,14 +264,8 @@
                                                     <label>* Gender</label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <select class="w-100 selectpicker form-control"
-                                                        formControlName="gender">
-                                                        <option value="0">Please Select</option>
-                                                        <option [value]="i + 1"
-                                                            *ngFor="let gender of FormData.genders; let i = index;">
-                                                            {{gender}}</option>
-                                                    </select>
-                                                    <small class="text-muted">Select an appropriate option.</small>
+                                                    <app-lw-select [control]="'gender'" [form]="stepForm" [options]="FormData.genders" [type]="'plaintiff'" [index]="i">
+                                                    </app-lw-select>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -311,7 +305,7 @@
                                                 </div>
                                                 <div class="col-md-8">
                                                     <input type="text" maxlength="16" class="form-control"
-                                                        formControlName="phone" />
+                                                        formControlName="phoneNumber" />
                                                     <small class="text-muted">Note: Only digits without spaces.
                                                         Example:07000111000</small>
                                                 </div>
@@ -418,7 +412,7 @@
                                                     </div>
                                                     <div class="col-md-8">
                                                         <input type="text" maxlength="16" class="form-control"
-                                                            formControlName="cpPhone" />
+                                                            formControlName="cpPhoneNumber" />
                                                         <small class="text-muted">Note: Only digits without spaces.
                                                             Example:07000111000</small>
                                                     </div>
@@ -472,8 +466,8 @@
                                                     *ngFor="let applicant of getOtherApplicants('plaintiff', i); let a = index">
                                                     <div class="col-md-4">
                                                         <label>{{stepForm.value.plaintiffType.charAt(0).toUpperCase() +
-                                                            stepForm.value.plaintiffType.slice(1) + ' (' + (i+1) +
-                                                            (a+10).toString(36).toUpperCase()}})</label>
+                                                            stepForm.value.plaintiffType.slice(1) + ' (' + (stepForm.value.plaintiffs[i].applicants[a].clientId+1) +
+                                                            (stepForm.value.plaintiffs[i].applicants[a].applicantId+10).toString(36).toUpperCase()}})</label>
                                                         <br>
                                                         <button type="button" class="btn btn-primary"
                                                             style="opacity:1; float:left;"
@@ -505,7 +499,7 @@
                                                             </div>
                                                             <div class="col-md-8">
                                                                 <input type="text" maxlength="200" class="form-control"
-                                                                    formControlName="clientName" />
+                                                                    formControlName="name" />
                                                                 <small class="text-muted">Note: Name exactly as appears
                                                                     on Photo
                                                                     ID.</small>
@@ -540,7 +534,7 @@
                                                             </div>
                                                             <div class="col-md-8">
                                                                 <input type="text" maxlength="200" class="form-control"
-                                                                    formControlName="cnic" />
+                                                                    formControlName="CNIC" />
                                                                 <small class="text-muted">Note:Without Dashes.</small>
                                                             </div>
                                                         </div>
@@ -595,7 +589,7 @@
                                                             </div>
                                                             <div class="col-md-8">
                                                                 <input type="text" maxlength="16" class="form-control"
-                                                                    formControlName="whatsAppNumber" />
+                                                                    formControlName="whatsApp" />
                                                                 <small class="text-muted">Note: Only digits without
                                                                     spaces.
                                                                     Example:02080111000</small>
@@ -607,7 +601,7 @@
                                                             </div>
                                                             <div class="col-md-8">
                                                                 <input type="text" maxlength="200" class="form-control"
-                                                                    formControlName="clientEmail" />
+                                                                    formControlName="email" />
                                                                 <small class="text-muted">Example:
                                                                     user@company-name.co.pk
                                                                     (Optional)</small>
@@ -622,7 +616,7 @@
                                                                     formControlName="otherDetails" />
                                                             </div>
                                                         </div>
-                                                        <ng-container *ngIf="stepForm.value.plaintiffs[i].isNonClient">
+                                                        <ng-container *ngIf="stepForm.value.plaintiffs[i].status == 'nonClient'">
                                                             <div class="row">
                                                                 <div class="col-md-8">
                                                                     <h3>Other party lawyer details </h3>
@@ -704,7 +698,7 @@
                                                                 <div class="col-md-8">
                                                                     <input type="text" maxlength="16"
                                                                         class="form-control"
-                                                                        formControlName="lawyerWhatsAppNumber" />
+                                                                        formControlName="lawyerWhatsApp" />
                                                                     <small class="text-muted">Note: Only digits without
                                                                         spaces.
                                                                         Example:02080111000</small>
@@ -730,7 +724,7 @@
                                             <div class="row" style="margin-top: 20px">
                                                 <div class="col-md-12">
                                                     <button class="add_field_button3 btn btn-danger"
-                                                        (click)="addApplicantData('plaintiff', i)">
+                                                        (click)="addApplicantData('plaintiff', i, leader)">
                                                         <span class="fa fa-plus"></span>
                                                         Add More Applicants
                                                     </button>
@@ -850,7 +844,7 @@
                                                 </div>
                                                 <div class="col-md-8">
                                                     <input type="text" maxlength="16" class="form-control"
-                                                        formControlName="phone" />
+                                                        formControlName="phoneNumber" />
                                                     <small class="text-muted">Note: Only digits without spaces.
                                                         Example:07000111000</small>
                                                 </div>
@@ -957,7 +951,7 @@
                                                     </div>
                                                     <div class="col-md-8">
                                                         <input type="text" maxlength="16" class="form-control"
-                                                            formControlName="cpPhone" />
+                                                            formControlName="cpPhoneNumber" />
                                                         <small class="text-muted">Note: Only digits without spaces.
                                                             Example:07000111000</small>
                                                     </div>
@@ -1043,7 +1037,7 @@
                                                             </div>
                                                             <div class="col-md-8">
                                                                 <input type="text" maxlength="200" class="form-control"
-                                                                    formControlName="clientName" />
+                                                                    formControlName="name" />
                                                                 <small class="text-muted">Note: Name exactly as appears
                                                                     on Photo
                                                                     ID.</small>
@@ -1078,7 +1072,7 @@
                                                             </div>
                                                             <div class="col-md-8">
                                                                 <input type="text" maxlength="200" class="form-control"
-                                                                    formControlName="cnic" />
+                                                                    formControlName="CNIC" />
                                                                 <small class="text-muted">Note:Without Dashes.</small>
                                                             </div>
                                                         </div>
@@ -1133,7 +1127,7 @@
                                                             </div>
                                                             <div class="col-md-8">
                                                                 <input type="text" maxlength="16" class="form-control"
-                                                                    formControlName="whatsAppNumber" />
+                                                                    formControlName="whatsApp" />
                                                                 <small class="text-muted">Note: Only digits without
                                                                     spaces.
                                                                     Example:02080111000</small>
@@ -1145,7 +1139,7 @@
                                                             </div>
                                                             <div class="col-md-8">
                                                                 <input type="text" maxlength="200" class="form-control"
-                                                                    formControlName="clientEmail" />
+                                                                    formControlName="email" />
                                                                 <small class="text-muted">Example:
                                                                     user@company-name.co.pk
                                                                     (Optional)</small>
@@ -1160,7 +1154,7 @@
                                                                     formControlName="otherDetails" />
                                                             </div>
                                                         </div>
-                                                        <ng-container *ngIf="stepForm.value.defendants[i].isNonClient">
+                                                        <ng-container *ngIf="stepForm.value.defendants[i].status == 'nonClient'">
                                                             <div class="row">
                                                                 <div class="col-md-8">
                                                                     <h3>Other party lawyer details </h3>
@@ -1242,7 +1236,7 @@
                                                                 <div class="col-md-8">
                                                                     <input type="text" maxlength="16"
                                                                         class="form-control"
-                                                                        formControlName="lawyerWhatsAppNumber" />
+                                                                        formControlName="lawyerWhatsApp" />
                                                                     <small class="text-muted">Note: Only digits without
                                                                         spaces.
                                                                         Example:02080111000</small>
@@ -1268,7 +1262,7 @@
                                             <div class="row" style="margin-top: 20px">
                                                 <div class="col-md-12">
                                                     <button class="add_field_button3 btn btn-danger"
-                                                        (click)="addApplicantData('defendant', i)">
+                                                        (click)="addApplicantData('defendant', i, leader)">
                                                         <span class="fa fa-plus"></span>
                                                         Add More Applicants
                                                     </button>
@@ -1388,7 +1382,7 @@
                                                 </div>
                                                 <div class="col-md-8">
                                                     <input type="text" maxlength="16" class="form-control"
-                                                        formControlName="phone" />
+                                                        formControlName="phoneNumber" />
                                                     <small class="text-muted">Note: Only digits without spaces.
                                                         Example:07000111000</small>
                                                 </div>
@@ -1495,7 +1489,7 @@
                                                     </div>
                                                     <div class="col-md-8">
                                                         <input type="text" maxlength="16" class="form-control"
-                                                            formControlName="cpPhone" />
+                                                            formControlName="cpPhoneNumber" />
                                                         <small class="text-muted">Note: Only digits without spaces.
                                                             Example:07000111000</small>
                                                     </div>
@@ -1581,7 +1575,7 @@
                                                             </div>
                                                             <div class="col-md-8">
                                                                 <input type="text" maxlength="200" class="form-control"
-                                                                    formControlName="clientName" />
+                                                                    formControlName="name" />
                                                                 <small class="text-muted">Note: Name exactly as appears
                                                                     on Photo
                                                                     ID.</small>
@@ -1616,7 +1610,7 @@
                                                             </div>
                                                             <div class="col-md-8">
                                                                 <input type="text" maxlength="200" class="form-control"
-                                                                    formControlName="cnic" />
+                                                                    formControlName="CNIC" />
                                                                 <small class="text-muted">Note:Without Dashes.</small>
                                                             </div>
                                                         </div>
@@ -1671,7 +1665,7 @@
                                                             </div>
                                                             <div class="col-md-8">
                                                                 <input type="text" maxlength="16" class="form-control"
-                                                                    formControlName="whatsAppNumber" />
+                                                                    formControlName="whatsApp" />
                                                                 <small class="text-muted">Note: Only digits without
                                                                     spaces.
                                                                     Example:02080111000</small>
@@ -1683,7 +1677,7 @@
                                                             </div>
                                                             <div class="col-md-8">
                                                                 <input type="text" maxlength="200" class="form-control"
-                                                                    formControlName="clientEmail" />
+                                                                    formControlName="email" />
                                                                 <small class="text-muted">Example:
                                                                     user@company-name.co.pk
                                                                     (Optional)</small>
@@ -1699,7 +1693,7 @@
                                                             </div>
                                                         </div>
                                                         <ng-container
-                                                            *ngIf="stepForm.value.thirdParties[i].isNonClient">
+                                                            *ngIf="stepForm.value.thirdParties[i].status == 'nonClient'">
                                                             <div class="row">
                                                                 <div class="col-md-8">
                                                                     <h3>Other party lawyer details </h3>
@@ -1781,7 +1775,7 @@
                                                                 <div class="col-md-8">
                                                                     <input type="text" maxlength="16"
                                                                         class="form-control"
-                                                                        formControlName="lawyerWhatsAppNumber" />
+                                                                        formControlName="lawyerWhatsApp" />
                                                                     <small class="text-muted">Note: Only digits without
                                                                         spaces.
                                                                         Example:02080111000</small>
@@ -1807,7 +1801,7 @@
                                             <div class="row" style="margin-top: 20px">
                                                 <div class="col-md-12">
                                                     <button class="add_field_button3 btn btn-danger"
-                                                        (click)="addApplicantData('thirdParty', i)">
+                                                        (click)="addApplicantData('thirdParty', i, leader)">
                                                         <span class="fa fa-plus"></span>
                                                         Add More Applicants
                                                     </button>
@@ -2368,7 +2362,7 @@
                                             <label>* Agreed Fee</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <input type="text" maxlength="10" class="form-control" name="inpAGREED" />
+                                            <input type="text" maxlength="10" class="form-control"/>
                                             <small class="text-muted">
                                                 Example: 299.50 (Including VAT)
                                             </small>
@@ -2395,7 +2389,7 @@
                                             <label>* Advance Payment</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <input type="text" maxlength="10" class="form-control" name="inpADVANCE" />
+                                            <input type="text" maxlength="10" class="form-control"/>
                                             <small class="text-muted">Example: 299.50</small>
                                         </div>
                                     </div>
@@ -2404,13 +2398,11 @@
                                             <label>Instalment due date and amount</label>
                                         </div>
                                         <div class="col-md-4">
-                                            <input type="date" maxlength="10" class="form-control bt_datepicker span12"
-                                                name="inpINSTALMENT_DATE_1000" />
+                                            <input type="date" maxlength="10" class="form-control bt_datepicker span12"/>
                                             <small class="text-muted"> Select instalment due date </small>
                                         </div>
                                         <div class="col-md-4">
-                                            <input type="text" maxlength="10" class="form-control"
-                                                name="inpINSTALMENT_1000" />
+                                            <input type="text" maxlength="10" class="form-control"/>
                                             <small class="text-muted">Example: 299.50</small>
                                         </div>
                                     </div>
@@ -2421,13 +2413,11 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <input type="date" maxlength="10"
-                                                        class="form-control bt_datepicker span12"
-                                                        name="inpINSTALMENT_DATE_1000" />
+                                                        class="form-control bt_datepicker span12" />
                                                     <small class="text-muted"> Select instalment due date </small>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <input type="text" maxlength="10" class="form-control"
-                                                        name="inpINSTALMENT_1000" />
+                                                    <input type="text" maxlength="10" class="form-control"/>
                                                     <small class="text-muted">Example: 299.50</small>
                                                 </div>
                                             </div>

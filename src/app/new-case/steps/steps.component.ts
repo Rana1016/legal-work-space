@@ -127,7 +127,7 @@ export class StepsComponent implements OnInit {
       cpFatherName: [''],
       cpCompanyName: [''],
       cpCNIC: [''],
-      cpPhone: [''],
+      cpPhoneNumber: [''],
       cpWhatsApp: [''],
       cpEmail: [''],
       cpAddress: [''],
@@ -175,7 +175,7 @@ export class StepsComponent implements OnInit {
         }
         for (let i = 0; i < count; i++) {
           (this.stepForm.get(ClientTypes.PLAINTIFF + 's') as FormArray).push(
-            this.createClient()
+            this.createClient(type)
           );
         }
         break
@@ -188,7 +188,7 @@ export class StepsComponent implements OnInit {
         }
         for (let i = 0; i < count; i++) {
           (this.stepForm.get(ClientTypes.DEFENDANT + 's') as FormArray).push(
-            this.createClient()
+            this.createClient(type)
           );
         }
         break
@@ -201,7 +201,7 @@ export class StepsComponent implements OnInit {
         }
         for (let i = 0; i < count; i++) {
           (this.stepForm.get('thirdParties') as FormArray).push(
-            this.createClient()
+            this.createClient(type)
           );
         }
         break
@@ -229,28 +229,29 @@ export class StepsComponent implements OnInit {
     }
   }
 
-  createClient() {
+  createClient(type?: string, client?: any) {
     return this.fb.group({
-      status: [],
+      type: [type],
+      status: [client ? client?.status : null],
       title: [0],
-      name: [''],
+      name: [client ? client?.name :''],
       nickName: [''],
       gender: [0],
-      fatherName: [''],
-      companyName: [''],
-      CNIC: [''],
-      phone: [''],
-      whatsApp: [''],
-      email: [''],
-      address: [''],
-      companyAddress: [''],
-      otherDetails: [''],
+      fatherName: [client ? client?.fatherName :''],
+      companyName: [client ? client?.companyName :''],
+      CNIC: [client ? client?.CNIC :''],
+      phoneNumber: [client ? client?.phoneNumber :''],
+      whatsApp: [client ? client?.whatsApp :''],
+      email: [client ? client?.email :''],
+      address: [client ? client?.address : ''],
+      companyAddress: [client ? client?.companyAddress : ''],
+      otherDetails: [client ? client?.otherDetails : ''],
       isContactPerson: [false],
       cpName: [''],
       cpFatherName: [''],
       cpCompanyName: [''],
       cpCNIC: [''],
-      cpPhone: [''],
+      cpPhoneNumber: [''],
       cpWhatsApp: [''],
       cpEmail: [''],
       cpAddress: [''],
@@ -259,7 +260,7 @@ export class StepsComponent implements OnInit {
     });
   }
 
-  setLead(i: number, type: string, modal: any, e: MouseEvent) {
+  setLead(i: number, type: string, modal: any, e?: MouseEvent) {
     if (this.leadClient == null) {
       this.leadClient = i;
       this.leadType = type;
@@ -278,7 +279,7 @@ export class StepsComponent implements OnInit {
           null :
           (<FormArray>this.stepForm.controls[type !== ClientTypes.THIRDPARTY ? type + 's' : 'thirdParties']!).controls[i].value.status
         });
-      e.stopPropagation();
+      e?.stopPropagation();
       this.open(modal)
     }
   }
@@ -291,21 +292,22 @@ export class StepsComponent implements OnInit {
     e.stopPropagation();
   }
 
-  createApplicantForm() {
+  createApplicantForm(clientId: number, applicantId: number) {
     return this.fb.group({
-      clientId: [0],
+      clientId: [clientId],
+      applicantId: [applicantId],
       status: [null],
       isOtherApplicant: [true],
-      clientName: [''],
+      name: [''],
       fatherName: [''],
       companyName: [''],
-      cnic: [''],
+      CNIC: [''],
       address: [''],
       companyAddress: [''],
       phoneNumber: [''],
-      clientEmail: [''],
+      email: [''],
       fax: [''],
-      whatsAppNumber: [''],
+      whatsApp: [''],
       otherDetails: [''],
       isMainClient: [true],
       caseId: [0],
@@ -315,57 +317,43 @@ export class StepsComponent implements OnInit {
       lawyerPhoneNumber: [''],
       lawyerEmail: [''],
       lawyerFax: [''],
-      lawyerWhatsAppNumber: [''],
+      lawyerWhatsApp: [''],
       lawyerOtherDetails: [''],
     });
-  }
-
-  setLeadApplicant(c: number, type: string, isLead: HTMLInputElement, e: MouseEvent, modal: any) {
-    // if (this.leadClient == null) {
-    //   this.leadClient = c;
-    //   this.leadType = type;
-    // } else if ((this.leadClient == c && this.leadType == type)) {
-    //   isLead.checked = false;
-    //   this.leadClient = null;
-    // } else {
-    //   isLead.checked = false;
-    //   e.stopPropagation();
-    //   this.open(modal)
-    // }
-  }
-
-  setClientApplicant(isClient: boolean, i: number, type: string, checkClient: HTMLInputElement, checkNonClient: HTMLInputElement, e: MouseEvent) {
-    switch (isClient) {
-      case true: {
-        if (checkNonClient.checked) {
-          // (this.stepForm.controls[type+'s'] as FormArray).controls[i]
-          // .patchValue({
-          //   isNonClient: false
-          // });
-          checkNonClient.checked = false;
-        }
-        break
-      }
-      case false:
-        if (checkClient.checked) {
-          // (this.stepForm.controls[type+'s'] as FormArray).controls[i]
-          // .patchValue({
-          //   isClient: false
-          // });
-          checkClient.checked = false;
-        }
-        break
-    }
-    e.stopPropagation();
   }
 
   getOtherApplicants(type: string, i: number) {
     return (((this.stepForm.controls[type !== ClientTypes.THIRDPARTY ? type + 's' : 'thirdParties'] as FormArray).controls[i] as FormGroup).controls['applicants'] as FormArray).controls;
   }
 
-  addApplicantData(type: string, i: number) {
-    this.applicantData = ((this.stepForm.controls[type !== ClientTypes.THIRDPARTY ? type + 's' : 'thirdParties'] as FormArray).controls[i] as FormGroup).controls['applicants'] as FormArray;
-    this.applicantData.push(this.createApplicantForm());
+  addApplicantData(type: string, i: number, content: any) {
+    let applicantData = ((this.stepForm.controls[type !== ClientTypes.THIRDPARTY ? type + 's' : 'thirdParties'] as FormArray).controls[i] as FormGroup).controls['applicants'] as FormArray;
+    applicantData.push(this.createApplicantForm(i, applicantData.length));
+    applicantData.controls[applicantData.length - 1].valueChanges.subscribe((applicant) => {
+      if (applicant.status != null) {
+        let clientsData = (this.stepForm.controls[type !== ClientTypes.THIRDPARTY ? type + 's' : 'thirdParties'] as FormArray);
+        let newApplicantData = ((clientsData.controls[i] as FormGroup).controls['applicants'] as FormArray);
+        if (applicant.status == 'lead') {
+          if (!this.leadClient && !this.leadType) {
+            clientsData.push(
+              type == ClientTypes.PLAINTIFF ? this.createClient(this.stepForm.value.plaintiffType, applicant) :   this.createClient(type, applicant)
+            );
+            newApplicantData.removeAt(i);
+          } else {
+            newApplicantData.controls[newApplicantData.length - 1].patchValue({
+              status: null
+            })
+          }
+          this.setLead(clientsData.length - 1, type, content);
+        } else {
+          clientsData.push(
+            type == ClientTypes.PLAINTIFF ? this.createClient(this.stepForm.value.plaintiffType, applicant) :   this.createClient(type, applicant)
+          );
+          newApplicantData.removeAt(i);
+          }
+        // console.log(`${this.capitalize.transform(type)} ${(clientId+1)} ${(applicantId+10).toString(36).toUpperCase()}`)
+      }
+    })
   }
 
   removeApplicantData(type: string, i: number, a: number) {
@@ -432,14 +420,6 @@ export class StepsComponent implements OnInit {
 
   setNavigation(num: number) {
     this.Navigation = num;
-  }
-
-  contactDetailHidenShow() {
-    if (this.detailHidenShow == false) {
-      this.detailHidenShow = true;
-    } else {
-      this.detailHidenShow = false;
-    }
   }
 
   getCategories() {

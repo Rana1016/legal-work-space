@@ -227,7 +227,7 @@
                                                     <label>* Title</label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <lw-select [control]="'title'" [form]="stepForm" [options]="FormData.titles" [type]="'plaintiff'" [index]="i">
+                                                    <lw-select [controlName]="'title'" [options]="FormData.titles">
                                                     </lw-select>
                                                 </div>
                                             </div>
@@ -258,7 +258,7 @@
                                                     <label>* Gender</label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <lw-select [control]="'gender'" [form]="stepForm" [options]="FormData.genders" [type]="'plaintiff'" [index]="i">
+                                                    <lw-select [controlName]="'gender'" [options]="FormData.genders">
                                                     </lw-select>
                                                 </div>
                                             </div>
@@ -754,7 +754,7 @@
                                                     <label>* Title</label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <lw-select [control]="'title'" [form]="stepForm" [options]="FormData.titles" [type]="'defendant'" [index]="i">
+                                                    <lw-select [controlName]="'title'" [options]="FormData.titles">
                                                     </lw-select>
                                                 </div>
                                             </div>
@@ -785,7 +785,7 @@
                                                     <label>* Gender</label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <lw-select [control]="'gender'" [form]="stepForm" [options]="FormData.genders" [type]="'defendant'" [index]="i">
+                                                    <lw-select [controlName]="'gender'" [options]="FormData.genders">
                                                     </lw-select>
                                                 </div>
                                             </div>
@@ -1280,7 +1280,7 @@
                                                     <label>* Title</label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <lw-select [control]="'title'" [form]="stepForm" [options]="FormData.titles" [type]="'thirdParty'" [index]="i">
+                                                    <lw-select [controlName]="'title'" [options]="FormData.titles">
                                                     </lw-select>
                                                 </div>
                                             </div>
@@ -1311,7 +1311,7 @@
                                                     <label>* Gender</label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <lw-select [control]="'gender'" [form]="stepForm" [options]="FormData.genders" [type]="'thirdParty'" [index]="i">
+                                                    <lw-select [controlName]="'gender'" [options]="FormData.genders">
                                                     </lw-select>
                                                 </div>
                                             </div>
@@ -1942,14 +1942,8 @@
                                                 <label>SE Circle</label>
                                             </div>
                                             <div class="col-md-8">
-                                                <select class="w-100 selectpicker form-control">
-                                                    <option value="0">Please Select</option>
-                                                    <option *ngFor="let opt of FormData.seCircles; let i = index"
-                                                        [value]="i + 1">
-                                                        {{ opt }}
-                                                    </option>
-                                                </select>
-                                                <small class="text-muted">Select an appropriate option.</small>
+                                                <lw-select controlName="seCircle" [options]="FormData.seCircles">
+                                                </lw-select>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -2005,14 +1999,7 @@
                                             <label>* Case Instructions</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <select class="w-100 selectpicker form-control">
-                                                <option value="0">Please Select</option>
-                                                <option *ngFor="let opt of FormData.caseInstruction; let i = index"
-                                                    [value]="i + 1">
-                                                    {{ opt }}
-                                                </option>
-                                            </select>
-                                            <small class="text-muted">Select an appropriate option.</small>
+                                            <lw-select controlName="caseInstructions" [options]="FormData.caseInstruction"></lw-select>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -2084,15 +2071,7 @@
                                             <label>* Chances of Success</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <select class="w-100 selectpicker form-control"
-                                                formControlName="chancesOfSuccess">
-                                                <option value="0">Please Select</option>
-                                                <option *ngFor=" let opt of FormData.chancesOfSuccess;let i = index"
-                                                    [value]="i + 1">
-                                                    {{ opt }}
-                                                </option>
-                                            </select>
-                                            <small class="text-muted">Select an appropriate option.</small>
+                                            <lw-select controlName="chancesOfSuccess" [options]="FormData.chancesOfSuccess"></lw-select>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -2221,15 +2200,7 @@
                                             <label>* Name Of The Court</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <select class="w-100 selectpicker form-control"
-                                                formControlName="nameOfCourt">
-                                                <option value="0">Please Select</option>
-                                                <option *ngFor="let opt of FormData.courts.sort(); let i = index"
-                                                    [value]="i + 1">
-                                                    {{ opt }}
-                                                </option>
-                                            </select>
-                                            <small class="text-muted">Select an appropriate option.</small>
+                                            <lw-select controlName="nameOfCourt" [options]="FormData.courts" [sort]="true"></lw-select>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -2246,7 +2217,7 @@
                                             <small class="text-muted">Select an appropriate option.</small>
                                         </div>
                                     </div>
-                                    <ng-container formArrayName="judges">
+                                    <ng-container formArrayName="judges" *ngIf="stepForm.value.typeOfBench > 0">
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <label>* Name Of the Judge</label>
@@ -2305,16 +2276,7 @@
                                             <label>* Fee Type?</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <select class="w-100 selectpicker form-control">
-                                                <option value="0">Please Select</option>
-                                                <option *ngFor="let opt of FormData.feeTypes; let i = index"
-                                                    [value]="i + 1">
-                                                    {{ opt }}
-                                                </option>
-                                            </select>
-                                            <small class="text-muted">
-                                                Select an appropriate option.
-                                            </small>
+                                            <lw-select controlName="feeType" [options]="FormData.feeTypes"></lw-select>
                                         </div>
                                     </div>
                                     <div class="row">

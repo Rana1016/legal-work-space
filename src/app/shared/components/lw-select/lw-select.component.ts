@@ -1,37 +1,45 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ControlContainer, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
 @Component({
   selector: 'lw-select',
   templateUrl: './lw-select.component.html',
   styleUrls: ['./lw-select.component.scss']
 })
 export class LwSelectComponent implements OnInit {
-  @Input() control!: string;
+  @Input() controlName!: string;
   @Input() options!: any[];
-  @Input() type!: string;
-  @Input() index!: number;
-  @Input() form!: FormGroup;
   @Input() bindLabel?: string;
   @Input() bindValue?: string;
-  @ViewChild('lwSELECT') lwSELECT!: ElementRef;
+  @Input() customNote?: string;
+  @Input() sort?: boolean;
+  @Input() noFirstText?: boolean;
+  @Input() firstText?: string;
+  @Input() notEditValue?: boolean;
+  @Input() notAddValue?: boolean;
+
+  @Output() change: EventEmitter<any> = new EventEmitter();
+
   optionForm!: FormGroup;
   modalType!: string;
-  constructor(private fb: FormBuilder, private modalService: NgbModal) { }
+  formGroup!: FormGroup;
+  formControl!: FormControl;
+  constructor(private fb: FormBuilder, private modalService: NgbModal, private controlContainer: ControlContainer) {}
   ngOnInit(): void {
     this.optionForm = this.fb.group({
       value: [this.options.length - 1],
       label: [null]
     })
+    this.formGroup = <FormGroup>this.controlContainer.control;
+    this.formControl = <FormControl>this.controlContainer.control?.get(this.controlName);
   }
 
   openModel(type: any, content: any) {
     this.modalType = type;
     if (type == 'edit') {
       this.optionForm.patchValue({
-        value: this.lwSELECT.nativeElement.value,
-        label: !this.bindLabel ? this.options.filter((opt, i) => i == this.lwSELECT.nativeElement.value - 1)[0] : this.options.filter((opt, i) => i == this.lwSELECT.nativeElement.value - 1)[0][this.bindLabel]
+        value: this.formControl.value,
+        label: !this.bindLabel ? this.options.filter((opt, i) => i == this.formControl.value - 1)[0] : this.options.filter((opt, i) => (!this.bindValue ? i : opt[this.bindValue]) == (!this.bindValue ? this.formControl.value - 1 : this.formControl.value))[0][this.bindLabel]
       }) 
     } else {
       this.optionForm.reset()
@@ -41,14 +49,23 @@ export class LwSelectComponent implements OnInit {
   addNewOption(modal?: any) {
     let newOption: any;
     if (this.bindLabel && this.bindValue) {
+      newOption = {};
       newOption[this.bindValue] = this.optionForm.value.value;
       newOption[this.bindLabel] = this.optionForm.value.label;
     } else {
       newOption = this.optionForm.value.label
     }
+
     this.modalType == 'add' ? this.options.push(newOption) :
-    this.options[this.lwSELECT.nativeElement.value - 1] = newOption;
-    this.modalType == 'add' && (<FormGroup>(<FormArray>this.form.controls[this.type !== 'thirdParty' ? this.type + 's' : 'thirdParties']).controls[this.index]).controls[this.control].setValue(this.options.length)
+    this.options.filter((opt, i) => {
+      if ((!this.bindLabel && i == this.formControl.value - 1) || (this.bindLabel && (!this.bindValue ? i : opt[this.bindValue]) == (!this.bindValue ? this.formControl.value - 1 : this.formControl.value))) {
+        this.options[i] = newOption
+      }
+    })
+    this.modalType == 'add' ? !this.bindValue ? !this.sort ? this.formControl.setValue(this.options.length): 
+    this.options.sort().filter((opt, i) => { opt == this.optionForm.value.label && this.formControl.setValue(i+1)}):
+    this.formControl.setValue(this.options[this.options.length - 1][this.bindValue]):
+    this.bindValue && this.formControl.setValue(this.optionForm.value.value);
     modal.dismiss();
   }
 }

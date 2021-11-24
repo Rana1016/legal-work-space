@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LwSelectComponent } from './components/lw-select/lw-select.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, NgControl, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [LwSelectComponent],
   imports: [
     CommonModule,
+    FormsModule,
     ReactiveFormsModule
   ],
   exports: [

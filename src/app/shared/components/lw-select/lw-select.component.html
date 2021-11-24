@@ -9,8 +9,12 @@
     <div class="modal-body">
         <form [formGroup]="optionForm">
             <div class="form-group">
-                <label>{{modalType == 'add' ? 'Add new' : 'Edit'}} option {{modalType == 'add' ? 'to': 'in'}} {{control | titlecase}}</label>
+                <label>{{modalType == 'add' ? 'Add new' : 'Edit'}} option {{bindLabel && 'label'}} {{modalType == 'add' ? 'to': 'in'}} {{controlName | titlecase}}</label>
                 <input class="w-100 form-control" formControlName="label"/>
+            </div>
+            <div class="form-group" *ngIf="((modalType == 'add' && !notAddValue) || (modalType == 'edit' && !notEditValue)) && bindLabel && bindValue">
+                <label>{{modalType == 'add' ? 'Add new' : 'Edit'}} option {{bindLabel && 'value'}} {{modalType == 'add' ? 'to': 'in'}} {{controlName | titlecase}}</label>
+                <input class="w-100 form-control" formControlName="value"/>
             </div>
             <div class="w-100 d-flex justify-content-end">
                 <button class="btn btn-primary" (click)="addNewOption(modal)">{{modalType == 'add' ? 'Add' : 'Edit'}}</button>
@@ -18,16 +22,16 @@
         </form>
     </div>
 </ng-template>
-<ng-container [formGroup]="$any($any(form.controls[type !== 'thirdParty' ? type + 's' : 'thirdParties']).controls)[index]">
-    <select class="w-100 selectpicker form-control" #lwSELECT [formControlName]="control">
-        <option value="0">Please Select</option>
-        <option [value]="!bindValue ? i + 1 : option[bindValue]" *ngFor="let option of options; let i = index">
+<ng-container [formGroup]="formGroup">
+    <select class="w-100 selectpicker form-control" #lwSELECT [formControlName]="controlName" (ngModelChange)="change.emit($event)">
+        <option value="0" *ngIf="!noFirstText">{{!firstText ? 'Please Select' : firstText | titlecase}}</option>
+        <option [value]="!bindValue ? i + 1 : option[bindValue]" *ngFor="let option of !sort ? options : options.sort(); let i = index">
             {{ !bindLabel ? option : option[bindLabel] }}
         </option>
     </select>
-    <small class="text-muted">Select an appropriate option.</small>
+    <small class="text-muted">{{!customNote ? 'Select an appropriate option.': customNote}}</small>
     <span class="float-right mt-3">
-         <button class="btn btn-primary mr-2" (click)="openModel('edit', newOption)" [disabled]="form.value[type !== 'thirdParty' ? type + 's' : 'thirdParties'][index][control] == 0 || form.value[type !== 'thirdParty' ? type + 's' : 'thirdParties'][index][control] == null">
+         <button class="btn btn-primary mr-2" (click)="openModel('edit', newOption)" [disabled]="formControl.value == null || formControl.value == 0">
             <span class="fa fa-edit "></span>
         </button>
         <button

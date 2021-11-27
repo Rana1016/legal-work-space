@@ -17,13 +17,15 @@ import { AccountsModule } from 'src/app/accounts/accounts.module';
 import { LogsModule } from 'src/app/logs/logs.module';
 import { ReportsModule } from 'src/app/reports/reports.module';
 import { NgbDatepickerModule, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { FloatingTimerComponent } from '../components/floating-timer/floating-timer.component';
 
 
 @NgModule({
   declarations: [
     LayoutComponent,
     HeaderComponent,
-    SidenavComponent
+    SidenavComponent,
+    FloatingTimerComponent
   ],
   imports: [
     CommonModule,

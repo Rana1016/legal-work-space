@@ -9,6 +9,8 @@ import { UnpaidInvoicesComponent } from './components/unpaid-invoices/unpaid-inv
 import { UnpaidDisbComponent } from './components/unpaid-disb/unpaid-disb.component';
 import { DebtorsComponent } from './components/debtors/debtors.component';
 import { IncomeComponent } from './components/income/income.component';
+import { HighchartsChartModule } from 'highcharts-angular';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -23,7 +25,9 @@ import { IncomeComponent } from './components/income/income.component';
   ],
   imports: [
     CommonModule,
-    ReportsRoutingModule
+    ReportsRoutingModule,
+    HighchartsChartModule,
+    FormsModule
   ]
 })
 export class ReportsModule { }

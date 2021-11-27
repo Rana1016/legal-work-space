@@ -1,0 +1,12 @@
+<div class="floating-timer">
+    <div id="stopwatch"><time>{{formatTime(hours)}}:{{formatTime(minutes)}}:{{formatTime(seconds)}}</time></div>
+    <button (click)="!isActive ? playTimer() : pauseTimer()">
+      <span class="fa" [ngClass]="{'fa-play-circle': !isActive, 'fa-pause-circle': isActive}" aria-hidden="true"></span>
+    </button>
+    <button (click)="stopTimer()">
+      <span class="fa fa-stop-circle" aria-hidden="true"></span>
+    </button>
+    <button *ngIf="!isActive || (hours !== 0 && minutes !== 0 && seconds !== 0)" (click)="submitTimer()">
+      <span class="fa fa-check-circle" aria-hidden="true"></span>
+    </button>
+  </div>

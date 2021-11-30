@@ -67,3 +67,9 @@ export interface installmentFormInterface {
   caseId: number;
   isDeleted: boolean;
 }
+
+export interface FormField {
+  field: string;
+  type: string;
+  mandatoryFields?: FormField[];
+}

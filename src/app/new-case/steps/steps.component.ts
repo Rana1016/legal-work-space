@@ -9,6 +9,8 @@ import FormData from '../../../assets/JSONs/FormData.json';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { NewCaseStepsService } from 'src/app/shared/services/new-case-steps.service';
 import { TitleCasePipe } from '@angular/common';
+import { FormField } from './stepForm.interface';
+import { mandatoryCaseDetailsFields, mandatoryCourtDetailsFields, mandatoryFieldsApplicant, mandatoryFieldsClient, mandatoryPaymentOptionsFields, mandatoryTeamDetailsFields } from './stepForm.static';
 
 enum ClientTypes {
   PLAINTIFF = 'plaintiff',
@@ -27,7 +29,6 @@ export class StepsComponent implements OnInit {
   FormData = FormData;
   stepForm!: FormGroup;
   applicantData: any;
-  installmentData: any;
   CTypes = ClientTypes;
   categories: {
     categoryId: [0];
@@ -37,6 +38,7 @@ export class StepsComponent implements OnInit {
   selectedType: string = ClientTypes.PLAINTIFF;
   leadClient!: any;
   leadType!: any;
+  leadApplicant?: any;
   showModal: boolean = false;
   isTemporary?: boolean;
   selectPlaintiff = ['single party matter', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -56,16 +58,47 @@ export class StepsComponent implements OnInit {
     subCategoryId: number[];
     subCategoryTitle: string[];
   }[] = [];
-  navItems: string[] = [
-    'Personal Information',
-    'Case Details',
-    'Team Details',
-    'Court Details',
-    'Payment Options',
-    'Declarations & Submit'
-  ]
+  navItems: {
+    title: string;
+    total: number;
+    current: number;
+  }[] = [
+      {
+        title: 'Personal Information',
+        total: 100,
+        current: 0
+      }, {
+        title: 'Case Details',
+        total: 100,
+        current: 0
+      }, {
+        title: 'Team Details',
+        total: 100,
+        current: 0
+      }, {
+        title: 'Court Details',
+        total: 100,
+        current: 0
+      }, {
+        title: 'Payment Options',
+        total: 100,
+        current: 0
+      }, {
+        title: 'Declarations & Submit',
+        current: 100,
+        total: 0
+      }
+    ];
+  lawyerDetails?: any = null;
+
+  totalPlaintiffs: number = 0;
+  currentPlaintiffs: number = 0;
+  totalDefendants: number = 0;
+  currentDefendants: number = 0;
+  totalThirdParties: number = 0;
+  currentThirdParties: number = 0;
+
   constructor(
-    private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
     private caseService: NewCaseStepsService,
@@ -77,44 +110,61 @@ export class StepsComponent implements OnInit {
     this.setNavigation(1);
     this.stepForm = this.fb.group({
       caseId: [0],
-      isTemporaryCase: [this.isTemporary],
-      modeOfCorrespondence: [''],
-      howDidYouHear: [''],
-      lescoCase: [false],
-      briefCaseDescription: [''],
-      caseInstructions: [0],
-      caseSource: [''],
-      caseOwner: [''],
-      caseSuperVisor: [''],
-      caseWorker: [''],
-      caseClerk: [''],
-      clientInstructions: [''],
-      adviceGivenToClient: [''],
-      agreedPlanOfAction: [''],
-      chancesOfSuccess: [0],
-      weaknessesOfCase: [''],
-      conflictsOfInterest: [0],
-      conflictsOfInterestDesc: [''],
-      haveCriminalConviction: [0],
-      criminalConvictionDesc: [''],
-      addtionalInfo: [''],
-      nameOfCourt: [0],
-      typeOfBench: [1],
-      judges: this.fb.array([this.fb.control('')]),
-      districtOrBenchOrTehsil: [''],
-      anyOtherDetails: [''],
-      feeType: [0],
-      coveredByFee: [''],
-      agreedAmountOrPercentage: [0],
-      isVATIncluded: [false],
-      advancePayment: [0],
+      isTemporaryCase: [null],
+      caseDetails: this.fb.group({
+        clientInstructions: [''],
+        categories: [[]],
+        subcategories: [[]],
+        subCategoriesDescription: [[]],
+        subCategoriesOffense: [[]],
+        lescoCase: [false],
+        briefCaseDescription: [''],
+        caseInstructions: [0],
+        litigationCaseTitle: [''],
+        dateOfLastHearing: [new Date().toISOString().split("T")[0]],
+        dateOfNextHearing: [new Date().toISOString().split("T")[0]],
+        filingDate: [new Date().toISOString().split("T")[0]],
+        courtCaseNumber: [''],
+        adviceGivenToClient: [''],
+        agreedPlanOfAction: [''],
+        chancesOfSuccess: [0],
+        weaknessesOfCase: [''],
+        conflictsOfInterest: [0],
+        conflictsOfInterestDesc: [''],
+        haveCriminalConviction: [0],
+        criminalConvictionDesc: [''],
+        addtionalInfo: [''],
+        // modeOfCorrespondence: [''],
+        // howDidYouHear: [''],
+      }),
+      teamDetails: this.fb.group({
+        caseSource: [0],
+        caseOwner: [0],
+        caseSuperVisor: [0],
+        caseWorker: [0],
+        caseClerk: [0]
+      }),
+      courtDetails: this.fb.group({
+        nameOfCourt: [0],
+        typeOfBench: [1],
+        judges: this.fb.array([this.fb.control('')]),
+        districtOrBenchOrTehsil: [''],
+        anyOtherDetails: [''],
+      }),
+      paymentOptions: this.fb.group({
+        feeType: [0],
+        coveredByFeeAgreement: [''],
+        agreedFee: [''],
+        isVATIncluded: [0],
+        advancePayment: [''],
+        installments: this.fb.array([this.createInstallment()]),
+      }),
       courtId: [0],
       isMatter: [false],
       parentId: [0],
       hourlyRateCaseworker: [0],
       isDeleted: true,
       clients: this.fb.array([]),
-      installments: this.fb.array([]),
       // Requirements
       plaintiffType: ['plaintiff'],
       plaintiff: [0],
@@ -133,25 +183,27 @@ export class StepsComponent implements OnInit {
       cpEmail: [''],
       cpAddress: [''],
       cpOtherDetails: [''],
-      categories: [[]],
-      subcategories: [[]],
     });
     this.getCategories();
-
-    this.stepForm.controls.lescoCase.valueChanges.subscribe((bool) => {
+    this.incrementEditedFields('plaintiff');
+    this.incrementEditedFields('defendant');
+    this.incrementEditedFields('thirdParty');
+    this.incrementEditedFields(null, 'Case Details', 'caseDetails', mandatoryCaseDetailsFields);
+    (<FormGroup>this.stepForm.controls.caseDetails).controls.lescoCase.valueChanges.subscribe((bool) => {
+      const caseDetails = <FormGroup>this.stepForm.controls.caseDetails;
       if (bool) {
-        this.stepForm.addControl('lescoType', this.fb.control([null]));
-        this.stepForm.controls.lescoType.valueChanges.subscribe((val) => {
-          this.stepForm.removeControl('lescoGroup');
+        caseDetails.addControl('lescoType', this.fb.control(null));
+        caseDetails.controls.lescoType.valueChanges.subscribe((val) => {
+          caseDetails.removeControl('lescoGroup');
           if (val == 'CLO') {
-            this.stepForm.addControl('lescoGroup', this.fb.group({
+            caseDetails.addControl('lescoGroup', this.fb.group({
               cloDivision: [''],
               cloSubDivision: [''],
               cloConsumerRef: [''],
               cloClerkName: ['']
             }))
           } else if (val == 'SE') {
-            this.stepForm.addControl('lescoGroup', this.fb.group({
+            caseDetails.addControl('lescoGroup', this.fb.group({
               seCircle: [0],
               seDivision: [''],
               seSubDivision: [''],
@@ -161,9 +213,206 @@ export class StepsComponent implements OnInit {
           }
         })
       } else {
-        this.stepForm.removeControl('lescoType');
+        caseDetails.removeControl('lescoType');
+        caseDetails.removeControl('lescoGroup');
       }
     });
+    this.incrementEditedFields(null, 'Team Details', 'teamDetails', mandatoryTeamDetailsFields);
+    this.incrementEditedFields(null, 'Court Details', 'courtDetails', mandatoryCourtDetailsFields);
+    this.incrementEditedFields(null, 'Payment Options', 'paymentOptions', mandatoryPaymentOptionsFields)
+  }
+
+  incrementEditedFields(clientType?: string | null, navItemTitle?: string, formGroupName?: string, mandatoryFields?: FormField[]) {
+    if (clientType !== null) {
+      const clients = this.stepForm.value[clientType !== ClientTypes.THIRDPARTY ? clientType + 's' : 'thirdParties'];
+      var totalClients = 0;
+      var totalClientApplicants = 0;
+      var currentClients = 0;
+      var currentClientApplicants = 0;
+      clients.forEach((client: any) => {
+        totalClients += mandatoryFieldsClient.length;
+        mandatoryFieldsClient.forEach(({ field, type }) => {
+          (client[field] != (type == 'select' ? 0 : type == 'input' ? '' : type == 'array' ? [] : null)) && currentClients++;
+        });
+        client.applicants.forEach((applicant: any) => {
+          totalClientApplicants += mandatoryFieldsApplicant.length;
+          mandatoryFieldsApplicant.forEach(({ field, type }) => {
+            (applicant[field] != (type == 'select' ? 0 : type == 'input' ? '' : type == 'array' ? [] : null)) && currentClientApplicants++;
+          })
+        });
+      });
+      if (clientType == ClientTypes.PLAINTIFF) {
+        this.totalPlaintiffs = totalClients + totalClientApplicants;
+        this.currentPlaintiffs = currentClients + currentClientApplicants;
+      } else if (clientType == ClientTypes.DEFENDANT) {
+        this.totalDefendants = totalClients + totalClientApplicants;
+        this.currentDefendants = currentClients + currentClientApplicants;
+      } else if (clientType == ClientTypes.THIRDPARTY) {
+        this.totalThirdParties = totalClients + totalClientApplicants;
+        this.currentThirdParties = currentClients + currentClientApplicants;
+      }
+      this.navItems.filter(({ title }, i) => {
+        if (title == 'Personal Information') {
+          this.navItems[i].total = this.totalPlaintiffs + this.totalDefendants + this.totalThirdParties;
+          this.navItems[i].current = this.currentPlaintiffs + this.currentDefendants + this.currentThirdParties;
+        }
+      })
+    } else if (formGroupName && mandatoryFields && navItemTitle) {
+      const formGroupDetails = this.stepForm.value[formGroupName];
+      var currentFields = 0;
+      var totalFields = 0;
+      mandatoryFields.forEach(({ field, type, mandatoryFields: subFields }) => {
+        if (type != 'group' && type != 'array') {
+          (formGroupDetails[field] && formGroupDetails[field] != (
+            type == 'select' ? 0
+              : type == 'input' ? ''
+                : type == 'date' ? ''
+                  : type == 'boolean' ? false
+                    : type == 'radio' ? null
+                      : undefined)
+          ) && currentFields++;
+        } else if (type == 'array') {
+          if (field == 'judges') {
+            totalFields += formGroupDetails[field]?.length - 1;
+            formGroupDetails[field]?.forEach((arrayField: string) => {
+              arrayField != '' && currentFields++;
+            });
+          } else if (field == 'installments') {
+            formGroupDetails[field].forEach((installment: any) => {
+              subFields?.forEach(({ field: subField, type: subType }) => {
+                installment[subField] !== undefined && totalFields++;
+                installment[subField]
+                  && (installment[subField] != (
+                    subType == 'select' ? 0
+                      : subType == 'date' ? ''
+                        : subType == 'input' ? ''
+                          : subType == 'boolean' ? false
+                            : subType == 'radio' ? null
+                              : undefined)
+                  ) && currentFields++;
+              })
+            });
+          } else {
+            formGroupDetails[field]?.length != 0 && currentFields++;
+          }
+        } else {
+          subFields?.forEach(({ field: subField, type: subType }) => {
+            formGroupDetails[field] && formGroupDetails[field][subField] !== undefined && totalFields++;
+            formGroupDetails[field] && formGroupDetails[field][subField] && (
+              formGroupDetails[field][subField] != (
+                subType == 'select' ? 0
+                  : subType == 'input' ? ''
+                    : subType == 'date' ? ''
+                      : subType == 'array' ? []
+                        : null
+              )
+            ) && currentFields++;
+          })
+        }
+        this.navItems.filter(({ title }, i) => {
+          if (title == navItemTitle) {
+            this.navItems[i].total = mandatoryFields.length + totalFields;
+            this.navItems[i].current = currentFields;
+          }
+        })
+      })
+    }
+    if (clientType !== null) {
+      this.stepForm.controls[clientType !== ClientTypes.THIRDPARTY ? clientType + 's' : 'thirdParties']?.valueChanges.subscribe((clients) => {
+        var totalClients = 0;
+        var totalClientApplicants = 0;
+        var currentClients = 0;
+        var currentClientApplicants = 0;
+        clients.forEach((client: any) => {
+          totalClients += mandatoryFieldsClient.length;
+          mandatoryFieldsClient.forEach(({ field, type }) => {
+            (client[field] != (type == 'select' ? 0 : type == 'input' ? '' : type == 'array' ? [] : null)) && currentClients++;
+          });
+          client.applicants.forEach((applicant: any) => {
+            totalClientApplicants += mandatoryFieldsApplicant.length;
+            mandatoryFieldsApplicant.forEach(({ field, type }) => {
+              (applicant[field] != (type == 'select' ? 0 : type == 'input' ? '' : type == 'array' ? [] : null)) && currentClientApplicants++;
+            })
+          });
+        });
+        if (clientType == ClientTypes.PLAINTIFF) {
+          this.totalPlaintiffs = totalClients + totalClientApplicants;
+          this.currentPlaintiffs = currentClients + currentClientApplicants;
+        } else if (clientType == ClientTypes.DEFENDANT) {
+          this.totalDefendants = totalClients + totalClientApplicants;
+          this.currentDefendants = currentClients + currentClientApplicants;
+        } else if (clientType == ClientTypes.THIRDPARTY) {
+          this.totalThirdParties = totalClients + totalClientApplicants;
+          this.currentThirdParties = currentClients + currentClientApplicants;
+        }
+        this.navItems.filter(({ title }, i) => {
+          if (title == 'Personal Information') {
+            this.navItems[i].total = this.totalPlaintiffs + this.totalDefendants + this.totalThirdParties;
+            this.navItems[i].current = this.currentPlaintiffs + this.currentDefendants + this.currentThirdParties;
+          }
+        })
+      })
+    } else if (formGroupName && mandatoryFields && navItemTitle) {
+      this.stepForm.controls[formGroupName].valueChanges.subscribe((formGroupDetails) => {
+        var currentFields = 0;
+        var totalFields = 0;
+        mandatoryFields.forEach(({ field, type, mandatoryFields: subFields }) => {
+          if (type != 'group' && type != 'array') {
+            (formGroupDetails[field] && formGroupDetails[field] != (
+              type == 'select' ? 0
+                : type == 'input' ? ''
+                  : type == 'date' ? ''
+                    : type == 'boolean' ? false
+                      : type == 'radio' ? null
+                        : undefined)
+            ) && currentFields++;
+          } else if (type == 'array') {
+            if (field == 'judges') {
+              totalFields += formGroupDetails[field]?.length - 1;
+              formGroupDetails[field]?.forEach((arrayField: string) => {
+                arrayField != '' && currentFields++;
+              });
+            } else if (field == 'installments') {
+              formGroupDetails[field].forEach((installment: any) => {
+                subFields?.forEach(({ field: subField, type: subType }) => {
+                  installment[subField] !== undefined && totalFields++;
+                  installment[subField]
+                    && (installment[subField] != (
+                      subType == 'select' ? 0
+                        : subType == 'date' ? ''
+                          : subType == 'input' ? ''
+                            : subType == 'boolean' ? false
+                              : subType == 'radio' ? null
+                                : undefined)
+                    ) && currentFields++;
+                })
+              });
+            } else {
+              formGroupDetails[field]?.length != 0 && currentFields++;
+            }
+          } else {
+            subFields?.forEach(({ field: subField, type: subType }) => {
+              formGroupDetails[field] && formGroupDetails[field][subField] !== undefined && totalFields++;
+              formGroupDetails[field] && formGroupDetails[field][subField] && (
+                formGroupDetails[field][subField] != (
+                  subType == 'select' ? 0
+                    : subType == 'input' ? ''
+                      : subType == 'date' ? ''
+                        : subType == 'array' ? []
+                          : null
+                )
+              ) && currentFields++;
+            })
+          }
+        });
+        this.navItems.filter(({ title }, i) => {
+          if (title == navItemTitle) {
+            this.navItems[i].total = mandatoryFields.length + totalFields;
+            this.navItems[i].current = currentFields;
+          }
+        })
+      })
+    }
   }
 
   onSelectClient(type: string) {
@@ -235,15 +484,15 @@ export class StepsComponent implements OnInit {
       type: [type],
       status: [client ? client?.status : null],
       title: [0],
-      name: [client ? client?.name :''],
+      name: [client ? client?.name : ''],
       nickName: [''],
       gender: [0],
-      fatherName: [client ? client?.fatherName :''],
-      companyName: [client ? client?.companyName :''],
-      CNIC: [client ? client?.CNIC :''],
-      phoneNumber: [client ? client?.phoneNumber :''],
-      whatsApp: [client ? client?.whatsApp :''],
-      email: [client ? client?.email :''],
+      fatherName: [client ? client?.fatherName : ''],
+      companyName: [client ? client?.companyName : ''],
+      CNIC: [client ? client?.CNIC : ''],
+      phoneNumber: [client ? client?.phoneNumber : ''],
+      whatsApp: [client ? client?.whatsApp : ''],
+      email: [client ? client?.email : ''],
       address: [client ? client?.address : ''],
       companyAddress: [client ? client?.companyAddress : ''],
       otherDetails: [client ? client?.otherDetails : ''],
@@ -261,24 +510,26 @@ export class StepsComponent implements OnInit {
     });
   }
 
-  setLead(i: number, type: string, modal: any, e?: MouseEvent) {
+  setLead(i: number, type: string, modal: any, e?: MouseEvent, a?: number) {
     if (this.leadClient == null) {
       this.leadClient = i;
       this.leadType = type;
+      this.leadApplicant = a;
     } else if (this.leadClient == i && this.leadType == type) {
       (<FormArray>this.stepForm.controls[type !== ClientTypes.THIRDPARTY ? type + 's' : 'thirdParties']!).controls[i]
-      .patchValue({
-        status: null
-      });
+        .patchValue({
+          status: null
+        });
       this.leadClient = null;
       this.leadType = null;
+      this.leadApplicant = null;
     } else {
-        (<FormArray>this.stepForm.controls[type !== ClientTypes.THIRDPARTY ? type + 's' : 'thirdParties']!).controls[i]
+      (<FormArray>this.stepForm.controls[type !== ClientTypes.THIRDPARTY ? type + 's' : 'thirdParties']!).controls[i]
         .patchValue({
-          status: 
-          (<FormArray>this.stepForm.controls[type !== ClientTypes.THIRDPARTY ? type + 's' : 'thirdParties']!).controls[i].value.status == null ?
-          null :
-          (<FormArray>this.stepForm.controls[type !== ClientTypes.THIRDPARTY ? type + 's' : 'thirdParties']!).controls[i].value.status
+          status:
+            (<FormArray>this.stepForm.controls[type !== ClientTypes.THIRDPARTY ? type + 's' : 'thirdParties']!).controls[i].value.status == null ?
+              null :
+              (<FormArray>this.stepForm.controls[type !== ClientTypes.THIRDPARTY ? type + 's' : 'thirdParties']!).controls[i].value.status
         });
       e?.stopPropagation();
       this.open(modal)
@@ -331,28 +582,30 @@ export class StepsComponent implements OnInit {
     let applicantData = ((this.stepForm.controls[type !== ClientTypes.THIRDPARTY ? type + 's' : 'thirdParties'] as FormArray).controls[i] as FormGroup).controls['applicants'] as FormArray;
     applicantData.push(this.createApplicantForm(i, applicantData.length));
     applicantData.controls[applicantData.length - 1].valueChanges.subscribe((applicant) => {
+      if (!this.lawyerDetails && applicant.lawyerName !== null && applicant.lawyerFirmName !== null && applicant.lawyerAddress !== null && applicant.lawyerFax !== null && applicant.lawyerOtherDetails !== null) {
+        this.lawyerDetails = applicantData.controls[applicantData.length - 1]
+      }
       if (applicant.status != null) {
         let clientsData = (this.stepForm.controls[type !== ClientTypes.THIRDPARTY ? type + 's' : 'thirdParties'] as FormArray);
         let newApplicantData = ((clientsData.controls[i] as FormGroup).controls['applicants'] as FormArray);
         if (applicant.status == 'lead') {
           if (!this.leadClient && !this.leadType) {
             clientsData.push(
-              type == ClientTypes.PLAINTIFF ? this.createClient(this.stepForm.value.plaintiffType, applicant) :   this.createClient(type, applicant)
+              type == ClientTypes.PLAINTIFF ? this.createClient(this.stepForm.value.plaintiffType, applicant) : this.createClient(type, applicant)
             );
             newApplicantData.removeAt(i);
-          } else {
+          } else if (newApplicantData.length - 1 == this.leadApplicant) {
             newApplicantData.controls[newApplicantData.length - 1].patchValue({
               status: null
             })
           }
-          this.setLead(clientsData.length - 1, type, content);
+          this.setLead(clientsData.length - 1, type, content, undefined, newApplicantData.length);
         } else {
           clientsData.push(
-            type == ClientTypes.PLAINTIFF ? this.createClient(this.stepForm.value.plaintiffType, applicant) :   this.createClient(type, applicant)
+            type == ClientTypes.PLAINTIFF ? this.createClient(this.stepForm.value.plaintiffType, applicant) : this.createClient(type, applicant)
           );
           newApplicantData.removeAt(i);
-          }
-        // console.log(`${this.capitalize.transform(type)} ${(clientId+1)} ${(applicantId+10).toString(36).toUpperCase()}`)
+        }
       }
     })
   }
@@ -363,60 +616,42 @@ export class StepsComponent implements OnInit {
   }
 
   addJudges() {
-    (this.stepForm.controls['judges'] as FormArray).clear();
-    for (var i = 0; i < (this.stepForm.value.typeOfBench); i++) {
-      (this.stepForm.controls['judges'] as FormArray).controls.push(this.fb.control(''))
+    ((<FormGroup>this.stepForm.controls.courtDetails).controls.judges as FormArray).clear();
+    for (var i = 0; i < (this.stepForm.value.courtDetails.typeOfBench); i++) {
+      ((<FormGroup>this.stepForm.controls.courtDetails).controls.judges as FormArray).push(this.fb.control(''))
     }
   }
   addJudge() {
-    (this.stepForm.controls['judges'] as FormArray).controls.push(this.fb.control(''))
+    ((<FormGroup>this.stepForm.controls.courtDetails).controls.judges as FormArray).push(this.fb.control(''))
   }
 
   removeJudge(i: number) {
-    const Judges = (this.stepForm.get('judges') as FormArray);
+    const Judges = ((<FormGroup>this.stepForm.controls.courtDetails).controls.judges as FormArray);
     Judges.removeAt(i);
   }
 
   getInstallments() {
-    return (this.stepForm.get('installments') as FormArray).controls;
+    return (<FormArray>this.stepForm.controls.paymentOptions.get('installments')).controls;
   }
 
   createInstallment() {
     return this.fb.group({
       installmentId: [0],
-      dueDate: [Date.now()],
-      amount: [0],
+      dueDate: [new Date().toISOString().split("T")[0]],
+      amount: [''],
       caseId: [0],
       isDeleted: [false],
     });
   }
 
   addInstallments() {
-    this.installmentData = this.stepForm.get('installments') as FormArray;
-    this.installmentData.push(this.createInstallment());
+    const installmentData = this.stepForm.controls.paymentOptions.get('installments') as FormArray;
+    installmentData.push(this.createInstallment());
   }
 
   removeInstallments(index: any) {
     const control = <FormArray>this.stepForm.controls['installments'];
     control.removeAt(index);
-  }
-
-  get caseTitle() {
-    let title = this.capitalize.transform(this.stepForm.value.plaintiffType);
-    if (this.stepForm.value.plaintiff == 'single party matter' && this.stepForm.value.defendant == 'single party matter') {
-      return `${title} vs Defendant`
-    } else if (this.stepForm.value.plaintiff  !== 0 && this.stepForm.value.defendant !== 0) {
-      if (this.stepForm.value.plaintiffs[0].nickName) {
-        return `${title} (1) - (${this.stepForm.value.plaintiffs[0].nickName.length <= 5 ? this.stepForm.value.plaintiffs[0].nickName : this.stepForm.value.plaintiffs[0].nickName.slice(0, 5) + '...' }) etc vs Defendant (1) etc`
-      } else if (this.stepForm.value.defendants[0].nickName) {
-        return `${title} (1) etc vs Defendant (1) (${this.stepForm.value.defendants[0].nickName.length <= 5 ? this.stepForm.value.defendants[0].nickName : this.stepForm.value.defendants[0].nickName.slice(0, 5) + '...' }) etc`
-      } else if (this.stepForm.value.plaintiffs[0].nickName && this.stepForm.value.defendants[0].nickName) {
-        return `${title} (1) - (${this.stepForm.value.plaintiffs[0].nickName.length <= 5 ? this.stepForm.value.plaintiffs[0].nickName : this.stepForm.value.plaintiffs[0].nickName.slice(0, 5) + '...' }) etc vs Defendant (1) - (${this.stepForm.value.defendants[0].nickName.length <= 5 ? this.stepForm.value.defendants[0].nickName : this.stepForm.value.defendants[0].nickName.slice(0, 5) + '...' }) etc`
-      } else {
-        return `${title} (1) etc vs Defendant (1) etc`  
-      }
-    }
-    return
   }
 
   setNavigation(num: number) {
@@ -425,31 +660,31 @@ export class StepsComponent implements OnInit {
 
   getCategories() {
     this.caseService.getCategories().subscribe((res) => {
-      this.categories = res.filter(({categoryId}: any) => categoryId !== 11);
+      this.categories = res.filter(({ categoryId }: any) => categoryId !== 11);
     });
   }
 
   getSubCategories() {
     this.subCategories = [];
-    if (this.stepForm.value.categories.length == 0) {
+    if (this.stepForm.value.caseDetails.categories.length == 0) {
       this.stepForm.controls.subcategories?.reset()
     } else {
-      this.caseService.getSubCategories(this.stepForm.value.categories).subscribe((res) => {
+      this.caseService.getSubCategories(this.stepForm.value.caseDetails.categories).subscribe((res) => {
         Object.keys(res).forEach((key, i) => {
-          if (this.stepForm.value.categories.includes(12)) {
+          if (this.stepForm.value.caseDetails.categories.includes(12)) {
             this.subCategoriesDescription = [...this.subCategoriesDescription, ...res[key].filter((r: any) => r.categoryId == 12)];
             this.subCategoriesOffense = [...this.subCategoriesOffense, ...res[key].filter((r: any) => r.categoryId == 13)];
-            res[key] = res[key].filter(({categoryId}: any) => categoryId !== 12)
-            res[key] = res[key].filter(({categoryId}: any) => categoryId !== 13)
+            res[key] = res[key].filter(({ categoryId }: any) => categoryId !== 12)
+            res[key] = res[key].filter(({ categoryId }: any) => categoryId !== 13)
           }
           if (i !== Object.keys(res).length - 1) {
             res[key] = res[key].filter((r: any) => r.subCategoryId !== 0)
           }
           this.subCategories = [...this.subCategories, ...res[key]]
         });
-        let subIDs = this.subCategories.map(({subCategoryId}) => subCategoryId);
-        this.stepForm.controls.subcategories
-        .setValue(this.stepForm.value.subcategories.filter((subCategoryId: any) => subIDs.includes(subCategoryId)))
+        let subIDs = this.subCategories.map(({ subCategoryId }) => subCategoryId);
+        (<FormGroup>this.stepForm.controls.caseDetails).controls.subcategories
+          .setValue(this.stepForm.value.caseDetails.subcategories.filter((subCategoryId: any) => subIDs.includes(subCategoryId)))
       })
     }
   }
@@ -475,7 +710,42 @@ export class StepsComponent implements OnInit {
     }
   }
 
+  teamDetails = [
+    'Ali',
+    'Rizwan',
+    'Mohsin',
+    'Sikandar'
+  ]
+
   submitForm() {
     this.caseService.submitData(this.stepForm.value).subscribe()
+  }
+
+  setPersonalInfo() {
+    this.showPersonalDetails = true;
+    this.setCaseTitle();
+    this.stepForm.patchValue({
+      isTemporaryCase: this.isTemporary
+    })
+  }
+
+  get caseTitle() {
+    let title = this.capitalize.transform(this.stepForm.value.plaintiffType);
+    if (this.stepForm.value.plaintiffs?.length !== 0 && this.stepForm.value.defendants?.length !== 0) {
+      if (this.stepForm.value.plaintiffs[0].nickName && this.stepForm.value.defendants[0].nickName) {
+        return `${title} (1) - (${this.stepForm.value.plaintiffs[0].nickName.length <= 5 ? this.stepForm.value.plaintiffs[0].nickName : this.stepForm.value.plaintiffs[0].nickName.slice(0, 5) + '...'})${(this.stepForm.value.plaintiff != 1 && this.stepForm.value.plaintiff != 'single party matter') ? ' etc' : ''} vs Defendant (1) - (${this.stepForm.value.defendants[0].nickName.length <= 5 ? this.stepForm.value.defendants[0].nickName : this.stepForm.value.defendants[0].nickName.slice(0, 5) + '...'})${(this.stepForm.value.defendant != 1 && this.stepForm.value.defendant != 'single party matter') ? ' etc' : ''}`
+      } else if (this.stepForm.value.plaintiffs[0].nickName) {
+        return `${title} (1) - (${this.stepForm.value.plaintiffs[0].nickName.length <= 5 ? this.stepForm.value.plaintiffs[0].nickName : this.stepForm.value.plaintiffs[0].nickName.slice(0, 5) + '...'})${(this.stepForm.value.plaintiff != 1 && this.stepForm.value.plaintiff != 'single party matter') ? ' etc' : ''} vs Defendant (1)${(this.stepForm.value.defendant != 1 && this.stepForm.value.defendant != 'single party matter') ? ' etc' : ''}`
+      } else if (this.stepForm.value.defendants[0].nickName) {
+        return `${title} (1)${(this.stepForm.value.plaintiff != 1 && this.stepForm.value.plaintiff != 'single party matter') ? ' etc' : ''} vs Defendant (1) (${this.stepForm.value.defendants[0].nickName.length <= 5 ? this.stepForm.value.defendants[0].nickName : this.stepForm.value.defendants[0].nickName.slice(0, 5) + '...'})${(this.stepForm.value.defendant != 1 && this.stepForm.value.defendant != 'single party matter') ? ' etc' : ''}`
+      } else {
+        return `${title} (1)${(this.stepForm.value.plaintiff != 1 && this.stepForm.value.plaintiff != 'single party matter') ? ' etc' : ''} vs Defendant (1)${(this.stepForm.value.defendant != 1 && this.stepForm.value.defendant != 'single party matter') ? ' etc' : ''}`
+      }
+    }
+    return
+  }
+
+  setCaseTitle() {
+    (<FormGroup>this.stepForm.controls.caseDetails).controls.litigationCaseTitle.setValue(this.caseTitle);
   }
 }

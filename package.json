@@ -29,6 +29,7 @@
     "@fullcalendar/timegrid": "^5.10.0",
     "@ng-bootstrap/ng-bootstrap": "^10.0.0",
     "@ng-select/ng-select": "^7.3.0",
+    "angular-svg-round-progressbar": "^8.0.0",
     "bootstrap": "^4.5.0",
     "highcharts": "^9.2.2",
     "highcharts-angular": "^2.10.0",

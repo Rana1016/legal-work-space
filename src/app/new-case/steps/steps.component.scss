@@ -35,3 +35,20 @@
         border-radius: 8px;
     }
 }
+
+.progress-percentage-wrapper {
+    position: relative;
+    font-size: 20px;
+}
+.progress-percentage {
+    position: absolute;
+    color: #333;
+    font-size: 24px;
+    font-weight: 600;
+    width: 100%;
+    top: 8%;
+}
+
+round-progress {
+    margin: 0 auto;
+}

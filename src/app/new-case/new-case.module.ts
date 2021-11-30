@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { NewCaseStepsService } from '../shared/services/new-case-steps.service';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SharedModule } from '../shared/shared.module';
+import { RoundprogressModule, ROUND_PROGRESS_DEFAULTS } from 'angular-svg-round-progressbar';
 
 @NgModule({
   declarations: [
@@ -25,13 +26,20 @@ import { SharedModule } from '../shared/shared.module';
     FormsModule,
     ReactiveFormsModule,
     NgSelectModule,
-    SharedModule
+    SharedModule,
+    RoundprogressModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ],
   providers: [
-    TitleCasePipe
-  ]
+    TitleCasePipe,
+    {
+    provide: ROUND_PROGRESS_DEFAULTS,
+    useValue: {
+      color: '#f00',
+      background: '#0f0'
+    }
+  }]
 })
 export class NewCaseModule { }

@@ -89,6 +89,7 @@ export class StepsComponent implements OnInit {
         total: 0
       }
     ];
+  hoverIndex?: number;
   lawyerDetails?: any = null;
 
   totalPlaintiffs: number = 0;
@@ -97,7 +98,9 @@ export class StepsComponent implements OnInit {
   currentDefendants: number = 0;
   totalThirdParties: number = 0;
   currentThirdParties: number = 0;
-
+  clog(h: any) {
+    console.log(h)
+  }
   constructor(
     private router: Router,
     private fb: FormBuilder,
@@ -121,8 +124,8 @@ export class StepsComponent implements OnInit {
         briefCaseDescription: [''],
         caseInstructions: [0],
         litigationCaseTitle: [''],
-        dateOfLastHearing: [new Date().toISOString().split("T")[0]],
-        dateOfNextHearing: [new Date().toISOString().split("T")[0]],
+        dateOfLastHearing: [''],
+        dateOfNextHearing: [''],
         filingDate: [new Date().toISOString().split("T")[0]],
         courtCaseNumber: [''],
         adviceGivenToClient: [''],
@@ -273,7 +276,7 @@ export class StepsComponent implements OnInit {
           ) && currentFields++;
         } else if (type == 'array') {
           if (field == 'judges') {
-            totalFields += formGroupDetails[field]?.length - 1;
+            totalFields += formGroupDetails[field]?.length;
             formGroupDetails[field]?.forEach((arrayField: string) => {
               arrayField != '' && currentFields++;
             });
@@ -295,6 +298,7 @@ export class StepsComponent implements OnInit {
           } else {
             formGroupDetails[field]?.length != 0 && currentFields++;
           }
+          totalFields--;
         } else {
           subFields?.forEach(({ field: subField, type: subType }) => {
             formGroupDetails[field] && formGroupDetails[field][subField] !== undefined && totalFields++;
@@ -308,6 +312,7 @@ export class StepsComponent implements OnInit {
               )
             ) && currentFields++;
           })
+          totalFields--;
         }
         this.navItems.filter(({ title }, i) => {
           if (title == navItemTitle) {
@@ -368,7 +373,7 @@ export class StepsComponent implements OnInit {
             ) && currentFields++;
           } else if (type == 'array') {
             if (field == 'judges') {
-              totalFields += formGroupDetails[field]?.length - 1;
+              totalFields += formGroupDetails[field]?.length;
               formGroupDetails[field]?.forEach((arrayField: string) => {
                 arrayField != '' && currentFields++;
               });
@@ -390,6 +395,7 @@ export class StepsComponent implements OnInit {
             } else {
               formGroupDetails[field]?.length != 0 && currentFields++;
             }
+            totalFields--;
           } else {
             subFields?.forEach(({ field: subField, type: subType }) => {
               formGroupDetails[field] && formGroupDetails[field][subField] !== undefined && totalFields++;
@@ -402,7 +408,8 @@ export class StepsComponent implements OnInit {
                           : null
                 )
               ) && currentFields++;
-            })
+            });
+            totalFields--;
           }
         });
         this.navItems.filter(({ title }, i) => {

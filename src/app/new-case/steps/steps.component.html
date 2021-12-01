@@ -41,7 +41,7 @@
                                             <round-progress
                                                 [current]="navItem.current"
                                                 [max]="navItem.total"
-                                                [color]="Navigation >= (i+1) ? (!isTemporary ? '#78b41e' : '#ed0000') : '#eaeaea'"
+                                                [color]="Navigation == (i+1) ? (!isTemporary ? '#78b41e' : '#ed0000') : (Navigation > (i+1) ? (!isTemporary ? '#507914' : '#c20000'): '#eaeaea')"
                                                 [background]="'#eaeaea'"
                                                 [radius]="20"
                                                 [stroke]="3"

@@ -1,4 +1,9 @@
-<h1 id="pg-title" class="row align-items-center justify-content-center justify-content-md-start">Calendar</h1>
+<h1
+  id="pg-title"
+  class="row align-items-center justify-content-center justify-content-md-start"
+>
+  Calendar
+</h1>
 <div class="row">
   <div class="col-md-12 mt-2 mt-lg-0">
     <div class="widget">
@@ -6,24 +11,12 @@
         <div class="row">
           <div class="col-sm-12 col-md-8 col-lg-8">&nbsp;</div>
           <div class="col-sm-12 col-md-4 col-lg-4">
-            <form
-              style="background-color: transparent; padding: 0; margin: 0"
-              onsubmit="return false;"
-              id="data_form1"
-              name="data_form1"
-              class="form-horizontal"
-              action="#"
-              method="post"
-              accept-charset="UTF-8"
-            >
+            <form class="form-horizontal">
               <label>Search calendar events</label
               ><input
                 type="text"
                 maxlength="128"
                 class="form-control toolbar_search"
-                id="inpCASEID"
-                name="inpCASEID"
-                value=""
               />
             </form>
           </div>
@@ -37,7 +30,10 @@
         <!-- CALENDAR VIEW -->
         <div class="row">
           <div class="col-sm-12 col-md-8 col-lg-9">
-            <full-calendar #calendar [options]="calendarOptions"></full-calendar>
+            <full-calendar
+              #calendar
+              [options]="calendarOptions"
+            ></full-calendar>
           </div>
           <div class="col-sm-12 col-md-4 col-lg-3">
             <div id="pickaday_container" style="margin-top: 50px"></div>
@@ -82,517 +78,167 @@
   </div>
 </div>
 
-<!-- ADD EVENT TO CALENDAR -->
-<div
-  class="modal fade bs-example-modal-sm"
-  id="myModalCalAdd"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="myModalLabel"
-  aria-hidden="true"
-  data-backdrop="static"
-  data-keyboard="false"
->
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="msg-ajx msg-theme">
-        <div class="modal-header">
-          <div class="row">
-            <div class="col-sm-12 col-md-12 col-lg-12">
-              <h4 class="modal-title" id="myModalLabel">Add New Event</h4>
-            </div>
-          </div>
+<ng-template #addEventToCalender let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Add New Event</h4>
+    <button type="button" class="close" aria-label="Close"
+        (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body calendar_popup">
+    <form class="form-horizontal" [formGroup]="addEventForm">
+      <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+          <label>Calendar</label>
+          <ng-select [items]="[{label: 'Mazhar Ilahi', value: 0}]" bindLabel="label" bindValue="value" formControlName="calendar"></ng-select>
         </div>
-        <div class="modal-body calendar_popup">
-          <form
-            onsubmit="return false;"
-            id="data_form"
-            name="data_form"
-            class="form-horizontal"
-            action="#"
-            method="post"
-            accept-charset="UTF-8"
-          >
-            <div class="row">
-              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                <label>Calendar</label>
-                <select
-                  name="inpCAL"
-                  id="inpCAL"
-                  data-live-search="true"
-                  class="selectpicker show-menu-arrow form-control"
-                  style="display: none"
-                >
-                  <option value="4001">Dr. Mazhar Ilahi</option>
-                </select>
-                <div
-                  class="
-                    btn-group
-                    bootstrap-select
-                    show-menu-arrow
-                    form-control
-                  "
-                >
-                  <button
-                    type="button"
-                    class="btn dropdown-toggle selectpicker btn-default"
-                    data-toggle="dropdown"
-                    data-id="inpCAL"
-                    title="Dr. Mazhar Ilahi"
-                  >
-                    <span class="filter-option pull-left">Dr. Mazhar Ilahi</span
-                    >&nbsp;<span class="caret"></span>
-                  </button>
-                  <div class="dropdown-menu open">
-                    <div class="bs-searchbox">
-                      <input
-                        type="text"
-                        class="input-block-level form-control"
-                        autocomplete="off"
-                      />
-                    </div>
-                    <ul class="dropdown-menu inner selectpicker" role="menu">
-                      <li data-original-index="0" class="selected">
-                        <a
-                          tabindex="0"
-                          class=""
-                          data-normalized-text='<span class="text">Dr. Mazhar Ilahi</span>'
-                          ><span class="text">Dr. Mazhar Ilahi</span
-                          ><span
-                            class="glyphicon glyphicon-ok check-mark"
-                          ></span
-                        ></a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                <label
-                  >Case ID <small class="muted">(e.g: 1000.02)</small></label
-                >
-                <input
-                  type="text"
-                  maxlength="10"
-                  class="form-control"
-                  id="inpCIDT"
-                  name="inpCIDT"
-                  value=""
-                />
-                <div class="row">
-                  <div
-                    class="col-sm-12 col-md-12 col-lg-12"
-                    id="timepopup"
-                  >
-                    <input type="hidden" name="hidMATTER_ID" value="" />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-12 col-md-12 col-lg-12">
-                <label>* Title</label>
-                <input
-                  required="required"
-                  type="text"
-                  maxlength="100"
-                  class="form-control"
-                  id="inpCAL_TITLE"
-                  name="inpCAL_TITLE"
-                  value=""
-                />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-12 col-md-6 col-lg-6">
-                <label>Person name</label>
-                <input
-                  type="text"
-                  maxlength="255"
-                  class="form-control"
-                  id="inpCAL_PNAME"
-                  name="inpCAL_PNAME"
-                  value=""
-                />
-              </div>
-              <div class="col-sm-12 col-md-6 col-lg-6">
-                <label>Email</label>
-                <input
-                  type="text"
-                  maxlength="255"
-                  class="form-control"
-                  id="inpCAL_PEMAIL"
-                  name="inpCAL_PEMAIL"
-                  value=""
-                />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-12 col-md-6 col-lg-6">
-                <label>Contact</label>
-                <input
-                  type="text"
-                  maxlength="18"
-                  class="form-control"
-                  id="inpCAL_CONTACT"
-                  name="inpCAL_CONTACT"
-                  value=""
-                />
-              </div>
-              <div class="col-sm-12 col-md-6 col-lg-6">
-                <label>Location</label>
-                <input
-                  type="text"
-                  maxlength="100"
-                  class="form-control"
-                  id="inpCAL_LOCATION"
-                  name="inpCAL_LOCATION"
-                  value=""
-                />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-12 col-md-12 col-lg-12">
-                <label>Description</label>
-                <textarea
-                  rows="3"
-                  class="form-control"
-                  id="inpCAL_DETAILS"
-                  name="inpCAL_DETAILS"
-                ></textarea>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                <label>Start time</label>
-                <input
-                  type="text"
-                  maxlength="10"
-                  class="form-control bt_datepicker span12"
-                  id="inpCAL_SDATE"
-                  name="inpCAL_SDATE"
-                  value=""
-                  readonly="readonly"
-                />
-                <span class="timebox"
-                  ><select
-                    name="inpCAL_STIME"
-                    id="inpCAL_STIME"
-                    data-live-search="true"
-                    class="show-menu-arrow form-control"
-                  >
-                    <option value="00:00:00">12:00 am</option>
-                    <option value="00:30:00">12:30 am</option>
-                    <option value="01:00:00">01:00 am</option>
-                    <option value="01:30:00">01:30 am</option>
-                    <option value="02:00:00">02:00 am</option>
-                    <option value="02:30:00">02:30 am</option>
-                    <option value="03:00:00">03:00 am</option>
-                    <option value="03:30:00">03:30 am</option>
-                    <option value="04:00:00">04:00 am</option>
-                    <option value="04:30:00">04:30 am</option>
-                    <option value="05:00:00">05:00 am</option>
-                    <option value="05:30:00">05:30 am</option>
-                    <option value="06:00:00">06:00 am</option>
-                    <option value="06:30:00">06:30 am</option>
-                    <option value="07:00:00">07:00 am</option>
-                    <option value="07:30:00">07:30 am</option>
-                    <option value="08:00:00">08:00 am</option>
-                    <option value="08:30:00">08:30 am</option>
-                    <option value="09:00:00">09:00 am</option>
-                    <option value="09:30:00">09:30 am</option>
-                    <option value="10:00:00">10:00 am</option>
-                    <option value="10:30:00">10:30 am</option>
-                    <option value="11:00:00">11:00 am</option>
-                    <option value="11:30:00">11:30 am</option>
-                    <option value="12:00:00">12:00 noon</option>
-                    <option value="12:30:00">12:30 pm</option>
-                    <option value="13:00:00">01:00 pm</option>
-                    <option value="13:30:00">01:30 pm</option>
-                    <option value="14:00:00">02:00 pm</option>
-                    <option value="14:30:00">02:30 pm</option>
-                    <option value="15:00:00">03:00 pm</option>
-                    <option value="15:30:00">03:30 pm</option>
-                    <option value="16:00:00">04:00 pm</option>
-                    <option value="16:30:00">04:30 pm</option>
-                    <option value="17:00:00">05:00 pm</option>
-                    <option value="17:30:00">05:30 pm</option>
-                    <option value="18:00:00">06:00 pm</option>
-                    <option value="18:30:00">06:30 pm</option>
-                    <option value="19:00:00">07:00 pm</option>
-                    <option value="19:30:00">07:30 pm</option>
-                    <option value="20:00:00">08:00 pm</option>
-                    <option value="20:30:00">08:30 pm</option>
-                    <option value="21:00:00">09:00 pm</option>
-                    <option value="21:30:00">09:30 pm</option>
-                    <option value="22:00:00">10:00 pm</option>
-                    <option value="22:30:00">10:30 pm</option>
-                    <option value="23:00:00">11:00 pm</option>
-                    <option value="23:30:00">11:30 pm</option>
-                  </select>
-                </span>
-              </div>
-              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                <label>End time</label>
-                <input
-                  type="text"
-                  maxlength="10"
-                  class="form-control bt_datepicker span12"
-                  id="inpCAL_EDATE"
-                  name="inpCAL_EDATE"
-                  value="15-10-2021"
-                  readonly="readonly"
-                />
-                <span class="timebox"
-                  ><select
-                    name="inpCAL_ETIME"
-                    id="inpCAL_ETIME"
-                    data-live-search="true"
-                    class="show-menu-arrow form-control"
-                  >
-                    <option value="00:00:00">12:00 am</option>
-                    <option value="00:30:00">12:30 am</option>
-                    <option value="01:00:00">01:00 am</option>
-                    <option value="01:30:00">01:30 am</option>
-                    <option value="02:00:00">02:00 am</option>
-                    <option value="02:30:00">02:30 am</option>
-                    <option value="03:00:00">03:00 am</option>
-                    <option value="03:30:00">03:30 am</option>
-                    <option value="04:00:00">04:00 am</option>
-                    <option value="04:30:00">04:30 am</option>
-                    <option value="05:00:00">05:00 am</option>
-                    <option value="05:30:00">05:30 am</option>
-                    <option value="06:00:00">06:00 am</option>
-                    <option value="06:30:00">06:30 am</option>
-                    <option value="07:00:00">07:00 am</option>
-                    <option value="07:30:00">07:30 am</option>
-                    <option value="08:00:00">08:00 am</option>
-                    <option value="08:30:00">08:30 am</option>
-                    <option value="09:00:00">09:00 am</option>
-                    <option value="09:30:00">09:30 am</option>
-                    <option value="10:00:00">10:00 am</option>
-                    <option value="10:30:00">10:30 am</option>
-                    <option value="11:00:00">11:00 am</option>
-                    <option value="11:30:00">11:30 am</option>
-                    <option value="12:00:00">12:00 noon</option>
-                    <option value="12:30:00">12:30 pm</option>
-                    <option value="13:00:00">01:00 pm</option>
-                    <option value="13:30:00">01:30 pm</option>
-                    <option value="14:00:00">02:00 pm</option>
-                    <option value="14:30:00">02:30 pm</option>
-                    <option value="15:00:00">03:00 pm</option>
-                    <option value="15:30:00">03:30 pm</option>
-                    <option value="16:00:00">04:00 pm</option>
-                    <option value="16:30:00">04:30 pm</option>
-                    <option value="17:00:00">05:00 pm</option>
-                    <option value="17:30:00">05:30 pm</option>
-                    <option value="18:00:00">06:00 pm</option>
-                    <option value="18:30:00">06:30 pm</option>
-                    <option value="19:00:00">07:00 pm</option>
-                    <option value="19:30:00">07:30 pm</option>
-                    <option value="20:00:00">08:00 pm</option>
-                    <option value="20:30:00">08:30 pm</option>
-                    <option value="21:00:00">09:00 pm</option>
-                    <option value="21:30:00">09:30 pm</option>
-                    <option value="22:00:00">10:00 pm</option>
-                    <option value="22:30:00">10:30 pm</option>
-                    <option value="23:00:00">11:00 pm</option>
-                    <option value="23:30:00">11:30 pm</option>
-                  </select>
-                </span>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-12 col-md-12 col-lg-12">
-                <label>Email notification before appointment</label>
-                <select
-                  name="inpREMINDER"
-                  id="inpREMINDER"
-                  class="selectpicker show-menu-arrow form-control"
-                  style="display: none"
-                >
-                  <option value="0">No Reminder (Disabled)</option>
-                  <option value="1">1 Day</option>
-                  <option value="2">2 Days</option>
-                  <option value="3">3 Days</option>
-                  <option value="4">4 Days</option>
-                  <option value="7">1 Week</option>
-                  <option value="14">2 Weeks</option>
-                  <option value="21">3 Weeks</option>
-                </select>
-                <div
-                  class="
-                    btn-group
-                    bootstrap-select
-                    show-menu-arrow
-                    form-control
-                  "
-                >
-                  <button
-                    type="button"
-                    class="btn dropdown-toggle selectpicker btn-default"
-                    data-toggle="dropdown"
-                    data-id="inpREMINDER"
-                    title="No Reminder (Disabled)"
-                  >
-                    <span class="filter-option pull-left"
-                      >No Reminder (Disabled)</span
-                    >&nbsp;<span class="caret"></span>
-                  </button>
-                  <div class="dropdown-menu open">
-                    <ul class="dropdown-menu inner selectpicker" role="menu">
-                      <li data-original-index="0" class="selected">
-                        <a
-                          tabindex="0"
-                          class=""
-                          data-normalized-text='<span class="text">No Reminder (Disabled)</span>'
-                          ><span class="text">No Reminder (Disabled)</span
-                          ><span
-                            class="glyphicon glyphicon-ok check-mark"
-                          ></span
-                        ></a>
-                      </li>
-                      <li data-original-index="1">
-                        <a
-                          tabindex="0"
-                          class=""
-                          data-normalized-text='<span class="text">1 Day</span>'
-                          ><span class="text">1 Day</span
-                          ><span
-                            class="glyphicon glyphicon-ok check-mark"
-                          ></span
-                        ></a>
-                      </li>
-                      <li data-original-index="2">
-                        <a
-                          tabindex="0"
-                          class=""
-                          data-normalized-text='<span class="text">2 Days</span>'
-                          ><span class="text">2 Days</span
-                          ><span
-                            class="glyphicon glyphicon-ok check-mark"
-                          ></span
-                        ></a>
-                      </li>
-                      <li data-original-index="3">
-                        <a
-                          tabindex="0"
-                          class=""
-                          data-normalized-text='<span class="text">3 Days</span>'
-                          ><span class="text">3 Days</span
-                          ><span
-                            class="glyphicon glyphicon-ok check-mark"
-                          ></span
-                        ></a>
-                      </li>
-                      <li data-original-index="4">
-                        <a
-                          tabindex="0"
-                          class=""
-                          data-normalized-text='<span class="text">4 Days</span>'
-                          ><span class="text">4 Days</span
-                          ><span
-                            class="glyphicon glyphicon-ok check-mark"
-                          ></span
-                        ></a>
-                      </li>
-                      <li data-original-index="5">
-                        <a
-                          tabindex="0"
-                          class=""
-                          data-normalized-text='<span class="text">1 Week</span>'
-                          ><span class="text">1 Week</span
-                          ><span
-                            class="glyphicon glyphicon-ok check-mark"
-                          ></span
-                        ></a>
-                      </li>
-                      <li data-original-index="6">
-                        <a
-                          tabindex="0"
-                          class=""
-                          data-normalized-text='<span class="text">2 Weeks</span>'
-                          ><span class="text">2 Weeks</span
-                          ><span
-                            class="glyphicon glyphicon-ok check-mark"
-                          ></span
-                        ></a>
-                      </li>
-                      <li data-original-index="7">
-                        <a
-                          tabindex="0"
-                          class=""
-                          data-normalized-text='<span class="text">3 Weeks</span>'
-                          ><span class="text">3 Weeks</span
-                          ><span
-                            class="glyphicon glyphicon-ok check-mark"
-                          ></span
-                        ></a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 has-pretty-child">
-                <div class="clearfix prettycheckbox labelleft blue">
-                  <input
-                    value="0"
-                    id="inpCAL_ALLDAY"
-                    name="inpCAL_ALLDAY"
-                    type="checkbox"
-                    data-labelposition="left"
-                    data-label=""
-                    style="display: none"
-                  /><label for="inpCAL_ALLDAY"></label>
-                  <a href="#" class=""></a>
-                </div>
-              </div>
-              <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2">
-                <label style="margin-top: 5px">All Day</label>
-              </div>
-              <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                <label
-                  ><input type="radio" name="inpPRIVATE" value="0" checked="" />
-                  Public</label
-                >
-              </div>
-              <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                <label
-                  ><input type="radio" name="inpPRIVATE" value="1" />
-                  Private</label
-                >
-              </div>
-            </div>
-            <hr />
-            <div class="row">
-              <div class="col-sm-12 col-md-12 col-lg-12">
-                <div id="cal_ajax" style="color: #cc0000"><p>&nbsp;</p></div>
-                <p class="text-center" id="cal_ajax_ok">
-                  <button
-                    class="btn btn-primary"
-                    type="button"
-                  >
-                    <span class="glyphicon glyphicon-ok"></span> Add event
-                  </button>
-                  <button
-                    aria-hidden="true"
-                    data-dismiss="modal"
-                    class="btn btn-danger"
-                    type="button"
-                  >
-                    <span class="glyphicon glyphicon-remove"></span> Cancel
-                  </button>
-                </p>
-              </div>
-            </div>
-          </form>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+          <label>Case ID <small class="muted ml-1">(e.g: 1000.02)</small></label>
+          <input type="text" maxlength="10" class="form-control" formControlName="caseId"/>
         </div>
       </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <label>* Title</label>
+          <input
+            type="text"
+            maxlength="100"
+            class="form-control"
+            formControlName="title"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-6">
+          <label>Person name</label>
+          <input type="text" maxlength="255" class="form-control" formControlName="personName"/>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-6">
+          <label>Email</label>
+          <input type="text" maxlength="255" class="form-control" formControlName="email"/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-6">
+          <label>Contact</label>
+          <input type="text" maxlength="18" class="form-control" formControlName="contact"/>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-6">
+          <label>Location</label>
+          <input type="text" maxlength="100" class="form-control" formControlName="location"/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <label>Description</label>
+          <textarea rows="3" class="form-control" formControlName="description"></textarea>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+          <label>Start time</label>
+          <input
+            type="text"
+            maxlength="10"
+            class="form-control bt_datepicker span12"
+            readonly="readonly"
+            formControlName="startDate"
+          />
+          <ng-select [items]="FormData.timeBoxOptions" bindValue="value" bindLabel="label" [editableSearchTerm]="true" formControlName="startTime">
+          </ng-select>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+          <label>End time</label>
+          <input
+            type="text"
+            maxlength="10"
+            class="form-control bt_datepicker span12"
+            formControlName="endDate"
+            readonly="readonly"
+          />
+          <ng-select [items]="FormData.timeBoxOptions" bindValue="value" bindLabel="label" [editableSearchTerm]="true" formControlName="endTime">
+          </ng-select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <label>Email notification before appointment</label>
+          <select
+            class="selectpicker form-control" formControlName="emailNotificationTime"
+          >
+          <option *ngFor="let opt of FormData.emailNotificationTimes" [value]="opt.value">{{opt.label}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="row align-items-center">
+        <div class="col-4">
+          <label>
+            <input type="checkbox" formControlName="allDay">
+            All Day
+          </label>
+        </div>
+        <div class="col-4">
+          <label>
+            <input type="radio" value="public" formControlName="eventType">
+            Public
+          </label>
+        </div>
+        <div class="col-4">
+          <label>
+            <input type="radio" value="private" formControlName="eventType">
+            Private
+          </label>
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-6 d-flex justify-content-end">
+            <button class="btn btn-primary mr-1" type="button">
+              <span class="glyphicon glyphicon-ok mr-1"></span>Add event
+            </button>
+        </div>
+        <div class="col-6 d-flex justify-content-start">
+          <button
+              class="btn btn-danger ml-1"
+              type="button"
+              (click)="modal.dismiss('Cross click')"
+            >
+              <span class="glyphicon glyphicon-remove mr-1"></span>Cancel
+            </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #dragResizeError let-modal>
+  <div class="msg-ajx msg-error">
+    <div class="modal-header">
+      <h4 class="modal-title" id="myModalLabel">Move event</h4>
+    </div>
+    <div class="modal-body">
+      <div>
+        <p class="text-center msg-icon">
+          <span class="fa msg-error" aria-hidden="true"></span>
+        </p>
+        <p class="text-center">
+          <strong
+            >Access Denied: You have limited access on this
+            calendar.</strong
+          >
+        </p>
+        <br />
+        <p class="text-center">
+          <a class="btn"
+            ><i class="icon-remove icon-white"></i> Close &amp; Continue</a
+          >
+        </p>
+      </div>
+      <div class="clearme"></div>
     </div>
   </div>
-</div>
+</ng-template>
 
 <!-- DRAG & RESIZE ERROR -->
 <div
@@ -624,8 +270,7 @@
             </p>
             <br />
             <p class="text-center">
-              <a
-                class="btn"
+              <a class="btn"
                 ><i class="icon-remove icon-white"></i> Close &amp; Continue</a
               >
             </p>
@@ -767,22 +412,12 @@
           </div>
         </div>
         <div class="modal-body calendar_popup">
-          <form
-            onsubmit="return false;"
-            id="data_form3"
-            name="data_form3"
-            class="form-horizontal"
-            action="#"
-            method="post"
-            accept-charset="UTF-8"
-          >
+          <form class="form-horizontal">
             <div class="row">
               <div class="col-sm-12 col-md-12 col-lg-12">
                 <label>Calendar</label>
                 <select
-                  name="inptCAL"
-                  id="inptCAL"
-                  data-live-search="true"
+  
                   class="selectpicker show-menu-arrow form-control"
                   style="display: none"
                 >
@@ -800,7 +435,6 @@
                     type="button"
                     class="btn dropdown-toggle selectpicker btn-default"
                     data-toggle="dropdown"
-                    data-id="inptCAL"
                     title="Dr. Mazhar Ilahi"
                   >
                     <span class="filter-option pull-left">Dr. Mazhar Ilahi</span
@@ -839,69 +473,33 @@
                   type="text"
                   maxlength="100"
                   class="form-control"
-                  id="inptCAL_TITLE"
-                  name="inptCAL_TITLE"
-                  value=""
                 />
               </div>
             </div>
             <div class="row">
               <div class="col-sm-12 col-md-6 col-lg-6">
                 <label>Person name</label>
-                <input
-                  type="text"
-                  maxlength="255"
-                  class="form-control"
-                  id="inptCAL_PNAME"
-                  name="inptCAL_PNAME"
-                  value=""
-                />
+                <input type="text" maxlength="255" class="form-control" />
               </div>
               <div class="col-sm-12 col-md-6 col-lg-6">
                 <label>Email</label>
-                <input
-                  type="text"
-                  maxlength="255"
-                  class="form-control"
-                  id="inptCAL_PEMAIL"
-                  name="inptCAL_PEMAIL"
-                  value=""
-                />
+                <input type="text" maxlength="255" class="form-control" />
               </div>
             </div>
             <div class="row">
               <div class="col-sm-12 col-md-6 col-lg-6">
                 <label>Contact</label>
-                <input
-                  type="text"
-                  maxlength="18"
-                  class="form-control"
-                  id="inptCAL_CONTACT"
-                  name="inptCAL_CONTACT"
-                  value=""
-                />
+                <input type="text" maxlength="18" class="form-control" />
               </div>
               <div class="col-sm-12 col-md-6 col-lg-6">
                 <label>Location</label>
-                <input
-                  type="text"
-                  maxlength="100"
-                  class="form-control"
-                  id="inptCAL_LOCATION"
-                  name="inptCAL_LOCATION"
-                  value=""
-                />
+                <input type="text" maxlength="100" class="form-control" />
               </div>
             </div>
             <div class="row">
               <div class="col-sm-12 col-md-12 col-lg-12">
                 <label>Description</label>
-                <textarea
-                  rows="3"
-                  class="form-control"
-                  id="inptCAL_DETAILS"
-                  name="inptCAL_DETAILS"
-                ></textarea>
+                <textarea rows="3" class="form-control"></textarea>
               </div>
             </div>
             <div class="row">
@@ -911,16 +509,11 @@
                   type="text"
                   maxlength="10"
                   class="form-control bt_datepicker span12"
-                  id="inptCAL_SDATE"
-                  name="inptCAL_SDATE"
-                  value=""
                   readonly="readonly"
                 />
                 <span class="timebox"
                   ><select
-                    name="inptCAL_STIME"
-                    id="inptCAL_STIME"
-                    data-live-search="true"
+    
                     class="show-menu-arrow form-control"
                   >
                     <option value="00:00:00">12:00 am</option>
@@ -980,16 +573,12 @@
                   type="text"
                   maxlength="10"
                   class="form-control bt_datepicker span12"
-                  id="inptCAL_EDATE"
-                  name="inptCAL_EDATE"
                   value="15-10-2021"
                   readonly="readonly"
                 />
                 <span class="timebox"
                   ><select
-                    name="inptCAL_ETIME"
-                    id="inptCAL_ETIME"
-                    data-live-search="true"
+    
                     class="show-menu-arrow form-control"
                   >
                     <option value="00:00:00">12:00 am</option>
@@ -1049,8 +638,6 @@
               <div class="col-sm-12 col-md-12 col-lg-12">
                 <label>Email notification before appointment</label>
                 <select
-                  name="inptREMINDER"
-                  id="inptREMINDER"
                   class="selectpicker show-menu-arrow form-control"
                   style="display: none"
                 >
@@ -1075,7 +662,6 @@
                     type="button"
                     class="btn dropdown-toggle selectpicker btn-default"
                     data-toggle="dropdown"
-                    data-id="inptREMINDER"
                     title="No Reminder (Disabled)"
                   >
                     <span class="filter-option pull-left"
@@ -1182,8 +768,6 @@
                 <div class="clearfix prettycheckbox labelleft blue">
                   <input
                     value="0"
-                    id="inptCAL_ALLDAY"
-                    name="inptCAL_ALLDAY"
                     type="checkbox"
                     data-labelposition="left"
                     data-label=""
@@ -1192,20 +776,14 @@
                   <a href="#" class=""></a>
                 </div>
               </div>
-              <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2">
+              <div class="col-4">
                 <label style="margin-top: 5px">All Day</label>
               </div>
-              <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                <label
-                  ><input type="radio" name="inptPRIVATE" value="0" />
-                  Public</label
-                >
+              <div class="col-4">
+                <label> Public </label>
               </div>
-              <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                <label
-                  ><input type="radio" name="inptPRIVATE" value="1" />
-                  Private</label
-                >
+              <div class="col-4">
+                <label> Private </label>
               </div>
             </div>
             <hr />
@@ -1213,10 +791,7 @@
               <div class="col-sm-12 col-md-12 col-lg-12">
                 <div id="cal_ajx" style="color: #cc0000"><p>&nbsp;</p></div>
                 <p class="text-center" id="cal_ajx_ok">
-                  <button
-                    class="btn btn-primary"
-                    type="button"
-                  >
+                  <button class="btn btn-primary" type="button">
                     <span class="glyphicon glyphicon-ok"></span> Save changes</button
                   >&nbsp;
                   <button
@@ -1235,18 +810,8 @@
                     class="btn btn-danger"
                     ><span class="glyphicon glyphicon-remove"></span> Delete</a
                   >
-                  <input
-                    type="hidden"
-                    id="inptEVENT_ID"
-                    name="inptEVENT_ID"
-                    value=""
-                  />
-                  <input
-                    type="hidden"
-                    id="inptEVENT_OWNER"
-                    name="inptEVENT_OWNER"
-                    value=""
-                  />
+                  <input type="hidden" />
+                  <input type="hidden" />
                 </p>
               </div>
             </div>

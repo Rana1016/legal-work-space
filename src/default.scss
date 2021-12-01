@@ -722,8 +722,13 @@ input.toolbar_search {
     margin-bottom: 2px;
 }
 
+.calendar_popup form button {
+    min-width: 120px;
+}
+
 .calendar_popup form label {
-    margin: 3px 0 5px 0;
+    display: flex;
+    align-items: center;
 }
 
 .calendar_popup .bt_datepicker {
@@ -2808,7 +2813,6 @@ table.flat>tbody>tr>td {
 
 .glyphicon {
     position: relative;
-    top: 1px;
     display: inline-block;
     font-family: "Glyphicons Halflings";
     font-style: normal;
@@ -5319,6 +5323,10 @@ textarea.form-group-lg .form-control {
     text-align: center;
     white-space: nowrap;
     vertical-align: middle;
+    & > *.fa, & > *.glyphicon {
+        margin-bottom: 0.25rem;
+        vertical-align: middle;
+    }
     -ms-touch-action: manipulation;
     touch-action: manipulation;
     cursor: pointer;

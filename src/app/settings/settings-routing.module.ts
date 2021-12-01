@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CalendarComponent } from '../calendar/calendar.component';
-import { ContactsComponent } from '../contacts/contacts.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { ContactsComponent } from './components/contacts/contacts.component';
 import { AreasOfPracticeComponent } from './components/areas-of-practice/areas-of-practice.component';
 import { BankAccountsComponent } from './components/bank-accounts/bank-accounts.component';
 import { GlobalSettingsComponent } from './components/global-settings/global-settings.component';

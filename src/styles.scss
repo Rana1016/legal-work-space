@@ -265,6 +265,11 @@
   display: inline-block;
   white-space: nowrap;
   border-radius: 0.2em;
+  vertical-align: middle;
+  & > *.fa, & > *.glyphicon {
+      margin-bottom: 0.25rem;
+      vertical-align: middle;
+  }
   -moz-border-radius: 0.2em;
   -webkit-border-radius: 0.2em;
   margin: 5px;

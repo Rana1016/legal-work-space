@@ -1,7 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { FullCalendarComponent } from '@fullcalendar/angular';
-import { CalendarOptions } from '@fullcalendar/common';
+import { CalendarOptions, EventClickArg } from '@fullcalendar/common';
+import { DateClickArg } from '@fullcalendar/interaction';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as Pikaday from 'pikaday';
+import FormData from 'src/assets/JSONs/FormData.json';
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
@@ -9,12 +13,32 @@ import * as Pikaday from 'pikaday';
 })
 export class CalendarComponent implements OnInit {
   @ViewChild('calendar') Calendar!: FullCalendarComponent;
-
-  constructor() {}
+  @ViewChild('addEventToCalender') addEventToCalender!: TemplateRef<any>;
+  constructor(private modalService: NgbModal, private fb: FormBuilder) {}
 
   calendarOptions!: CalendarOptions;
+  FormData = FormData;
+
+  addEventForm!: FormGroup;
 
   ngOnInit(): void {
+    this.addEventForm = this.fb.group({
+      calendar: [0],
+      caseId: [''],
+      title: [''],
+      personName: [''],
+      email: [''],
+      contact: [''],
+      location: [''],
+      description: [''],
+      startDate: [''],
+      startTime: ['00:00:00'],
+      endDate: [''],
+      endTime: ['00:00:00'],
+      emailNotificationTime: [0],
+      allDay: [false],
+      eventType: [null]
+    });
     let pikadayConfig = {
       field: document.getElementById('datepicker'),
       firstDay: 1,
@@ -81,10 +105,16 @@ export class CalendarComponent implements OnInit {
           title: 'test - test',
         },
       ],
-
-      select: function ({ view }) {
-        alert(view.currentStart + ',' + view.currentEnd + ',' + view.title);
-      },
+      dateClick: this.dateClick.bind(this),
+      eventClick: this.eventClick.bind(this)
     };
+  }
+
+  dateClick({dateStr}: DateClickArg) {
+    this.modalService.open(this.addEventToCalender)
+  }
+
+  eventClick({event}: EventClickArg) {
+    console.log(event)
   }
 }

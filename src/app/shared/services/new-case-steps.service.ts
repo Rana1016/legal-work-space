@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import stepValueInterface from 'src/app/new-case/steps/stepForm.interface';
 import { environment } from 'src/environments/environment';
 import { newCaseInterface } from '../types/new-case.type';
 
@@ -95,7 +94,7 @@ export class NewCaseStepsService {
         parentId,
         hourlyRateCaseworker,
         isDeleted
-      } as stepValueInterface,
+      },
       clients: clients,
       installments: installments
     });

@@ -99,7 +99,7 @@ export class StepsComponent implements OnInit {
   totalThirdParties: number = 0;
   currentThirdParties: number = 0;
   clog(h: any) {
-    console.log(h)
+    console.log(JSON.stringify(h))
   }
   constructor(
     private router: Router,
@@ -155,7 +155,7 @@ export class StepsComponent implements OnInit {
         anyOtherDetails: [''],
       }),
       paymentOptions: this.fb.group({
-        feeType: [0],
+        feeType: [1],
         coveredByFeeAgreement: [''],
         agreedFee: [''],
         isVATIncluded: [0],
@@ -167,7 +167,6 @@ export class StepsComponent implements OnInit {
       parentId: [0],
       hourlyRateCaseworker: [0],
       isDeleted: true,
-      clients: this.fb.array([]),
       // Requirements
       plaintiffType: ['plaintiff'],
       plaintiff: [0],
@@ -432,7 +431,7 @@ export class StepsComponent implements OnInit {
         }
         for (let i = 0; i < count; i++) {
           (this.stepForm.get(ClientTypes.PLAINTIFF + 's') as FormArray).push(
-            this.createClient(type)
+            this.createClient(this.stepForm.value.plaintiffType)
           );
         }
         break
@@ -556,7 +555,6 @@ export class StepsComponent implements OnInit {
       clientId: [clientId],
       applicantId: [applicantId],
       status: [null],
-      isOtherApplicant: [true],
       name: [''],
       fatherName: [''],
       companyName: [''],

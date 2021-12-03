@@ -78,20 +78,20 @@
   </div>
 </div>
 
-<ng-template #addEventToCalender let-modal>
+<ng-template #eventInCalender let-modal>
   <div class="modal-header">
-    <h4 class="modal-title">Add New Event</h4>
-    <button type="button" class="close" aria-label="Close"
+    <h4 class="modal-title">{{modalType == 'add' ? 'Add New Event' : 'Edit Event'}}</h4>
+    <button class="close" aria-label="Close"
         (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body calendar_popup">
-    <form class="form-horizontal" [formGroup]="addEventForm">
+    <form class="form-horizontal" [formGroup]="eventForm">
       <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
           <label>Calendar</label>
-          <ng-select [items]="[{label: 'Mazhar Ilahi', value: 0}]" bindLabel="label" bindValue="value" formControlName="calendar"></ng-select>
+          <ng-select [items]="[{label: 'Mazhar Ilahi', value: 0}]" bindLabel="label" bindValue="value" formControlName="owner"></ng-select>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
           <label>Case ID <small class="muted ml-1">(e.g: 1000.02)</small></label>
@@ -174,41 +174,41 @@
       <div class="row align-items-center">
         <div class="col-4">
           <label>
-            <input type="checkbox" formControlName="allDay">
+            <input type="checkbox" formControlName="allDay" (ngModelChange)="updateDropdown($event)">
             All Day
           </label>
         </div>
         <div class="col-4">
           <label>
-            <input type="radio" value="public" formControlName="eventType">
+            <input type="radio" value="public" formControlName="accessType">
             Public
           </label>
         </div>
         <div class="col-4">
           <label>
-            <input type="radio" value="private" formControlName="eventType">
+            <input type="radio" value="private" formControlName="accessType">
             Private
           </label>
         </div>
       </div>
-      <hr />
-      <div class="row">
-        <div class="col-6 d-flex justify-content-end">
-            <button class="btn btn-primary mr-1" type="button">
-              <span class="glyphicon glyphicon-ok mr-1"></span>Add event
-            </button>
-        </div>
-        <div class="col-6 d-flex justify-content-start">
-          <button
-              class="btn btn-danger ml-1"
-              type="button"
-              (click)="modal.dismiss('Cross click')"
-            >
-              <span class="glyphicon glyphicon-remove mr-1"></span>Cancel
-            </button>
-        </div>
-      </div>
     </form>
+  </div>
+  <div class="modal-footer" [formGroup]="eventForm">
+    <div class="flex-grow-1 row">
+      <div class="col-6 d-flex justify-content-end">
+          <button class="btn btn-primary mr-1" (click)="addEvent(); modal.dismiss('Cross Click')">
+            <span class="glyphicon glyphicon-ok mr-1"></span>{{modalType | titlecase}} event
+          </button>
+      </div>
+      <div class="col-6 d-flex justify-content-start">
+        <button
+            class="btn btn-danger ml-1"
+            (click)="modal.dismiss('Cross click')"
+          >
+            <span class="glyphicon glyphicon-remove mr-1"></span>Cancel
+          </button>
+      </div>
+    </div>
   </div>
 </ng-template>
 
@@ -432,7 +432,6 @@
                   "
                 >
                   <button
-                    type="button"
                     class="btn dropdown-toggle selectpicker btn-default"
                     data-toggle="dropdown"
                     title="Dr. Mazhar Ilahi"
@@ -659,7 +658,6 @@
                   "
                 >
                   <button
-                    type="button"
                     class="btn dropdown-toggle selectpicker btn-default"
                     data-toggle="dropdown"
                     title="No Reminder (Disabled)"
@@ -791,14 +789,13 @@
               <div class="col-sm-12 col-md-12 col-lg-12">
                 <div id="cal_ajx" style="color: #cc0000"><p>&nbsp;</p></div>
                 <p class="text-center" id="cal_ajx_ok">
-                  <button class="btn btn-primary" type="button">
+                  <button class="btn btn-primary">
                     <span class="glyphicon glyphicon-ok"></span> Save changes</button
                   >&nbsp;
                   <button
                     aria-hidden="true"
                     data-dismiss="modal"
                     class="btn btn-danger"
-                    type="button"
                   >
                     <span class="glyphicon glyphicon-remove"></span> Cancel
                     &amp; Close</button

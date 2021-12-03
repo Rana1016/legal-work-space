@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CaseActivitiesRoutingModule } from './case-activities-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CaseActivitiesComponent } from './case-activities.component';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -11,6 +12,7 @@ import { CaseActivitiesComponent } from './case-activities.component';
   ],
   imports: [
     CommonModule,
+    RouterModule,
     CaseActivitiesRoutingModule,
     ReactiveFormsModule
   ]

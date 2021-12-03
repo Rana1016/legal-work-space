@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, TitleCasePipe } from '@angular/common';
 
 import { CalendarRoutingModule } from './calendar-routing.module';
 import { CalendarComponent } from './calendar.component';
@@ -17,7 +17,7 @@ FullCalendarModule.registerPlugins([
   timeGridPlugin,
   listPlugin,
   interactionPlugin,
-  momentPlugin
+  momentPlugin,
 ]);
 @NgModule({
   declarations: [
@@ -29,6 +29,9 @@ FullCalendarModule.registerPlugins([
     FullCalendarModule,
     NgSelectModule,
     ReactiveFormsModule
+  ],
+  providers: [
+    TitleCasePipe
   ]
 })
 export class CalendarModule { }

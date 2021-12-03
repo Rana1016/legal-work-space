@@ -19,7 +19,7 @@ import { DeadLinesComponent } from './children/dead-lines/dead-lines.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'peshi-list',
+    redirectTo: 'personal-details',
     pathMatch: "full",
   },
   {

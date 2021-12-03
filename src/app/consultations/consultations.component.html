@@ -9,7 +9,7 @@
               <li>
                 <a
                   class="btn"
-                  
+                  [routerLink]="['new-consultation']"
                 >
                   <span class="glyphicon glyphicon-plus"></span> Start new
                   consultation
@@ -227,58 +227,39 @@
                         </td>
 
                         <td>
-                          <ul class="nav nav-right">
-                            <li>
-                              <a
-                                class="dropdown-toggle"
-                                data-toggle="dropdown"
-                                aria-expanded="false"
-                              >
-                                <span
-                                  class="glyphicon glyphicon-triangle-bottom"
-                                ></span>
+                          <ul class="nav">
+                            <li ngbDropdown>
+                              <a ngbDropdownToggle class="nav-link" role="button">
                               </a>
-                              <ul class="dropdown-menu" role="menu">
-                                <li>
-                                  <a
-                                  >
-                                    <span
-                                      class="glyphicon glyphicon-play"
-                                    ></span>
-                                    Start New Case
-                                  </a>
-                                </li>
-                                <li>
-                                  <a
-                                    target="_blank"
-                                  >
-                                    <span
-                                      class="glyphicon glyphicon-save"
-                                    ></span>
-                                    Download / Print (PDF)
-                                  </a>
-                                </li>
-                                <li>
-                                  <a
-                                  >
-                                    <span
-                                      class="glyphicon glyphicon-pencil"
-                                    ></span>
-                                    Edit
-                                  </a>
-                                </li>
-                                <li>
-                                  <a
-                                    onclick="return confirm('Are you sure you want to delete this record?');"
-                                  >
-                                    <span
-                                      class="glyphicon glyphicon-remove"
-                                    ></span>
-                                    Delete
-                                  </a>
-                                </li>
+                              <ul ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
+                                  <li ngbDropdownItem>
+                                    <a>
+                                      <span class="glyphicon glyphicon-play"></span>
+                                      Start New Case
+                                    </a>
+                                  </li>
+                                  <li ngbDropdownItem>
+                                    <a
+                                      target="_blank"
+                                    >
+                                      <span class="glyphicon glyphicon-save"></span>
+                                      Download / Print (PDF)
+                                    </a>
+                                  </li>
+                                  <li ngbDropdownItem>
+                                    <a>
+                                      <span class="glyphicon glyphicon-pencil"></span>
+                                      Edit
+                                    </a>
+                                  </li>
+                                  <li ngbDropdownItem>
+                                    <a>
+                                      <span class="glyphicon glyphicon-remove"></span>
+                                      Delete
+                                    </a>
+                                  </li>
                               </ul>
-                            </li>
+                              </li>
                           </ul>
                         </td>
                       </tr>
@@ -303,58 +284,39 @@
                         </td>
 
                         <td>
-                          <ul class="nav nav-right">
-                            <li>
-                              <a
-                                class="dropdown-toggle"
-                                data-toggle="dropdown"
-                                aria-expanded="false"
-                              >
-                                <span
-                                  class="glyphicon glyphicon-triangle-bottom"
-                                ></span>
+                          <ul class="nav">
+                            <li ngbDropdown>
+                              <a ngbDropdownToggle class="nav-link" role="button">
                               </a>
-                              <ul class="dropdown-menu" role="menu">
-                                <li>
-                                  <a
-                                  >
-                                    <span
-                                      class="glyphicon glyphicon-play"
-                                    ></span>
-                                    Start New Case
-                                  </a>
-                                </li>
-                                <li>
-                                  <a
-                                    target="_blank"
-                                  >
-                                    <span
-                                      class="glyphicon glyphicon-save"
-                                    ></span>
-                                    Download / Print (PDF)
-                                  </a>
-                                </li>
-                                <li>
-                                  <a
-                                  >
-                                    <span
-                                      class="glyphicon glyphicon-pencil"
-                                    ></span>
-                                    Edit
-                                  </a>
-                                </li>
-                                <li>
-                                  <a
-                                    onclick="return confirm('Are you sure you want to delete this record?');"
-                                  >
-                                    <span
-                                      class="glyphicon glyphicon-remove"
-                                    ></span>
-                                    Delete
-                                  </a>
-                                </li>
+                              <ul ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
+                                  <li ngbDropdownItem>
+                                    <a>
+                                      <span class="glyphicon glyphicon-play"></span>
+                                      Start New Case
+                                    </a>
+                                  </li>
+                                  <li ngbDropdownItem>
+                                    <a
+                                      target="_blank"
+                                    >
+                                      <span class="glyphicon glyphicon-save"></span>
+                                      Download / Print (PDF)
+                                    </a>
+                                  </li>
+                                  <li ngbDropdownItem>
+                                    <a>
+                                      <span class="glyphicon glyphicon-pencil"></span>
+                                      Edit
+                                    </a>
+                                  </li>
+                                  <li ngbDropdownItem>
+                                    <a>
+                                      <span class="glyphicon glyphicon-remove"></span>
+                                      Delete
+                                    </a>
+                                  </li>
                               </ul>
-                            </li>
+                              </li>
                           </ul>
                         </td>
                       </tr>

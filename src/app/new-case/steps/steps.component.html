@@ -1,4 +1,4 @@
-<h1 id="pg-title" class="row align-items-center justify-content-center justify-content-md-start">
+<h1 id="pg-title" class="row align-items-center justify-content-center justify-content-md-start" (click)="clog(stepForm.value)">
     Open new case
     <span class="glyphicon glyphicon-chevron-right"></span> {{ Navigation && "Step # " + Navigation }}
 </h1>
@@ -2274,7 +2274,7 @@
                                             <label>* Fee Type?</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <lw-select controlName="feeType" [options]="FormData.feeTypes"></lw-select>
+                                            <lw-select controlName="feeType" [options]="FormData.feeTypes" [noFirstText]="true"></lw-select>
                                         </div>
                                     </div>
                                     <div class="row">

@@ -251,10 +251,13 @@
   }
 }
 
+.pika-single {
+  z-index: 10 !important;
+}
+
 .pika-lendar {
   float: unset !important;
-  width: 240px;
-  margin: 8px auto !important;
+  width: unset !important;
 }
 
 .pointer {
@@ -301,4 +304,9 @@
       background-color: #fff;
     }
   }
+}
+
+.modal-dialog {
+  min-height: calc(100vh - 60px) !important;
+  max-height: calc(100vh - 60px) !important;
 }

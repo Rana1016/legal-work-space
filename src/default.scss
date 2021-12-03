@@ -466,6 +466,13 @@ table .glyphicon-option-horizontal {
     color: #ff6600;
 }
 
+table [ngbDropdownToggle]::after {
+    border-top: 0.5em solid !important;
+    border-right: 0.5em solid transparent !important;
+    border-bottom: 0;
+    border-left: 0.5em solid transparent !important;
+}
+
 table .nav>li>a {
     padding: 0 20px;
 }
@@ -475,9 +482,10 @@ table .sorting_1 {
     color: #000;
 }
 
-table .dropdown-menu>li>a:focus,
-table .dropdown-menu>li>a:hover {
-    background-color: #ddd;
+table .dropdown-menu>li {
+    &:focus, &:hover {
+        background-color: #ddd;
+    }
 }
 
 @-moz-document url-prefix() {
@@ -4503,7 +4511,7 @@ th {
 .table>thead>tr>th {
     padding: 8px;
     line-height: 1.42857143;
-    vertical-align: top;
+    vertical-align: middle;
     border-top: 1px solid #ddd;
 }
 
@@ -4851,10 +4859,13 @@ output {
 
 .form-control[disabled],
 .form-control[readonly],
-fieldset[disabled] .form-control {
-    cursor: not-allowed;
-    background-color: #eee;
+fieldset[disabled] .form-control,.ng-select.ng-select-disabled>.ng-select-container, .ng-select.ng-select-disabled>.ng-select-container * {
+    cursor: not-allowed !important;
+    background-color: #eee !important;
     opacity: 1;
+}
+.ng-select.ng-select-searchable.ng-select-disabled > .ng-select-container .ng-value-container .ng-input {
+    opacity: 0 !important;
 }
 
 textarea.form-control {
@@ -5350,9 +5361,9 @@ textarea.form-group-lg .form-control {
     outline-offset: -2px;
 }
 
-.btn.focus,
-.btn:focus,
-.btn:hover {
+.btn:not(.btn-secondary).focus,
+.btn:not(.btn-secondary):focus,
+.btn:not(.btn-secondary):hover {
     color: #333;
     text-decoration: none;
 }
@@ -5836,6 +5847,9 @@ tbody.collapse.in {
     border-radius: 4px;
     -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    li {
+        cursor: pointer;
+    }
 }
 
 .dropdown-menu.pull-right {
@@ -6146,7 +6160,7 @@ tbody.collapse.in {
 
 .input-group {
     position: relative;
-    display: table;
+    display: flex;
     border-collapse: separate;
 }
 
@@ -6160,7 +6174,6 @@ tbody.collapse.in {
     position: relative;
     z-index: 2;
     float: left;
-    width: 100%;
     margin-bottom: 0;
 }
 
@@ -6214,12 +6227,6 @@ textarea.input-group-sm>.form-control,
 textarea.input-group-sm>.input-group-addon,
 textarea.input-group-sm>.input-group-btn>.btn {
     height: auto;
-}
-
-.input-group .form-control,
-.input-group-addon,
-.input-group-btn {
-    display: table-cell;
 }
 
 .input-group .form-control:not(:first-child):not(:last-child),

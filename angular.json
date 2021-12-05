@@ -40,8 +40,9 @@
                             "node_modules/pikaday/css/pikaday.css",
                             "src/styles.scss"
                         ],
-                        "scripts": [
-                            "node_modules/pikaday/pikaday.js"
+                        "scripts": [],
+                        "allowedCommonJsDependencies": [
+                            "pikaday"
                         ]
                     },
                     "configurations": {
@@ -111,8 +112,9 @@
                             "node_modules/pikaday/css/pikaday.css",
                             "src/styles.scss"
                         ],
-                        "scripts": [
-                            "node_modules/pikaday/pikaday.js"
+                        "scripts": [],
+                        "allowedCommonJsDependencies": [
+                            "pikaday"
                         ]
                     }
                 }

@@ -7,7 +7,7 @@
           <div class="col-md-12" id="pg-nav">
             <ul class="list-inline">
               <li>
-                <a class="btn" [routerLink]="['/logs/add-folder']"
+                <a class="btn" [routerLink]="['add-folder']"
                   ><span class="glyphicon glyphicon-plus"></span> Add folder</a
                 >
               </li>
@@ -91,105 +91,83 @@
                     <td class="sorting_1">
                       <img
                         src="assets/img/fa-folder-close.png"
-                        alt=""
+                        class="mr-3"
                       />
-                      &nbsp;&nbsp;<a
+                      <a
+                        [routerLink]="['folder/post-(incoming)']"
                         style="font-size: 15px; border-bottom: 0 none"
                         class="td_link_dark"
                         >Post (Incoming)</a
                       >
                     </td>
                     <td>
-                      <ul class="nav nav-right">
-                        <li>
-                          <a
-                            data-toggle="dropdown"
-                            aria-expanded="false"
-                            ><span
-                              class="glyphicon glyphicon-triangle-bottom"
-                            ></span
-                          ></a>
-                          <ul class="dropdown-menu" role="menu">
-                            <li>
-                              <a
-                                ><span
-                                  class="glyphicon glyphicon-eye-open"
-                                ></span>
-                                View activities</a
-                              >
-                            </li>
-                            <li>
-                              <a
-                                ><span
-                                  class="glyphicon glyphicon-pencil"
-                                ></span>
-                                Rename folder</a
-                              >
-                            </li>
-                            <li>
-                              <a
-                                onclick="return confirm('Are you sure you want to delete this folder?');"
-                                ><span
-                                  class="glyphicon glyphicon-remove"
-                                ></span>
-                                Delete</a
-                              >
-                            </li>
+                      <ul class="nav">
+                        <li ngbDropdown>
+                          <a ngbDropdownToggle class="td_link_dark" style="border-bottom: none;" role="button">
+                          </a>
+                          <ul ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
+                              <li ngbDropdownItem>
+                                  <a>
+                                      <span class="glyphicon glyphicon-eye-open mr-2"></span>
+                                      View activities
+                                  </a>
+                              </li>
+                              <li ngbDropdownItem>
+                                <a>
+                                  <span class="glyphicon glyphicon-pencil mr-2"></span>
+                                  Rename folder
+                                </a>
+                              </li>
+                              <li ngbDropdownItem>
+                                <a>
+                                  <span class="glyphicon glyphicon-remove mr-2"></span>
+                                  Delete
+                                </a>
+                              </li>
                           </ul>
-                        </li>
+                          </li>
                       </ul>
                     </td>
                   </tr>
                   <tr role="row" class="even">
                     <td class="sorting_1">
                       <img
-                        src="./Log Book Listing_files/fa-folder-close.png"
-                        alt=""
+                        src="assets/img/fa-folder-close.png"
+                        class="mr-3"
                       />
-                      &nbsp;&nbsp;<a
+                      <a
+                        [routerLink]="['folder/post-(outgoing)']"
                         style="font-size: 15px; border-bottom: 0 none"
                         class="td_link_dark"
                         >Post (Outgoing)</a
                       >
                     </td>
                     <td>
-                      <ul class="nav nav-right">
-                        <li>
-                          <a
-                            data-toggle="dropdown"
-                            aria-expanded="false"
-                            ><span
-                              class="glyphicon glyphicon-triangle-bottom"
-                            ></span
-                          ></a>
-                          <ul class="dropdown-menu" role="menu">
-                            <li>
-                              <a
-                                ><span
-                                  class="glyphicon glyphicon-eye-open"
-                                ></span>
-                                View activities</a
-                              >
-                            </li>
-                            <li>
-                              <a
-                                ><span
-                                  class="glyphicon glyphicon-pencil"
-                                ></span>
-                                Rename folder</a
-                              >
-                            </li>
-                            <li>
-                              <a
-                                onclick="return confirm('Are you sure you want to delete this folder?');"
-                                ><span
-                                  class="glyphicon glyphicon-remove"
-                                ></span>
-                                Delete</a
-                              >
-                            </li>
+                      <ul class="nav">
+                        <li ngbDropdown>
+                          <a ngbDropdownToggle class="td_link_dark" style="border-bottom: none;" role="button">
+                          </a>
+                          <ul ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
+                              <li ngbDropdownItem>
+                                  <a>
+                                      <span class="glyphicon glyphicon-eye-open mr-2"></span>
+                                      View activities
+                                  </a>
+                              </li>
+                              <li ngbDropdownItem>
+                                <a>
+                                  <span class="glyphicon glyphicon-pencil mr-2"></span>
+                                  Rename folder
+                                </a>
+                              </li>
+                              <li ngbDropdownItem>
+                                <a>
+                                  <span class="glyphicon glyphicon-remove mr-2"></span>
+                                  Delete
+                                </a>
+                              </li>
                           </ul>
-                        </li>
+                          </li>
                       </ul>
                     </td>
                   </tr>

@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CivilCaseGroupComponent } from './components/civil-case-group/civil-case-group.component';
+import { ContactGroupComponent } from './components/contact-group/contact-group.component';
 import { NewContactComponent } from './components/new-contact/new-contact.component';
+import { NewGroupComponent } from './components/new-group/new-group.component';
 import { ContactsComponent } from './contacts.component';
 
 const routes: Routes = [
@@ -11,11 +12,15 @@ const routes: Routes = [
   },
   {
     path: 'groups/:id',
-    component: CivilCaseGroupComponent
+    component: ContactGroupComponent
   },
   {
     path: 'groups/:id/new-contact',
     component: NewContactComponent
+  },
+  {
+    path: 'new-group',
+    component: NewGroupComponent
   }
 ];
 

@@ -16,8 +16,8 @@ code {
 
 i.dot {
     position: absolute;
-    top: 10px;
-    left: 65px;
+    top: 11px;
+    left: 50.75%;
     color: #cc0000;
 }
 
@@ -37,31 +37,29 @@ i.dot {
     transform: translate3d(0%, 0, 0);
 }
 
-.modal.left .modal-content,
-.modal.right .modal-content {
-    height: 100%;
-    overflow-y: auto;
+.modal-left .modal-dialog {
+    max-height: unset !important;
+    height: unset;
 }
 
 .modal.left .modal-body,
 .modal.right .modal-body {
     padding: 0;
-    padding-bottom: 70px;
 }
 
 
 /*Left*/
 
-// .modal.left.fade .modal-dialog {
-//     left: -320px;
-//     -webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
-//     -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
-//     -o-transition: opacity 0.3s linear, left 0.3s ease-out;
-//     transition: opacity 0.3s linear, left 0.3s ease-out;
-// }
-// .modal.left.fade.in .modal-dialog {
-//     left: 0;
-// }
+.modal.left.fade .modal-dialog {
+    left: -320px;
+    -webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
+    -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
+    -o-transition: opacity 0.3s linear, left 0.3s ease-out;
+    transition: opacity 0.3s linear, left 0.3s ease-out;
+}
+.modal.left.fade.show .modal-dialog {
+    left: 0;
+}
 
 /*Right*/
 
@@ -2429,12 +2427,6 @@ a.btn-default:focus {
 }
 
 
-/* MOBILE MENU - MODAL WINDOW [START] */
-
-.modal-left {
-    z-index: 1000;
-}
-
 #mobile-menu-bar {
     background-color: #292929;
     padding: 10px;
@@ -2475,19 +2467,19 @@ a.btn-default:focus {
     background-color: #78b41e;
     border-bottom: 1px solid #78b41e;
     color: #292929;
-    min-height: 65px !important;
-    height: 65px !important;
+    min-height: 50px !important;
+    height: 50px !important;
 }
 
 .modal-left .modal-title {
     color: #fff;
     font-size: 20px;
     font-weight: 600;
+    margin-top: 0 !important;
 }
 
 .modal-left .modal-header .close {
     opacity: 1;
-    float: right;
     line-height: 1;
     color: #fff;
     font-size: 29px;
@@ -2501,8 +2493,10 @@ a.btn-default:focus {
     padding: 15px;
     display: block !important;
     bottom: 0;
+    left: 0;
     position: fixed;
-    border: 0 none;
+    border: none;
+    width: 100%;
 }
 
 .modal-left .modal-footer h5 {
@@ -2527,9 +2521,8 @@ a.btn-default:focus {
 }
 
 .modal-left .modal-content {
-    height: 100%;
-    overflow-y: auto;
-    border-radius: 0;
+    border: none;
+    border-radius: 0em;
     background-color: #292929;
 }
 
@@ -2590,8 +2583,15 @@ a.btn-default:focus {
     content: "⇾";
 }
 
+.modal-left .modal-title {
+    margin-top: 0 !important;
+}
+
 .modal-left .modal-body {
     padding: 0;
+    height: calc(100vh - 117px);
+    max-height: calc(100vh - 117px);
+    overflow: auto;
 }
 
 .modal-left .modal-dialog {
@@ -5938,7 +5938,6 @@ tbody.collapse.in {
 .dropup .dropdown-menu,
 .navbar-fixed-bottom .dropdown .dropdown-menu {
     top: auto;
-    bottom: 100%;
     margin-bottom: 2px;
 }
 
@@ -8545,15 +8544,12 @@ button.close {
 .modal-dialog {
     position: relative;
     width: auto;
-    margin: 10px;
 }
 
-.modal-content {
+.modal:not(.modal-left) .modal-content {
     background-color: #fff;
     -webkit-background-clip: padding-box;
     background-clip: padding-box;
-    border: 1px solid #999;
-    border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 6px;
     outline: 0;
     -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);

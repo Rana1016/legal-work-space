@@ -7,3 +7,29 @@
         </a>
     </li>
 </ul>
+<!-- windowClass modal-left mobi-menu modal left fade -->
+<ng-template #MobileMainMenu let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" ngbAutoFocus>
+            <span class="fa fa-bars mr-2" aria-hidden="true"></span> Menu
+        </h5>
+        <button type="button" class="close" (click)="modal.close('Close Button')" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <ul class="nav menu">
+            <li *ngFor="let menuItem of menuItems;" [ngClass]="{'active': checkActive(menuItem.url)}">
+                <a [routerLink]='[menuItem.url]'>
+                    <i class="fa fa-{{menuItem.icon}} mr-2"></i>
+                    {{menuItem.text}}
+                    <span *ngIf="menuItem.badge" class="badge">{{menuItem?.badge}}</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="modal-footer">
+        <a class="btn btn-primary"><span class="glyphicon glyphicon-log-out"></span> Sign out
+            (Dr. Mazhar Ilahi)</a>
+    </div>
+</ng-template>

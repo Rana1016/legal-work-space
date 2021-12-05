@@ -57,9 +57,6 @@ export class NewConsultationComponent implements OnInit {
       quotationExpiryDate: ['']
     })
   };
-  clog(h: any) {
-    console.log(h)
-  }
   categories = [
     { categoryId: 0, categoryTitle: "--Please Select--" },
     { categoryId: 1, categoryTitle: "Civil Litigation" },

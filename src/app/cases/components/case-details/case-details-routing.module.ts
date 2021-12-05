@@ -13,7 +13,6 @@ import { PersonalDetailsComponent } from './children/personal-details/personal-d
 import { AccountDetailsComponent } from './children/account-details/account-details.component';
 import { TimeKeepingComponent } from './children/time-keeping/time-keeping.component';
 import { PeshiListComponent } from './children/peshi-list/peshi-list.component';
-import { AttendanceNotesComponent } from './children/attendance-notes/attendance-notes.component';
 import { DeadLinesComponent } from './children/dead-lines/dead-lines.component';
 
 const routes: Routes = [
@@ -53,10 +52,6 @@ const routes: Routes = [
       {
         path: 'notes',
         component: NotesComponent
-      },
-      {
-        path: 'attendance-notes',
-        component: AttendanceNotesComponent
       },
       {
         path: 'deadlines',

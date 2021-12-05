@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { settings } from '../../types/settings.routes';
 
 @Component({
   selector: 'lw-header',
@@ -7,32 +8,11 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent  {
-  closeResult = '';
+  Settings = settings;
+  @Output() openModal = new EventEmitter<string>();
 
   constructor(private modalService: NgbModal) { }
-
-  open(content:any)
-  {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) =>
-    {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) =>
-    {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-
-  private getDismissReason(reason: any): string
-  {
-    if (reason === ModalDismissReasons.ESC)
-    {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK)
-    {
-      return 'by clicking on a backdrop';
-    } else
-    {
-      return `with: ${reason}`;
-    }
+  open(modal: string) {
+    this.openModal.emit(modal);
   }
 }

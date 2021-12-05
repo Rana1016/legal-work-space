@@ -128,11 +128,21 @@ export interface stepFormInterface {
   };
   paymentOptions: {
     feeType: select | number;
-    coveredByFeeAgreement: string;
-    agreedFee: string;
-    isVATIncluded: select | number;
-    advancePayment: string;
-    installments: installmentInterface[];
+    feeTypeForm: {
+      coveredByFeeAgreement: string,
+      agreedFee: string | undefined,
+      hourlyRateCaseWorker: (select | number) | undefined,
+      agreedValue: string | undefined,
+      amountOrPercentage: (select | number) | undefined,
+      isVATIncluded: (select | number) | undefined,
+      advancePayment: string | undefined;
+      installments: installmentInterface[] | undefined;
+    }
+    // coveredByFeeAgreement: string;
+    // agreedFee: string;
+    // isVATIncluded: select | number;
+    // advancePayment: string;
+    // installments: installmentInterface[];
   };
   plaintiffType: string;
   thirdParty: select | number;

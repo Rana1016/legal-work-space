@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-sm-12 col-xl-2 brand">
             <span class="main-logo">Legal Workspace</span>
-            <span class="d-xl-none mobile-menu">
+            <span class="d-xl-none mobile-menu" (click)="open('MobileMainMenu')">
                 <a data-toggle="modal" data-target=".mobi-menu">
                     <span class="fa fa-bars"></span>
                     <span class="d-md-inline-block d-none head">Menu</span>
@@ -36,58 +36,30 @@
 
             <li ngbDropdown>
                 <a ngbDropdownToggle class="nav-link" role="button">
-                    <i class="fa fa-calculator"></i> Calculators
+                    <i class="fa fa-calculator mr-1"></i> Calculators
                 </a>
                 <ul ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
                     <li ngbDropdownItem>
-                        <a data-toggle="modal" data-target="#myModalVAT">
-                            <i class="fa fa-calculator"></i> VAT Calculator
-                        </a>
-                        <!-- <ng-template #content let-modal>
-                            <div class="modal-header">
-                                <h4 class="modal-title" id="modal-basic-title">
-                                    Profile update
-                                </h4>
-                                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form>
-                                    <div class="form-group">
-                                        <label for="dateOfBirth">Date of birth</label>
-                                        <div class="input-group">
-                                            <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker" />
-                                            <div class="input-group-append">
-                                                <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">
-                  Save
-                </button>
-                            </div>
-                        </ng-template> -->
-                    </li>
-                    <li ngbDropdownItem>
-                        <a data-toggle="modal" data-target="#myModalCalTime">
-                            <i class="fa fa-calculator"></i> Amount &amp; Hourly Rate
-                            <i class="fa fa-arrow-right"></i> Time
+                        <a (click)="open('VATCalculator')">
+                            <i class="fa fa-calculator mr-1"></i> VAT Calculator
                         </a>
                     </li>
                     <li ngbDropdownItem>
-                        <a data-toggle="modal" data-target="#myModalCalUnit">
-                            <i class="fa fa-calculator"></i> Time
-                            <i class="fa fa-arrow-right"></i> Units
+                        <a (click)="open('AmountToTimeCalculator')">
+                            <i class="fa fa-calculator mr-1"></i> Amount & Hourly Rate
+                            <i class="fa fa-arrow-right mx-1"></i> Time
                         </a>
                     </li>
                     <li ngbDropdownItem>
-                        <a data-toggle="modal" data-target="#myModalCalMin">
-                            <i class="fa fa-calculator"></i> Units
-                            <i class="fa fa-arrow-right"></i> Time
+                        <a (click)="open('TimeToUnitCalculator')">
+                            <i class="fa fa-calculator mr-1"></i> Time
+                            <i class="fa fa-arrow-right mx-1"></i> Units
+                        </a>
+                    </li>
+                    <li ngbDropdownItem>
+                        <a (click)="open('UnitToTimeCalculator')">
+                            <i class="fa fa-calculator mr-1"></i> Units
+                            <i class="fa fa-arrow-right mx-1"></i> Time
                         </a>
                     </li>
                 </ul>
@@ -97,69 +69,10 @@
                     <span style="font-size: 18px" class="glyphicon glyphicon-cog"></span>
                 </a>
                 <ul ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
-                    <li ngbDropdownItem>
-                        <a [routerLink]="['/settings/global-settings']">
-                            <span class="glyphicon glyphicon-cog"></span> Global Settings
-                        </a>
-                    </li>
-                    <li ngbDropdownItem>
-                        <a [routerLink]="['/settings/bank-accounts']">
-                            <span class="fa fa-university"></span> Bank Accounts
-                        </a>
-                    </li>
-                    <li ngbDropdownItem>
-                        <a [routerLink]="['/settings/office-locations']">
-                            <span class="glyphicon glyphicon-home"></span> Office Locations
-                        </a>
-                    </li>
-                    <li ngbDropdownItem>
-                        <a [routerLink]="['/settings/user-management']">
-                            <span class="glyphicon glyphicon-user"></span> User Management
-                        </a>
-                    </li>
-                    <li ngbDropdownItem>
-                        <a [routerLink]="['/settings/areas-of-practice']">
-                            <span class="glyphicon glyphicon-check"></span> Areas of Practice
-                        </a>
-                    </li>
-                    <li ngbDropdownItem>
-                        <a [routerLink]="['/settings/workflow-templates']">
-                            <span class="fa fa-sitemap" aria-hidden="true"></span> Workflow Templates
-                        </a>
-                    </li>
-                    <li ngbDropdownItem>
-                        <a [routerLink]="['/settings/hourly-rates']">
-                            <span class="glyphicon glyphicon-time"></span> Hourly Rates
-                        </a>
-                    </li>
-                    <li ngbDropdownItem>
-                        <a [routerLink]="['/settings/time-activity-codes']">
-                            <span class="glyphicon glyphicon-time"></span> Time activity codes
-                        </a>
-                    </li>
-                    <li ngbDropdownItem>
-                        <a [routerLink]="['/settings/vat-rates']">
-                            <span class="glyphicon glyphicon-edit"></span> VAT Rates
-                        </a>
-                    </li>
-                    <li ngbDropdownItem>
-                        <a [routerLink]="['/templates/documents']">
-                            <span class="glyphicon glyphicon-duplicate"></span> Document Templates
-                        </a>
-                    </li>
-                    <li ngbDropdownItem>
-                        <a [routerLink]="['/settings/quiz']">
-                            <span class="glyphicon glyphicon-edit"></span> Questionnaire Management
-                        </a>
-                    </li>
-                    <li ngbDropdownItem>
-                        <a [routerLink]="['/settings/calendar']">
-                            <span class="glyphicon glyphicon-calendar"></span> Calendar Settings
-                        </a>
-                    </li>
-                    <li ngbDropdownItem>
-                        <a [routerLink]="['/settings/contacts']">
-                            <span class="glyphicon glyphicon-book"></span> Contact Book Settings
+                    <li ngbDropdownItem *ngFor="let Setting of Settings">
+                        <a [routerLink]="Setting.parentUrl ? [Setting.parentUrl, Setting.url] : ['settings', Setting.url]">
+                            <span class="{{Setting.iconType ? Setting.iconType + ' ' + Setting.iconType : 'glyphicon glyphicon'}}-{{Setting.icon}}"></span>
+                            {{Setting.text}}
                         </a>
                     </li>
                 </ul>
@@ -169,7 +82,6 @@
                 <a ngbDropdownToggle class="nav-link no-caret none" role="button">
                     <span class="badge green">
                         <span class="glyphicon glyphicon-user"></span> Dr. Mazhar Ilahi
-                        <b class="hideme">DMI</b>
                     </span>
                 </a>
                 <ul ngbDropdownMenu class="dropdown-menu dropdown-menu-right">

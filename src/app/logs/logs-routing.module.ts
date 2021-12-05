@@ -2,7 +2,8 @@ import { LogsComponent } from './logs.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddFolderComponent } from './components/add-folder/add-folder.component';
-import { AddActivityComponent } from './components/add-activity/add-activity.component';
+import { NewActivityComponent } from './components/new-activity/new-activity.component';
+import { FolderComponent } from './components/folder/folder.component';
 
 
 const routes: Routes = [
@@ -15,8 +16,12 @@ const routes: Routes = [
     component: AddFolderComponent
   },
   {
-    path: 'add-activity',
-    component: AddActivityComponent
+    path: 'folder/:folderId',
+    component: FolderComponent
+  },
+  {
+    path: 'folder/:folderId/new-activity',
+    component: NewActivityComponent
   }
 ];
 

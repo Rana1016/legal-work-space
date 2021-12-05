@@ -193,7 +193,7 @@
                                 <div *ngIf="Navigation === 1 && showPersonalDetails">
                                     <ng-template #leader let-modal>
                                         <div class="modal-header">
-                                            <h4 class="modal-title">Set Lead Client</h4>
+                                            <h4 class="modal-title" ngbAutoFocus>Set Lead Client</h4>
                                             <button type="button" class="close" aria-label="Close"
                                                 (click)="modal.dismiss('Cross click')">
                                                 <span aria-hidden="true">&times;</span>
@@ -2277,77 +2277,112 @@
                                             <lw-select controlName="feeType" [options]="FormData.feeTypes" [noFirstText]="true"></lw-select>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label>
-                                                * What is covered by this fee agreement?
-                                            </label>
+                                    <ng-container formGroupName="feeTypeForm">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label>
+                                                    * What is covered by this fee agreement?
+                                                </label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <textarea class="form-control" rows="3" formControlName="coveredByFeeAgreement"></textarea>
+                                            </div>
                                         </div>
-                                        <div class="col-md-8">
-                                            <textarea class="form-control" rows="3" formControlName="coveredByFeeAgreement"></textarea>
+                                        <div class="row" *ngIf="stepForm.value.paymentOptions.feeType == 1">
+                                            <div class="col-md-4">
+                                                <label>* Agreed Fee</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" maxlength="10" placeholder="0.00" class="form-control" formControlName="agreedFee"/>
+                                                <small class="text-muted">
+                                                    Example: 299.50 (Including VAT)
+                                                </small>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label>* Agreed Fee</label>
+                                        <div class="row" *ngIf="stepForm.value.paymentOptions.feeType == 2">
+                                            <div class="col-md-4">
+                                                <label>* Hourly Rate Caseworker</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <select class="selectpicker show-menu-arrow form-control" formControlName="hourlyRateCaseWorker">
+                                                    <option value="0">--Please Select--</option>
+                                                    <option *ngFor="let caseWorker of FormData.caseWorkers; let i = index;" [value]="i+1">{{caseWorker}}</option>
+                                                </select>
+                                                <small class="text-muted">Apply hourly rate according to the selected caseworker</small>
+                                            </div>
                                         </div>
-                                        <div class="col-md-8">
-                                            <input type="text" maxlength="10" placeholder="0.00" class="form-control" formControlName="agreedFee"/>
-                                            <small class="text-muted">
-                                                Example: 299.50 (Including VAT)
-                                            </small>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label>
-                                                * Is VAT applicable & included into agreed fee?
-                                            </label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <select class="w-100 selectpicker form-control" formControlName="isVATIncluded">
-                                                <option value="0">No</option>
-                                                <option value="1">Yes</option>
-                                            </select>
-                                            <small class="text-muted">
-                                                Select an appropriate option.
-                                            </small>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <label>* Advance Payment</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input type="text" maxlength="10" placeholder="0.00" class="form-control" formControlName="advancePayment"/>
-                                            <small class="text-muted">Example: 299.50</small>
-                                        </div>
-                                    </div>
-                                    <ng-container formArrayName="installments">
-                                        <div [formGroupName]="ins" *ngFor="let installment of getInstallments(); let ins = index; let f = first;" class="row justify-content-end">
-                                            <div *ngIf="f" class="col-md-4">
-                                                <label>Instalment due date and amount</label>
+                                        <div class="row" *ngIf="stepForm.value.paymentOptions.feeType == 3">
+                                            <div class="col-md-4">
+                                                <label>* Agreed Amount / Percentage</label>
                                             </div>
                                             <div class="col-md-4">
-                                                <input type="date" maxlength="10"
-                                                    class="form-control bt_datepicker span12" formControlName="dueDate"/>
-                                                <small class="text-muted"> Select instalment due date </small>
+                                                <input type="text" maxlength="10" class="form-control" placeholder="0.00" formControlName="agreedValue">
+                                                <small class="text-muted">Example: 16.50 (Including VAT)</small>
                                             </div>
                                             <div class="col-md-4">
-                                                <input type="text" maxlength="10" placeholder="0.00" class="form-control" formControlName="amount"/>
-                                                <small class="text-muted">Example: 299.50</small>
+                                                <select class="selectpicker show-menu-arrow form-control" formControlName="amountOrPercentage">
+                                                    <option value="0">Percent (%)</option>
+                                                    <option value="1">Amount (PKR)</option>
+                                                </select>
+                                                <small class="text-muted">Select an appropriate option.</small></div>
                                             </div>
-                                        </div>
+                                            <div class="row" *ngIf="stepForm.value.paymentOptions.feeType != 4 && stepForm.value.paymentOptions.feeType != 5">
+                                                <div class="col-md-4">
+                                                    <label>
+                                                        * Is VAT applicable & included into {{
+                                                            stepForm.value.paymentOptions.feeType == 1 ? 'agreed fee'
+                                                            : stepForm.value.paymentOptions.feeType == 2 ? 'hourly rate'
+                                                            : stepForm.value.paymentOptions.feeType == 3 && 'agreed amount / percentage'
+                                                        }}?
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <select class="w-100 selectpicker form-control" formControlName="isVATIncluded">
+                                                        <option value="0">No</option>
+                                                        <option value="1">Yes</option>
+                                                    </select>
+                                                    <small class="text-muted">
+                                                        Select an appropriate option.
+                                                    </small>
+                                                </div>
+                                            </div>
+                                            <ng-container *ngIf="stepForm.value.paymentOptions.feeType == 1">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label>* Advance Payment</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <input type="text" maxlength="10" placeholder="0.00" class="form-control" formControlName="advancePayment"/>
+                                                        <small class="text-muted">Example: 299.50</small>
+                                                    </div>
+                                                </div>
+                                                <ng-container formArrayName="installments">
+                                                    <div [formGroupName]="ins" *ngFor="let installment of getInstallments(); let ins = index; let f = first;" class="row justify-content-end">
+                                                        <div *ngIf="f" class="col-md-4">
+                                                            <label>Instalment due date and amount</label>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <input type="date" maxlength="10"
+                                                            class="form-control bt_datepicker span12" formControlName="dueDate"/>
+                                                            <small class="text-muted"> Select instalment due date </small>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <input type="text" maxlength="10" placeholder="0.00" class="form-control" formControlName="amount"/>
+                                                            <small class="text-muted">Example: 299.50</small>
+                                                        </div>
+                                                    </div>
+                                                </ng-container>
+                                                <div class="row" style="margin-top: 20px">
+                                                    <div class="col-md-12">
+                                                        <button class="add_field_button0 btn btn-danger"
+                                                        (click)="addInstallments()">
+                                                        <span class="fa fa-plus"></span>
+                                                        Add More Instalments
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </ng-container>
                                     </ng-container>
-                                    <div class="row" style="margin-top: 20px">
-                                        <div class="col-md-12">
-                                            <button class="add_field_button0 btn btn-danger"
-                                                (click)="addInstallments()">
-                                                <span class="fa fa-plus"></span>
-                                                Add More Instalments
-                                            </button>
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12 text-right">
@@ -2381,7 +2416,7 @@
 <!-- Modal -->
 <ng-template #content let-modal>
     <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+        <h4 class="modal-title" ngbAutoFocus id="modal-basic-title">Profile update</h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
             <span aria-hidden="true">&times;</span>
         </button>

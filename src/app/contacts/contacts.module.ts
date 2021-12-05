@@ -4,16 +4,18 @@ import { CommonModule } from '@angular/common';
 import { ContactsRoutingModule } from './contacts-routing.module';
 import { ContactsComponent } from './contacts.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CivilCaseGroupComponent } from './components/civil-case-group/civil-case-group.component';
 import { NewContactComponent } from './components/new-contact/new-contact.component';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { ContactGroupComponent } from './components/contact-group/contact-group.component';
+import { NewGroupComponent } from './components/new-group/new-group.component';
 
 
 @NgModule({
   declarations: [
     ContactsComponent,
-    CivilCaseGroupComponent,
-    NewContactComponent
+    ContactGroupComponent,
+    NewContactComponent,
+    NewGroupComponent
   ],
   imports: [
     CommonModule,

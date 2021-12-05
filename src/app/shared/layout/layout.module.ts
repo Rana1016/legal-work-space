@@ -16,16 +16,15 @@ import { ReceiptsModule } from 'src/app/receipts/receipts.module';
 import { AccountsModule } from 'src/app/accounts/accounts.module';
 import { LogsModule } from 'src/app/logs/logs.module';
 import { ReportsModule } from 'src/app/reports/reports.module';
-import { NgbDatepickerModule, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-import { FloatingTimerComponent } from '../components/floating-timer/floating-timer.component';
+import { NgbDatepickerModule, NgbDropdownModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { SharedModule } from '../shared.module';
 
 
 @NgModule({
   declarations: [
     LayoutComponent,
     HeaderComponent,
-    SidenavComponent,
-    FloatingTimerComponent
+    SidenavComponent
   ],
   imports: [
     CommonModule,
@@ -38,9 +37,11 @@ import { FloatingTimerComponent } from '../components/floating-timer/floating-ti
     ReceiptsModule,
     AccountsModule,
     LogsModule,
+    SharedModule,
     ReportsModule,
     NgbDropdownModule,
-    NgbDatepickerModule
+    NgbDatepickerModule,
+    NgbModalModule
   ]
 })
 export class LayoutModule { }

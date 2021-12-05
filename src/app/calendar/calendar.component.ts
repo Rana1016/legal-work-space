@@ -2,12 +2,13 @@ import { TitleCasePipe } from '@angular/common';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FullCalendarComponent } from '@fullcalendar/angular';
-import { CalendarOptions, EventClickArg, EventApi } from '@fullcalendar/common';
-import { DateClickArg } from '@fullcalendar/interaction';
+import { EventDropArg } from '@fullcalendar/core';
+import { CalendarOptions, EventClickArg } from '@fullcalendar/common';
+import { DateClickArg, EventResizeDoneArg } from '@fullcalendar/interaction';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
-import * as Pikaday from 'pikaday';
 import FormData from 'src/assets/JSONs/FormData.json';
+import Pikaday from 'pikaday';
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
@@ -16,6 +17,7 @@ import FormData from 'src/assets/JSONs/FormData.json';
 export class CalendarComponent implements OnInit {
   @ViewChild('calendar') Calendar!: FullCalendarComponent;
   @ViewChild('eventInCalender') eventInCalender!: TemplateRef<any>;
+  Pikaday!: Pikaday;
   constructor(private modalService: NgbModal, private fb: FormBuilder, private capitalize: TitleCasePipe) {}
 
   calendarOptions!: CalendarOptions;
@@ -44,7 +46,7 @@ export class CalendarComponent implements OnInit {
   }
   ngOnInit(): void {
     this.eventFormInit();
-    let pikadayConfig = {
+    let pikadayConfig: Pikaday.PikadayOptions = {
       field: document.getElementById('datepicker'),
       firstDay: 1,
       minDate: new Date(2016, 0, 1),
@@ -56,10 +58,9 @@ export class CalendarComponent implements OnInit {
         this.Calendar.getApi().gotoDate(dateString),
       container: document.getElementById('pickaday_container'),
     };
-    let pikaday = new Pikaday(pikadayConfig);
+    this.Pikaday = new Pikaday(pikadayConfig);
     this.calendarOptions = {
       initialView: "timeGridDay",
-      // defaultDate: "2021-10-15",
       defaultTimedEventDuration: "00:30:00",
       firstDay: 1,
       // titleFormat: "ddd DD-MM-YYYY",
@@ -68,7 +69,6 @@ export class CalendarComponent implements OnInit {
       businessHours: false,
 
       dayMaxEvents: true,
-      // eventLimit: true, // allow "more" link when too many events
       headerToolbar: {
         start: "prev,next today",
         center: "title",
@@ -129,11 +129,7 @@ export class CalendarComponent implements OnInit {
           ],
         }
       ],
-      // resources: [
-      //   { id: "4001", title: "Dr. Mazhar Ilahi", eventColor:  },
-      // ],
-
-      // select: function (start, end, jsEvent, view, resource) {
+      // selectAllow: function (start, end, jsEvent, view, resource) {
       //   alert(start.format()+','+ end.format()+','+ resource.id);
       // },
       dateClick: this.dateClick.bind(this),
@@ -143,7 +139,7 @@ export class CalendarComponent implements OnInit {
   };
 }
 
-  eventDrop({event, delta}: any) {
+  eventDrop({event, delta}: EventDropArg) {
     var dragStartDate = this.toDate(event.start);
     var dragStartTime = this.toTime(event.start);
     if (event.end === null) {
@@ -168,7 +164,7 @@ export class CalendarComponent implements OnInit {
     //     "&inpID=" +
     //     event.id +
     //     "&inpCAL=" +
-    //     event.resourceId,
+    //     event.source?.id,
     //   type: "POST",
     //   success: function (json) {
     //     if (json == "e1") {
@@ -178,7 +174,7 @@ export class CalendarComponent implements OnInit {
     // });
   };
 
-  eventResize({event}: any) {
+  eventResize({event}: EventResizeDoneArg) {
     var resizeStartDate = this.toDate(event.start);
     var resizeStartTime = this.toTime(event.start);
     if (event.end === null) {
@@ -203,7 +199,7 @@ export class CalendarComponent implements OnInit {
     //     "&inpID=" +
     //     event.id +
     //     "&inpCAL=" +
-    //     event.resourceId,
+    //     event.source?.id,
     //   type: "POST",
     //   success: function (json) {
     //     if (json == "e1") {

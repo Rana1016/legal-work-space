@@ -9,6 +9,8 @@ import { caseDetail } from 'src/app/shared/types/case-details.types';
 })
 export class CaseDetailsComponent implements OnInit {
   constructor(private router: Router) {}
+  caseId!: number;
+
   detailsTabs!: caseDetail[];
   ngOnInit(): void {
     this.detailsTabs = [
@@ -41,10 +43,6 @@ export class CaseDetailsComponent implements OnInit {
         selector: 'notes',
       },
       {
-        title: 'Attendance Notes',
-        selector: 'attendance-notes',
-      },
-      {
         title: 'Key Dates',
         selector: 'deadlines',
       },
@@ -65,9 +63,11 @@ export class CaseDetailsComponent implements OnInit {
         selector: 'status',
       },
     ];
-    console.log(this.router.url);
     this.activatePanel();
-  }
+    const UrlPartitions = this.router.url.split('/');
+    this.caseId = Number(UrlPartitions[UrlPartitions.length - 2]);
+  };
+
 
   activatePanel(myDT?: caseDetail) {
     if (myDT) {

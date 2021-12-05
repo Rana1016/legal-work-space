@@ -156,11 +156,16 @@ export class StepsComponent implements OnInit {
       }),
       paymentOptions: this.fb.group({
         feeType: [1],
-        coveredByFeeAgreement: [''],
-        agreedFee: [''],
-        isVATIncluded: [0],
-        advancePayment: [''],
-        installments: this.fb.array([this.createInstallment()]),
+        feeTypeForm: this.fb.group({
+          coveredByFeeAgreement: [''],
+          agreedFee: [''],
+          hourlyRateCaseWorker: [0],
+          agreedValue: [''],
+          amountOrPercentage: [0],
+          isVATIncluded: [0],
+          advancePayment: [''],
+          installments: this.fb.array([this.createInstallment()]),
+        })
       }),
       courtId: [0],
       isMatter: [false],
@@ -221,7 +226,44 @@ export class StepsComponent implements OnInit {
     });
     this.incrementEditedFields(null, 'Team Details', 'teamDetails', mandatoryTeamDetailsFields);
     this.incrementEditedFields(null, 'Court Details', 'courtDetails', mandatoryCourtDetailsFields);
-    this.incrementEditedFields(null, 'Payment Options', 'paymentOptions', mandatoryPaymentOptionsFields)
+    (<FormGroup>this.stepForm.controls.paymentOptions).controls.feeType.valueChanges
+    .subscribe((feeType) => {
+      const feeForm = (<FormGroup>(<FormGroup>this.stepForm.controls.paymentOptions).controls.feeTypeForm)
+      feeType == 1 ? (
+        feeForm.setControl('agreedFee', this.fb.control('')),
+        feeForm.setControl('isVATIncluded', this.fb.control(0)),
+        feeForm.setControl('advancePayment', this.fb.control('')),
+        feeForm.setControl('installments', this.fb.array([this.createInstallment()])),
+        feeForm.removeControl('hourlyRateCaseWorker'),
+        feeForm.removeControl('agreedValue'),
+        feeForm.removeControl('amountOrPercentage')
+      ) : (
+        feeForm.removeControl('agreedFee'),
+        feeForm.removeControl('advancePayment'),
+        feeForm.removeControl('installments'),
+        feeType == 2 ? (
+          feeForm.setControl('hourlyRateCaseWorker', this.fb.control(0)),
+          feeForm.setControl('isVATIncluded', this.fb.control(0)),
+          feeForm.removeControl('agreedValue'),
+          feeForm.removeControl('amountOrPercentage')
+        ) : feeType == 3 ? (
+          feeForm.setControl('agreedValue', this.fb.control('')),
+          feeForm.setControl('amountOrPercentage', this.fb.control(0)),
+          feeForm.setControl('isVATIncluded', this.fb.control(0)),
+          feeForm.removeControl('hourlyRateCaseWorker')
+        ) : (
+          feeForm.removeControl('agreedFee'),
+          feeForm.removeControl('advancePayment'),
+          feeForm.removeControl('installments'),
+          feeForm.removeControl('hourlyRateCaseWorker'),
+          feeForm.removeControl('agreedValue'),
+          feeForm.removeControl('amountOrPercentage'),
+          feeForm.removeControl('isVATIncluded')
+        )
+      );
+      console.log(feeForm.value)
+    });
+    // this.incrementEditedFields(null, 'Payment Options', 'paymentOptions', mandatoryPaymentOptionsFields)
   }
 
   incrementEditedFields(clientType?: string | null, navItemTitle?: string, formGroupName?: string, mandatoryFields?: FormField[]) {
@@ -636,7 +678,7 @@ export class StepsComponent implements OnInit {
   }
 
   getInstallments() {
-    return (<FormArray>this.stepForm.controls.paymentOptions.get('installments')).controls;
+    return (<FormArray>(<FormGroup>this.stepForm.controls.paymentOptions.get('feeTypeForm')).get('installments')).controls;
   }
 
   createInstallment() {
@@ -650,12 +692,12 @@ export class StepsComponent implements OnInit {
   }
 
   addInstallments() {
-    const installmentData = this.stepForm.controls.paymentOptions.get('installments') as FormArray;
+    const installmentData = (<FormGroup>this.stepForm.controls.paymentOptions.get('feeTypeForm')).get('installments') as FormArray;
     installmentData.push(this.createInstallment());
   }
 
   removeInstallments(index: any) {
-    const control = <FormArray>this.stepForm.controls['installments'];
+    const control = <FormArray>(<FormGroup>this.stepForm.controls.paymentOptions.get('feeTypeForm')).controls['installments'];
     control.removeAt(index);
   }
 

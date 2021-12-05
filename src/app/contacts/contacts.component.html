@@ -9,6 +9,7 @@
               <li>
                 <a
                   class="btn"
+                  [routerLink]="['new-group']"
                   ><span class="glyphicon glyphicon-plus"></span> Add group</a
                 >
               </li>
@@ -103,7 +104,7 @@
                           </a>
                           <ul ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
                               <li ngbDropdownItem>
-                                  <a>
+                                  <a [routerLink]="['groups/my-contacts']">
                                       <span class="glyphicon glyphicon-eye-open mr-2"></span>
                                       View contacts
                                   </a>
@@ -118,7 +119,7 @@
                       <img
                         src="assets/img/fa-contact-book.png"
                         class="mr-3"
-                      /><a [routerLink]="['groups/civil-case']"
+                      /><a [routerLink]="['groups/civil-case-group']"
                         style="font-size: 15px; border-bottom: 0 none"
                         class="td_link_dark"
                         ><strong>Civil case Group</strong></a
@@ -131,7 +132,7 @@
                           </a>
                           <ul ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
                               <li ngbDropdownItem>
-                                  <a>
+                                  <a [routerLink]="['groups/civil-case-group']">
                                       <span class="glyphicon glyphicon-eye-open mr-2"></span>
                                       View contacts
                                   </a>

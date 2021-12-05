@@ -12,11 +12,11 @@ import { AmlComponent } from './children/aml/aml.component';
 import { RouterModule } from '@angular/router';
 import { PeshiListComponent } from './children/peshi-list/peshi-list.component';
 import { DeadLinesComponent } from './children/dead-lines/dead-lines.component';
-import { AttendanceNotesComponent } from './children/attendance-notes/attendance-notes.component';
 import { PersonalDetailsComponent } from './children/personal-details/personal-details.component';
 import { AccountDetailsComponent } from './children/account-details/account-details.component';
 import { TimeKeepingComponent } from './children/time-keeping/time-keeping.component';
 import { CaseDetailsComponent } from './children/case-details/case-details.component';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -31,7 +31,6 @@ import { CaseDetailsComponent } from './children/case-details/case-details.compo
     AmlComponent,
     PeshiListComponent,
     DeadLinesComponent,
-    AttendanceNotesComponent,
     PersonalDetailsComponent,
     AccountDetailsComponent,
     TimeKeepingComponent
@@ -39,7 +38,8 @@ import { CaseDetailsComponent } from './children/case-details/case-details.compo
   imports: [
     CommonModule,
     RouterModule,
-    CaseDetailsRoutingModule
+    CaseDetailsRoutingModule,
+    NgbDropdownModule
   ]
 })
 export class CaseDetailsModule { }

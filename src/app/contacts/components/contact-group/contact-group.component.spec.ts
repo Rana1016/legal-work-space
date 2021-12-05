@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CivilCaseGroupComponent } from './civil-case-group.component';
+import { ContactGroupComponent } from './contact-group.component';
 
-describe('CivilCaseGroupComponent', () => {
-  let component: CivilCaseGroupComponent;
-  let fixture: ComponentFixture<CivilCaseGroupComponent>;
+describe('ContactGroupComponent', () => {
+  let component: ContactGroupComponent;
+  let fixture: ComponentFixture<ContactGroupComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CivilCaseGroupComponent ]
+      declarations: [ ContactGroupComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CivilCaseGroupComponent);
+    fixture = TestBed.createComponent(ContactGroupComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

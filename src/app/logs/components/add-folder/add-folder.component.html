@@ -1,6 +1,6 @@
-  <h1 id="pg-title" class="row align-items-center justify-content-center justify-content-md-start">
-    Log book <span class="glyphicon glyphicon-chevron-right"></span> add folder
-  </h1>
+<h1 id="pg-title" class="row align-items-center justify-content-center justify-content-md-start">
+  Log book <span class="glyphicon glyphicon-chevron-right mx-3"></span> Add folder
+</h1>
 <div class="row">
   <div class="col-md-12">
     <div class="widget">
@@ -11,7 +11,7 @@
               <li>
                 <a
                   class="btn"
-                  [routerLink]="['/logs']"
+                  [routerLink]="['..']"
                   ><span class="glyphicon glyphicon-arrow-left"></span> Back</a
                 >
               </li>
@@ -51,16 +51,11 @@
                   /><small class="text-muted">Example: Post (Incoming)</small>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-md-4"></div>
-                <div class="col-md-8">
+              <div class="row justify-content-end">
+                <div class="col-auto">
                   <button
                     style="margin-bottom: 15px"
                     class="btn btn-primary"
-                    data-toggle="modal"
-                    data-target=".bs-example-modal-lg"
-                    type="button"
-                    aria-hidden="true"
                   >
                     <span class="glyphicon glyphicon-ok"></span> Submit
                   </button>

@@ -31,6 +31,6 @@ export class SidenavComponent implements OnInit {
   }
 
   checkActive(url: string) {
-    return this.route.url.replace('/', '').includes(url)
+    return this.route.url.split('/').slice(1).join('/').startsWith(url)
   }
 }

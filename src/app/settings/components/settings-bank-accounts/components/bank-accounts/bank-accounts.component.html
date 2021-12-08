@@ -1,4 +1,4 @@
-<h1 id="pg-title" class="row align-items-center justify-content-center justify-content-md-start">Office locations</h1>
+<h1 id="pg-title" class="row align-items-center justify-content-center justify-content-md-start">Bank accounts</h1>
 <div class="row">
     <div class="col-md-12">
         <div class="widget">
@@ -7,7 +7,7 @@
                     <div class="col-md-12" id="pg-nav">
                         <ul class="list-inline">
                             <li>
-                                <a class="btn"><span class="glyphicon glyphicon-plus"></span> Add new</a
+                                <a class="btn" [routerLink]="['new-bank-account']"><span class="glyphicon glyphicon-plus"></span> Add new</a
                 >
               </li>
             </ul>
@@ -22,16 +22,6 @@
   <div class="col-md-12">
     <div class="widget">
       <div class="widget-body">
-        <div class="row">
-          <div class="col-sm-12 col-md-6 col-lg-6">
-            <h5>Office Locations</h5>
-          </div>
-          <div class="col-sm-12 col-md-6 col-lg-6 toolbar">
-            <ul class="list-inline"></ul>
-          </div>
-        </div>
-        <hr />
-
         <div class="table-responsive">
           <div
             id="DataTables_Table_0_wrapper"
@@ -47,7 +37,12 @@
               /></label>
             </div>
             <table
-              class="table table-striped res_tab_full_asc dataTable no-footer"
+              class="
+                table table table-striped
+                res_tab_full_asc
+                dataTable
+                no-footer
+              "
               cellspacing="0"
               width="100%"
               id="DataTables_Table_0"
@@ -63,9 +58,9 @@
                     rowspan="1"
                     colspan="1"
                     aria-sort="ascending"
-                    aria-label="Title: activate to sort column descending"
+                    aria-label="Type: activate to sort column descending"
                   >
-                    Title
+                    Type
                   </th>
                   <th
                     class="sorting"
@@ -73,9 +68,9 @@
                     aria-controls="DataTables_Table_0"
                     rowspan="1"
                     colspan="1"
-                    aria-label="Phone: activate to sort column ascending"
+                    aria-label="Account: activate to sort column ascending"
                   >
-                    Phone
+                    Account
                   </th>
                   <th
                     class="sorting"
@@ -83,9 +78,9 @@
                     aria-controls="DataTables_Table_0"
                     rowspan="1"
                     colspan="1"
-                    aria-label="Fax: activate to sort column ascending"
+                    aria-label="Sort code: activate to sort column ascending"
                   >
-                    Fax
+                    Sort code
                   </th>
                   <th
                     class="sorting"
@@ -93,9 +88,19 @@
                     aria-controls="DataTables_Table_0"
                     rowspan="1"
                     colspan="1"
-                    aria-label="Email: activate to sort column ascending"
+                    aria-label="Bank: activate to sort column ascending"
                   >
-                    Email
+                    Bank
+                  </th>
+                  <th
+                    class="sorting"
+                    tabindex="0"
+                    aria-controls="DataTables_Table_0"
+                    rowspan="1"
+                    colspan="1"
+                    aria-label="A/C holder: activate to sort column ascending"
+                  >
+                    A/C holder
                   </th>
                   <th
                     width="50"
@@ -112,19 +117,16 @@
               </thead>
               <tbody>
                 <tr role="row" class="odd">
-                  <td class="sorting_1">
-                    <a
-                      class="td_link_dark"
-                      >Main Office</a
-                    >
-                  </td>
-                  <td></td>
-                  <td></td>
-                  <td>mazharilahi@hotmail.com</td>
+                  <td class="sorting_1">Client A/C</td>
+                  <td>00123123</td>
+                  <td>99-00-99</td>
+                  <td>Client Account</td>
+                  <td>ABC Law Firm</td>
                   <td>
                     <ul class="nav nav-right">
                       <li>
                         <a
+                          href="#"
                           class="dropdown-toggle"
                           data-toggle="dropdown"
                           aria-expanded="false"
@@ -134,20 +136,36 @@
                         ></a>
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
-                                        <a><span class="glyphicon glyphicon-pencil"></span>
-                              Edit</a
+                                        <a onclick="return confirm('Are you sure you want to delete this record?');"><span class="glyphicon glyphicon-remove"></span>
+                              Delete</a
                             >
                           </li>
-                          <li>
-                            <a
-                              ><span class="fa fa-google-wallet"></span>
-                              Signature</a
-                            >
-                          </li>
-                          <li>
-                            <a
-                              onclick="return confirm('Are you sure you want to delete this record?');"
-                              ><span class="glyphicon glyphicon-remove"></span>
+                        </ul>
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+                <tr role="row" class="even">
+                  <td class="sorting_1">Office A/C</td>
+                  <td>12345600</td>
+                  <td>00-11-22</td>
+                  <td>Office Account</td>
+                  <td>ABC Law Firm</td>
+                  <td>
+                    <ul class="nav nav-right">
+                      <li>
+                        <a
+                          href="#"
+                          class="dropdown-toggle"
+                          data-toggle="dropdown"
+                          aria-expanded="false"
+                          ><span
+                            class="glyphicon glyphicon-triangle-bottom"
+                          ></span
+                        ></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li>
+                                                <a onclick="return confirm('Are you sure you want to delete this record?');"><span class="glyphicon glyphicon-remove"></span>
                               Delete</a
                             >
                           </li>
@@ -164,7 +182,7 @@
               role="status"
               aria-live="polite"
             >
-              Showing 1 to 1 of 1 entries
+              Showing 1 to 2 of 2 entries
             </div>
           </div>
         </div>

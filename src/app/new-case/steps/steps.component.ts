@@ -261,7 +261,6 @@ export class StepsComponent implements OnInit {
           feeForm.removeControl('isVATIncluded')
         )
       );
-      console.log(feeForm.value)
     });
     // this.incrementEditedFields(null, 'Payment Options', 'paymentOptions', mandatoryPaymentOptionsFields)
   }

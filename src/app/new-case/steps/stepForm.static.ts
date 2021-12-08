@@ -146,19 +146,28 @@ export const mandatoryCourtDetailsFields: FormField[] = [
 ];
 
 export const mandatoryPaymentOptionsFields: FormField[] = [
-  { field: 'feeType', type: 'select'},
-  { field: 'coveredByFeeAgreement', type: 'input'},
-  { field: 'agreedFee', type: 'input'},
-  { field: 'isVATIncluded', type: 'select'},
-  { field: 'advancePayment', type: 'input'},
-  { field: 'installments', type: 'array', mandatoryFields: [
-    {
-      field: 'dueDate',
-      type: 'date'
-    },
-    {
-      field: 'amount',
-      type: 'input'
-    }
-  ]},
+  { field: 'feeType', type: 'select' },
+  {
+    field: 'feeTypeForm', type: 'group', mandatoryFields: [
+      { field: 'coveredByFeeAgreement', type: 'input' },
+      { field: 'agreedFee', type: 'input' },
+      { field: 'isVATIncluded', type: 'select' },
+      { field: "hourlyRateCaseWorker", type: 'select' },
+      { field: 'agreedValue', type: 'input' },
+      { field: "amountOrPercentage", type: 'select' },
+      { field: "advancePayment", type: 'input' },
+      {
+        field: 'installments', type: 'array', mandatoryFields: [
+          {
+            field: 'dueDate',
+            type: 'date'
+          },
+          {
+            field: 'amount',
+            type: 'input'
+          }
+        ]
+      },
+    ]
+  }
 ]

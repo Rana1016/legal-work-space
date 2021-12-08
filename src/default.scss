@@ -213,16 +213,18 @@ form p.desc {
 .main {
     padding-right: 15px;
     padding-left: 15px;
-    padding-bottom: 100px;
-    max-height: 100%;
+    max-height: calc(100% - 106px);
     overflow-y: auto;
-}
-
-@media (min-width: 1200px) {
-    .main {
+    @media (min-width: 1200px) {
+        max-height: 100% !important;
         margin-left: 16.6667% !important;
     }
+
+    @media (min-width: 992px) {
+        max-height: calc(100% - 60px);  
+    }
 }
+
 
 ul.dropdown-menu hr {
     margin-top: 10px;
@@ -1924,7 +1926,7 @@ a.btn-default:focus {
         top: 0;
         z-index: 100;
     }
-    @media (min-width: 990px) and (max-width: 1200px) {
+    @media (min-width: 991px) and (max-width: 1200px) {
         left: 20rem;
         background-color: #000000cf;
         display: inline-block;

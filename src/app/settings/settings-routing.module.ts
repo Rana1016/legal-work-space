@@ -3,13 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { ContactsComponent } from './components/contacts/contacts.component';
 import { AreasOfPracticeComponent } from './components/areas-of-practice/areas-of-practice.component';
-import { BankAccountsComponent } from './components/bank-accounts/bank-accounts.component';
 import { GlobalSettingsComponent } from './components/global-settings/global-settings.component';
-import { HourlyRatesComponent } from './components/hourly-rates/hourly-rates.component';
-import { OfficeLocationsComponent } from './components/office-locations/office-locations.component';
 import { QuizComponent } from './components/quiz/quiz.component';
 import { TimeActivityCodesComponent } from './components/time-activity-codes/time-activity-codes.component';
-import { UserManangementComponent } from './components/user-manangement/user-manangement.component';
 import { VatRatesComponent } from './components/vat-rates/vat-rates.component';
 import { WorkflowTemplatesComponent } from './components/workflow-templates/workflow-templates.component';
 import { SettingsComponent } from './settings.component';
@@ -25,14 +21,13 @@ const routes: Routes = [
     component: SettingsComponent,
     children: [
       {
-        path:"areas-of-practice",
-        component:AreasOfPracticeComponent
+        path: "areas-of-practice",
+        component: AreasOfPracticeComponent
     
       },
       {
-        path:"bank-accounts",
-        component:BankAccountsComponent
-    
+        path: "bank-accounts",
+        loadChildren: () => import('./components/settings-bank-accounts/settings-bank-accounts.module').then(m => m.SettingsBankAccountsModule)
       },
       {
         path:"calendar",
@@ -51,13 +46,12 @@ const routes: Routes = [
       },
       {
         path:"hourly-rates",
-        component:HourlyRatesComponent
+        loadChildren: () => import('./components/settings-hourly-rates/settings-hourly-rates.module').then(m => m.SettingsHourlyRatesModule)
     
       },
       {
         path:"office-locations",
-        component:OfficeLocationsComponent
-    
+        loadChildren: () => import('./components/settings-office-locations/settings-office-locations.module').then(m => m.SettingsOfficeLocationsModule)
       },
       {
         path:"quiz",
@@ -70,7 +64,7 @@ const routes: Routes = [
       },
       {
         path:"user-management",
-        component:UserManangementComponent
+        loadChildren: () => import('./components/settings-users-management/settings-users-management.module').then(m => m.SettingsUsersManagementModule)
     
       },{
         path:"vat-rates",

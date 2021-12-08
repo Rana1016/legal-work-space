@@ -20,7 +20,7 @@
     <div class="modal-body">
         <ul class="nav menu">
             <li *ngFor="let menuItem of menuItems;" [ngClass]="{'active': checkActive(menuItem.url)}">
-                <a [routerLink]='[menuItem.url]'>
+                <a [routerLink]='[menuItem.url]' (click)="modal.close('Close Button')">
                     <i class="fa fa-{{menuItem.icon}} mr-2"></i>
                     {{menuItem.text}}
                     <span *ngIf="menuItem.badge" class="badge">{{menuItem?.badge}}</span>

@@ -1,0 +1,34 @@
+<h1 id="pg-title" class="row align-items-center justify-content-center justify-content-md-start">Cases<span class="glyphicon glyphicon-chevron-right mx-3"></span>CL/{{caseId.toFixed(2)}}/Sabir<span class="glyphicon glyphicon-chevron-right mx-3"></span>AML<span class="glyphicon glyphicon-chevron-right mx-3"></span>Add new AML List</h1>
+
+<div class="widget">
+    <div class="widget-body">
+        <div class="row">
+            
+        </div>
+        <form [formGroup]="newAmlListForm">
+            <ng-container formArrayName="amlCheckList">
+                <ng-container *ngFor="let amlCP of $any(newAmlListForm.controls.amlCheckList).controls; let i = index" formGroupName="{{i}}">
+                    <h4 class="wf_heading">
+                        <div class="input-group">
+                            <div class="input-group-prepend aml_checkbox">
+                                <input type="checkbox" class="aml_check" formControlName="ifChecked"/>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Enter AML Checkpoint" formControlName="amlCheckPoint" />
+                        </div>
+                    </h4>
+                </ng-container>
+            </ng-container>
+            <div class="row mb-0 justify-content-between">
+                <div class="col-auto mr-auto">
+                    <a (click)="addAMLCheckPoint()" class="btn btn_toolbar">
+                        <span class="glyphicon glyphicon-plus"></span>
+                        New AML Checkpoint
+                    </a>
+                  </div>
+                <div class="col-auto ml-auto">
+                    <button type="submit" class="btn btn-primary" (click)="submitForm()">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

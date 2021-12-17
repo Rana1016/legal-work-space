@@ -16,7 +16,13 @@ import { PersonalDetailsComponent } from './children/personal-details/personal-d
 import { AccountDetailsComponent } from './children/account-details/account-details.component';
 import { TimeKeepingComponent } from './children/time-keeping/time-keeping.component';
 import { CaseDetailsComponent } from './children/case-details/case-details.component';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbAccordionModule, NgbDatepickerModule, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { NewPeshiComponent } from './children/new-peshi/new-peshi.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { DataTablesModule } from 'angular-datatables';
+import { NewAmlListComponent } from './children/new-aml-list/new-aml-list.component';
+import { NewNoteComponent } from './children/new-note/new-note.component';
 
 
 @NgModule({
@@ -33,13 +39,22 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
     DeadLinesComponent,
     PersonalDetailsComponent,
     AccountDetailsComponent,
-    TimeKeepingComponent
+    ActivitiesComponent,
+    TimeKeepingComponent,
+    NewPeshiComponent,
+    NewAmlListComponent,
+    NewNoteComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
+    DataTablesModule,
+    ReactiveFormsModule,
     CaseDetailsRoutingModule,
-    NgbDropdownModule
+    NgbDropdownModule,
+    NgSelectModule,
+    NgbAccordionModule,
+    NgbDatepickerModule
   ]
 })
 export class CaseDetailsModule { }

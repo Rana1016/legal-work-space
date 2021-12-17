@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { CaseDetailService } from 'src/app/shared/services/case-detail.service';
 
 @Component({
   selector: 'app-dead-lines',
@@ -6,10 +8,65 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dead-lines.component.scss']
 })
 export class DeadLinesComponent implements OnInit {
-
-  constructor() { }
+  constructor(private router: Router, private caseDetailService: CaseDetailService) { }
+  
+  data: any;
+  dtOptions!: DataTables.Settings;
+  caseId!: number;
 
   ngOnInit(): void {
+    const UrlPartitions = this.router.url.split('/');
+    this.caseId = Number(UrlPartitions[UrlPartitions.length - 2]);
+    this.dtOptions = {
+      responsive: true,
+      // scrollX: true,
+      order: [[0, "desc"]],
+      lengthChange: false,
+      paging: false,
+      ordering: true,
+      displayStart: -1,
+      info: true,
+      autoWidth: false,
+      searching: true,
+      language: {
+        emptyTable: 'No keydates available.'
+      },
+      columns: [{
+        title: '',
+        width: '150',
+        orderable: false
+      }, {
+        title: 'Key date',
+        width: '150',
+        data: 'keyDate',
+        orderable: true,
+        
+      }, {
+        title: 'Title',
+        width: '350',
+        data: 'title',
+        orderable: false
+      }, {
+        title: 'Reminder date',
+        width: '150',
+        data: null,
+        orderable: true
+      }, {
+        title: 'Actions',
+        width: '100',
+        data: null,
+        orderable: false
+      }],
+      ajax: this.ajaxKeyDates.bind(this)
+    };
   }
-
+  ajaxKeyDates(dTParams: any, callback: any) {
+    this.caseDetailService.getKeyDatesByCaseId(this.caseId).subscribe((data) => {
+      callback({
+        recordsTotal: data.length,
+        recordsFiltered: data.length,
+        data: data
+      })
+    })
+  }
 }

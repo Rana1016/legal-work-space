@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { NewCaseStepsService } from './new-case-steps.service';
+import { ActivityService } from './activity.service';
 
-describe('NewCaseStepsService', () => {
-  let service: NewCaseStepsService;
+describe('ActivityService', () => {
+  let service: ActivityService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(NewCaseStepsService);
+    service = TestBed.inject(ActivityService);
   });
 
   it('should be created', () => {

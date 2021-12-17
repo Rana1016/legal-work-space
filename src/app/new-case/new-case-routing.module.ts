@@ -15,6 +15,13 @@ const routes: Routes = [
   {
     path: 'steps/temp',
     component: StepsComponent
+  },
+  {
+    path: 'steps/:caseId/new-matter',
+    data: {
+      isMatter: true
+    },
+    component: StepsComponent
   }
 ];
 

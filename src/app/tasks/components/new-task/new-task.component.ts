@@ -15,7 +15,7 @@ export class NewTaskComponent implements OnInit {
   ngOnInit(): void {
     this.newTaskForm = this.fb.group({
       caseId: [''],
-      deadline: [{ year: moment(new Date()).year(), month: moment(new Date()).month() + 1, day: moment().date() }],
+      deadline: [moment(new Date()).format('DD-MM-yyyy')],
       priority: [1],
       assignee: [0],
       title: [''],

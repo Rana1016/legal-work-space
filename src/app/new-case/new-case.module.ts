@@ -7,7 +7,6 @@ import { NgbDate, NgbDropdownModule, NgbModule, } from '@ng-bootstrap/ng-bootstr
 import { StepsComponent } from './steps/steps.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { NewCaseStepsService } from '../shared/services/new-case-steps.service';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SharedModule } from '../shared/shared.module';
 import { RoundprogressModule, ROUND_PROGRESS_DEFAULTS } from 'angular-svg-round-progressbar';
@@ -27,7 +26,8 @@ import { RoundprogressModule, ROUND_PROGRESS_DEFAULTS } from 'angular-svg-round-
     ReactiveFormsModule,
     NgSelectModule,
     SharedModule,
-    RoundprogressModule
+    RoundprogressModule,
+    FormsModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

@@ -689,6 +689,12 @@ table {
 .accordion_href {
     display: block;
     width: 100%;
+    background: none;
+    border: 0;
+    text-align: left;
+    &:hover {
+        text-decoration: underline;
+    }
 }
 
 .box-green {
@@ -844,8 +850,14 @@ table.memo td .glyphicon-flag {
     font-size: 14px;
     font-weight: bold;
     color: #000;
-    border: 1px solid #78b41e;
-    background-color: #eee;
+    border: 1px solid #78b41e !important;
+    background-color: #eee !important;
+    outline: none;
+    margin-bottom: 1rem;
+}
+
+.dataTables_wrapper .dataTables_info {
+    margin-bottom: 1rem;
 }
 
 .min-select {
@@ -1913,7 +1925,7 @@ a.btn-default:focus {
 
 .toolbar li,
 .toolbar button {
-    margin-bottom: 10px !important;
+    margin-bottom: 10px;
 }
 
 .floating-timer {
@@ -2190,10 +2202,11 @@ a.btn-default:focus {
 
 /* MAIN TOOLBAR BUTTONS */
 
-.toolbar .btn-primary,
-.toolbar_dd .btn-primary {
+.btn-custom,
+.btn-custom {
     display: inline-block;
     white-space: nowrap;
+    cursor: pointer;
     background-color: #ddd;
     background-image: -webkit-gradient( linear, left top, left bottom, from(#f4f4f4), to(#ececec));
     background-image: -webkit-linear-gradient(top, #f4f4f4, #ececec);
@@ -2218,13 +2231,13 @@ a.btn-default:focus {
         */
 }
 
-.toolbar .btn-primary:hover,
-.btn-primary.active,
-.btn-primary.focus,
-.btn-primary:active,
-.btn-primary:focus,
-.btn-primary:hover,
-.open>.dropdown-toggle.btn-primary {
+.btn-custom:hover,
+.btn-custom.active,
+.btn-custom.focus,
+.btn-custom:active,
+.btn-custom:focus,
+.btn-custom:hover,
+.open>.dropdown-toggle.btn-custom {
     background-color: #f7ffed;
     background-image: -webkit-gradient( linear, left top, left bottom, from(#fff), to(#f7ffed));
     background-image: -webkit-linear-gradient(top, #fff, #f7ffed);
@@ -2234,6 +2247,7 @@ a.btn-default:focus {
     background-image: linear-gradient(top, #fff, #f7ffed);
     border: 1px solid #78b41e;
     color: #000;
+    text-decoration: none;
 }
 
 .toolbar .btn-primary:active {
@@ -4874,7 +4888,8 @@ textarea.form-control {
     height: auto;
 }
 
-input[type="search"] {
+input[type=search] {
+
     -webkit-appearance: none;
 }
 
@@ -5363,11 +5378,13 @@ textarea.form-group-lg .form-control {
     outline-offset: -2px;
 }
 
-.btn:not(.btn-secondary).focus,
-.btn:not(.btn-secondary):focus,
-.btn:not(.btn-secondary):hover {
+.btn:not(.btn-secondary):not(.btn-sm):hover {
     color: #333;
     text-decoration: none;
+}
+
+.btn:not(.btn-secondary):not(.btn-sm):focus {
+    color: #fff;
 }
 
 .btn.active,
@@ -5775,7 +5792,7 @@ input[type="submit"].btn-block {
 // .fade.in {
 //   opacity: 1;
 // }
-.collapse {
+.collapse:not([role=tabpanel]) {
     display: none;
     visibility: hidden;
 }

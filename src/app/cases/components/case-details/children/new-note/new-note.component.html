@@ -1,0 +1,40 @@
+<h1 id="pg-title" class="row align-items-center justify-content-center justify-content-md-start">Cases<span class="glyphicon glyphicon-chevron-right mx-3"></span>CL/{{caseId.toFixed(2)}}<span class="glyphicon glyphicon-chevron-right mx-3"></span>Notes<span class="glyphicon glyphicon-chevron-right mx-3"></span>Add new note</h1>
+
+<div class="widget">
+    <div class="widget-body">
+        <div class="row">
+            
+        </div>
+        <form [formGroup]="newNoteForm">
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label>* Title</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" formControlName="title" />
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label>* Description</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" formControlName="description" />
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label>* Added By</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" formControlName="addedBy" />
+                </div>
+            </div>
+            <div class="row mb-0 justify-content-end">
+                <div class="col-auto ml-auto">
+                    <button type="submit" class="btn btn-primary" (click)="submitForm()">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

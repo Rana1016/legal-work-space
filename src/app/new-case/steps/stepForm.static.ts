@@ -1,4 +1,4 @@
-import { FormField } from './stepForm.interface';
+import { FormField } from 'src/app/shared/interfaces/case.interface';
 
 export const mandatoryFieldsClient: FormField[] = [
   {
@@ -22,34 +22,16 @@ export const mandatoryFieldsClient: FormField[] = [
     type: 'input',
   },
   {
-    field: 'companyName',
-    type: 'input',
-  },
-  {
     field: 'CNIC',
     type: 'input',
   },
   {
     field: 'address',
     type: 'input',
-  },
-  {
-    field: 'companyAddress',
-    type: 'input',
-  },
-  {
-    field: 'otherDetails',
-    type: 'input',
-  },
+  }
 ];
 
-export const mandatoryFieldsApplicant: FormField[] = [
-  { field: 'lawyerName', type: 'input' },
-  { field: 'lawyerFirmName', type: 'input' },
-  { field: 'lawyerAddress', type: 'input' },
-  { field: 'lawyerFax', type: 'input' },
-  { field: 'lawyerOtherDetails', type: 'input' },
-];
+export const mandatoryFieldsApplicant: FormField[] = [];
 
 export const mandatoryTeamDetailsFields: FormField[] = [
   { field: 'caseSource', type: 'select' },
@@ -141,8 +123,7 @@ export const mandatoryCourtDetailsFields: FormField[] = [
   { field: 'nameOfCourt', type: 'select' },
   { field: 'typeOfBench', type: 'select' },
   { field: 'judges', type: 'array' },
-  { field: 'districtOrBenchOrTehsil', type: 'input' },
-  { field: 'anyOtherDetails', type: 'input' },
+  { field: 'districtOrBenchOrTehsil', type: 'input' }
 ];
 
 export const mandatoryPaymentOptionsFields: FormField[] = [

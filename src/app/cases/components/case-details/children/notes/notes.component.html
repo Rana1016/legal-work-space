@@ -8,7 +8,7 @@
         <ul class="list-inline">
           <li>
             <a
-              class="btn btn_toolbar"
+              class="btn btn_toolbar" [routerLink]="['new-note']"
               ><span class="glyphicon glyphicon-plus"></span> Add note</a
             >
           </li>
@@ -16,146 +16,47 @@
       </div>
     </div>
     <hr />
-    <div
-      class="panel-group"
-      id="accordion"
-      role="tablist"
-      aria-multiselectable="true"
-    >
-      <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="heading3">
+    <ngb-accordion *ngIf="notes && notes.length > 0" [closeOthers]="true" activeIds="static-0">
+      <ngb-panel id="static-{{i}}" *ngFor="let note of notes; let i = index;">
+        <ng-template ngbPanelHeader let-opened="opened">
           <h4 class="panel-title">
-            <a
-              class="accordion_href"
-              role="button"
-              data-toggle="collapse"
-              data-parent="#accordion"
-              aria-expanded="true"
-              aria-controls="collapse3"
-              ><small class="muted text-green"
-                ><strong>[ 30 Sep 2021 ]</strong></small
-              >
-              test2</a
-            >
+          <button ngbPanelToggle role="button" class="accordion_href">
+            <small class="muted text-green">
+              <strong>
+                [ {{ note.dateAdded | date: 'dd MMM yyyy'}} ]
+              </strong>
+            </small>
+            {{note.title}}
+          </button>
           </h4>
-        </div>
-        <div
-          id="collapse3"
-          class="panel-collapse collapse"
-          role="tabpanel"
-          aria-labelledby="heading3"
-        >
-          <div class="panel-body">
-            <div class="toolbar">
-              <ul class="list-inline marg_li_5">
-                <a
-                  data-toggle="tooltip"
-                  title=""
-                  class="btn btn-sm btn-default"
-                  data-original-title="Download"
-                  ><span class="glyphicon glyphicon-download-alt"></span
-                ></a>
-                <a
-                  target="_blank"
-                  data-toggle="tooltip"
-                  title=""
-                  class="btn btn-sm btn-default"
-                  data-original-title="Print"
-                  ><span class="glyphicon glyphicon-print"></span
-                ></a>
-                <a
-                  data-toggle="tooltip"
-                  title=""
-                  class="btn btn-sm btn-default"
-                  data-original-title="Edit"
-                  ><span class="glyphicon glyphicon-pencil"></span
-                ></a>
-                <a
-                  data-toggle="tooltip"
-                  title=""
-                  onclick="return confirm('Are you sure you want to delete this note?');"
-                  class="btn btn-sm btn-danger"
-                  data-original-title="Delete"
-                  ><span class="glyphicon glyphicon-remove"></span
-                ></a>
-              </ul>
-            </div>
-            <hr />
-            rawr
-            <hr />
-            <small class="muted"
-              >Last modified by: Dr. Mazhar Ilahi on 30-09-2021 17:31:59</small
-            >
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <div class="toolbar">
+            <ul class="list-inline">
+              <a class="btn btn-sm btn-default mx-1">
+                <span class="glyphicon glyphicon-download-alt"></span>
+              </a>
+              <a class="btn btn-sm btn-default mx-1"><span class="glyphicon glyphicon-print"></span>
+              </a>
+              <a class="btn btn-sm btn-default mx-1">
+                <span class="glyphicon glyphicon-pencil"></span>
+              </a>
+              <a class="btn btn-sm btn-danger mx-1" (click)="deleteNote(note.noteId)">
+                <span class="glyphicon glyphicon-remove"></span>
+              </a>
+            </ul>
           </div>
-        </div>
-      </div>
-      <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="heading2">
-          <h4 class="panel-title">
-            <a
-              class="accordion_href"
-              role="button"
-              data-toggle="collapse"
-              data-parent="#accordion"
-              aria-expanded="true"
-              aria-controls="collapse2"
-              ><small class="muted text-green"
-                ><strong>[ 30 Sep 2021 ]</strong></small
-              >
-              test</a
-            >
-          </h4>
-        </div>
-        <div
-          id="collapse2"
-          class="panel-collapse collapse"
-          role="tabpanel"
-          aria-labelledby="heading2"
-        >
-          <div class="panel-body">
-            <div class="toolbar">
-              <ul class="list-inline marg_li_5">
-                <a
-                  data-toggle="tooltip"
-                  title=""
-                  class="btn btn-sm btn-default"
-                  data-original-title="Download"
-                  ><span class="glyphicon glyphicon-download-alt"></span
-                ></a>
-                <a
-                  target="_blank"
-                  data-toggle="tooltip"
-                  title=""
-                  class="btn btn-sm btn-default"
-                  data-original-title="Print"
-                  ><span class="glyphicon glyphicon-print"></span
-                ></a>
-                <a
-                  data-toggle="tooltip"
-                  title=""
-                  class="btn btn-sm btn-default"
-                  data-original-title="Edit"
-                  ><span class="glyphicon glyphicon-pencil"></span
-                ></a>
-                <a
-                  data-toggle="tooltip"
-                  title=""
-                  onclick="return confirm('Are you sure you want to delete this note?');"
-                  class="btn btn-sm btn-danger"
-                  data-original-title="Delete"
-                  ><span class="glyphicon glyphicon-remove"></span
-                ></a>
-              </ul>
-            </div>
-            <hr />
-            test
-            <hr />
-            <small class="muted"
-              >Last modified by: Dr. Mazhar Ilahi on 30-09-2021 17:31:44</small
-            >
-          </div>
-        </div>
-      </div>
-    </div>
+          <hr />
+          {{note.description}}
+          <hr />
+          <small class="muted"
+            >Last modified by: {{note.addedBy}} on {{ note.dateAdded | date: 'dd MMM yyyy'}} {{ note.dateAdded | date: 'hh:mm:ss'}}</small
+          >
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
+    <h4 *ngIf="notes && notes.length == 0" class="w-100 text-center">
+      No Notes Available
+    </h4>
   </div>
 </div>

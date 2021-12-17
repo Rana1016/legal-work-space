@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { KeydatesRoutingModule } from './keydates-routing.module';
 import { KeydatesComponent } from './keydates.component';
+import { DataTablesModule } from 'angular-datatables';
 
 
 @NgModule({
@@ -11,6 +12,7 @@ import { KeydatesComponent } from './keydates.component';
   ],
   imports: [
     CommonModule,
+    DataTablesModule,
     KeydatesRoutingModule
   ]
 })

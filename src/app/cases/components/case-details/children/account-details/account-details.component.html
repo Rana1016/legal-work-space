@@ -3,45 +3,45 @@
     <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
       <h5>Accounts</h5>
     </div>
-
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
       <ul class="nav nav-right">
-        <li class="toolbar_dd">
-          <a
-            class="dropdown-toggle btn btn-primary"
-            data-toggle="dropdown"
-            aria-expanded="false"
-            >Actions <span class="caret"></span
-          ></a>
-          <ul class="dropdown-menu" role="menu">
-            <li>
-              <a
-                ><span class="glyphicon glyphicon-pencil"></span> Manage
-                instalments</a
-              >
+          <li ngbDropdown>
+              <a ngbDropdownToggle class="btn-custom">
+                  Actions
+              </a>
+              <ul ngbDropdownMenu>
+                <li ngbDropdownItem>
+                  <a>
+                      <span class="glyphicon glyphicon-pencil mr-1"></span>
+                      Manage installments
+                  </a>
+                </li>
+                <li ngbDropdownItem>
+                  <a>
+                      <span class="glyphicon glyphicon-pencil mr-1"></span>
+                      Change fee type
+                  </a>
+                </li>
+                <li ngbDropdownItem>
+                  <a>
+                      <span class="glyphicon glyphicon-plus mr-1"></span>
+                      Create invoice
+                  </a>
+                </li>
+                <li ngbDropdownItem>
+                  <a>
+                      <span class="glyphicon glyphicon-print mr-1"></span>
+                      Account statement (PDF)
+                  </a>
+                </li>
+                <li ngbDropdownItem>
+                  <a target="_blank">
+                      <span class="glyphicon glyphicon-print mr-1"></span>
+                      Print / download (PDF)
+                  </a>
+                </li>
+              </ul>
             </li>
-            <li>
-              <a
-                ><span class="glyphicon glyphicon-pencil"></span> Change fee
-                type</a
-              >
-            </li>
-            <li>
-              <a
-                ><span class="glyphicon glyphicon-pencil"></span> Create
-                invoice</a
-              >
-            </li>
-            <li><a target="_blank"><span class="glyphicon glyphicon-print"></span> Account statement (PDF)</a></li>
-            <li>
-              <a
-                target="_blank"
-                ><span class="glyphicon glyphicon-print"></span> Print /
-                download (PDF)</a
-              >
-            </li>
-          </ul>
-        </li>
       </ul>
     </div>
   </div>

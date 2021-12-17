@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
-import { settings } from '../types/settings.routes';
+import { settings } from '../routes/settings.routes';
 
 @Component({
   selector: 'app-layout',
@@ -15,7 +15,6 @@ export class LayoutComponent implements OnInit {
   @ViewChild('TimeToUnitCalculator') TimeToUnitCalculator!: TemplateRef<any>;
   @ViewChild('UnitToTimeCalculator') UnitToTimeCalculator!: TemplateRef<any>;
   @ViewChild('AmountToTimeCalculator') AmountToTimeCalculator!: TemplateRef<any>;
-  @ViewChild('AddTimeEntryForBilling') AddTimeEntryForBilling!: TemplateRef<any>;
 
   constructor(private modalService: NgbModal) { }
   ngOnInit(): void {

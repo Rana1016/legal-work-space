@@ -49,6 +49,11 @@ const LayoutRoutes: Routes = [
       import('src/app/keydates/keydates.module').then((m) => m.KeydatesModule),
   },
   {
+    path: 'peshi-list',
+    loadChildren: () =>
+      import('src/app/peshi-list/peshi-list.module').then(m => m.PeshiListModule)
+  },
+  {
     path: 'tasks',
     loadChildren: () =>
       import('src/app/tasks/tasks.module').then((m) => m.TasksModule),

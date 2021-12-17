@@ -1,6 +1,6 @@
-<h1 id="pg-title" class="row align-items-center justify-content-center justify-content-md-start" (click)="clog(stepForm.value)">
-    Open new case
-    <span class="glyphicon glyphicon-chevron-right"></span> {{ Navigation && "Step # " + Navigation }}
+<h1 id="pg-title" class="row align-items-center justify-content-center justify-content-md-start">
+    Open new {{!isMatter ? 'case' : 'matter'}}
+    <span class="glyphicon glyphicon-chevron-right mx-3"></span> {{ Navigation && "Step # " + Navigation }}
 </h1>
 <div class="row">
     <div class="col-md-12">
@@ -9,12 +9,10 @@
                 <div class="row">
                     <div class="col-md-12" id="pg-nav">
                         <ul class="list-inline">
-                            <li>
-                                <a *ngIf="Navigation == 1" class="btn" [routerLink]="['/cases']">
+                            <li>            <a *ngIf="Navigation == 1" class="btn" [routerLink]="['/cases']">
                                     <span class="glyphicon glyphicon-user"></span> Clients &amp; cases
                                 </a>
-                                <a *ngIf="Navigation !== 1 && Navigation < 7" class="btn"
-                                    (click)="setNavigation(Navigation - 1)">
+                                <a *ngIf="Navigation !== 1 && Navigation < 7" class="btn">
                                     <span class="glyphicon glyphicon-arrow-left"></span> Back
                                 </a>
                             </li>
@@ -36,7 +34,7 @@
                             <ul class="list-unstyled vbar">
                                 <ng-container *ngFor="let navItem of navItems; let i = index; let l = last;">
                                     <li class="pointer">
-                                        <div class="progress-percentage-wrapper" (click)="setNavigation(i+1)">
+                                        <div class="progress-percentage-wrapper">
                                             <div class="progress-percentage ng-cloak">{{i+1}}</div>
                                             <round-progress
                                                 [current]="navItem.current"
@@ -70,7 +68,7 @@
                         <div class="alert alert-info" role="alert">
                             <strong>Note:</strong> All fields marked with an asterisk (*) are required.
                         </div>
-                        <form class="no-form" [formGroup]="stepForm">
+                        <form class="no-form" [formGroup]="stepForm" (ngSubmit)="submitForm()">
                             <ul class="d-flex mb-0 flex-wrap"
                                 *ngIf="Navigation == 1 && showPersonalDetails">
                                 <li class="d-flex flex-column align-items-center justify-content-center pointer lw-tab mt-2"
@@ -194,7 +192,7 @@
                                     <ng-template #leader let-modal>
                                         <div class="modal-header">
                                             <h4 class="modal-title" ngbAutoFocus>Set Lead Client</h4>
-                                            <button type="button" class="close" aria-label="Close"
+                                            <button type="button" type="button" class="close" aria-label="Close"
                                                 (click)="modal.dismiss('Cross click')">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -284,7 +282,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-4">
-                                                    <label>* Company Name (if any) </label>
+                                                    <label>Company Name (if any) </label>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <input type="text" maxlength="200" class="form-control"
@@ -348,7 +346,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-4">
-                                                    <label>* Company Address</label>
+                                                    <label>Company Address</label>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <input type="text" maxlength="200" class="form-control"
@@ -359,7 +357,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-4">
-                                                    <label>* Other Details</label>
+                                                    <label>Other Details</label>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <textarea class="form-control" formControlName="otherDetails"
@@ -455,7 +453,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-4">
-                                                        <label>* Other Details</label>
+                                                        <label>Other Details</label>
                                                     </div>
                                                     <div class="col-md-8">
                                                         <textarea class="form-control" formControlName="cpOtherDetails"
@@ -472,7 +470,7 @@
                                                             stepForm.value.plaintiffType.slice(1) + ' (' + (stepForm.value.plaintiffs[i].applicants[a].clientId+1) +
                                                             (stepForm.value.plaintiffs[i].applicants[a].applicantId+10).toString(36).toUpperCase()}})</label>
                                                         <br>
-                                                        <button type="button" class="btn btn-primary"
+                                                        <button type="button" type="button" class="btn btn-primary"
                                                             style="opacity:1; float:left;"
                                                             (click)="removeApplicantData('plaintiff', i, a)">
                                                             <span aria-hidden="true">×</span> Remove
@@ -555,7 +553,7 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-md-4">
-                                                                <label>* Company Address</label>
+                                                                <label>Company Address</label>
                                                             </div>
                                                             <div class="col-md-8">
                                                                 <input type="text" maxlength="200" class="form-control"
@@ -567,7 +565,7 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-md-4">
-                                                                <label>* Fax</label>
+                                                                <label>Fax</label>
                                                             </div>
                                                             <div class="col-md-8">
                                                                 <input type="text" maxlength="200" class="form-control"
@@ -612,7 +610,7 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-md-4">
-                                                                <label>* Any Other Details</label>
+                                                                <label>Any Other Details</label>
                                                             </div>
                                                             <div class="col-md-8">
                                                                 <input type="text" maxlength="200" class="form-control"
@@ -686,7 +684,7 @@
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col-md-4">
-                                                                    <label>* Fax</label>
+                                                                    <label>Fax</label>
                                                                 </div>
                                                                 <div class="col-md-8">
                                                                     <input type="text" maxlength="200"
@@ -709,7 +707,7 @@
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col-md-4">
-                                                                    <label>* Other details specify</label>
+                                                                    <label>Other details specify</label>
                                                                 </div>
                                                                 <div class="col-md-8">
                                                                     <textarea class="form-control"
@@ -726,7 +724,7 @@
                                             <div class="input_fields_wrap3"></div>
                                             <div class="row" style="margin-top: 20px">
                                                 <div class="col-md-12">
-                                                    <button class="add_field_button3 btn btn-danger"
+                                                    <button type="button" class="add_field_button3 btn btn-danger"
                                                         (click)="addApplicantData('plaintiff', i, leader)">
                                                         <span class="fa fa-plus"></span>
                                                         Add More Applicants
@@ -811,7 +809,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-4">
-                                                    <label>* Company Name (if any) </label>
+                                                    <label>Company Name (if any) </label>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <input type="text" maxlength="200" class="form-control"
@@ -875,7 +873,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-4">
-                                                    <label>* Company Address</label>
+                                                    <label>Company Address</label>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <input type="text" maxlength="200" class="form-control"
@@ -886,7 +884,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-4">
-                                                    <label>* Other Details</label>
+                                                    <label>Other Details</label>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <textarea class="form-control" formControlName="otherDetails"
@@ -982,7 +980,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-4">
-                                                        <label>* Other Details</label>
+                                                        <label>Other Details</label>
                                                     </div>
                                                     <div class="col-md-8">
                                                         <textarea class="form-control" formControlName="cpOtherDetails"
@@ -998,7 +996,7 @@
                                                         <label>{{'Defendant - ' + (i+1) +
                                                             (a+10).toString(36).toUpperCase()}}</label>
                                                         <br>
-                                                        <button type="button" class="btn btn-primary"
+                                                        <button type="button" type="button" class="btn btn-primary"
                                                             style="opacity:1; float:left;"
                                                             (click)="removeApplicantData('defendant', i, a)">
                                                             <span aria-hidden="true">×</span> Remove
@@ -1081,7 +1079,7 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-md-4">
-                                                                <label>* Company Address</label>
+                                                                <label>Company Address</label>
                                                             </div>
                                                             <div class="col-md-8">
                                                                 <input type="text" maxlength="200" class="form-control"
@@ -1093,7 +1091,7 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-md-4">
-                                                                <label>* Fax</label>
+                                                                <label>Fax</label>
                                                             </div>
                                                             <div class="col-md-8">
                                                                 <input type="text" maxlength="200" class="form-control"
@@ -1138,7 +1136,7 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-md-4">
-                                                                <label>* Any Other Details</label>
+                                                                <label>Any Other Details</label>
                                                             </div>
                                                             <div class="col-md-8">
                                                                 <input type="text" maxlength="200" class="form-control"
@@ -1212,7 +1210,7 @@
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col-md-4">
-                                                                    <label>* Fax</label>
+                                                                    <label>Fax</label>
                                                                 </div>
                                                                 <div class="col-md-8">
                                                                     <input type="text" maxlength="200"
@@ -1235,7 +1233,7 @@
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col-md-4">
-                                                                    <label>* Other details specify</label>
+                                                                    <label>Other details specify</label>
                                                                 </div>
                                                                 <div class="col-md-8">
                                                                     <textarea class="form-control"
@@ -1252,7 +1250,7 @@
                                             <div class="input_fields_wrap3"></div>
                                             <div class="row" style="margin-top: 20px">
                                                 <div class="col-md-12">
-                                                    <button class="add_field_button3 btn btn-danger"
+                                                    <button type="button" class="add_field_button3 btn btn-danger"
                                                         (click)="addApplicantData('defendant', i, leader)">
                                                         <span class="fa fa-plus"></span>
                                                         Add More Applicants
@@ -1337,7 +1335,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-4">
-                                                    <label>* Company Name (if any) </label>
+                                                    <label>Company Name (if any) </label>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <input type="text" maxlength="200" class="form-control"
@@ -1401,7 +1399,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-4">
-                                                    <label>* Company Address</label>
+                                                    <label>Company Address</label>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <input type="text" maxlength="200" class="form-control"
@@ -1412,7 +1410,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-4">
-                                                    <label>* Other Details</label>
+                                                    <label>Other Details</label>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <textarea class="form-control" formControlName="otherDetails"
@@ -1508,7 +1506,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-4">
-                                                        <label>* Other Details</label>
+                                                        <label>Other Details</label>
                                                     </div>
                                                     <div class="col-md-8">
                                                         <textarea class="form-control" formControlName="cpOtherDetails"
@@ -1524,7 +1522,7 @@
                                                         <label>{{'Third Party - ' + (i+1) +
                                                             (a+10).toString(36).toUpperCase()}}</label>
                                                         <br>
-                                                        <button type="button" class="btn btn-primary"
+                                                        <button type="button" type="button" class="btn btn-primary"
                                                             style="opacity:1; float:left;"
                                                             (click)="removeApplicantData('thirdParty', i, a)">
                                                             <span aria-hidden="true">×</span> Remove
@@ -1607,7 +1605,7 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-md-4">
-                                                                <label>* Company Address</label>
+                                                                <label>Company Address</label>
                                                             </div>
                                                             <div class="col-md-8">
                                                                 <input type="text" maxlength="200" class="form-control"
@@ -1619,7 +1617,7 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-md-4">
-                                                                <label>* Fax</label>
+                                                                <label>Fax</label>
                                                             </div>
                                                             <div class="col-md-8">
                                                                 <input type="text" maxlength="200" class="form-control"
@@ -1664,7 +1662,7 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-md-4">
-                                                                <label>* Any Other Details</label>
+                                                                <label>Any Other Details</label>
                                                             </div>
                                                             <div class="col-md-8">
                                                                 <input type="text" maxlength="200" class="form-control"
@@ -1739,7 +1737,7 @@
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col-md-4">
-                                                                    <label>* Fax</label>
+                                                                    <label>Fax</label>
                                                                 </div>
                                                                 <div class="col-md-8">
                                                                     <input type="text" maxlength="200"
@@ -1762,7 +1760,7 @@
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col-md-4">
-                                                                    <label>* Other details specify</label>
+                                                                    <label>Other details specify</label>
                                                                 </div>
                                                                 <div class="col-md-8">
                                                                     <textarea class="form-control"
@@ -1779,7 +1777,7 @@
                                             <div class="input_fields_wrap3"></div>
                                             <div class="row" style="margin-top: 20px">
                                                 <div class="col-md-12">
-                                                    <button class="add_field_button3 btn btn-danger"
+                                                    <button type="button" class="add_field_button3 btn btn-danger"
                                                         (click)="addApplicantData('thirdParty', i, leader)">
                                                         <span class="fa fa-plus"></span>
                                                         Add More Applicants
@@ -2228,14 +2226,14 @@
                                                     <div class="d-flex align-items-start justify-content-between mt-2">
                                                         <small class="text-muted">Note: Exact Name.</small>
                                                         <span>
-                                                            <button
+                                                            <button type="button"
                                                                 *ngIf="stepForm.value.courtDetails.judges.length !== 1"
                                                                 class="add_field_button0 btn btn-danger"
                                                                 [ngClass]="{'mr-2': stepForm.value.courtDetails.judges.length < stepForm.value.courtDetails.typeOfBench}"
                                                                 (click)="removeJudge(j)">
                                                                 <span class="fa fa-close"></span>
                                                             </button>
-                                                            <button
+                                                            <button type="button"
                                                                 *ngIf="l && stepForm.value.courtDetails.judges.length < stepForm.value.courtDetails.typeOfBench"
                                                                 class="add_field_button0 btn btn-success"
                                                                 (click)="addJudge()">
@@ -2259,7 +2257,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <label>* Any Other Details</label>
+                                            <label>Any Other Details</label>
                                         </div>
                                         <div class="col-md-8">
                                             <textarea class="form-control" rows="3"
@@ -2374,7 +2372,7 @@
                                                 </ng-container>
                                                 <div class="row" style="margin-top: 20px">
                                                     <div class="col-md-12">
-                                                        <button class="add_field_button0 btn btn-danger"
+                                                        <button type="button" class="add_field_button0 btn btn-danger"
                                                         (click)="addInstallments()">
                                                         <span class="fa fa-plus"></span>
                                                         Add More Instalments
@@ -2386,7 +2384,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12 text-right">
-                                        <button *ngIf="Navigation > 0 && Navigation < 6" class="btn btn-primary"
+                                        <button type="button" *ngIf="Navigation > 0 && Navigation < 6" class="btn btn-primary"
                                             type="button" [disabled]="stepForm.value.plaintiff == 0 || stepForm.value.defendant == 0"
                                             (click)="showPersonalDetails ? setNavigation(Navigation + 1) : stepForm.value.plaintiffs?.length !== 0 || stepForm.value.defendants?.length !== 0 || stepForm.value.thirdParties?.length !== 0 ? setPersonalInfo() : setNavigation(Navigation + 1)">
                                             Continue
@@ -2396,9 +2394,7 @@
                                 </div>
                                 <div class="row" *ngIf="Navigation == 6">
                                     <div class="col-md-12 text-right">
-                                        <button *ngIf="Navigation == 6" class="lw-mt-30 btn btn-primary"
-                                            data-toggle="modal" data-target=".bs-example-modal-lg" type="button"
-                                            aria-hidden="true">
+                                        <button *ngIf="Navigation == 6" class="lw-mt-30 btn btn-primary" type="submit">
                                             Submit &amp; Finish
                                             <span class="fa fa-arrow-right"></span>
                                         </button>
@@ -2412,28 +2408,75 @@
         </div>
     </div>
 </div>
-
-<!-- Modal -->
-<ng-template #content let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title" ngbAutoFocus id="modal-basic-title">Profile update</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <form>
-            <div class="form-group">
-                <label for="dateOfBirth">Add More</label>
-                <div class="input-group">
-                    <input id="dateOfBirth" class="form-control" />
-                </div>
+<ng-template #nextModal let-modal>
+    <div class="msg-ajx msg-success">
+        <div class="modal-header">
+            <span id="myModalLabel">Success</span>
+        </div>
+        <div class="modal-body">
+            <div>
+                <p class="text-center msg-icon"><span class="fa msg-success " aria-hidden="true"></span></p><p class="text-center"><strong>Step {{Navigation}} has been completed.</strong></p><br>
+                <p class="text-center"><a (click)="modal.close(); navigate();" class="btn"><i class="icon-remove icon-white"></i> Close & Continue</a></p>
             </div>
-        </form>
+        </div>
     </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">
-            Save
-        </button>
+</ng-template>
+<ng-template #errorModal let-modal>
+    <div class="msg-ajx msg-error">
+        <div class="modal-header">
+            <span id="myModalLabel">Error</span>
+        </div>
+        <div class="modal-body">
+            <div>
+                <p class="text-center msg-icon">
+                    <span class="fa msg-error " aria-hidden="true"></span>
+                </p>
+                <ul *ngIf="Navigation == 1">
+                    <li>The Status Radio Button must be Lead/Client/Non-client.</li>
+                    <li>The Title field is required.</li>
+                    <li>The Name field is required.</li>
+                    <li>The Gender field is required.</li>
+                    <li>The Father Name is required.</li>
+                    <li>The CNIC field is required.</li>
+                    <li>The Address field is required.</li>
+                </ul>
+                <ul *ngIf="Navigation == 2">
+                    <li>The Client Instructions field is required.</li>
+                    <li>The Categories field is required.</li>
+                    <li>The Lesco Case & Its Details are required.</li>
+                    <li>The Brief Case Description is required.</li>
+                    <li>The Case Instructions is required.</li>
+                    <li>The Litigation Case Title field is required.</li>
+                    <li>The Filing Date field is required.</li>
+                    <li>The Court Case Number field is required.</li>
+                    <li>The Chances of Success field is required.</li>
+                    <li>The Conflicts of Interest field is required.</li>
+                    <li>The Have Criminal Conviction field is required.</li>
+                </ul>
+                <ul *ngIf="Navigation == 3">
+                    <li>The Case Source field is required.</li>
+                    <li>The Case Owner field is required.</li>
+                    <li>The Case Supervisor field is required.</li>
+                    <li>The Case Worker field is required.</li>
+                    <li>The Case Clerk field is required.</li>
+                </ul>
+                <ul *ngIf="Navigation == 4">
+                    <li>The Court Name field is required.</li>
+                    <li>The Type Of Bench field is required.</li>
+                    <li>The Judges are required.</li>
+                    <li>The District or Bench or Tehsil field is required.</li>
+                </ul>
+                <ul *ngIf="Navigation == 5">
+                    <li>The Fee Type field is required.</li>
+                    <li>All Fields must be filled.</li>
+                </ul>
+                <p class="text-center">
+                    <a (click)="modal.close()" class="btn">
+                        <i class="icon-remove icon-white"></i> Close & Continue
+                    </a>
+                </p>
+            </div>
+           
+        </div>
     </div>
 </ng-template>

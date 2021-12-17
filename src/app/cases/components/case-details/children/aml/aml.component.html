@@ -6,12 +6,22 @@
     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 toolbar">
       <ul class="list-inline">
         <li>
-          <a
-            class="btn btn_toolbar"
-            ><span class="glyphicon glyphicon-plus"></span> New AML checklist</a
-          >
+          <a [routerLink]="['new-aml-list']" class="btn btn_toolbar">
+            <span class="glyphicon glyphicon-plus"></span>
+            New AML checklist
+          </a>
         </li>
       </ul>
     </div>
+  </div>
+  <hr />
+  <div class="row" [formGroup]="amlListForm">
+    <ng-container formArrayName="amlCheckList">
+      <div class="col-12" *ngFor="let amlCP of $any(amlListForm.controls.amlCheckList).controls; let i = index" formGroupName="{{i}}">
+        <h4 class="wf_heading">
+          <input type="checkbox" class="aml_check" formControlName="ifChecked"/>
+          {{amlListForm.value.amlCheckList[i].amlCheckPoint}}</h4>
+      </div>
+    </ng-container>
   </div>
 </div>

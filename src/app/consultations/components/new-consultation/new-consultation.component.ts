@@ -1,44 +1,18 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
-
-@Injectable()
-export class CustomDateParserFormatter extends NgbDateParserFormatter {
-
-  readonly DELIMITER = '-';
-
-  parse(value: string): NgbDateStruct | null {
-    if (value) {
-      let date = value.split(this.DELIMITER);
-      return {
-        day: parseInt(date[0], 10),
-        month: parseInt(date[1], 10),
-        year: parseInt(date[2], 10)
-      };
-    }
-    return null;
-  }
-
-  format(date: NgbDateStruct | null): string {
-    return date ? date.day + this.DELIMITER + date.month + this.DELIMITER + date.year : '';
-  }
-}
 
 @Component({
   selector: 'app-new-consultation',
   templateUrl: './new-consultation.component.html',
-  styleUrls: ['./new-consultation.component.scss'],
-  providers: [{
-    provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter
-  }]
+  styleUrls: ['./new-consultation.component.scss']
 })
 export class NewConsultationComponent implements OnInit {
   constructor(private fb: FormBuilder) { }
   consultationForm!: FormGroup;
   ngOnInit(): void {
     this.consultationForm = this.fb.group({
-      consultationDate: [{ year: moment(new Date()).year(), month: moment(new Date()).month() + 1, day: moment().date() }],
+      consultationDate: [moment(new Date()).format('DD-MM-yyyy')],
       consultationTime: [''],
       categories: [[]],
       subcategories: [[]],

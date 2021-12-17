@@ -4,6 +4,7 @@ import { CaseActivitiesRoutingModule } from './case-activities-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CaseActivitiesComponent } from './case-activities.component';
 import { RouterModule } from '@angular/router';
+import { DataTablesModule } from 'angular-datatables';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     RouterModule,
     CaseActivitiesRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DataTablesModule
   ]
 })
 export class CaseActivitiesModule { }

@@ -4,47 +4,37 @@
   </div>
   <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
     <ul class="nav nav-right">
-      <li class="toolbar_dd">
-        <a
-          class="dropdown-toggle btn btn-primary"
-          data-toggle="dropdown"
-          aria-expanded="false"
-          >Actions <span class="caret"></span
-        ></a>
-        <ul class="dropdown-menu" role="menu">
-          <li>
-            <a target="_blank"
-              ><span class="glyphicon glyphicon-print"></span> Print file cover
-              label</a
-            >
+        <li ngbDropdown>
+            <a ngbDropdownToggle class="btn-custom">
+                Actions
+            </a>
+            <ul ngbDropdownMenu>
+              <li ngbDropdownItem>
+                <a target="_blank">
+                    <span class="glyphicon glyphicon-print mr-1"></span>
+                    Print file cover label
+                </a>
+              </li>
+              <li ngbDropdownItem>
+                <a>
+                    <span class="glyphicon glyphicon-pencil mr-1"></span>
+                    Edit case details
+                </a>
+              </li>
+              <li ngbDropdownItem>
+                <a>
+                    <span class="glyphicon glyphicon-plus mr-1"></span>
+                    Add case reference
+                </a>
+              </li>
+              <li ngbDropdownItem>
+                <a>
+                    <span class="glyphicon glyphicon-remove mr-1"></span>
+                    Delete this case
+                </a>
+              </li>
+            </ul>
           </li>
-          <li>
-            <a target="_blank"
-              ><span class="glyphicon glyphicon-print"></span> Print case
-              details</a
-            >
-          </li>
-          <li>
-            <a
-              ><span class="glyphicon glyphicon-pencil"></span> Edit case
-              details</a
-            >
-          </li>
-          <li class="hideme">
-            <a
-              ><span class="glyphicon glyphicon-plus"></span> Add case
-              reference</a
-            >
-          </li>
-          <li>
-            <a
-              onclick="return confirm('Are you sure you want to remove this case (CL/1006.00/Sabir) permanently?');"
-              ><span class="glyphicon glyphicon-remove"></span> Delete this
-              case</a
-            >
-          </li>
-        </ul>
-      </li>
     </ul>
   </div>
 </div>
@@ -52,7 +42,7 @@
 <div class="row">
   <div class="col-md-4 strongest">Start Date</div>
   <div class="col-md-8">
-    30-09-2021
+    {{caseDetails?.startDate | date: 'dd-MM-yyyy'}}
     <span class="badge_cms badge_green" style="margin: 0 0 0 15px"
       >In-Progress</span
     >
@@ -61,20 +51,21 @@
 <hr />
 <div class="row">
   <div class="col-md-4 strongest">Reference</div>
-  <div class="col-md-8">CL/1006.00/Sabir</div>
+  <div class="col-md-8">{{caseDetails?.reference}}</div>
 </div>
 <hr />
 <div class="row">
   <div class="col-md-4 strongest">Category</div>
   <div class="col-md-8">
-    Civil Litigation <span class="fa fa-arrow-right"></span> Boundary and
-    neighbour disputes
+    {{caseDetails?.category}}
+    <!-- Civil Litigation <span class="fa fa-arrow-right"></span> Boundary and
+    neighbour disputes -->
   </div>
 </div>
 <hr />
 <div class="row">
   <div class="col-md-4 strongest">Description</div>
-  <div class="col-md-8">test</div>
+  <div class="col-md-8">{{caseDetails?.description}}</div>
 </div>
 <div class="row hideme">
   <div class="col-md-4 strongest">Level of Work</div>
@@ -88,37 +79,37 @@
 <hr />
 <div class="row">
   <div class="col-md-4 strongest">Client's Instructions</div>
-  <div class="col-md-8">test</div>
+  <div class="col-md-8">{{caseDetails?.clientInstructions}}</div>
 </div>
 <hr />
 <div class="row">
   <div class="col-md-4 strongest">Advice Given</div>
-  <div class="col-md-8">tset</div>
+  <div class="col-md-8">{{caseDetails?.adviseGiven}}</div>
 </div>
 <hr />
 <div class="row">
   <div class="col-md-4 strongest">Agreed Plan of Action</div>
-  <div class="col-md-8">test</div>
+  <div class="col-md-8">{{caseDetails?.agreedPlanOfAction}}</div>
 </div>
 <hr />
 <div class="row">
   <div class="col-md-4 strongest">Chances of Success</div>
-  <div class="col-md-8">Good (60% - 80%)</div>
+  <div class="col-md-8">{{caseDetails?.chancesOfSuccess}}</div>
 </div>
 <hr />
 <div class="row">
   <div class="col-md-4 strongest">Weaknesses of case (if any)</div>
-  <div class="col-md-8">test</div>
+  <div class="col-md-8">{{caseDetails?.weaknessesOfCase}}</div>
 </div>
 <hr />
 <div class="row">
   <div class="col-md-4 strongest">Confilict of Intrest</div>
-  <div class="col-md-8">test</div>
+  <div class="col-md-8">{{caseDetails?.conflictsOfInterest}}</div>
 </div>
 <hr />
 <div class="row">
   <div class="col-md-4 strongest">Criminal Conviction</div>
-  <div class="col-md-8"><strong>[NO]</strong> test</div>
+  <div class="col-md-8"><strong>[NO]</strong> {{caseDetails?.criminalConvictionDesc}}</div>
 </div>
 <hr />
 <div class="row">
@@ -133,7 +124,7 @@
 <hr />
 <div class="row">
   <div class="col-md-4 strongest">Last Modified By</div>
-  <div class="col-md-8">Dr. Mazhar Ilahi on 30-09-2021 16:14:40</div>
+  <div class="col-md-8">{{caseDetails?.lastModifiedBy}} on 30-09-2021 16:14:40</div>
 </div>
 <hr />
 <div class="row">

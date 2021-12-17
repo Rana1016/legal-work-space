@@ -4,30 +4,33 @@
   </div>
   <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
     <ul class="nav nav-right">
-      <li class="toolbar_dd">
-        <a
-          class="dropdown-toggle btn btn-primary"
-          data-toggle="dropdown"
-          aria-expanded="false"
-          >Actions <span class="caret"></span
-        ></a>
-        <ul class="dropdown-menu" role="menu">
-          <li>
-            <a
-              target="_blank"
-              ><span class="glyphicon glyphicon-print"></span> Print final file
-              review form</a
-            >
-          </li>
-          <li>
-            <a
-              ><span class="glyphicon glyphicon-pencil"></span> Change case
-              status</a
-            >
-          </li>
-        </ul>
-      </li>
-    </ul>
+      <li ngbDropdown>
+          <a ngbDropdownToggle class="btn-custom">
+              Actions
+          </a>
+          <ul ngbDropdownMenu>
+            <li ngbDropdownItem>
+              <a (click)="changeStatus('cancelled')">
+                <span class="glyphicon glyphicon-remove-circle mr-1"></span>
+                Change status to cancelled
+              </a>
+            </li>
+            <li ngbDropdownItem>
+              <a (click)="changeStatus('pending')">
+                <span class="glyphicon glyphicon-hourglass mr-1"></span>
+                Change status to pending
+              </a>
+            </li>
+            <li ngbDropdownItem>
+              <a (click)="changeStatus('completed')">
+                <span class="glyphicon glyphicon-check mr-1"></span>
+                Change status to completed
+              </a>
+            </li>
+            
+          </ul>
+        </li>
+  </ul>
   </div>
 
   <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 toolbar">
@@ -38,10 +41,10 @@
 <div class="profile">
   <div class="row">
     <div class="col-md-4 strongest">Start Date</div>
-    <div class="col-md-8">30-09-2021</div>
+    <div class="col-md-8">{{currentDate}}</div>
   </div>
   <div class="row">
     <div class="col-md-4 strongest">Current Status</div>
-    <div class="col-md-8">In-Progress</div>
+    <div class="col-md-8">{{caseStatus | titlecase}}</div>
   </div>
 </div>

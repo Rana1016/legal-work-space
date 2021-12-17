@@ -1,0 +1,38 @@
+<h1
+  id="pg-title"
+  class="row align-items-center justify-content-center justify-content-md-start"
+>
+  Peshi List
+</h1>
+<div class="row">
+  <div class="col-md-12">
+    <div class="widget">
+      <div class="widget-body">
+        <div class="row">
+          <div id="pg-nav" class="col-md-12">
+            <ul class="list-inline">
+              <li ngbDropdown class="mt-0">
+                <a [routerLink]="['new-peshi']" class="btn">
+                  <span class="glyphicon glyphicon-plus"></span>
+                  Add new peshi
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="widget">
+  <div class="widget-body">
+    <ag-grid-angular
+      style="height: 800px"
+      class="ag-theme-alpine"
+      [rowData]="rowData | async"
+      [columnDefs]="columnDefs"
+      rowSelection="multiple"
+    >
+    </ag-grid-angular>
+  </div>
+</div>

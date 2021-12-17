@@ -9,4 +9,110 @@
     <button *ngIf="!isActive || (hours !== 0 && minutes !== 0 && seconds !== 0)" (click)="submitTimer()">
       <span class="fa fa-check-circle" aria-hidden="true"></span>
     </button>
+</div>
+<ng-template #AddTimeEntryForBilling let-modal>
+  <div class="modal-header">
+    <div class="row">
+      <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12">
+        <h4 class="modal-title" ngbAutoFocus>Add Time</h4>
+      </div>
+    </div>
   </div>
+  <div class="modal-body calendar_popup">
+    <div class="row">
+      <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="alert alert-info" role="alert">
+          <strong>Note:</strong> All fields are required.
+        </div>
+      </div>
+    </div>
+    <form [formGroup]="addTimeForm" class="form-horizontal">
+      <div class="row">
+        <div class="col-sm-6 col-sm-6 col-md-6 col-lg-6">
+          <label>Case ID
+            <small class="muted ml-2">(e.g: 1000.02)</small></label>
+          <input type="text" maxlength="10" class="form-control" formControlName="caseId" />
+        </div>
+        <div class="col-sm-6 col-sm-6 col-md-6 col-lg-6">
+          <label>Date</label>
+          <input type="text" maxlength="10" class="form-control bt_datepicker span12" formControlName="date" readonly="readonly" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12" id="timepopup">
+          <input type="hidden" name="hidMATTER_ID" value="" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12">
+          <label>Description</label>
+          <input type="text" maxlength="200" class="form-control" formControlName="description" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12">
+          <label>Category</label>
+          <ng-select [items]="categories" bindValue="value" bindLabel="label" formControlName="category">
+          </ng-select>  
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12">
+          <label>Sub-category</label>
+          <ng-select [items]="categories" bindValue="value" bindLabel="label" formControlName="subCategory">
+          </ng-select> 
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-5">
+          <label>Inclusive VAT?</label>
+          <select class="selectpicker form-control">
+            <option value="0">VAT Inclusive</option>
+            <option value="1">VAT Exclusive</option>
+            <option value="2">No VAT</option>
+          </select>
+        </div>
+        <div class="col-7">
+          <label>VAT rate</label>
+          <select class="selectpicker form-control">
+            <option value="1">20% (VAT on Income - Standard)</option>
+            <option value="2">0% (No VAT - Zero Rate)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <label>Time spent
+            <small class="muted ml-2">(Format: HH:MM:SS)</small></label>
+          <input type="text" maxlength="8" class="form-control mask_time_full" formControlName="time"/>
+        </div>
+        <div class="col-md-6">
+          <label>Type</label>
+          <select class="selectpicker form-control" formControlName="type">
+            <option value="0">Non-billable</option>
+            <option value="1" selected="selected">
+              Billable
+            </option>
+          </select>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <div class="row w-100">
+      <div class="col-auto mx-auto">
+          <button class="btn btn-primary mx-2" type="button">
+            <span class="glyphicon glyphicon-ok"></span> Add
+            time
+          </button>
+          <button (click)="modal.close('Close Button')" class="btn btn-danger mx-2" type="button">
+            <span class="glyphicon glyphicon-remove"></span>
+            Cancel
+          </button>
+      </div>
+    </div>
+  </div>
+</ng-template>

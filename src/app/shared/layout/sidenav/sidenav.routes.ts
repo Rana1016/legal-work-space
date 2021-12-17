@@ -43,6 +43,11 @@ const SideNavItems = [
         badge: 4
     },
     {
+        url: 'peshi-list',
+        text: 'Peshi Lists',
+        icon: 'files-o',
+    },
+    {
         url: 'contacts',
         text: 'Contact Book',
         icon: 'phone-square',

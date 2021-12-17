@@ -1,6 +1,6 @@
 import { Component, OnChanges, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { caseDetail } from 'src/app/shared/types/case-details.types';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CasesService } from 'src/app/shared/services/cases.service';
 
 @Component({
   selector: 'app-case-details',
@@ -8,11 +8,12 @@ import { caseDetail } from 'src/app/shared/types/case-details.types';
   styleUrls: ['./case-details.component.scss'],
 })
 export class CaseDetailsComponent implements OnInit {
-  constructor(private router: Router) {}
-  caseId!: number;
-
-  detailsTabs!: caseDetail[];
+  constructor(private router: Router, private route: ActivatedRoute, private caseService: CasesService) {}
+  caseRef!: number;
+  // currentCase!: any;
+  detailsTabs!: any[];
   ngOnInit(): void {
+    // this.caseService.getCase(this.caseRef).subscribe((currentCase) => this.currentCase = currentCase);
     this.detailsTabs = [
       {
         title: 'Personal Details',
@@ -65,11 +66,11 @@ export class CaseDetailsComponent implements OnInit {
     ];
     this.activatePanel();
     const UrlPartitions = this.router.url.split('/');
-    this.caseId = Number(UrlPartitions[UrlPartitions.length - 2]);
+    this.caseRef = Number(UrlPartitions[UrlPartitions.length - 2]);
   };
 
 
-  activatePanel(myDT?: caseDetail) {
+  activatePanel(myDT?: any) {
     if (myDT) {
       myDT.active = true;
       this.detailsTabs.filter((dT) => {

@@ -8,6 +8,7 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { CasesComponent } from './cases.component';
 import { CaseDetailsModule } from './components/case-details/case-details.module';
+import { DataTablesModule } from 'angular-datatables';
 
 @NgModule({
   declarations: [CasesComponent, DefaultComponent,],
@@ -18,6 +19,7 @@ import { CaseDetailsModule } from './components/case-details/case-details.module
     RouterModule,
     ReactiveFormsModule,
     CaseDetailsModule,
+    DataTablesModule
   ],
 })
 export class CasesModule {}

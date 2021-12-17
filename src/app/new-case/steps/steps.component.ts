@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -7,10 +7,10 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import FormData from '../../../assets/JSONs/FormData.json';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { NewCaseStepsService } from 'src/app/shared/services/new-case-steps.service';
 import { TitleCasePipe } from '@angular/common';
-import { FormField } from './stepForm.interface';
+import { FormField } from 'src/app/shared/interfaces/case.interface';
 import { mandatoryCaseDetailsFields, mandatoryCourtDetailsFields, mandatoryFieldsApplicant, mandatoryFieldsClient, mandatoryPaymentOptionsFields, mandatoryTeamDetailsFields } from './stepForm.static';
+import { CasesService } from 'src/app/shared/services/cases.service';
 
 enum ClientTypes {
   PLAINTIFF = 'plaintiff',
@@ -41,6 +41,8 @@ export class StepsComponent implements OnInit {
   leadApplicant?: any;
   showModal: boolean = false;
   isTemporary?: boolean;
+  isMatter?: boolean;
+  caseId!: number;
   selectPlaintiff = ['single party matter', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   showPersonalDetails!: boolean;
   subCategories: {
@@ -82,11 +84,11 @@ export class StepsComponent implements OnInit {
       }, {
         title: 'Payment Options',
         total: 100,
-        current: 0
+        current: 100
       }, {
         title: 'Declarations & Submit',
         current: 100,
-        total: 0
+        total: 100
       }
     ];
   hoverIndex?: number;
@@ -98,22 +100,29 @@ export class StepsComponent implements OnInit {
   currentDefendants: number = 0;
   totalThirdParties: number = 0;
   currentThirdParties: number = 0;
-  clog(h: any) {
-    console.log(JSON.stringify(h))
-  }
+
+  @ViewChild('nextModal') NextModal!: TemplateRef<any>;
+  @ViewChild('errorModal') ErrorModal!: TemplateRef<any>;
+
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private caseService: NewCaseStepsService,
+    private caseService: CasesService,
     private modalService: NgbModal,
     private capitalize: TitleCasePipe
   ) { }
   ngOnInit(): void {
     if (this.router.url.includes('temp')) { this.isTemporary = true; }
+    if (this.router.url.includes('new-matter')) {
+      this.isMatter = true;
+      const UrlPartitions = this.router.url.split('/');
+      this.caseId = Number(UrlPartitions[UrlPartitions.length - 2]);
+    }
     this.setNavigation(1);
     this.stepForm = this.fb.group({
-      caseId: [0],
-      isTemporaryCase: [null],
+      parentCaseId: [this.caseId || 0],
+      isTemporary: [this.isTemporary || false],
+      isMatter: [this.isMatter || false],
       caseDetails: this.fb.group({
         clientInstructions: [''],
         categories: [[]],
@@ -122,7 +131,7 @@ export class StepsComponent implements OnInit {
         subCategoriesOffense: [[]],
         lescoCase: [false],
         briefCaseDescription: [''],
-        caseInstructions: [0],
+        caseInstructions: ["0"],
         litigationCaseTitle: [''],
         dateOfLastHearing: [''],
         dateOfNextHearing: [''],
@@ -130,45 +139,41 @@ export class StepsComponent implements OnInit {
         courtCaseNumber: [''],
         adviceGivenToClient: [''],
         agreedPlanOfAction: [''],
-        chancesOfSuccess: [0],
+        chancesOfSuccess: ["0"],
         weaknessesOfCase: [''],
-        conflictsOfInterest: [0],
+        conflictsOfInterest: ["0"],
         conflictsOfInterestDesc: [''],
-        haveCriminalConviction: [0],
+        haveCriminalConviction: ["0"],
         criminalConvictionDesc: [''],
         addtionalInfo: [''],
         // modeOfCorrespondence: [''],
         // howDidYouHear: [''],
       }),
       teamDetails: this.fb.group({
-        caseSource: [0],
-        caseOwner: [0],
-        caseSuperVisor: [0],
-        caseWorker: [0],
-        caseClerk: [0]
+        caseSource: ["0"],
+        caseOwner: ["0"],
+        caseSuperVisor: ["0"],
+        caseWorker: ["0"],
+        caseClerk: ["0"]
       }),
       courtDetails: this.fb.group({
-        nameOfCourt: [0],
-        typeOfBench: [1],
+        nameOfCourt: ["0"],
+        typeOfBench: ["1"],
         judges: this.fb.array([this.fb.control('')]),
         districtOrBenchOrTehsil: [''],
         anyOtherDetails: [''],
       }),
       paymentOptions: this.fb.group({
-        feeType: [1],
+        feeType: ["1"],
         feeTypeForm: this.fb.group({
           coveredByFeeAgreement: [''],
           agreedFee: [''],
-          hourlyRateCaseWorker: [0],
-          agreedValue: [''],
-          amountOrPercentage: [0],
-          isVATIncluded: [0],
+          isVATIncluded: ["0"],
           advancePayment: [''],
           installments: this.fb.array([this.createInstallment()]),
         })
       }),
       courtId: [0],
-      isMatter: [false],
       parentId: [0],
       hourlyRateCaseworker: [0],
       isDeleted: true,
@@ -530,6 +535,7 @@ export class StepsComponent implements OnInit {
     return this.fb.group({
       type: [type],
       status: [client ? client?.status : null],
+      isLead: [false],
       title: [0],
       name: [client ? client?.name : ''],
       nickName: [''],
@@ -558,6 +564,13 @@ export class StepsComponent implements OnInit {
   }
 
   setLead(i: number, type: string, modal: any, e?: MouseEvent, a?: number) {
+    (<FormGroup>(<FormArray>this.stepForm.controls[type !== ClientTypes.THIRDPARTY ? type + 's' : 'thirdParties']!).controls[i]).controls.status.valueChanges.subscribe((status) => {
+      if (status == 'lead') {
+        (<FormGroup>(<FormArray>this.stepForm.controls[type !== ClientTypes.THIRDPARTY ? type + 's' : 'thirdParties']!).controls[i]).controls.isLead.setValue(true)
+      } else {
+        (<FormGroup>(<FormArray>this.stepForm.controls[type !== ClientTypes.THIRDPARTY ? type + 's' : 'thirdParties']!).controls[i]).controls.isLead.setValue(false)
+      }
+    })
     if (this.leadClient == null) {
       this.leadClient = i;
       this.leadType = type;
@@ -634,24 +647,24 @@ export class StepsComponent implements OnInit {
       if (applicant.status != null) {
         let clientsData = (this.stepForm.controls[type !== ClientTypes.THIRDPARTY ? type + 's' : 'thirdParties'] as FormArray);
         let newApplicantData = ((clientsData.controls[i] as FormGroup).controls['applicants'] as FormArray);
-        if (applicant.status == 'lead') {
-          if (!this.leadClient && !this.leadType) {
-            clientsData.push(
-              type == ClientTypes.PLAINTIFF ? this.createClient(this.stepForm.value.plaintiffType, applicant) : this.createClient(type, applicant)
-            );
-            newApplicantData.removeAt(i);
-          } else if (newApplicantData.length - 1 == this.leadApplicant) {
-            newApplicantData.controls[newApplicantData.length - 1].patchValue({
-              status: null
-            })
-          }
-          this.setLead(clientsData.length - 1, type, content, undefined, newApplicantData.length);
-        } else {
-          clientsData.push(
-            type == ClientTypes.PLAINTIFF ? this.createClient(this.stepForm.value.plaintiffType, applicant) : this.createClient(type, applicant)
-          );
-          newApplicantData.removeAt(i);
-        }
+        // if (applicant.status == 'lead') {
+        //   if (!this.leadClient && !this.leadType) {
+        //     clientsData.push(
+        //       type == ClientTypes.PLAINTIFF ? this.createClient(this.stepForm.value.plaintiffType, applicant) : this.createClient(type, applicant)
+        //     );
+        //     newApplicantData.removeAt(i);
+        //   } else if (newApplicantData.length - 1 == this.leadApplicant) {
+        //     newApplicantData.controls[newApplicantData.length - 1].patchValue({
+        //       status: null
+        //     })
+        //   }
+        //   this.setLead(clientsData.length - 1, type, content, undefined, newApplicantData.length);
+        // } else {
+        //   clientsData.push(
+        //     type == ClientTypes.PLAINTIFF ? this.createClient(this.stepForm.value.plaintiffType, applicant) : this.createClient(type, applicant)
+        //   );
+        //   newApplicantData.removeAt(i);
+        // }
       }
     })
   }
@@ -701,7 +714,13 @@ export class StepsComponent implements OnInit {
   }
 
   setNavigation(num: number) {
-    this.Navigation = num;
+    this.navItems[num - 2]?.total == this.navItems[num - 2]?.current ?
+    this.navItems[num - 2] != null && this.open(this.NextModal) 
+    : !this.showPersonalDetails ? this.Navigation++ : this.open(this.ErrorModal);
+  }
+
+  navigate() {
+    setTimeout(() => this.Navigation++, 5);
   }
 
   getCategories() {
@@ -764,7 +783,9 @@ export class StepsComponent implements OnInit {
   ]
 
   submitForm() {
-    this.caseService.submitData(this.stepForm.value).subscribe()
+    this.caseService.addNewCase(this.stepForm.value).subscribe((data) => {
+      data.inserted == true && this.router.navigateByUrl('/cases')
+    });
   }
 
   setPersonalInfo() {

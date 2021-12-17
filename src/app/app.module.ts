@@ -11,18 +11,20 @@ import { AuthModule } from './shared/auth/auth.module';
 import { ConsultationsComponent } from './consultations/consultations.component';
 import { ConsultationsModule } from './consultations/consultations.module';
 import { HighchartsChartModule } from 'highcharts-angular';
-import { NgbDropdownModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateAdapter, NgbDateParserFormatter, NgbDropdownModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NewCaseModule } from './new-case/new-case.module';
 import { CaseActivitiesModule } from './case-activities/case-activities.module';
 import { RouterModule } from '@angular/router';
 import { SettingsModule } from './settings/settings.module';
 import { TemplatesModule } from './templates/templates.module';
-import { NewCaseStepsService } from './shared/services/new-case-steps.service';
 import { HttpClientModule } from '@angular/common/http';
-import { NgSelectModule } from '@ng-select/ng-select';;
+import { NgSelectModule } from '@ng-select/ng-select'; import { CasesService } from './shared/services/cases.service';
+import { DashedNgbDateAdapter, DashedNgbDateParserFormatter } from './shared/services/ngb-date.service';
+import { PeshiListComponent } from './peshi-list/peshi-list.component';
+
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, PeshiListComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -42,7 +44,15 @@ import { NgSelectModule } from '@ng-select/ng-select';;
     TemplatesModule,
     NgSelectModule
   ],
-  providers: [NewCaseStepsService],
+  providers: [
+    CasesService,
+    {
+      provide: NgbDateParserFormatter, useClass: DashedNgbDateParserFormatter
+    },
+    {
+      provide: NgbDateAdapter, useClass: DashedNgbDateAdapter
+    }
+  ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

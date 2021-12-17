@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { settings } from '../../types/settings.routes';
+import { settings } from '../../routes/settings.routes';
 
 @Component({
   selector: 'lw-header',

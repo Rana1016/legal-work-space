@@ -71,16 +71,16 @@
                 </li>
               </ul>
               <button
-                class="lw-btn primary mr-3"
-                [routerLink]="['steps']"
-              >
-                <span class="glyphicon glyphicon-play"></span> Start new case
-              </button>
-              <button
                 class="lw-btn danger"
                 [routerLink]="['steps/temp']"
               >
                 <span class="glyphicon glyphicon-play"></span> Start new temporary case
+              </button>
+              <button
+                class="lw-btn primary mr-3"
+                [routerLink]="['steps']"
+              >
+                <span class="glyphicon glyphicon-play"></span> Start new case
               </button>
             </div>
           </div>
@@ -90,7 +90,7 @@
               accept-charset="UTF-8"
               style="min-height: 250px"
             >
-              <h5>
+              <h5 >
                 <span class="glyphicon glyphicon-user"></span> Existing /
                 returning client ?
               </h5>
@@ -102,14 +102,15 @@
                 type="text"
                 maxlength="16"
                 class="form-control search-box"
+                [(ngModel)]="searchId" [ngModelOptions]="{standalone: true}"
+                (ngModelChange)="checkCase($event)"
               />
-              <input type="hidden" />
               <p id="case_result" style="margin: 10px 0">
-                Please enter a valid Case ID.
+                {{isValid ? clientName !== "" ? clientName + ' with ID: '+ searchId : '' : 'Please enter a valid Case ID.'}}
               </p>
-              <button class="btn btn-primary" type="submit">
+              <a class="btn btn-primary mt-3" [routerLink]="isValid && clientName !== '' ? ['steps', searchId,'new-matter'] : []" type="submit">
                 <span class="glyphicon glyphicon-play"></span> Start new matter
-              </button>
+              </a>
             </form>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CaseDetailService } from 'src/app/shared/services/case-detail.service';
+import { AmlService } from 'src/app/shared/services/aml.service';
 
 @Component({
   selector: 'app-aml',
@@ -9,7 +9,7 @@ import { CaseDetailService } from 'src/app/shared/services/case-detail.service';
   styleUrls: ['./aml.component.scss']
 })
 export class AmlComponent implements OnInit {
-  constructor(private router: Router, private caseDetailService: CaseDetailService, private fb: FormBuilder) { }
+  constructor(private router: Router, private amlService: AmlService, private fb: FormBuilder) { }
   caseId!: number;
   amlListForm!: FormGroup;
 
@@ -23,7 +23,7 @@ export class AmlComponent implements OnInit {
   }
 
   initializeAML() {
-    this.caseDetailService.getAmlCheckListById(this.caseId).subscribe((AmlCheckList) => {
+    this.amlService.getAmlCheckListById(this.caseId).subscribe((AmlCheckList) => {
       AmlCheckList.forEach(({amlCheckPoint, ifChecked, id}, i) => {
         (<FormArray>this.amlListForm.controls.amlCheckList).push(
           this.fb.group({
@@ -33,7 +33,7 @@ export class AmlComponent implements OnInit {
           })
         );
         (<FormArray>this.amlListForm.controls.amlCheckList).controls[i].valueChanges.subscribe(({ifChecked, id}) => {
-          this.caseDetailService.checkAmlCheckPoint(id, ifChecked).subscribe((res) => res == true && console.log('Done'))
+          this.amlService.checkAmlCheckPoint(id, ifChecked).subscribe((res) => res == true && console.log('Done'))
         })
       });
     })

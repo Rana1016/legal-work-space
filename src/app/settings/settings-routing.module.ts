@@ -23,58 +23,61 @@ const routes: Routes = [
       {
         path: "areas-of-practice",
         component: AreasOfPracticeComponent
-    
+
       },
       {
         path: "bank-accounts",
         loadChildren: () => import('./components/settings-bank-accounts/settings-bank-accounts.module').then(m => m.SettingsBankAccountsModule)
       },
       {
-        path:"calendar",
-        component:CalendarComponent
-    
+        path: "calendar",
+        component: CalendarComponent
+
       },
       {
-        path:"contacts",
-        component:ContactsComponent
-    
+        path: "contacts",
+        component: ContactsComponent
+
       },
       {
-        path:"global-settings",
-        component:GlobalSettingsComponent
-    
+        path: "global-settings",
+        component: GlobalSettingsComponent
+
       },
       {
-        path:"hourly-rates",
+        path: "hourly-rates",
         loadChildren: () => import('./components/settings-hourly-rates/settings-hourly-rates.module').then(m => m.SettingsHourlyRatesModule)
-    
+
       },
       {
-        path:"office-locations",
+        path: "office-locations",
         loadChildren: () => import('./components/settings-office-locations/settings-office-locations.module').then(m => m.SettingsOfficeLocationsModule)
       },
       {
-        path:"quiz",
-        component:QuizComponent
-    
-      },{
-        path:"time-activity-codes",
-        component:TimeActivityCodesComponent
-    
+        path: "quiz",
+        component: QuizComponent
+
+      }, {
+        path: "time-activity-codes",
+        component: TimeActivityCodesComponent
+
+      }, {
+        path: 'groups-management',
+        loadChildren: () => import('./components/settings-groups-management/settings-groups-management.module').then(m => m.SettingsGroupsManagementModule)
       },
       {
-        path:"user-management",
+        path: "user-management",
         loadChildren: () => import('./components/settings-users-management/settings-users-management.module').then(m => m.SettingsUsersManagementModule)
-    
-      },{
-        path:"vat-rates",
-        component:VatRatesComponent
-    
-      },{
-        path:"workflow-templates",
-        component:WorkflowTemplatesComponent
-    
-      },  
+
+      }, {
+        path: "vat-rates",
+        component: VatRatesComponent
+
+      }, {
+        path: "workflow-templates",
+        component: WorkflowTemplatesComponent
+
+      },
     ]
   },
 ]

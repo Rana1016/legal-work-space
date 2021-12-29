@@ -92,6 +92,7 @@ export class StepsComponent implements OnInit {
       }
     ];
   hoverIndex?: number;
+  teamDetails!: any[];
   lawyerDetails?: any = null;
 
   totalPlaintiffs: number = 0;
@@ -118,7 +119,6 @@ export class StepsComponent implements OnInit {
       const UrlPartitions = this.router.url.split('/');
       this.caseId = Number(UrlPartitions[UrlPartitions.length - 2]);
     }
-    this.setNavigation(1);
     this.stepForm = this.fb.group({
       parentCaseId: [this.caseId || 0],
       isTemporary: [this.isTemporary || false],
@@ -232,41 +232,41 @@ export class StepsComponent implements OnInit {
     this.incrementEditedFields(null, 'Team Details', 'teamDetails', mandatoryTeamDetailsFields);
     this.incrementEditedFields(null, 'Court Details', 'courtDetails', mandatoryCourtDetailsFields);
     (<FormGroup>this.stepForm.controls.paymentOptions).controls.feeType.valueChanges
-    .subscribe((feeType) => {
-      const feeForm = (<FormGroup>(<FormGroup>this.stepForm.controls.paymentOptions).controls.feeTypeForm)
-      feeType == 1 ? (
-        feeForm.setControl('agreedFee', this.fb.control('')),
-        feeForm.setControl('isVATIncluded', this.fb.control(0)),
-        feeForm.setControl('advancePayment', this.fb.control('')),
-        feeForm.setControl('installments', this.fb.array([this.createInstallment()])),
-        feeForm.removeControl('hourlyRateCaseWorker'),
-        feeForm.removeControl('agreedValue'),
-        feeForm.removeControl('amountOrPercentage')
-      ) : (
-        feeForm.removeControl('agreedFee'),
-        feeForm.removeControl('advancePayment'),
-        feeForm.removeControl('installments'),
-        feeType == 2 ? (
-          feeForm.setControl('hourlyRateCaseWorker', this.fb.control(0)),
+      .subscribe((feeType) => {
+        const feeForm = (<FormGroup>(<FormGroup>this.stepForm.controls.paymentOptions).controls.feeTypeForm)
+        feeType == 1 ? (
+          feeForm.setControl('agreedFee', this.fb.control('')),
           feeForm.setControl('isVATIncluded', this.fb.control(0)),
+          feeForm.setControl('advancePayment', this.fb.control('')),
+          feeForm.setControl('installments', this.fb.array([this.createInstallment()])),
+          feeForm.removeControl('hourlyRateCaseWorker'),
           feeForm.removeControl('agreedValue'),
           feeForm.removeControl('amountOrPercentage')
-        ) : feeType == 3 ? (
-          feeForm.setControl('agreedValue', this.fb.control('')),
-          feeForm.setControl('amountOrPercentage', this.fb.control(0)),
-          feeForm.setControl('isVATIncluded', this.fb.control(0)),
-          feeForm.removeControl('hourlyRateCaseWorker')
         ) : (
           feeForm.removeControl('agreedFee'),
           feeForm.removeControl('advancePayment'),
           feeForm.removeControl('installments'),
-          feeForm.removeControl('hourlyRateCaseWorker'),
-          feeForm.removeControl('agreedValue'),
-          feeForm.removeControl('amountOrPercentage'),
-          feeForm.removeControl('isVATIncluded')
-        )
-      );
-    });
+          feeType == 2 ? (
+            feeForm.setControl('hourlyRateCaseWorker', this.fb.control(0)),
+            feeForm.setControl('isVATIncluded', this.fb.control(0)),
+            feeForm.removeControl('agreedValue'),
+            feeForm.removeControl('amountOrPercentage')
+          ) : feeType == 3 ? (
+            feeForm.setControl('agreedValue', this.fb.control('')),
+            feeForm.setControl('amountOrPercentage', this.fb.control(0)),
+            feeForm.setControl('isVATIncluded', this.fb.control(0)),
+            feeForm.removeControl('hourlyRateCaseWorker')
+          ) : (
+            feeForm.removeControl('agreedFee'),
+            feeForm.removeControl('advancePayment'),
+            feeForm.removeControl('installments'),
+            feeForm.removeControl('hourlyRateCaseWorker'),
+            feeForm.removeControl('agreedValue'),
+            feeForm.removeControl('amountOrPercentage'),
+            feeForm.removeControl('isVATIncluded')
+          )
+        );
+      });
     // this.incrementEditedFields(null, 'Payment Options', 'paymentOptions', mandatoryPaymentOptionsFields)
   }
 
@@ -714,13 +714,14 @@ export class StepsComponent implements OnInit {
   }
 
   setNavigation(num: number) {
-    this.navItems[num - 2]?.total == this.navItems[num - 2]?.current ?
-    this.navItems[num - 2] != null && this.open(this.NextModal) 
-    : !this.showPersonalDetails ? this.Navigation++ : this.open(this.ErrorModal);
+    let Diff = Math.abs(num - this.Navigation) + 1;
+    this.Navigation <= num ?
+      this.open(this.navItems[num - Diff].total == this.navItems[num - Diff].current ? this.NextModal : this.ErrorModal) :
+      this.navigate(num)
   }
 
-  navigate() {
-    setTimeout(() => this.Navigation++, 5);
+  navigate(to?: number) {
+    setTimeout(() => !to ? this.Navigation++ : this.Navigation = to, 5);
   }
 
   getCategories() {
@@ -775,12 +776,6 @@ export class StepsComponent implements OnInit {
     }
   }
 
-  teamDetails = [
-    'Ali',
-    'Rizwan',
-    'Mohsin',
-    'Sikandar'
-  ]
 
   submitForm() {
     this.caseService.addNewCase(this.stepForm.value).subscribe((data) => {

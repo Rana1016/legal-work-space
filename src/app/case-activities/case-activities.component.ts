@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
-import { CasesService } from '../shared/services/cases.service';
+import { ActivityService } from '../shared/services/activity.service';
 
 @Component({
   selector: 'case-activities',
@@ -13,7 +13,7 @@ export class CaseActivitiesComponent implements OnInit {
   searchForm!: FormGroup;
   date!: string;
   currentDate!: Date;
-  constructor(private router: Router, private route: ActivatedRoute, private fb: FormBuilder, private caseService: CasesService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private fb: FormBuilder, private activityService: ActivityService) { }
   
   data: any;
   dtOptions!: DataTables.Settings;
@@ -72,7 +72,7 @@ export class CaseActivitiesComponent implements OnInit {
     };
   }
   ajaxActivities(dTParams: any, callback: any) {
-    this.caseService.getActivities(dTParams).subscribe((data) => {
+    this.activityService.getActivities(dTParams).subscribe((data) => {
       this.activities = data;
       callback({
         recordsTotal: data.length,

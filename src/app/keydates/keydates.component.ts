@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CasesService } from '../shared/services/cases.service';
+import { KeydatesService } from '../shared/services/keydates.service';
 
 @Component({
   selector: 'app-keydates',
@@ -8,7 +9,7 @@ import { CasesService } from '../shared/services/cases.service';
   styleUrls: ['./keydates.component.scss']
 })
 export class KeydatesComponent implements OnInit {
-  constructor(private router: Router, private caseService: CasesService) { }
+  constructor(private router: Router, private keydateService: KeydatesService) { }
   
   data: any;
   dtOptions!: DataTables.Settings;
@@ -59,7 +60,7 @@ export class KeydatesComponent implements OnInit {
     };
   }
   ajaxKeyDates(dTParams: any, callback: any) {
-    this.caseService.getKeyDates(dTParams).subscribe((data) => {
+    this.keydateService.getKeyDates(dTParams).subscribe((data) => {
       callback({
         recordsTotal: data.length,
         recordsFiltered: data.length,

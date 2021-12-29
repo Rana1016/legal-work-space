@@ -7,14 +7,25 @@ import { ApiRoutes } from '../api/routes';
 })
 export class ActivityService {
   constructor(private http: HttpClient) {}
+  
+  getActivities(dTParams: any) {
+    return this.http.post<any[]>(ApiRoutes.caseActivities.all, dTParams)
+  }
 
-  getActivitiesById(caseId: number, pageNumber: number, pageSize: number) {
-    return this.http.post(ApiRoutes.cases.activities.allById, {
+  getActivitiesByDate(dTParams: any, date: string) {
+    return this.http.post<any[]>(ApiRoutes.caseActivities.all, dTParams, {
       params: {
-        caseId,
-        pageNumber,
-        pageSize
+        date
+      }
+    })
+  }
+
+  getActivitiesById(dTParams: any, caseId: number) {
+    return this.http.post(ApiRoutes.caseActivities.allById, dTParams, {
+      params: {
+        caseId
       }
     });
   }
+
 }

@@ -31,10 +31,10 @@
     </select>
     <small class="text-muted">{{!customNote ? 'Select an appropriate option.': customNote}}</small>
     <span class="float-right mt-3">
-         <button class="btn btn-primary mr-2" (click)="openModel('edit', newOption)" [disabled]="formControl?.value == null || formControl?.value == 0">
+         <button *ngIf="!notEditValue" class="btn btn-primary mr-2" (click)="openModel('edit', newOption)" [disabled]="formControl?.value == null || formControl?.value == 0">
             <span class="fa fa-edit "></span>
         </button>
-        <button
+        <button *ngIf="!notAddValue"
             class="btn btn-success" (click)="openModel('add', newOption)">
             <span class="fa fa-plus"></span>
         </button>

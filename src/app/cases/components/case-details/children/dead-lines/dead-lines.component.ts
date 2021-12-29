@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CaseDetailService } from 'src/app/shared/services/case-detail.service';
+import { KeydatesService } from 'src/app/shared/services/keydates.service';
 
 @Component({
   selector: 'app-dead-lines',
@@ -8,7 +8,7 @@ import { CaseDetailService } from 'src/app/shared/services/case-detail.service';
   styleUrls: ['./dead-lines.component.scss']
 })
 export class DeadLinesComponent implements OnInit {
-  constructor(private router: Router, private caseDetailService: CaseDetailService) { }
+  constructor(private router: Router, private keydateService: KeydatesService) { }
   
   data: any;
   dtOptions!: DataTables.Settings;
@@ -61,7 +61,7 @@ export class DeadLinesComponent implements OnInit {
     };
   }
   ajaxKeyDates(dTParams: any, callback: any) {
-    this.caseDetailService.getKeyDatesByCaseId(this.caseId).subscribe((data) => {
+    this.keydateService.getKeyDatesByCaseId(this.caseId).subscribe((data) => {
       callback({
         recordsTotal: data.length,
         recordsFiltered: data.length,

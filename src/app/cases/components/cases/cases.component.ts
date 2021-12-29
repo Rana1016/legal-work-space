@@ -58,8 +58,8 @@ export class DefaultComponent implements OnInit {
   }
 
   ajaxCases(dTParams: any, callback: any) {
-    this.caseService.getCases(dTParams).subscribe(({cases, totalRecords}: any) => {
-      this.Cases = cases
+    this.caseService.getCases(dTParams).subscribe(({records, totalRecords}: any) => {
+      this.Cases = records
       callback({
         recordsFiltered: totalRecords,
         recordsTotal: totalRecords 

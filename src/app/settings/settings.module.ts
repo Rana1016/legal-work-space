@@ -22,7 +22,7 @@ import { ContactsComponent } from './components/contacts/contacts.component';
     TimeActivityCodesComponent,
     VatRatesComponent,
     QuizComponent,
-    ContactsComponent,
+    ContactsComponent
   ],
   imports: [
     CommonModule,

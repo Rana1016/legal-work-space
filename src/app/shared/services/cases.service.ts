@@ -41,16 +41,12 @@ export class CasesService {
     return this.http.post<any[]>(ApiRoutes.cases.all, dTParams)
   }
 
-  getCase(caseId: number) {
-    return of({})
-  }
-
-  getKeyDates(dTParams: any) {
-    return this.http.post<any[]>(ApiRoutes.caseDetails.keydates.all, dTParams)
-  }
-
-  getActivities(dTParams: any) {
-    return this.http.post<any[]>(ApiRoutes.cases.activities.all, dTParams)
+  getCaseDetails(caseId: number) {
+    return this.http.get<any>(ApiRoutes.cases.byCaseId, {
+      params: {
+        caseId
+      }
+    })
   }
 
   isValid(caseId: number) {

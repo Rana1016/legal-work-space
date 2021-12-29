@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
-import { CaseDetailService } from 'src/app/shared/services/case-detail.service';
+import { StatusService } from 'src/app/shared/services/status.service';
 
 @Component({
   selector: 'app-status',
@@ -9,7 +9,7 @@ import { CaseDetailService } from 'src/app/shared/services/case-detail.service';
   styleUrls: ['./status.component.scss']
 })
 export class StatusComponent implements OnInit {
-  constructor(private router: Router, private caseDetailService: CaseDetailService) { }
+  constructor(private router: Router, private statusService: StatusService) { }
   caseId!: number;
   caseStatus!: string;
   currentDate = moment(new Date()).format('DD-MM-yyyy')
@@ -20,7 +20,7 @@ export class StatusComponent implements OnInit {
   }
 
   changeStatus(status: string) {
-    this.caseDetailService.changeCaseStatus(this.caseId, status).subscribe((data) => {
+    this.statusService.changeCaseStatus(this.caseId, status).subscribe((data) => {
       if (data == true) {
         this.caseStatus = <string>status
       }
@@ -28,7 +28,7 @@ export class StatusComponent implements OnInit {
   }
 
   getStatus() {
-    this.caseDetailService.caseStatus(this.caseId).subscribe((status) => {
+    this.statusService.caseStatus(this.caseId).subscribe((status) => {
       console.log(status)
       this.caseStatus = status;
     })

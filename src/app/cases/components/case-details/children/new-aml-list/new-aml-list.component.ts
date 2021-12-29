@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CaseDetailService } from 'src/app/shared/services/case-detail.service';
+import { AmlService } from 'src/app/shared/services/aml.service';
 
 @Component({
   selector: 'app-new-aml-list',
@@ -11,7 +11,7 @@ import { CaseDetailService } from 'src/app/shared/services/case-detail.service';
 export class NewAmlListComponent implements OnInit {
   caseId: number;
   newAmlListForm: FormGroup;
-  constructor(private router: Router, private fb: FormBuilder, private caseDetailService: CaseDetailService, private route: ActivatedRoute) {
+  constructor(private router: Router, private fb: FormBuilder, private amlService: AmlService, private route: ActivatedRoute) {
     const UrlPartitions = this.router.url.split('/');
     this.caseId = Number(UrlPartitions[UrlPartitions.length - 3]);
     this.newAmlListForm = this.fb.group({
@@ -39,7 +39,7 @@ export class NewAmlListComponent implements OnInit {
     }));
   }
   submitForm() {
-    this.caseDetailService.addNewAmlCheckList(this.newAmlListForm.value.amlCheckList).subscribe((data) => {
+    this.amlService.addNewAmlCheckList(this.newAmlListForm.value.amlCheckList).subscribe((data) => {
       data == true && this.router.navigate(['..'], { relativeTo: this.route })
     });
   }

@@ -26,12 +26,12 @@
 </div>
 <div class="widget">
   <div class="widget-body">
-    <ag-grid-angular
-      style="height: 800px"
+    <ag-grid-angular #editableGrid
+      style="height: 800px; width: 100%;"
       class="ag-theme-alpine"
-      [rowData]="rowData | async"
+      [rowData]="rowData"
       [columnDefs]="columnDefs"
-      rowSelection="multiple"
+      (gridReady)="onGridReady($event)"
     >
     </ag-grid-angular>
   </div>

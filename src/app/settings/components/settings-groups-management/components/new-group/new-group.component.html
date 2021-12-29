@@ -2,8 +2,8 @@
   id="pg-title"
   class="row align-items-center justify-content-center justify-content-md-start"
 >
-  User management<span class="glyphicon glyphicon-chevron-right mx-3"></span>Add
-  new user
+  Groups management<span class="glyphicon glyphicon-chevron-right mx-3"></span
+  >{{edit ? 'Edit' :'Add new'}} group
 </h1>
 <div class="row">
   <div class="col-md-12">
@@ -27,104 +27,109 @@
 </div>
 <div class="widget">
   <div class="widget-body">
-    <form [formGroup]="newUserForm">
+    <form [formGroup]="newGroupForm">
       <div class="row mb-3">
         <div class="col-md-4">
-          <label>* Name</label>
-        </div>
-        <div class="col-md-8">
-          <input type="text" class="form-control" formControlName="name" />
-          <small class="text-muted">Enter user's name.</small>
-        </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col-md-4">
-          <label>* Email</label>
-        </div>
-        <div class="col-md-8">
-          <input type="text" class="form-control" formControlName="email" />
-          <small class="text-muted">Enter user's email.</small>
-        </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col-md-4">
-          <label>* Group</label>
-        </div>
-        <div class="col-md-8">
-          <lw-select
-            tableName="Group"
-            keyColName="groupId"
-            displayColName="groupTitle"
-            controlName="groupId"
-            [notEditValue]="true"
-            [notAddValue]="true"
-          >
-          </lw-select>
-        </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col-md-4">
-          <label>* Location</label>
-        </div>
-        <div class="col-md-8">
-          <lw-select
-            tableName="Location"
-            keyColName="LocationId"
-            displayColName="Title"
-            controlName="locationId"
-            [notEditValue]="true"
-            [notAddValue]="true"
-          >
-          </lw-select>
-        </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col-md-4">
-          <label>* Job Title</label>
+          <label>* Group Title</label>
         </div>
         <div class="col-md-8">
           <input
-            type="text"
-            maxlength="200"
-            class="form-control"
-            formControlName="jobTitle"
+          type="text"
+          class="form-control"
+          formControlName="groupTitle"
           />
-          <small class="text-muted">Enter an appropriate Job Title.</small>
+          <small class="text-muted">Enter group title.</small>
         </div>
       </div>
       <div class="row mb-3">
         <div class="col-md-4">
-          <label>* Job Type</label>
-        </div>
-        <div class="col-md-8">
-          <select class="form-control selectpicker" formControlName="jobType">
-            <option value="0">Please Select</option>
-            <option>Source</option>
-            <option>Owner</option>
-            <option>Supervisor</option>
-            <option>Lawyer</option>
-            <option>Clerk</option>
-          </select>
-          <small class="text-muted">Select an appropriate option.</small>
-        </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col-md-4">
-          <label>* Status</label>
+          <label>* Can Manage Case</label>
         </div>
         <div class="col-md-8">
           <lw-select
-            [options]="[{ statusId: '1', statusTitle: 'Enabled' }]"
+            [options]="[{ statusId: '1', statusTitle: 'Yes' }]"
             bindValue="statusId"
             bindLabel="statusTitle"
-            firstText="Disabled"
+            firstText="No"
             [notAddValue]="true"
             [notEditValue]="true"
-            controlName="status"
+            controlName="canManageCase"
           >
           </lw-select>
         </div>
       </div>
+      <div class="row mb-3">
+        <div class="col-md-4">
+          <label>* Can Manage Activities</label>
+        </div>
+        <div class="col-md-8">
+          <lw-select
+            [options]="[{ statusId: '1', statusTitle: 'Yes' }]"
+            bindValue="statusId"
+            bindLabel="statusTitle"
+            firstText="No"
+            [notAddValue]="true"
+            [notEditValue]="true"
+            controlName="canManageActivities"
+          >
+          </lw-select>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-4">
+          <label>* Can Manage Case-categories</label>
+        </div>
+        <div class="col-md-8">
+          <lw-select
+            [options]="[{ statusId: '1', statusTitle: 'Yes' }]"
+            bindValue="statusId"
+            bindLabel="statusTitle"
+            firstText="No"
+            [notAddValue]="true"
+            [notEditValue]="true"
+            controlName="canManageCaseCategories"
+          >
+          </lw-select>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-4">
+          <label>* Can Manage Users</label>
+        </div>
+        <div class="col-md-8">
+          <lw-select
+            [options]="[{ statusId: '1', statusTitle: 'Yes' }]"
+            bindValue="statusId"
+            bindLabel="statusTitle"
+            firstText="No"
+            [notAddValue]="true"
+            [notEditValue]="true"
+            controlName="canManageUsers"
+          >
+          </lw-select>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-4">
+          <label>* Can Manage Peshis</label>
+        </div>
+        <div class="col-md-8">
+          <lw-select
+            [options]="[{ statusId: '1', statusTitle: 'Yes' }]"
+            bindValue="statusId"
+            bindLabel="statusTitle"
+            firstText="No"
+            [notAddValue]="true"
+            [notEditValue]="true"
+            controlName="canManagePeshi"
+          >
+          </lw-select>
+        </div>
+      </div>
+
 
       <div class="row justify-content-end">
         <div class="col-auto">

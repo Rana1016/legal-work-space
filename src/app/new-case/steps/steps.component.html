@@ -33,7 +33,7 @@
                         <div class="steps">
                             <ul class="list-unstyled vbar">
                                 <ng-container *ngFor="let navItem of navItems; let i = index; let l = last;">
-                                    <li class="pointer">
+                                    <li class="pointer" (click)="setNavigation(i+1)">
                                         <div class="progress-percentage-wrapper">
                                             <div class="progress-percentage ng-cloak">{{i+1}}</div>
                                             <round-progress
@@ -2154,7 +2154,7 @@
                                             <label>* Case Source</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <lw-select controlName="caseSource" [options]="teamDetails"></lw-select>
+                                            <lw-select controlName="caseSource" tableName="User" keyColName="UserId" displayColName="Name"></lw-select>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -2162,7 +2162,7 @@
                                             <label>* Case Owner</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <lw-select controlName="caseOwner" [options]="teamDetails"></lw-select>
+                                            <lw-select controlName="caseOwner" tableName="User" keyColName="UserId" displayColName="Name"></lw-select>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -2170,7 +2170,7 @@
                                             <label>* Case Supervisor</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <lw-select controlName="caseSuperVisor" [options]="teamDetails"></lw-select>
+                                            <lw-select controlName="caseSuperVisor" tableName="User" keyColName="UserId" displayColName="Name"></lw-select>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -2178,7 +2178,7 @@
                                             <label>* Case Worker</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <lw-select controlName="caseWorker" [options]="teamDetails"></lw-select>
+                                            <lw-select controlName="caseWorker" tableName="User" keyColName="UserId" displayColName="Name"></lw-select>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -2186,7 +2186,7 @@
                                             <label>* Case Clerk</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <lw-select controlName="caseClerk" [options]="teamDetails"></lw-select>
+                                            <lw-select controlName="caseClerk" tableName="User" keyColName="UserId" displayColName="Name"></lw-select>
                                         </div>
                                     </div>
                                 </div>

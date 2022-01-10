@@ -234,7 +234,7 @@ export class StepsComponent implements OnInit {
     (<FormGroup>this.stepForm.controls.paymentOptions).controls.feeType.valueChanges
       .subscribe((feeType) => {
         const feeForm = (<FormGroup>(<FormGroup>this.stepForm.controls.paymentOptions).controls.feeTypeForm)
-        feeType == 1 ? (
+        feeType == 1 || feeType == 2 ? (
           feeForm.setControl('agreedFee', this.fb.control('')),
           feeForm.setControl('isVATIncluded', this.fb.control(0)),
           feeForm.setControl('advancePayment', this.fb.control('')),
@@ -246,12 +246,12 @@ export class StepsComponent implements OnInit {
           feeForm.removeControl('agreedFee'),
           feeForm.removeControl('advancePayment'),
           feeForm.removeControl('installments'),
-          feeType == 2 ? (
+          feeType == 3 ? (
             feeForm.setControl('hourlyRateCaseWorker', this.fb.control(0)),
             feeForm.setControl('isVATIncluded', this.fb.control(0)),
             feeForm.removeControl('agreedValue'),
             feeForm.removeControl('amountOrPercentage')
-          ) : feeType == 3 ? (
+          ) : feeType == 4 ? (
             feeForm.setControl('agreedValue', this.fb.control('')),
             feeForm.setControl('amountOrPercentage', this.fb.control(0)),
             feeForm.setControl('isVATIncluded', this.fb.control(0)),
@@ -563,6 +563,8 @@ export class StepsComponent implements OnInit {
     });
   }
 
+  overWriter: any;
+
   setLead(i: number, type: string, modal: any, e?: MouseEvent, a?: number) {
     (<FormGroup>(<FormArray>this.stepForm.controls[type !== ClientTypes.THIRDPARTY ? type + 's' : 'thirdParties']!).controls[i]).controls.status.valueChanges.subscribe((status) => {
       if (status == 'lead') {
@@ -592,8 +594,26 @@ export class StepsComponent implements OnInit {
               (<FormArray>this.stepForm.controls[type !== ClientTypes.THIRDPARTY ? type + 's' : 'thirdParties']!).controls[i].value.status
         });
       e?.stopPropagation();
-      this.open(modal)
+      this.open(modal);
+      this.overWriter = {
+        i, type, modal, e, a
+      }
     }
+  }
+  overwriteLead() {
+    (<FormArray>this.stepForm.controls[this.leadType !== ClientTypes.THIRDPARTY ? this.leadType + 's' : 'thirdParties']!).controls[this.leadClient]
+      .patchValue({
+        status: null
+      });
+    this.leadClient = null;
+    this.leadType = null;
+    this.leadApplicant = null;
+    const {i, type, modal, e, a} = this.overWriter;
+    (<FormArray>this.stepForm.controls[type !== ClientTypes.THIRDPARTY ? type + 's' : 'thirdParties']!).controls[i]
+      .patchValue({
+        status: 'lead'
+    });
+    this.setLead(i, type, modal, e, a)
   }
 
   setStatus(i: number, type: string, e: MouseEvent) {

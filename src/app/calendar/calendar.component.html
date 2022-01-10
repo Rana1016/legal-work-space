@@ -17,6 +17,9 @@
                 type="text"
                 maxlength="128"
                 class="form-control toolbar_search"
+                [(ngModel)]="search"
+                name="search"
+                (ngModelChange)="searchEvents($event)"
               />
             </form>
           </div>
@@ -38,7 +41,7 @@
           <div class="col-sm-12 col-md-4 col-lg-3">
             <div id="pickaday_container" style="margin-top: 50px"></div>
             <div><input type="hidden" id="datepicker" /></div>
-            <h5 style="margin: 20px 0">Shared Calendars</h5>
+            <!-- <h5 style="margin: 20px 0">Shared Calendars</h5>
             <div class="row">
               <div class="col-sm-12">
                 <table
@@ -61,7 +64,7 @@
                   </tbody>
                 </table>
               </div>
-            </div>
+            </div> -->
             <h5 style="margin: 0 0 20px 0">Internet Calendar (iCal)</h5>
             <p>
               Add your calendar to your iOS / Android devices
@@ -91,7 +94,7 @@
       <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
           <label>Calendar</label>
-          <ng-select [items]="[{label: 'Mazhar Ilahi', value: 0}]" bindLabel="label" bindValue="value" formControlName="owner"></ng-select>
+          <ng-select placeholder="Select User" [items]="users" bindLabel="userName" bindValue="userId" formControlName="userId"></ng-select>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
           <label>Case ID <small class="muted ml-1">(e.g: 1000.02)</small></label>
@@ -143,6 +146,7 @@
             maxlength="10"
             class="form-control bt_datepicker span12"
             readonly="readonly"
+            [value]="eventForm.value.startDate | date : 'YYYY-MM-dd'"
             formControlName="startDate"
           />
           <ng-select [items]="FormData.timeBoxOptions" bindValue="value" bindLabel="label" [editableSearchTerm]="true" formControlName="startTime">
@@ -155,6 +159,7 @@
             maxlength="10"
             class="form-control bt_datepicker span12"
             formControlName="endDate"
+            [value]="eventForm.value.endDate | date : 'YYYY-MM-dd'"
             readonly="readonly"
           />
           <ng-select [items]="FormData.timeBoxOptions" bindValue="value" bindLabel="label" [editableSearchTerm]="true" formControlName="endTime">
@@ -172,21 +177,21 @@
         </div>
       </div>
       <div class="row align-items-center">
-        <div class="col-4">
+        <!-- <div class="col-4">
           <label>
             <input type="checkbox" formControlName="allDay" (ngModelChange)="updateDropdown($event)">
             All Day
           </label>
-        </div>
-        <div class="col-4">
+        </div> -->
+        <div class="col-6">
           <label>
-            <input type="radio" value="public" formControlName="accessType">
+            <input type="radio" value="public" formControlName="eventScope">
             Public
           </label>
         </div>
-        <div class="col-4">
+        <div class="col-6">
           <label>
-            <input type="radio" value="private" formControlName="accessType">
+            <input type="radio" value="private" formControlName="eventScope">
             Private
           </label>
         </div>
@@ -196,8 +201,8 @@
   <div class="modal-footer" [formGroup]="eventForm">
     <div class="flex-grow-1 row">
       <div class="col-6 d-flex justify-content-end">
-          <button class="btn btn-primary mr-1" (click)="addEvent(); modal.dismiss('Cross Click')">
-            <span class="glyphicon glyphicon-ok mr-1"></span>{{modalType | titlecase}} event
+          <button class="btn btn-primary mr-1" (click)="modalType == 'add' ? addEvent() : updateEvent(); modal.dismiss('Cross Click')">
+            <span class="glyphicon glyphicon-{{modalType == 'add' ? 'ok' : 'pencil'}} mr-1"></span>{{modalType | titlecase}} event
           </button>
       </div>
       <div class="col-6 d-flex justify-content-start">
@@ -235,7 +240,6 @@
           >
         </p>
       </div>
-      <div class="clearme"></div>
     </div>
   </div>
 </ng-template>

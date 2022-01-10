@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { NotesService } from 'src/app/shared/services/notes.service';
+import { NotesService } from 'src/app/shared/services/case-details/notes.service';
 @Component({
   selector: 'app-new-note',
   templateUrl: './new-note.component.html',

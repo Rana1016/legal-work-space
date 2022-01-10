@@ -33,140 +33,45 @@
         <hr />
 
         <div class="table-responsive">
-          <div
-            id="DataTables_Table_0_wrapper"
-            class="dataTables_wrapper no-footer"
-          >
-            <div id="DataTables_Table_0_filter" class="dataTables_filter">
-              <label
-                >Search:<input
-                  type="search"
-                  class=""
-                  placeholder=""
-                  aria-controls="DataTables_Table_0"
-              /></label>
-            </div>
-            <table
-              class="table table-striped res_tab_full_asc dataTable no-footer"
-              cellspacing="0"
-              width="100%"
-              id="DataTables_Table_0"
-              role="grid"
-              aria-describedby="DataTables_Table_0_info"
-            >
-              <thead>
-                <tr role="row">
-                  <th
-                    class="sorting_asc"
-                    tabindex="0"
-                    aria-controls="DataTables_Table_0"
-                    rowspan="1"
-                    colspan="1"
-                    aria-sort="ascending"
-                    aria-label="Title: activate to sort column descending"
-                  >
-                    Title
-                  </th>
-                  <th
-                    class="sorting"
-                    tabindex="0"
-                    aria-controls="DataTables_Table_0"
-                    rowspan="1"
-                    colspan="1"
-                    aria-label="Phone: activate to sort column ascending"
-                  >
-                    Phone
-                  </th>
-                  <th
-                    class="sorting"
-                    tabindex="0"
-                    aria-controls="DataTables_Table_0"
-                    rowspan="1"
-                    colspan="1"
-                    aria-label="Fax: activate to sort column ascending"
-                  >
-                    Fax
-                  </th>
-                  <th
-                    class="sorting"
-                    tabindex="0"
-                    aria-controls="DataTables_Table_0"
-                    rowspan="1"
-                    colspan="1"
-                    aria-label="Email: activate to sort column ascending"
-                  >
-                    Email
-                  </th>
-                  <th
-                    width="50"
-                    class="sorting"
-                    tabindex="0"
-                    aria-controls="DataTables_Table_0"
-                    rowspan="1"
-                    colspan="1"
-                    aria-label="Actions: activate to sort column ascending"
-                  >
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr role="row" class="odd">
-                  <td class="sorting_1">
-                    <a
-                      class="td_link_dark"
-                      >Main Office</a
-                    >
-                  </td>
-                  <td></td>
-                  <td></td>
-                  <td>mazharilahi@hotmail.com</td>
-                  <td>
-                    <ul class="nav nav-right">
-                      <li>
-                        <a
-                          class="dropdown-toggle"
-                          data-toggle="dropdown"
-                          aria-expanded="false"
-                          ><span
-                            class="glyphicon glyphicon-triangle-bottom"
-                          ></span
-                        ></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a><span class="glyphicon glyphicon-pencil"></span>
-                              Edit</a
-                            >
-                          </li>
-                          <li>
-                            <a
-                              ><span class="fa fa-google-wallet"></span>
-                              Signature</a
-                            >
-                          </li>
-                          <li>
-                            <a
-                              onclick="return confirm('Are you sure you want to delete this record?');"
-                              ><span class="glyphicon glyphicon-remove"></span>
-                              Delete</a
-                            >
-                          </li>
-                        </ul>
-                      </li>
+          <table
+          class="table table-striped table-sm row-border hover"
+          [ngClass]="{'empty': locations && locations.length !== 0}"
+          datatable
+          [dtOptions]="dtOptions"
+        >
+          <tbody>
+            <tr *ngFor="let location of locations" >
+              <td>
+                <a class="td_link_dark">{{location.title}}</a>
+              </td>
+            <td>{{location.phone}}</td>
+            <td>{{location.fax}}</td>
+            <td>{{location.email}}</td>
+              <td>
+                <ul class="nav">
+                  <li ngbDropdown>
+                    <a ngbDropdownToggle class="nav-link" role="button">
+                    </a>
+                    <ul ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
+                        <li ngbDropdownItem>
+                          <a [routerLink]="['edit', location.locationId]">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            Edit
+                          </a>
+                        </li>
+                        <li ngbDropdownItem>
+                          <a>
+                            <span class="fa fa-google-wallet"></span>
+                            Signature
+                          </a>
+                        </li>
                     </ul>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <div
-              class="dataTables_info"
-              id="DataTables_Table_0_info"
-              role="status"
-              aria-live="polite"
-            >
-              Showing 1 to 1 of 1 entries
-            </div>
-          </div>
+                    </li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
         </div>
       </div>
     </div>

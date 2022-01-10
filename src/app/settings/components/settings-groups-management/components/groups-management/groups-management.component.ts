@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { GroupService } from 'src/app/shared/services/group.service';
 
 @Component({
@@ -7,10 +7,10 @@ import { GroupService } from 'src/app/shared/services/group.service';
   styleUrls: ['./groups-management.component.scss']
 })
 export class GroupsManagementComponent implements OnInit {
-
   constructor(private group: GroupService) { }
   groups!: any[];
-  dtOptions: any;
+  dtOptions!: DataTables.Settings;
+
   ngOnInit(): void {
     this.dtOptions = {
       responsive: true,
@@ -19,12 +19,14 @@ export class GroupsManagementComponent implements OnInit {
       order: [[0, "desc"]],
       lengthChange: false,
       paging: true,
+      processing: true,
       ordering: true,
       displayStart: -1,
       info: true,
       autoWidth: false,
       searching: true,
       language: {
+        infoEmpty: '',
         emptyTable: 'No Groups available.'
       },
       columns: [{
@@ -77,6 +79,14 @@ export class GroupsManagementComponent implements OnInit {
         data: []
       })
     })
+  }
+
+  deleteGroup(id: number) {
+    this.group.deleteGroup(id).subscribe((res) => {
+      if (res == 1) {
+        this.groups = this.groups.filter(({groupId}) => groupId != id)
+      }
+    });
   }
 
 }

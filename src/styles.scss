@@ -25,6 +25,7 @@
 
 ::-webkit-scrollbar {
   width: 8px;
+  height: 8px;
   background-color: transparent;
 }
 
@@ -333,4 +334,9 @@ input[type=checkbox].aml_check {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.empty {
+  .dataTables_empty {
+      display: none;
+  }
 }

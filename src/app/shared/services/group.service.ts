@@ -11,7 +11,7 @@ export class GroupService {
     return this.http.post<any>(ApiRoutes.group.all, dTParams);
   }
   addGroup(data: any) {
-    return this.http.post<any>(ApiRoutes.group.addGroup, data)
+    return this.http.post<any>(ApiRoutes.group.add, data)
   }
   getGroupById(id: number) {
     return this.http.get<any>(ApiRoutes.group.byId, {

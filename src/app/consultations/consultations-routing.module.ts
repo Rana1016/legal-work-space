@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path: "new-consultation",
     component: NewConsultationComponent
+  },
+  {
+    path: "edit/:consultationId",
+    component: NewConsultationComponent
   }
 ];
 

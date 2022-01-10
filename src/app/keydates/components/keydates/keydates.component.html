@@ -1,0 +1,396 @@
+<h1
+  id="pg-title"
+  class="row align-items-center justify-content-center justify-content-md-start"
+>
+  Key dates / deadlines
+</h1>
+<div class="row">
+  <div class="col-md-12">
+    <div class="widget">
+      <div class="widget-body">
+        <div class="row">
+          <div class="col-md-12" id="pg-nav">
+            <ul class="list-inline">
+              <li>
+                <a class="btn">
+                  <span class="glyphicon glyphicon-bell"></span> Key dates
+                  reminder
+                </a>
+              </li>
+              <li>
+                <a class="btn" [routerLink]="['/dashboard/installments']">
+                  <span class="glyphicon glyphicon-bell"></span> Instalments
+                  overdue
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="widget">
+      <div class="widget-body">
+        <div class="row">
+          <div class="col-sm-12 col-md-12">
+            <!-- <div class="table-responsive">
+              <div
+                id="DataTables_Table_0_wrapper"
+                class="dataTables_wrapper no-footer"
+              >
+                <div
+                  id="DataTables_Table_0_wrapper"
+                  class="dataTables_wrapper no-footer"
+                >
+                  <div id="DataTables_Table_0_filter" class="dataTables_filter">
+                    <label
+                      >Search:<input
+                        type="search"
+                        class="lw-ml-10 lw-mb-10"
+                        placeholder=""
+                        aria-controls="DataTables_Table_0"
+                    /></label>
+                  </div>
+                  <table
+                    class="
+                      table table table-striped
+                      res_tab_full_asc
+                      dataTable
+                      no-footer
+                    "
+                    cellspacing="0"
+                    width="100%"
+                    id="DataTables_Table_0"
+                    role="grid"
+                    aria-describedby="DataTables_Table_0_info"
+                  >
+                    <thead>
+                      <tr role="row">
+                        <th
+                          width="40"
+                          class="sorting_asc"
+                          tabindex="0"
+                          aria-controls="DataTables_Table_0"
+                          rowspan="1"
+                          colspan="1"
+                          aria-label="&amp;nbsp;: activate to sort column descending"
+                          aria-sort="ascending"
+                        >
+                          &nbsp;
+                        </th>
+                        <th
+                          width="80"
+                          class="sorting"
+                          tabindex="0"
+                          aria-controls="DataTables_Table_0"
+                          rowspan="1"
+                          colspan="1"
+                          aria-label="Key date: activate to sort column ascending"
+                        >
+                          Key date
+                        </th>
+                        <th
+                          width="60"
+                          class="sorting"
+                          tabindex="0"
+                          aria-controls="DataTables_Table_0"
+                          rowspan="1"
+                          colspan="1"
+                          aria-label="Case ref: activate to sort column ascending"
+                        >
+                          Case ref
+                        </th>
+                        <th
+                          class="sorting"
+                          tabindex="0"
+                          aria-controls="DataTables_Table_0"
+                          rowspan="1"
+                          colspan="1"
+                          aria-label="Title: activate to sort column ascending"
+                        >
+                          Title
+                        </th>
+                        <th
+                          class="sorting"
+                          tabindex="0"
+                          aria-controls="DataTables_Table_0"
+                          rowspan="1"
+                          colspan="1"
+                          aria-label="Client name: activate to sort column ascending"
+                        >
+                          Client name
+                        </th>
+                        <th
+                          class="sorting"
+                          tabindex="0"
+                          aria-controls="DataTables_Table_0"
+                          rowspan="1"
+                          colspan="1"
+                          aria-label="Supervisor: activate to sort column ascending"
+                        >
+                          Supervisor
+                        </th>
+                        <th
+                          class="sorting"
+                          tabindex="0"
+                          aria-controls="DataTables_Table_0"
+                          rowspan="1"
+                          colspan="1"
+                          aria-label="Caseworker: activate to sort column ascending"
+                        >
+                          Caseworker
+                        </th>
+                        <th
+                          width="50"
+                          class="sorting"
+                          tabindex="0"
+                          aria-controls="DataTables_Table_0"
+                          rowspan="1"
+                          colspan="1"
+                          aria-label="Actions: activate to sort column ascending"
+                        >
+                          Actions
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr role="row" class="odd">
+                        <td class="text-center sorting_1">
+                          <span
+                            data-toggle="tooltip"
+                            title=""
+                            class="glyphicon glyphicon-stop glyphicon-red"
+                            data-original-title="Overdue"
+                          >
+                            <span class="hideme">2</span>
+                          </span>
+                        </td>
+                        <td>
+                          <span class="hideme">20210812</span> 12 Aug 2021
+                        </td>
+                        <td>
+                          <a class="td_link"> CL/1000.00/Company Pvt Ltd </a>
+                        </td>
+                        <td>
+                          Mr. Supervisor
+                          <br />
+                          <small class="muted">
+                            Supervisor need to attend Mr. Johni on abive date
+                          </small>
+                        </td>
+                        <td>Johni Lever</td>
+                        <td><small>Dr. Mazhar Ilahi</small></td>
+                        <td><small>Dr. Mazhar Ilahi</small></td>
+                        <td>
+                          <ul class="nav nav-right">
+                            <li>
+                              <a aria-expanded="false">
+                                <span
+                                  class="glyphicon glyphicon-triangle-bottom"
+                                ></span>
+                              </a>
+                              <ul class="dropdown-menu" role="menu">
+                                <li>
+                                  <a>
+                                    <span
+                                      class="glyphicon glyphicon-pencil"
+                                    ></span>
+                                    Edit
+                                  </a>
+                                </li>
+                                <li>
+                                  <a>
+                                    <span
+                                      class="glyphicon glyphicon-remove"
+                                    ></span>
+                                    Delete
+                                  </a>
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </td>
+                      </tr>
+                      <tr role="row" class="even">
+                        <td class="text-center sorting_1">
+                          <span
+                            data-toggle="tooltip"
+                            title=""
+                            class="glyphicon glyphicon-stop glyphicon-red"
+                            data-original-title="Overdue"
+                          >
+                            <span class="hideme">2</span>
+                          </span>
+                        </td>
+                        <td>
+                          <span class="hideme">20210930</span> 30 Sep 2021
+                        </td>
+                        <td>
+                          <a class="td_link"> CL/1005.00/hussain </a>
+                        </td>
+                        <td>
+                          Etest
+                          <br />
+                          <small class="muted">test</small>
+                        </td>
+                        <td>tahir hussain</td>
+                        <td><small>Dr. Mazhar Ilahi</small></td>
+                        <td><small>Dr. Mazhar Ilahi</small></td>
+                        <td>
+                          <ul class="nav nav-right">
+                            <li>
+                              <a aria-expanded="false">
+                                <span
+                                  class="glyphicon glyphicon-triangle-bottom"
+                                ></span>
+                              </a>
+                              <ul class="dropdown-menu" role="menu">
+                                <li>
+                                  <a>
+                                    <span
+                                      class="glyphicon glyphicon-pencil"
+                                    ></span>
+                                    Edit
+                                  </a>
+                                </li>
+                                <li>
+                                  <a
+                                    onclick="return confirm('Are you sure you want to delete this record?');"
+                                  >
+                                    <span
+                                      class="glyphicon glyphicon-remove"
+                                    ></span>
+                                    Delete
+                                  </a>
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </td>
+                      </tr>
+                      <tr role="row" class="odd">
+                        <td class="text-center sorting_1">
+                          <span
+                            data-toggle="tooltip"
+                            title=""
+                            class="glyphicon glyphicon-stop glyphicon-red"
+                            data-original-title="Overdue"
+                          >
+                            <span class="hideme">2</span>
+                          </span>
+                        </td>
+                        <td>
+                          <span class="hideme">20210930</span> 30 Sep 2021
+                        </td>
+                        <td>
+                          <a class="td_link"> CL/1006.00/Sabir </a>
+                        </td>
+                        <td>
+                          Test
+                          <br />
+                          <small class="muted">test</small>
+                        </td>
+                        <td>Rizwan Sabir</td>
+                        <td><small>Dr. Mazhar Ilahi</small></td>
+                        <td><small>Dr. Mazhar Ilahi</small></td>
+                        <td>
+                          <ul class="nav nav-right">
+                            <li>
+                              <a aria-expanded="false">
+                                <span
+                                  class="glyphicon glyphicon-triangle-bottom"
+                                ></span>
+                              </a>
+                              <ul class="dropdown-menu" role="menu">
+                                <li>
+                                  <a>
+                                    <span
+                                      class="glyphicon glyphicon-pencil"
+                                    ></span>
+                                    Edit
+                                  </a>
+                                </li>
+                                <li>
+                                  <a
+                                    onclick="return confirm('Are you sure you want to delete this record?');"
+                                  >
+                                    <span
+                                      class="glyphicon glyphicon-remove"
+                                    ></span>
+                                    Delete
+                                  </a>
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div
+                    class="dataTables_info"
+                    id="DataTables_Table_0_info"
+                    role="status"
+                    aria-live="polite"
+                  >
+                    Showing 1 to 3 of 3 entries
+                  </div>
+                </div>
+              </div>
+            </div> -->
+            <table
+              class="table table-striped table-sm row-border hover"
+              datatable
+              [ngClass]="{'empty': keyDates && keyDates.length !== 0}"
+              [dtOptions]="dtOptions"
+            >
+              <tbody>
+                <tr *ngFor="let keyDate of keyDates">
+                  <td class="text-center">
+                    <span class="glyphicon glyphicon-stop glyphicon-red"></span>
+                  </td>
+                  <td>{{ keyDate.keyDate | date: 'dd MMM YYYY' }}</td>
+                  <td>
+                    <strong>{{ keyDate.title }}</strong>
+                    <br />
+                    <small class="muted">{{ keyDate.title }}</small>
+                  </td>
+                  <td></td>
+                  <td>
+                    <ul class="nav">
+                      <li ngbDropdown>
+                        <a ngbDropdownToggle class="nav-link" role="button">
+                        </a>
+                        <ul
+                          ngbDropdownMenu
+                          class="dropdown-menu dropdown-menu-right"
+                        >
+                          <li ngbDropdownItem>
+                            <a>
+                              <span class="glyphicon glyphicon-pencil"></span>
+                              Edit
+                            </a>
+                          </li>
+                          <li ngbDropdownItem>
+                            <a (click)="deleteKeyDate(keyDate.keyDateId)">
+                              <span class="glyphicon glyphicon-remove"></span>
+                              Delete
+                            </a>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

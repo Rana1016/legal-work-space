@@ -1,0 +1,397 @@
+<h1
+  id="pg-title"
+  class="row align-items-center justify-content-center justify-content-md-start"
+>
+  Edit Case Details
+</h1>
+<div class="row">
+  <div class="col-md-12">
+    <div class="widget">
+      <div class="widget-body">
+        <div class="row">
+          <div id="pg-nav" class="col-md-12 py-2">
+            <ul class="list-inline">
+              <li ngbDropdown class="mt-0">
+                <a [routerLink]="['..']" class="btn">
+                  <span class="glyphicon glyphicon-arrow-left"></span>
+                  Back
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="widget">
+  <div class="widget-body">
+    <form [formGroup]="editCaseDetailsForm">
+      <h4 class="text-center mt-0 pb-3"><strong>Case Details</strong></h4>
+        <div class="row">
+            <div class="col-md-4">
+                <label>* Client's Instructions</label>
+            </div>
+            <div class="col-md-8">
+                <textarea class="form-control" formControlName="clientInstructions"
+                    rows="3"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>* Categories</label>
+            </div>
+            <div class="col-md-8">
+                <ng-select class="ng-select" [items]="categories" [multiple]="true"
+                    bindLabel="categoryTitle" [closeOnSelect]="false" bindValue="categoryId"
+                    placeholder="Please Select" formControlName="categories">
+                    <ng-template ng-option-tmp let-item="item" let-item$="item$"
+                        let-index="index">
+                        <input id="item-{{index}}" type="checkbox"
+                            [(ngModel)]="item$.selected"
+                            [ngModelOptions]="{standalone: true}" />
+                        {{item.categoryTitle}}
+                    </ng-template>
+                    <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+                        <div class="ng-value py-1"
+                            *ngFor="let item of items; let f = first">
+                            <span class="ng-value-icon left" (click)="clear(item)"
+                                aria-hidden="true">×</span>
+                            <span class="ng-value-label">{{f ? item.categoryTitle + ' > ' :
+                                item.categoryTitle}}<strong *ngIf="f">Main
+                                    Category</strong></span>
+                        </div>
+                    </ng-template>
+                </ng-select>
+                <small class="text-muted">Select an appropriate option.</small>
+            </div>
+        </div>
+        <div class="row"
+            *ngIf="editCaseDetailsForm.value.categories.length !== 1 || !editCaseDetailsForm.value.categories.includes(12)">
+            <div class="col-md-4">
+                <label>* Sub-Categories</label>
+            </div>
+            <div class="col-md-8">
+                <ng-select class="ng-select" [items]="subCategories" [multiple]="true"
+                    bindLabel="subCategoryTitle" [closeOnSelect]="false"
+                    bindValue="subCategoryId" placeholder="Please Select"
+                    formControlName="subcategories">
+                    <ng-template ng-option-tmp let-item="item" let-item$="item$"
+                        let-index="index">
+                        <input id="item-{{index}}" type="checkbox"
+                            [(ngModel)]="item$.selected"
+                            [ngModelOptions]="{standalone: true}" />
+                        {{item.subCategoryTitle}}
+                    </ng-template>
+                </ng-select>
+                <small class="text-muted">Select an appropriate option.</small>
+            </div>
+        </div>
+        <div class="row" *ngIf="editCaseDetailsForm.value.categories.includes(12)">
+            <div class="col-md-4">
+                <label>* Sub-Category Description</label>
+            </div>
+            <div class="col-md-8">
+                <ng-select class="ng-select" [items]="subCategoriesDescription"
+                    [multiple]="true" bindLabel="subCategoryTitle" [closeOnSelect]="false"
+                    bindValue="subCategoryId" placeholder="Please Select" formControlName="subCategoriesDescription">
+                    <ng-template ng-option-tmp let-item="item" let-item$="item$"
+                        let-index="index">
+                        <input id="item-{{index}}" type="checkbox"
+                            [(ngModel)]="item$.selected"
+                            [ngModelOptions]="{standalone: true}" />
+                        {{item.subCategoryTitle}}
+                    </ng-template>
+                </ng-select>
+                <small class="text-muted">Select an appropriate option.</small>
+            </div>
+        </div>
+        <div class="row" *ngIf="editCaseDetailsForm.value.categories.includes(12)">
+            <div class="col-md-4">
+                <label>* Sub-Category Offence</label>
+            </div>
+            <div class="col-md-8">
+                <ng-select class="ng-select" [items]="subCategoriesOffense"
+                    [multiple]="true" bindLabel="subCategoryTitle" [closeOnSelect]="false"
+                    bindValue="subCategoryId" placeholder="Please Select" formControlName="subCategoriesOffense">
+                    <ng-template ng-option-tmp let-item="item" let-item$="item$"
+                        let-index="index">
+                        <input id="item-{{index}}" type="checkbox"
+                            [(ngModel)]="item$.selected"
+                            [ngModelOptions]="{standalone: true}" />
+                        {{item.subCategoryTitle}}
+                    </ng-template>
+                </ng-select>
+                <small class="text-muted">Select an appropriate option.</small>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <input type="checkbox" formControlName="lescoCase">Lesco Case
+            </div>
+        </div>
+        <div class="row" *ngIf="editCaseDetailsForm.value.lescoCase">
+            <div class="col-6">
+                <input class="pointer" type="radio" value="CLO" formControlName="lescoType">Chief Law
+                Officer
+            </div>
+            <div class="col-6">
+                <input class="pointer" type="radio" value="SE" formControlName="lescoType">Superintending
+                Engineer
+            </div>
+        </div>
+        <ng-container formGroupName="lescoGroup" *ngIf="editCaseDetailsForm.value.lescoType == 'CLO'">
+            <div class="row">
+                <div class="col-md-4">
+                    <label>Division</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" formControlName="cloDivision" />
+                    <small class="text-muted">Example: Tier 4 student visa extension</small>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label>Sub Division</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" class="form-control"
+                        formControlName="cloSubDivision" />
+                    <small class="text-muted">Example: Tier 4 student visa extension</small>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label>LESCO Consumer</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" class="form-control"
+                        formControlName="cloConsumerRef" />
+                    <small class="text-muted">Example: Tier 4 student visa extension</small>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label>LESCO Clerk Name</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" class="form-control"
+                        formControlName="cloClerkName" />
+                    <small class="text-muted">Example: Tier 4 student visa extension</small>
+                </div>
+            </div>
+        </ng-container>
+        <ng-container formGroupName="lescoGroup" *ngIf="editCaseDetailsForm.value.lescoType == 'SE'">
+            <div class="row">
+                <div class="col-md-4">
+                    <label>SE Circle</label>
+                </div>
+                <div class="col-md-8">
+                    <lw-select controlName="seCircle" [options]="FormData.seCircles">
+                    </lw-select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label>Division</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" formControlName="seDivision" />
+                    <small class="text-muted">Example: Tier 4 student visa extension</small>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label>Sub Division</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" class="form-control"
+                        formControlName="seSubDivision" />
+                    <small class="text-muted">Example: Tier 4 student visa extension</small>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label>LESCO Consumer</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" formControlName="seConsumer" />
+                    <small class="text-muted">Example: Tier 4 student visa extension</small>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label>LESCO Clerk Name</label>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" class="form-control" formControlName="seClerkName" />
+                    <small class="text-muted">Example: Tier 4 student visa extension</small>
+                </div>
+            </div>
+        </ng-container>
+        <div class="row">
+            <div class="col-md-4">
+                <label>* Brief Case Description</label>
+            </div>
+            <div class="col-md-8">
+                <textarea class="form-control" formControlName="briefCaseDescription"
+                    rows="3"></textarea>
+                <small class="text-muted">Example: Tier 4 student visa extension</small>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>* Case Instructions</label>
+            </div>
+            <div class="col-md-8">
+                <lw-select controlName="caseInstructions" [options]="FormData.caseInstruction"></lw-select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>* Litigation Case Title</label>
+            </div>
+            <div class="col-md-8">
+                <input type="text" maxlength="120" class="form-control"
+                    formControlName="litigationCaseTitle"/>
+                <small class="text-muted">Example: Title</small>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>Date of last hearing (if any)</label>
+            </div>
+            <div class="col-md-8">
+                <input type="date" maxlength="120" class="form-control"
+                    placeholder="yyyy-mm-dd" formControlName="dateOfLastHearing"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>Date of next hearing (if any)</label>
+            </div>
+            <div class="col-md-8">
+                <input type="date" maxlength="120" class="form-control"
+                    placeholder="yyyy-mm-dd" formControlName="dateOfNextHearing"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>* Filing/Intituation Date</label>
+            </div>
+            <div class="col-md-8">
+                <input type="date" maxlength="120" class="form-control"
+                    placeholder="yyyy-mm-dd" formControlName="filingDate"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>* Court Case number</label>
+            </div>
+            <div class="col-md-8">
+                <input type="text" maxlength="120" class="form-control" formControlName="courtCaseNumber"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>Advice given to the client</label>
+            </div>
+            <div class="col-md-8">
+                <textarea class="form-control" formControlName="adviceGivenToClient"
+                    rows="3"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>Agreed plan of action</label>
+            </div>
+            <div class="col-md-8">
+                <textarea class="form-control" formControlName="agreedPlanOfAction"
+                    rows="3"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>* Chances of Success</label>
+            </div>
+            <div class="col-md-8">
+                <lw-select controlName="chancesOfSuccess" [options]="FormData.chancesOfSuccess"></lw-select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>Weaknesses of case (if any)</label>
+            </div>
+            <div class="col-md-8">
+                <textarea class="form-control" rows="3"
+                    formControlName="weaknessesOfCase"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>* Conflicts of interest check made?</label>
+            </div>
+            <div class="col-md-8">
+                <select class="w-100 selectpicker form-control"
+                    formControlName="conflictsOfInterest">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+                <small class="text-muted">
+                    <strong class="text-green">No conflict found in client
+                        database.</strong>
+                </small>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>If conflict of interest identified, please
+                    explain</label>
+            </div>
+            <div class="col-md-8">
+                <textarea class="form-control" formControlName="conflictsOfInterestDesc"
+                    rows="3"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>* Do you have any criminal convictions/trafficoffences/civil
+                    judgments in the Pakistan or outside the Pakistan?</label>
+            </div>
+            <div class="col-md-8">
+                <select class="w-100 selectpicker form-control"
+                    formControlName="haveCriminalConviction">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+                <small class="text-muted">Select an appropriate option.</small>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label> If YES, please explain</label>
+            </div>
+            <div class="col-md-8">
+                <textarea class="form-control" formControlName="criminalConvictionDesc"
+                    rows="3"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>Additional Information</label>
+            </div>
+            <div class="col-md-8">
+                <textarea class="form-control" formControlName="addtionalInfo"
+                    rows="3"></textarea>
+            </div>
+        </div>
+        <div class="row justify-content-end">
+          <div class="col-auto">
+            <button type="submit" class="btn btn-primary" (click)="submitForm()">
+              Submit
+            </button>
+          </div>
+        </div>
+    </form>
+  </div>
+</div>

@@ -30,7 +30,7 @@
                   </li>
                 </ul>
               </li>
-              <li>
+              <!-- <li>
                 <a class="btn"><span class="glyphicon glyphicon-search"></span> Search by
                   Matter</a>
               </li>
@@ -41,7 +41,7 @@
               <li>
                 <a class="btn"><span class="glyphicon glyphicon-search"></span> Search by
                   Category</a>
-              </li>
+              </li> -->
             </ul>
           </div>
         </div>
@@ -56,14 +56,14 @@
       <div class="widget-body">
         <div class="row">
           <div class="col-sm-12 col-md-12">
-            <form onsubmit="return false;" id="data_form2" name="data_form2" class="form-horizontal"
+            <form class="form-horizontal" [formGroup]="searchForm"
               accept-charset="UTF-8">
               <p class="page-title">Are you looking for someone?</p>
               <div class="row">
                 <div class="col-sm-12 col-md-8 col-lg-8">
                   <label for="inpCASEID">Enter Case ID (example: 1425), Client's Name, Phone, Email
                     or Address</label>
-                  <input type="text" maxlength="128" class="form-control search-box" />
+                  <input type="text" maxlength="128" class="form-control search-box" formControlName="search" />
                 </div>
               </div>
             </form>
@@ -87,18 +87,18 @@
 </div>
 <!-- MY RECENT CASES -->
 <div class="row">
-  <div class="col-sm-12 col-md-12 col-lg-12 cases">
+  <div class="col-sm-12 col-md-12 col-lg-12" [ngClass]="{'empty': Cases && Cases.length !== 0}">
     <div class="widget">
       <div class="widget-body">
         <div class="row">
           <div class="col-sm-12 col-md-12 col-lg-12">
-            <h5>My recent cases (25 records)</h5>
+            <h5>My recent cases ({{totalCases}} records)</h5>
           </div>
         </div>
         <hr />
-        <table class="table table-striped table-sm row-border hover" datatable [dtOptions]="dtOptions">
+        <table class="table table-striped table-sm row-border hover" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
           <tbody>
-            <tr role="row" class="odd" *ngFor="let case of Cases">
+            <tr role="row" *ngFor="let case of Cases">
               <td class="sorting_1">
                 {{case.date | date: 'MM-dd-yyyy'}}
               </td>

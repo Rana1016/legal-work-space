@@ -8,6 +8,7 @@ import { NgbDatepickerModule, NgbDropdownModule } from '@ng-bootstrap/ng-bootstr
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { DataTablesModule } from 'angular-datatables';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     NgSelectModule,
     ConsultationsRoutingModule,
     NgbDropdownModule,
-    NgbDatepickerModule
+    NgbDatepickerModule,
+    DataTablesModule
   ]
 })
 export class ConsultationsModule { }

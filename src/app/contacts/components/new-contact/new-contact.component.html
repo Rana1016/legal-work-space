@@ -1,5 +1,5 @@
 <h1 id="pg-title" class="row align-items-center justify-content-center justify-content-md-start">Contact book <span
-    class="glyphicon glyphicon-chevron-right mx-3"></span> Add New</h1>
+    class="glyphicon glyphicon-chevron-right mx-3"></span> {{this.editId ? 'Edit' : 'Add New'}} Contact</h1>
 <div class="row">
 <div class="col-md-12">
 <div class="widget">
@@ -7,8 +7,7 @@
     <div class="row">            
         <div class="col-md-12" id="pg-nav">
             <ul class="list-inline">
-
-                <li><a class="btn" [routerLink]="['..']"><span class="glyphicon glyphicon-arrow-left"></span> Back</a></li>
+                <li><a class="btn" [routerLink]="this.editId ? ['../..']: ['..']"><span class="glyphicon glyphicon-arrow-left"></span> Back</a></li>
             </ul>
         </div>
     </div>
@@ -26,26 +25,26 @@
     </div>
     <form class="form-horizontal" [formGroup]="newContactForm">
         <div class="row">
-            <div class="col-md-4"><label>* Full Name</label></div>
-            <div class="col-md-8"><input type="text" maxlength="100" class="form-control" formControlName="fullName"><small class="text-muted">Example: John Smith</small></div>
+            <div class="col-md-4"><label>* Name</label></div>
+            <div class="col-md-8"><input type="text" maxlength="100" class="form-control" formControlName="name"><small class="text-muted">Example: John Smith</small></div>
         </div>
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-md-4"><label>Job Title</label></div>
             <div class="col-md-8"><input type="text" maxlength="100" class="form-control" formControlName="jobTitle"><small class="text-muted">Example: Barrister</small></div>
         </div>
         <div class="row">
             <div class="col-md-4"><label>Company Name</label></div>
             <div class="col-md-8"><input type="text" maxlength="200" class="form-control" formControlName="companyName"><small class="text-muted">Example: ABC Translations</small></div>
+        </div> -->
+        <div class="row">
+            <div class="col-md-4"><label>* Phone Number</label></div>
+            <div class="col-md-8"><input type="text" maxlength="16" class="form-control" formControlName="phoneNumber"><small class="text-muted">Note: Only digits without spaces. Example: 07000111000</small></div>
         </div>
         <div class="row">
-            <div class="col-md-4"><label>Phone (Work)</label></div>
-            <div class="col-md-8"><input type="text" maxlength="16" class="form-control" formControlName="workPhone"><small class="text-muted">Note: Only digits without spaces. Example: 07000111000</small></div>
+            <div class="col-md-4"><label>* Email</label></div>
+            <div class="col-md-8"><input type="text" maxlength="255" class="form-control" formControlName="email"><small class="text-muted">Example: info@company-name.co.uk</small></div>
         </div>
-        <div class="row">
-            <div class="col-md-4"><label>Email (Work)</label></div>
-            <div class="col-md-8"><input type="text" maxlength="255" class="form-control" formControlName="workEmail"><small class="text-muted">Example: info@company-name.co.uk</small></div>
-        </div>
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-md-4"><label>Phone (Personal)</label></div>
             <div class="col-md-8"><input type="text" maxlength="16" class="form-control" formControlName="personalPhone"><small class="text-muted">Note: Only digits without spaces. Example: 07000111000</small></div>
         </div>
@@ -64,10 +63,10 @@
         <div class="row">
             <div class="col-md-4"><label>DX Address</label></div>
             <div class="col-md-8"><input type="text" maxlength="100" class="form-control" formControlName="dxAddress"><small class="text-muted">Example: 12345 Strand</small></div>
-        </div>
+        </div> -->
         <div class="row justify-content-end">
             <div class="col-auto">
-                <button style="margin-bottom:15px;" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Submit</button>
+                <button style="margin-bottom:15px;" (click)="submitForm()" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Submit</button>
             </div>
         </div>
     </form>

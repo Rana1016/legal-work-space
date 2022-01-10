@@ -11,7 +11,7 @@ import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
 import momentPlugin from '@fullcalendar/moment';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
   timeGridPlugin,
@@ -28,6 +28,7 @@ FullCalendarModule.registerPlugins([
     CalendarRoutingModule,
     FullCalendarModule,
     NgSelectModule,
+    FormsModule,
     ReactiveFormsModule
   ],
   providers: [

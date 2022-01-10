@@ -30,96 +30,24 @@
     <form [formGroup]="newPeshiForm">
       <div class="row mb-3">
         <div class="col-md-4">
-          <label>* File Ref.</label>
-        </div>
-        <div class="col-md-8">
-          <input type="text" class="form-control" formControlName="fileRef" />
-        </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col-md-4">
-          <label for="inpCOVER"> * Court Case No. </label>
+          <label>* Case ID.</label>
         </div>
         <div class="col-md-8">
           <input
             type="text"
             class="form-control"
-            formControlName="courtCaseNumber"
+            formControlName="caseId"
+            (ngModelChange)="checkCase($event)"
           />
-        </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col-md-4">
-          <label for="inpAGREED">* Case Title</label>
-        </div>
-        <div class="col-md-8">
-          <input type="text" class="form-control" formControlName="caseTitle" />
-        </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col-md-4">
-          <label> * Nature of Case </label>
-        </div>
-        <div class="col-md-8">
-          <input
-            type="text"
-            class="form-control"
-            formControlName="natureOfCase"
-          />
-        </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col-md-4">
-          <label>* Categories</label>
-        </div>
-        <div class="col-md-8">
-          <ng-select
-            [items]="[]"
-            formControlName="categories"
-            placeholder="Please Select"
-          >
-          </ng-select>
-          <small class="text-muted">Select an appropriate option.</small>
-        </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col-md-4">
-          <label for="inpFEE">* Court</label>
-        </div>
-        <div class="col-md-8">
-          <ng-select
-            [items]="[]"
-            formControlName="courts"
-            placeholder="Please Select"
-          >
-          </ng-select>
-          <small class="text-muted">Select an appropriate option.</small>
-        </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col-md-4">
-          <label>* Name Of the Judge</label>
-        </div>
-        <div class="col-md-8">
-          <input
-            type="text"
-            maxlength="200"
-            class="form-control"
-            formControlName="nameOfJudge"
-          />
-        </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col-md-4">
-          <label>* District/Bench</label>
-        </div>
-        <div class="col-md-8">
-          <input
-            type="text"
-            maxlength="200"
-            class="form-control"
-            formControlName="districtOrBench"
-          />
+          <small class="text-muted">
+            {{
+              isValid
+                ? clientName !== ""
+                  ? clientName + " with ID: " + newPeshiForm.value.caseId
+                  : ""
+                : "Please enter a valid Case ID."
+            }}
+          </small>
         </div>
       </div>
       <div class="row mb-3">
@@ -130,8 +58,9 @@
           <input
             type="text"
             class="form-control"
-            formControlName="previousProceeding"
+            formControlName="previousProceedings"
           />
+          <small class="text-mued">Enter valid previous Proceedings</small>
         </div>
       </div>
       <div class="row mb-3">
@@ -181,6 +110,7 @@
               ></button>
             </div>
           </div>
+          <small class="text-muted">Format: dd-mm-yyyy</small>
         </div>
       </div>
       <div class="row mb-3">
@@ -189,51 +119,130 @@
         </div>
         <div class="col-md-8">
           <textarea
-            row
-            mb-3s="3"
+            rows="3"
             class="form-control"
             formControlName="remarks"
           ></textarea>
+          <small class="text-muted">Enter remarks.</small>
         </div>
       </div>
-      <div class="row mb-3">
+      <div class="row">
         <div class="col-md-4">
-          <label>Case Owner</label>
-        </div>
-        <div class="col-md-8">
-          <input type="text" class="form-control" formControlName="caseOwner" />
-        </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col-md-4">
-          <label>Case worker</label>
+          <label>* Name</label>
         </div>
         <div class="col-md-8">
           <input
             type="text"
+            maxlength="200"
             class="form-control"
-            formControlName="caseWorker"
+            formControlName="lawyerName"
           />
+          <small class="text-muted">Enter lawyer name.</small>
         </div>
       </div>
-      <div class="row mb-3">
+      <div class="row">
         <div class="col-md-4">
-          <label>Case Clerk</label>
-        </div>
-        <div class="col-md-8">
-          <input type="text" class="form-control" formControlName="caseClerk" />
-        </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col-md-4">
-          <label>Other party lawyer</label>
+          <label>* Firm name</label>
         </div>
         <div class="col-md-8">
           <input
             type="text"
+            maxlength="200"
             class="form-control"
-            formControlName="otherPartyLawyer"
+            formControlName="lawyerFirmName"
           />
+          <small class="text-muted">Enter lawyer firm name.</small>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <label>* Address</label>
+        </div>
+        <div class="col-md-8">
+          <input
+            type="text"
+            maxlength="200"
+            class="form-control"
+            formControlName="lawyerAddress"
+          />
+          <small class="text-muted"
+            >Example: Flat A, 123 Abc Road, Xyx Ave.</small
+          >
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <label>Phone Number </label>
+        </div>
+        <div class="col-md-8">
+          <input
+            type="text"
+            maxlength="16"
+            class="form-control"
+            formControlName="lawyerPhoneNumber"
+          />
+          <small class="text-muted"
+            >Note: Only digits without spaces. Example:07000111000</small
+          >
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <label>Email</label>
+        </div>
+        <div class="col-md-8">
+          <input
+            type="text"
+            maxlength="200"
+            class="form-control"
+            formControlName="lawyerEmail"
+          />
+          <small class="text-muted"
+            >Example: user@company-name.co.pk (Optional)</small
+          >
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <label>Fax</label>
+        </div>
+        <div class="col-md-8">
+          <input
+            type="text"
+            maxlength="200"
+            class="form-control"
+            formControlName="lawyerFax"
+          />
+          <small class="text-muted">Enter lawyer fax number.</small>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <label>WhatsApp Number</label>
+        </div>
+        <div class="col-md-8">
+          <input
+            type="text"
+            maxlength="16"
+            class="form-control"
+            formControlName="lawyerWhatsAppNumber"
+          />
+          <small class="text-muted"
+            >Note: Only digits without spaces. Example:02080111000</small
+          >
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <label>Other details specify</label>
+        </div>
+        <div class="col-md-8">
+          <textarea
+            class="form-control"
+            formControlName="lawyerOtherDetailsSpecify"
+            rows="3"
+          ></textarea>
+          <small class="text-muted">Enter lawyer's other details.</small>
         </div>
       </div>
       <div class="row justify-content-end">

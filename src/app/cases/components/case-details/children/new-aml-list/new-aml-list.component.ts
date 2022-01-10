@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AmlService } from 'src/app/shared/services/aml.service';
+import { AmlService } from 'src/app/shared/services/case-details/aml.service';
 
 @Component({
   selector: 'app-new-aml-list',

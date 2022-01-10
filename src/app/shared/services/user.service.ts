@@ -1,15 +1,48 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { ApiRoutes } from '../api/routes';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  constructor(private http: HttpClient) {}
+  userSubject: BehaviorSubject<any> = new BehaviorSubject(null);
+  user: Observable<any>;
+  constructor(private http: HttpClient, private router: Router) {
+    this.user = this.userSubject.asObservable();
+  }
+
+  get getUser() {
+    return JSON.parse(localStorage.getItem('user')!)
+  }
+
+  login(data: any) {
+    return this.http.post<any>(ApiRoutes.auth.login, data, {observe: 'response'})
+    .pipe(
+      tap((res) => {
+        if (res.status == 200) {
+          localStorage.setItem('user', JSON.stringify(res.body))
+        }
+      })
+    );
+  }
+
+  logout() {
+    localStorage.removeItem('user');
+    this.router.navigate(['/login']);
+  }
 
   addUser(data: any) {
-    return this.http.post(ApiRoutes.user.addUser, data)
+    return this.http.post(ApiRoutes.user.add, data)
+  }
+
+  changePassword(data: any) {
+    return this.http.post(ApiRoutes.user.changePwd, {
+
+    })
   }
 
   getAll(dTParams: any) {

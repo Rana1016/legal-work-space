@@ -7,7 +7,7 @@ import { NewGroupComponent } from './components/new-group/new-group.component';
 import { DataTablesModule } from 'angular-datatables';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -20,6 +20,7 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
     NgbDropdownModule,
     ReactiveFormsModule,
     DataTablesModule,
+    NgbModalModule,
     SharedModule,
     SettingsGroupsManagementRoutingModule
   ]

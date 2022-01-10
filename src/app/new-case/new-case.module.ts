@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SharedModule } from '../shared/shared.module';
 import { RoundprogressModule, ROUND_PROGRESS_DEFAULTS } from 'angular-svg-round-progressbar';
+import { DataTablesModule } from 'angular-datatables';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { RoundprogressModule, ROUND_PROGRESS_DEFAULTS } from 'angular-svg-round-
     NgSelectModule,
     SharedModule,
     RoundprogressModule,
-    FormsModule
+    FormsModule,
+    DataTablesModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

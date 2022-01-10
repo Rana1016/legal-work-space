@@ -8,6 +8,10 @@ const routes: Routes = [
     component: DefaultComponent,
   },
   {
+    path: ':status',
+    component: DefaultComponent,
+  },
+  {
     path: 'case-details/:caseRef',
     loadChildren: () => import('./components/case-details/case-details.module').then(m => m.CaseDetailsModule)
   }

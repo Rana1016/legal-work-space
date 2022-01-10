@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path: 'new-office-location',
     component: NewOfficeLocationComponent
+  },
+  {
+    path: 'edit/:locationId',
+    component: NewOfficeLocationComponent
   }
 ];
 

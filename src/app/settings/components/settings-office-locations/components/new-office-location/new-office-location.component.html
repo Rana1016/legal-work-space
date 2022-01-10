@@ -1,1 +1,87 @@
-<p>new-office-location works!</p>
+<h1
+  id="pg-title"
+  class="row align-items-center justify-content-center justify-content-md-start"
+>
+  Office locations<span class="glyphicon glyphicon-chevron-right mx-3"></span
+  >{{ edit ? "Edit" : "Add new" }} location
+</h1>
+<div class="row">
+  <div class="col-md-12">
+    <div class="widget">
+      <div class="widget-body">
+        <div class="row">
+          <div id="pg-nav" class="col-md-12 py-2">
+            <ul class="list-inline">
+              <li ngbDropdown class="mt-0">
+                <a [routerLink]="[!!edit ? '../..' : '..']" class="btn">
+                  <span class="glyphicon glyphicon-arrow-left"></span>
+                  Back
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="widget">
+  <div class="widget-body">
+    <form [formGroup]="newLocationForm">
+      <div class="row mb-3">
+        <div class="col-md-4">
+          <label>* Title</label>
+        </div>
+        <div class="col-md-8">
+          <input type="text" class="form-control" formControlName="title" />
+          <small class="text-muted">Enter location's title.</small>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-4">
+          <label>* Phone</label>
+        </div>
+        <div class="col-md-8">
+          <input type="text" class="form-control" formControlName="phone" />
+          <small class="text-muted">Enter location's phone number.</small>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-4">
+          <label>* Fax</label>
+        </div>
+        <div class="col-md-8">
+          <input
+            type="text"
+            maxlength="200"
+            class="form-control"
+            formControlName="fax"
+          />
+          <small class="text-muted">Enter location's fax number.</small>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-4">
+          <label>* Email</label>
+        </div>
+        <div class="col-md-8">
+          <input
+            type="text"
+            maxlength="200"
+            class="form-control"
+            formControlName="email"
+          />
+          <small class="text-muted">Enter location's email.</small>
+        </div>
+      </div>
+
+      <div class="row justify-content-end">
+        <div class="col-auto">
+          <button type="submit" class="btn btn-primary" (click)="submitForm()">
+            Submit
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

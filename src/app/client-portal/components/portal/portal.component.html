@@ -1,0 +1,57 @@
+<h1
+  id="pg-title"
+  class="row align-items-center justify-content-center justify-content-md-start"
+>
+  Client Portal
+</h1>
+
+<div class="widget py-3 px-2">
+  <div class="widget-body">
+    <div class="row">
+      <div class="col-md-4 strongest">User Name</div>
+      <div class="col-md-8">{{ client?.userName || "N/A" }}</div>
+    </div>
+    <hr />
+    <div class="row">
+      <div class="col-md-4 strongest my-auto">Password</div>
+      <div class="col-md-auto my-auto">
+        <input
+          #inp
+          class="hidden-pwd form-control"
+          type="password"
+          [value]="client?.password"
+        />
+      </div>
+      <div class="col-md-auto my-auto">
+        <div class="d-flex">
+          <i
+            class="fa pointer fa-eye{{
+              inp.type == 'password' ? '' : '-slash'
+            }} mr-2"
+            (click)="inp.type = inp.type == 'password' ? 'text' : 'password'"
+          ></i>
+          <p>{{ inp.type == "password" ? "Show" : "Hide" }} password</p>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <div class="row">
+      <div class="col-md-4 my-auto strongest">Account Status</div>
+      <div class="col-md-auto my-auto">
+        {{ clientForm.value.accountStatus }}
+      </div>
+      <div class="col-md-3">
+        <!-- <select
+            class="form-control selectpicker"
+            formControlName="accountStatus"
+          >
+            <option value="false">Disabled</option>
+            <option value="false">Disabled</option>
+          </select> -->
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template let-modal>
+
+</ng-template>

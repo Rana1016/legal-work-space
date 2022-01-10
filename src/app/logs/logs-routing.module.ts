@@ -12,15 +12,23 @@ const routes: Routes = [
     component:LogsComponent
   },
   {
+    path: 'edit/:logBookFolderId',
+    component: AddFolderComponent
+  },
+  {
     path: 'add-folder',
     component: AddFolderComponent
   },
   {
-    path: 'folder/:folderId',
+    path: 'folder/:logBookFolderId',
     component: FolderComponent
   },
   {
-    path: 'folder/:folderId/new-activity',
+    path: 'folder/:logBookFolderId/new-log',
+    component: NewActivityComponent
+  },
+  {
+    path: 'folder/:logBookFolderId/edit/:logId',
     component: NewActivityComponent
   }
 ];

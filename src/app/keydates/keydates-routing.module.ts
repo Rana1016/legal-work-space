@@ -1,11 +1,20 @@
-import { KeydatesComponent } from './keydates.component';
+import { KeydatesComponent } from './components/keydates/keydates.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { NewKeydateComponent } from './components/new-keydate/new-keydate.component';
 
 const routes: Routes = [
   {
     path: "",
-    component:KeydatesComponent
+    component: KeydatesComponent
+  },
+  {
+    path: "new-keydate",
+    component: NewKeydateComponent
+  },
+  {
+    path: "edit/:keyDateId",
+    component: NewKeydateComponent
   }
 ];
 

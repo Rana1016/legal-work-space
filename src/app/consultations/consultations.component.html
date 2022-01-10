@@ -1,4 +1,9 @@
-<h1 id="pg-title" class="row align-items-center justify-content-center justify-content-md-start">Consultations</h1>
+<h1
+  id="pg-title"
+  class="row align-items-center justify-content-center justify-content-md-start"
+>
+  Consultations
+</h1>
 <div class="row">
   <div class="col-md-12">
     <div class="widget">
@@ -7,10 +12,7 @@
           <div class="col-md-12" id="pg-nav">
             <ul class="list-inline">
               <li>
-                <a
-                  class="btn"
-                  [routerLink]="['new-consultation']"
-                >
+                <a class="btn" [routerLink]="['new-consultation']">
                   <span class="glyphicon glyphicon-plus"></span> Start new
                   consultation
                 </a>
@@ -37,18 +39,18 @@
           id="search_form"
           name="search_form"
           class="form-horizontal"
-          
-          accept-charset="UTF-8"
+          (ngSubmit)="onSubmit()"
         >
           <div class="row">
             <div class="col-sm-12 col-md-3 col-lg-3">
               <label>Select option</label>
-              <select class="w-100 selectpicker form-control">
-                <option>Date Range</option>
+              <select class="w-100 selectpicker form-control" name="searchMethod" [(ngModel)]="searchMethod">
+                <option value="0">By Search</option>
+                <option value="1">Date Range</option>
               </select>
             </div>
             <div class="col-sm-12 col-md-5 col-lg-5">
-              <div id="filter1" style="display: none">
+              <div *ngIf="searchMethod == '0'">
                 <div class="row">
                   <div class="col-sm-12 col-md-12 col-lg-12">
                     <label>Enter search terms</label>
@@ -57,36 +59,55 @@
                       maxlength="200"
                       class="form-control txt"
                       name="inpNUM"
-                      value=""
+                      [(ngModel)]="search"
+                      name="search"
                     />
                   </div>
                 </div>
               </div>
-              <div id="filter0" style="display: block">
+              <div *ngIf="searchMethod == '1'">
                 <div class="row">
                   <div class="col-sm-12 col-md-6 col-lg-6">
                     <label>Start date:</label>
-                    <input
-                      type="text"
-                      maxlength="10"
-                      class="form-control bt_datepicker span12 dpicker"
-                      id="inpSDATE"
-                      name="inpSDATE"
-                      value="06-10-2021"
-                      readonly="readonly"
-                    />
+                    <div class="input-group">
+                      <input
+                        class="form-control"
+                        name="startDate"
+                        [(ngModel)]="startDate"
+                        placeholder="dd-mm-yyyy"
+                        name="dp"
+                        ngbDatepicker
+                        #t="ngbDatepicker"
+                      />
+                      <div class="input-group-append">
+                        <button
+                          class="btn btn-secondary fa fa-calendar-o"
+                          (click)="t.toggle()"
+                          type="button"
+                        ></button>
+                      </div>
+                    </div>
                   </div>
                   <div class="col-sm-12 col-md-6 col-lg-6">
                     <label>End date:</label>
-                    <input
-                      type="text"
-                      maxlength="10"
-                      class="form-control bt_datepicker span12 dpicker"
-                      id="inpEDATE"
-                      name="inpEDATE"
-                      value="06-10-2021"
-                      readonly="readonly"
-                    />
+                    <div class="input-group">
+                      <input
+                        class="form-control"
+                        name="endDate"
+                        [(ngModel)]="endDate"
+                        placeholder="dd-mm-yyyy"
+                        name="dp"
+                        ngbDatepicker
+                        #d="ngbDatepicker"
+                      />
+                      <div class="input-group-append">
+                        <button
+                          class="btn btn-secondary fa fa-calendar-o"
+                          (click)="d.toggle()"
+                          type="button"
+                        ></button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -119,7 +140,60 @@
         <div class="row">
           <div class="col-sm-12 col-md-12">
             <div class="table-responsive">
-              <div
+              <table
+                class="table table-striped table-sm row-border hover"
+                [ngClass]="{
+                  empty: consultations && consultations.length !== 0
+                }"
+                datatable
+                [dtOptions]="dtOptions"
+                [dtTrigger]="dtTrigger"
+              >
+                <tbody>
+            <tr *ngFor="let consultation of consultations" >
+               <td>{{consultation.consultationDate | date: 'dd-MM-YYYY'}}</td> 
+               <td>{{consultation.clientName}}</td> 
+               <td>{{consultation.categories[0]}}</td> 
+               <td>{{consultation.email}}</td> 
+               <td>{{consultation.address}}</td> 
+              <td>
+                <ul class="nav">
+                  <li ngbDropdown>
+                    <a ngbDropdownToggle class="nav-link" role="button">
+                    </a>
+                    <ul ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
+                      <li ngbDropdownItem>
+                        <a (click)="convertToCase(consultation.consultationId)">
+                          <span class="glyphicon glyphicon-eye-open mr-2"></span>
+                          Start new case
+                        </a>
+                      </li>
+                      <li ngbDropdownItem>
+                        <a target="_blank">
+                          <span class="glyphicon glyphicon-eye-open mr-2"></span>
+                          View / Download as PDF
+                        </a>
+                      </li>
+                        <li ngbDropdownItem>
+                          <a [routerLink]="['edit', consultation.consultationId]">
+                            <span class="glyphicon glyphicon-pencil mr-2"></span>
+                            Edit
+                          </a>
+                        </li>
+                        <li ngbDropdownItem>
+                          <a (click)="deleteConsultation(consultation.consultationId)">
+                            <span class="glyphicon glyphicon-remove mr-2"></span>
+                            Delete
+                          </a>
+                        </li>
+                    </ul>
+                    </li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+              </table>
+              <!-- <div
                 id="DataTables_Table_0_wrapper"
                 class="dataTables_wrapper no-footer"
               >
@@ -331,7 +405,7 @@
                     Showing 1 to 2 of 2 entries
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>

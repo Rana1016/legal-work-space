@@ -1,98 +1,154 @@
 <div class="container-fluid lw-header">
-    <div class="row">
-        <div class="col-sm-12 col-xl-2 brand">
-            <span class="main-logo">Legal Workspace</span>
-            <span class="d-xl-none mobile-menu" (click)="open('MobileMainMenu')">
-                <a data-toggle="modal" data-target=".mobi-menu">
-                    <span class="fa fa-bars"></span>
-                    <span class="d-md-inline-block d-none head">Menu</span>
-                </a>
-            </span>
-        </div>
-        <ul class="col-xs-3 col-sm-8 col-md-10 col-lg-10 d-none d-xl-flex nav main-menu">
-            <li ngbDropdown>
-                <a ngbDropdownToggle class="nav-link" role="button">
-                    <span class="glyphicon glyphicon-bell"></span> Notifications
-                    <span class="badge">7</span>
-                </a>
-                <ul ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
-                    <li ngbDropdownItem>
-                        <a>
-                            <span class="glyphicon glyphicon-bell"></span> Instalments
-                            <span class="badge fright">5</span>
-                        </a>
-                    </li>
-                    <li ngbDropdownItem>
-                        <a> <span class="glyphicon glyphicon-bell"></span> Workflow </a>
-                    </li>
-                    <li ngbDropdownItem>
-                        <a>
-                            <span class="glyphicon glyphicon-bell"></span> Reminders
-                            <span class="badge fright">2</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-            <li ngbDropdown>
-                <a ngbDropdownToggle class="nav-link" role="button">
-                    <i class="fa fa-calculator mr-1"></i> Calculators
-                </a>
-                <ul ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
-                    <li ngbDropdownItem>
-                        <a (click)="open('VATCalculator')">
-                            <i class="fa fa-calculator mr-1"></i> VAT Calculator
-                        </a>
-                    </li>
-                    <li ngbDropdownItem>
-                        <a (click)="open('AmountToTimeCalculator')">
-                            <i class="fa fa-calculator mr-1"></i> Amount & Hourly Rate
-                            <i class="fa fa-arrow-right mx-1"></i> Time
-                        </a>
-                    </li>
-                    <li ngbDropdownItem>
-                        <a (click)="open('TimeToUnitCalculator')">
-                            <i class="fa fa-calculator mr-1"></i> Time
-                            <i class="fa fa-arrow-right mx-1"></i> Units
-                        </a>
-                    </li>
-                    <li ngbDropdownItem>
-                        <a (click)="open('UnitToTimeCalculator')">
-                            <i class="fa fa-calculator mr-1"></i> Units
-                            <i class="fa fa-arrow-right mx-1"></i> Time
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li ngbDropdown>
-                <a  ngbDropdownToggle class="nav-link no-caret" role="button">
-                    <span style="font-size: 18px" class="glyphicon glyphicon-cog"></span>
-                </a>
-                <ul ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
-                    <li ngbDropdownItem *ngFor="let Setting of Settings">
-                        <a [routerLink]="Setting.parentUrl ? [Setting.parentUrl, Setting.url] : ['settings', Setting.url]">
-                            <span class="{{Setting.iconType ? Setting.iconType + ' ' + Setting.iconType : 'glyphicon glyphicon'}}-{{Setting.icon}}"></span>
-                            {{Setting.text}}
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-            <li ngbDropdown>
-                <a ngbDropdownToggle class="nav-link no-caret none" role="button">
-                    <span class="badge green">
-                        <span class="glyphicon glyphicon-user"></span> Dr. Mazhar Ilahi
-                    </span>
-                </a>
-                <ul ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
-                    <li ngbDropdownItem>
-                        <a> <span class="fa fa-key"></span> Change Password </a>
-                    </li>
-                    <li ngbDropdownItem>
-                        <a> <span class="glyphicon glyphicon-log-out"></span> Sign out </a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
+  <div class="row">
+    <div class="col-sm-12 col-xl-2 brand">
+      <span class="main-logo">Legal Workspace</span>
+      <span class="d-xl-none mobile-menu" (click)="open('MobileMainMenu')">
+        <a data-toggle="modal" data-target=".mobi-menu">
+          <span class="fa fa-bars"></span>
+          <span class="d-md-inline-block d-none head">Menu</span>
+        </a>
+      </span>
     </div>
+    <ul
+      class="col-xs-3 col-sm-8 col-md-10 col-lg-10 d-none d-xl-flex nav main-menu"
+    >
+      <ng-container *ngIf="!isClient">
+        <li ngbDropdown>
+          <a ngbDropdownToggle class="nav-link" role="button">
+            <span class="glyphicon glyphicon-bell"></span> Notifications
+            <span
+              *ngIf="
+                !!installments ||
+                !!reminders ||
+                (!!workflow &&
+                  installments != 0 && reminders != 0 && workflow != 0)
+              "
+              class="badge"
+              >{{
+                (installments || 0) + (workflow || 0) + (reminders || 0)
+              }}</span
+            >
+          </a>
+          <ul ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
+            <li ngbDropdownItem>
+              <a
+                (click)="
+                  !!installments &&
+                    installments != 0 &&
+                    updateNotification('installments')
+                "
+              >
+                <span class="glyphicon glyphicon-bell"></span> Instalments
+                <span *ngIf="installments" class="badge fright">{{
+                  installments
+                }}</span>
+              </a>
+            </li>
+            <li ngbDropdownItem>
+              <a
+                (click)="
+                  !!workflow && workflow != 0 && updateNotification('workflow')
+                "
+              >
+                <span class="glyphicon glyphicon-bell"></span> Workflow
+                <span *ngIf="workflow" class="badge fright">{{
+                  workflow
+                }}</span>
+              </a>
+            </li>
+            <li ngbDropdownItem>
+              <a
+                (click)="
+                  !!reminders &&
+                    reminders != 0 &&
+                    updateNotification('reminders')
+                "
+              >
+                <span class="glyphicon glyphicon-bell"></span> Reminders
+                <span *ngIf="reminders" class="badge fright">{{
+                  reminders
+                }}</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li ngbDropdown>
+          <a ngbDropdownToggle class="nav-link" role="button">
+            <i class="fa fa-calculator mr-1"></i> Calculators
+          </a>
+          <ul ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
+            <li ngbDropdownItem>
+              <a (click)="open('VATCalculator')">
+                <i class="fa fa-calculator mr-1"></i> VAT Calculator
+              </a>
+            </li>
+            <li ngbDropdownItem>
+              <a (click)="open('AmountToTimeCalculator')">
+                <i class="fa fa-calculator mr-1"></i> Amount & Hourly Rate
+                <i class="fa fa-arrow-right mx-1"></i> Time
+              </a>
+            </li>
+            <li ngbDropdownItem>
+              <a (click)="open('TimeToUnitCalculator')">
+                <i class="fa fa-calculator mr-1"></i> Time
+                <i class="fa fa-arrow-right mx-1"></i> Units
+              </a>
+            </li>
+            <li ngbDropdownItem>
+              <a (click)="open('UnitToTimeCalculator')">
+                <i class="fa fa-calculator mr-1"></i> Units
+                <i class="fa fa-arrow-right mx-1"></i> Time
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li ngbDropdown>
+          <a ngbDropdownToggle class="nav-link no-caret" role="button">
+            <span
+              style="font-size: 18px"
+              class="glyphicon glyphicon-cog"
+            ></span>
+          </a>
+          <ul ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
+            <li ngbDropdownItem *ngFor="let Setting of Settings">
+              <a
+                [routerLink]="
+                  Setting.parentUrl
+                    ? [Setting.parentUrl, Setting.url]
+                    : ['settings', Setting.url]
+                "
+              >
+                <span
+                  class="{{
+                    Setting.iconType
+                      ? Setting.iconType + ' ' + Setting.iconType
+                      : 'glyphicon glyphicon'
+                  }}-{{ Setting.icon }}"
+                ></span>
+                {{ Setting.text }}
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ng-container>
+      <li ngbDropdown>
+        <a ngbDropdownToggle class="nav-link no-caret none" role="button">
+          <span class="badge green">
+            <span class="glyphicon glyphicon-user mr-1"></span>{{ userName }}
+          </span>
+        </a>
+        <ul ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
+          <li ngbDropdownItem>
+            <a> <span class="fa fa-key"></span> Change Password </a>
+          </li>
+          <li ngbDropdownItem>
+            <a (click)="logout()">
+              <span class="glyphicon glyphicon-log-out"></span> Sign out
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
 </div>

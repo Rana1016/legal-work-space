@@ -6,7 +6,7 @@
     <button (click)="stopTimer()">
       <span class="fa fa-stop-circle" aria-hidden="true"></span>
     </button>
-    <button *ngIf="!isActive || (hours !== 0 && minutes !== 0 && seconds !== 0)" (click)="submitTimer()">
+    <button *ngIf="!isActive || (hours !== 0 && minutes !== 0 && seconds !== 0)" (click)="modalInit()">
       <span class="fa fa-check-circle" aria-hidden="true"></span>
     </button>
 </div>
@@ -35,15 +35,9 @@
         </div>
         <div class="col-sm-6 col-sm-6 col-md-6 col-lg-6">
           <label>Date</label>
-          <input type="text" maxlength="10" class="form-control bt_datepicker span12" formControlName="date" readonly="readonly" />
+          <input type="text" maxlength="10" class="form-control bt_datepicker span12" [value]="addTimeForm.value.dateCreated?.split('T')[0]" readonly="readonly" />
         </div>
       </div>
-      <div class="row">
-        <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12" id="timepopup">
-          <input type="hidden" name="hidMATTER_ID" value="" />
-        </div>
-      </div>
-
       <div class="row">
         <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12">
           <label>Description</label>
@@ -54,21 +48,21 @@
       <div class="row">
         <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12">
           <label>Category</label>
-          <ng-select [items]="categories" bindValue="value" bindLabel="label" formControlName="category">
+          <ng-select [items]="categories" bindValue="keyValue" bindLabel="displayValue" formControlName="categoryId" (change)="getSubCategories($event)">
           </ng-select>  
         </div>
       </div>
       <div class="row">
         <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12">
           <label>Sub-category</label>
-          <ng-select [items]="categories" bindValue="value" bindLabel="label" formControlName="subCategory">
+          <ng-select [items]="subCategories" bindValue="keyValue" bindLabel="displayValue" formControlName="subCategoryId">
           </ng-select> 
         </div>
       </div>
       <div class="row">
         <div class="col-5">
           <label>Inclusive VAT?</label>
-          <select class="selectpicker form-control">
+          <select class="selectpicker form-control" formControlName="inclusiveVat">
             <option value="0">VAT Inclusive</option>
             <option value="1">VAT Exclusive</option>
             <option value="2">No VAT</option>
@@ -76,7 +70,7 @@
         </div>
         <div class="col-7">
           <label>VAT rate</label>
-          <select class="selectpicker form-control">
+          <select class="selectpicker form-control" formControlName="vatRate">
             <option value="1">20% (VAT on Income - Standard)</option>
             <option value="2">0% (No VAT - Zero Rate)</option>
           </select>
@@ -87,7 +81,7 @@
         <div class="col-md-6">
           <label>Time spent
             <small class="muted ml-2">(Format: HH:MM:SS)</small></label>
-          <input type="text" maxlength="8" class="form-control mask_time_full" formControlName="time"/>
+          <input type="text" maxlength="8" class="form-control mask_time_full" formControlName="timeSpent"/>
         </div>
         <div class="col-md-6">
           <label>Type</label>
@@ -104,11 +98,11 @@
   <div class="modal-footer">
     <div class="row w-100">
       <div class="col-auto mx-auto">
-          <button class="btn btn-primary mx-2" type="button">
+          <button class="btn btn-primary mx-2" (click)="addTime()" type="button">
             <span class="glyphicon glyphicon-ok"></span> Add
             time
           </button>
-          <button (click)="modal.close('Close Button')" class="btn btn-danger mx-2" type="button">
+          <button (click)="modal.close('Close Button'); addTimeForm.reset()" class="btn btn-danger mx-2" type="button">
             <span class="glyphicon glyphicon-remove"></span>
             Cancel
           </button>

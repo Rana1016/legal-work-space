@@ -1,6 +1,9 @@
-<ul class="nav">
-    <li *ngFor="let menuItem of menuItems">
-        <a [routerLink]='[menuItem.url]' [ngClass]="{'active': checkActive(menuItem.url)}">
+<div *ngIf="(!isClient && !menuItems)" class="h-100 d-flex align-items-center justify-content-center">
+    <i class="fa fa-circle-notch fa-spin fa-4x"></i>
+  </div>
+<ul class="nav" *ngIf="(!isClient && !!menuItems) || !!isClient">
+    <li *ngFor="let menuItem of (!isClient ? menuItems : clientMenu)">
+        <a [routerLink]="menuItem.url == 'client/portal' && !!client ? [menuItem.url, client] : [menuItem.url]" [ngClass]="{'active': checkActive(menuItem.text == 'Case Activities' ? 'case-activities' : menuItem.url)}">
             <i class="fa fa-{{menuItem.icon}}"></i>
             {{menuItem.text}}
             <span *ngIf="menuItem.badge" class="badge pull-right">{{menuItem?.badge}}</span>
@@ -19,7 +22,7 @@
     </div>
     <div class="modal-body">
         <ul class="nav menu">
-            <li *ngFor="let menuItem of menuItems;" [ngClass]="{'active': checkActive(menuItem.url)}">
+            <li *ngFor="let menuItem of (!isClient ? menuItems : clientMenu);" [ngClass]="{'active': checkActive(menuItem.url)}">
                 <a [routerLink]='[menuItem.url]' (click)="modal.close('Close Button')">
                     <i class="fa fa-{{menuItem.icon}} mr-2"></i>
                     {{menuItem.text}}

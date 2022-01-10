@@ -14,9 +14,10 @@ import { AccountDetailsComponent } from './children/account-details/account-deta
 import { TimeKeepingComponent } from './children/time-keeping/time-keeping.component';
 import { PeshiListComponent } from './children/peshi-list/peshi-list.component';
 import { DeadLinesComponent } from './children/dead-lines/dead-lines.component';
-import { NewPeshiComponent } from './children/new-peshi/new-peshi.component';
 import { NewAmlListComponent } from './children/new-aml-list/new-aml-list.component';
 import { NewNoteComponent } from './children/new-note/new-note.component';
+import { EditPersonalDetailsComponent } from './children/edit-personal-details/edit-personal-details.component';
+import { EditCaseDetailsComponent } from './children/edit-case-details/edit-case-details.component';
 
 const routes: Routes = [
   {
@@ -79,16 +80,20 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'peshi-list/new-peshi',
-    component: NewPeshiComponent
-  },
-  {
     path: 'aml/new-aml-list',
     component: NewAmlListComponent
   },
   {
     path: 'notes/new-note',
     component: NewNoteComponent
+  },
+  {
+    path: 'personal-details/edit/:personID',
+    component: EditPersonalDetailsComponent
+  },
+  {
+    path: 'case-details/edit',
+    component: EditCaseDetailsComponent
   }
 
 ];

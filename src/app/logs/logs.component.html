@@ -30,74 +30,26 @@
     <div class="widget">
       <div class="widget-body">
         <div class="table-responsive">
-          <div
-            id="DataTables_Table_0_wrapper"
-            class="dataTables_wrapper no-footer"
-          >
-            <div
-              id="DataTables_Table_0_wrapper"
-              class="dataTables_wrapper no-footer"
-            >
-            <div id="DataTables_Table_0_filter" class="dataTables_filter">
-                <label
-                  >Search:<input
-                    type="search"
-                    class="lw-ml-10 lw-mb-10"
-                    placeholder=""
-                    aria-controls="DataTables_Table_0"
-                /></label>
-              </div>
-              <table
-                class="
-                  table table table-striped
-                  res_tab_full_asc
-                  dataTable
-                  no-footer
-                "
-                cellspacing="0"
-                width="100%"
-                id="DataTables_Table_0"
-                role="grid"
-                aria-describedby="DataTables_Table_0_info"
-              >
-                <thead>
-                  <tr role="row">
-                    <th
-                      class="sorting_asc"
-                      tabindex="0"
-                      aria-controls="DataTables_Table_0"
-                      rowspan="1"
-                      colspan="1"
-                      aria-label="Name: activate to sort column descending"
-                      aria-sort="ascending"
-                    >
-                      Name
-                    </th>
-                    <th
-                      width="50"
-                      class="sorting"
-                      tabindex="0"
-                      aria-controls="DataTables_Table_0"
-                      rowspan="1"
-                      colspan="1"
-                      aria-label="Actions: activate to sort column ascending"
-                    >
-                      Actions
-                    </th>
-                  </tr>
-                </thead>
+          <table
+          class="table table-striped table-sm row-border hover"
+          [ngClass]="{
+            'empty': logBookFolders && logBookFolders.length !== 0
+          }"
+          datatable
+          [dtOptions]="dtOptions"
+        >
                 <tbody>
-                  <tr role="row" class="odd">
-                    <td class="sorting_1">
+                  <tr *ngFor="let logBookFolder of logBookFolders">
+                    <td>
                       <img
                         src="assets/img/fa-folder-close.png"
                         class="mr-3"
                       />
                       <a
-                        [routerLink]="['folder/post-(incoming)']"
+                        [routerLink]="['folder', logBookFolder.logBookFolderId]"
                         style="font-size: 15px; border-bottom: 0 none"
                         class="td_link_dark"
-                        >Post (Incoming)</a
+                        >{{logBookFolder.title}}</a
                       >
                     </td>
                     <td>
@@ -113,55 +65,13 @@
                                   </a>
                               </li>
                               <li ngbDropdownItem>
-                                <a>
+                                <a [routerLink]="['edit', logBookFolder.logBookFolderId]">
                                   <span class="glyphicon glyphicon-pencil mr-2"></span>
                                   Rename folder
                                 </a>
                               </li>
                               <li ngbDropdownItem>
-                                <a>
-                                  <span class="glyphicon glyphicon-remove mr-2"></span>
-                                  Delete
-                                </a>
-                              </li>
-                          </ul>
-                          </li>
-                      </ul>
-                    </td>
-                  </tr>
-                  <tr role="row" class="even">
-                    <td class="sorting_1">
-                      <img
-                        src="assets/img/fa-folder-close.png"
-                        class="mr-3"
-                      />
-                      <a
-                        [routerLink]="['folder/post-(outgoing)']"
-                        style="font-size: 15px; border-bottom: 0 none"
-                        class="td_link_dark"
-                        >Post (Outgoing)</a
-                      >
-                    </td>
-                    <td>
-                      <ul class="nav">
-                        <li ngbDropdown>
-                          <a ngbDropdownToggle class="td_link_dark" style="border-bottom: none;" role="button">
-                          </a>
-                          <ul ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
-                              <li ngbDropdownItem>
-                                  <a>
-                                      <span class="glyphicon glyphicon-eye-open mr-2"></span>
-                                      View activities
-                                  </a>
-                              </li>
-                              <li ngbDropdownItem>
-                                <a>
-                                  <span class="glyphicon glyphicon-pencil mr-2"></span>
-                                  Rename folder
-                                </a>
-                              </li>
-                              <li ngbDropdownItem>
-                                <a>
+                                <a (click)="deleteLogBookFolder(logBookFolder.logBookFolderId)">
                                   <span class="glyphicon glyphicon-remove mr-2"></span>
                                   Delete
                                 </a>
@@ -173,16 +83,7 @@
                   </tr>
                 </tbody>
               </table>
-              <div
-                class="dataTables_info"
-                id="DataTables_Table_0_info"
-                role="status"
-                aria-live="polite"
-              >
-                Showing 1 to 2 of 2 entries
-              </div>
-            </div>
-          </div>
+              
         </div>
       </div>
     </div>

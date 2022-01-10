@@ -1,6 +1,10 @@
 import { Component, OnChanges, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AmlService } from 'src/app/shared/services/case-details/aml.service';
+import { NotesService } from 'src/app/shared/services/case-details/notes.service';
+import { StatusService } from 'src/app/shared/services/case-details/status.service';
 import { CasesService } from 'src/app/shared/services/cases.service';
+import { KeydatesService } from 'src/app/shared/services/keydates.service';
 
 @Component({
   selector: 'app-case-details',
@@ -8,9 +12,11 @@ import { CasesService } from 'src/app/shared/services/cases.service';
   styleUrls: ['./case-details.component.scss'],
 })
 export class CaseDetailsComponent implements OnInit {
-  constructor(private router: Router, private route: ActivatedRoute, private caseService: CasesService) {}
+  constructor(private router: Router, private caseService: CasesService, private amlService: AmlService, private noteService: NotesService, private statusService: StatusService) {}
   caseRef!: number;
-  // currentCase!: any;
+  categoryCode!: string;
+  pD!: any;
+  cD!: any;
   detailsTabs!: any[];
   ngOnInit(): void {
     // this.caseService.getCase(this.caseRef).subscribe((currentCase) => this.currentCase = currentCase);
@@ -67,6 +73,9 @@ export class CaseDetailsComponent implements OnInit {
     this.activatePanel();
     const UrlPartitions = this.router.url.split('/');
     this.caseRef = Number(UrlPartitions[UrlPartitions.length - 2]);
+    this.caseService.getPersonalDetails(this.caseRef).subscribe(personalDetails => this.pD = personalDetails);
+    this.caseService.getCaseDetails(this.caseRef).subscribe(caseDetails => this.cD = caseDetails );
+    this.statusService.caseStatus(this.caseRef).subscribe();
   };
 
 

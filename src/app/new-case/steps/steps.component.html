@@ -205,6 +205,7 @@
                                                         ? getClients(leadType)![leadClient].value.nickName :
                                                         leadClient+1)+ ')' | titlecase}} as the lead. Do you want to
                                                         change the lead?</label>
+                                                    <div class="d-flex align-items-center justify-content-end"><button class="btn btn-success mr-1" (click)="overwriteLead(); modal.close()">Yes</button> <button (click)="modal.close()" class="btn btn-danger ml-1">No</button></div>
                                                 </div>
                                             </form>
                                         </div>
@@ -234,7 +235,7 @@
                                                     <label>* Title</label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <lw-select [controlName]="'title'" [options]="FormData.titles">
+                                                    <lw-select [controlName]="'title'" [options]="FormData.titles" [notAddValue]="true">
                                                     </lw-select>
                                                 </div>
                                             </div>
@@ -761,7 +762,7 @@
                                                     <label>* Title</label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <lw-select [controlName]="'title'" [options]="FormData.titles">
+                                                    <lw-select [controlName]="'title'" [options]="FormData.titles" [notAddValue]="true">
                                                     </lw-select>
                                                 </div>
                                             </div>
@@ -1287,7 +1288,7 @@
                                                     <label>* Title</label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <lw-select [controlName]="'title'" [options]="FormData.titles">
+                                                    <lw-select [controlName]="'title'" [options]="FormData.titles" [notAddValue]="true">
                                                     </lw-select>
                                                 </div>
                                             </div>
@@ -2286,7 +2287,7 @@
                                                 <textarea class="form-control" rows="3" formControlName="coveredByFeeAgreement"></textarea>
                                             </div>
                                         </div>
-                                        <div class="row" *ngIf="stepForm.value.paymentOptions.feeType == 1">
+                                        <div class="row" *ngIf="stepForm.value.paymentOptions.feeType == 1 || stepForm.value.paymentOptions.feeType == 2">
                                             <div class="col-md-4">
                                                 <label>* Agreed Fee</label>
                                             </div>
@@ -2297,7 +2298,7 @@
                                                 </small>
                                             </div>
                                         </div>
-                                        <div class="row" *ngIf="stepForm.value.paymentOptions.feeType == 2">
+                                        <div class="row" *ngIf="stepForm.value.paymentOptions.feeType == 3">
                                             <div class="col-md-4">
                                                 <label>* Hourly Rate Caseworker</label>
                                             </div>
@@ -2309,7 +2310,7 @@
                                                 <small class="text-muted">Apply hourly rate according to the selected caseworker</small>
                                             </div>
                                         </div>
-                                        <div class="row" *ngIf="stepForm.value.paymentOptions.feeType == 3">
+                                        <div class="row" *ngIf="stepForm.value.paymentOptions.feeType == 4">
                                             <div class="col-md-4">
                                                 <label>* Agreed Amount / Percentage</label>
                                             </div>
@@ -2324,13 +2325,13 @@
                                                 </select>
                                                 <small class="text-muted">Select an appropriate option.</small></div>
                                             </div>
-                                            <div class="row" *ngIf="stepForm.value.paymentOptions.feeType != 4 && stepForm.value.paymentOptions.feeType != 5">
+                                            <div class="row" *ngIf="stepForm.value.paymentOptions.feeType != 5 && stepForm.value.paymentOptions.feeType != 6">
                                                 <div class="col-md-4">
                                                     <label>
                                                         * Is VAT applicable & included into {{
-                                                            stepForm.value.paymentOptions.feeType == 1 ? 'agreed fee'
-                                                            : stepForm.value.paymentOptions.feeType == 2 ? 'hourly rate'
-                                                            : stepForm.value.paymentOptions.feeType == 3 && 'agreed amount / percentage'
+                                                            stepForm.value.paymentOptions.feeType == 1 || stepForm.value.paymentOptions.feeType == 2 ? 'agreed fee'
+                                                            : stepForm.value.paymentOptions.feeType == 3 ? 'hourly rate'
+                                                            : stepForm.value.paymentOptions.feeType == 4 && 'agreed amount / percentage'
                                                         }}?
                                                     </label>
                                                 </div>
@@ -2344,7 +2345,7 @@
                                                     </small>
                                                 </div>
                                             </div>
-                                            <ng-container *ngIf="stepForm.value.paymentOptions.feeType == 1">
+                                            <ng-container *ngIf="stepForm.value.paymentOptions.feeType == 1 || stepForm.value.paymentOptions.feeType == 2">
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <label>* Advance Payment</label>

@@ -6,8 +6,9 @@ import { TasksComponent } from './tasks.component';
 import { NewTaskComponent } from './components/new-task/new-task.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDatepickerModule, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { DataTablesModule } from 'angular-datatables';
 
 
 @NgModule({
@@ -22,7 +23,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
     TasksRoutingModule,
     NgbDatepickerModule,
     NgSelectModule,
-    FormsModule
+    FormsModule,
+    NgbDropdownModule,
+    DataTablesModule
   ]
 })
 export class TasksModule { }

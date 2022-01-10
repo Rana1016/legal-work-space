@@ -1,97 +1,175 @@
-<h1 id="pg-title" class="row align-items-center justify-content-center justify-content-md-start">Tasks management <span class="glyphicon glyphicon-chevron-right mx-3"></span> Create new task</h1>
+<h1
+  id="pg-title"
+  class="row align-items-center justify-content-center justify-content-md-start"
+>
+  Tasks management
+  <span class="glyphicon glyphicon-chevron-right mx-3"></span> {{!!edit ? 'Edit' : 'Add new'}} task
+</h1>
 <div class="row">
-<div class="col-md-12">
-<div class="widget">
-<div class="widget-body">
-    <div class="row">
-        <div class="col-md-12" id="pg-nav">
+  <div class="col-md-12">
+    <div class="widget">
+      <div class="widget-body">
+        <div class="row">
+          <div class="col-md-12" id="pg-nav">
             <ul class="list-inline">
-                <li>
-                    <a class="btn" [routerLink]="['..']"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
-                </li>
+              <li>
+                <a class="btn" [routerLink]="!!edit ? ['../..'] : ['..']"
+                  ><span class="glyphicon glyphicon-arrow-left"></span> Back</a
+                >
+              </li>
             </ul>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-</div>
-</div>
+  </div>
 </div>
 <div class="row">
-<div class="col-md-12">
-<div class="widget">
-<div class="widget-body">
-    <div class="alert alert-info" role="alert">
-        <strong>Note:</strong> All fields marked with an asterisk (*) are required.
-    </div>
-    <form class="form-horizontal" [formGroup]="newTaskForm">
-        <div class="row">
-            <div class="col-md-4"><label>Case ID</label></div>
-            <div class="col-md-8"><input type="text" maxlength="10" class="form-control" formControlName="caseId"><small class="text-muted">Example: 2417.01</small></div>
+  <div class="col-md-12">
+    <div class="widget">
+      <div class="widget-body">
+        <div class="alert alert-info" role="alert">
+          <strong>Note:</strong> All fields marked with an asterisk (*) are
+          required.
         </div>
-        <div class="row">
+        <form class="form-horizontal" [formGroup]="newTaskForm">
+          <div class="row">
+            <div class="col-md-4"><label>* Case ID</label></div>
+            <div class="col-md-8">
+              <input
+                type="text"
+                maxlength="10"
+                class="form-control"
+                formControlName="caseId"
+              /><small class="text-muted">Example: 2417.01</small>
+            </div>
+          </div>
+          <div class="row">
             <div class="col-md-4"><label>* Deadline</label></div>
             <div class="col-md-8">
-                <div class="input-group">
-                    <input class="form-control" formControlName="deadline" placeholder="dd-mm-yyyy" 
-                        name="dp" ngbDatepicker #t="ngbDatepicker">
-                    <div class="input-group-append">
-                    <button class="btn btn-secondary fa fa-calendar-o" (click)="t.toggle();" type="button"></button>
-                    </div>
+              <div class="input-group">
+                <input
+                  class="form-control"
+                  formControlName="deadline"
+                  placeholder="dd-mm-yyyy"
+                  name="dp"
+                  ngbDatepicker
+                  #t="ngbDatepicker"
+                />
+                <div class="input-group-append">
+                  <button
+                    class="btn btn-secondary fa fa-calendar-o"
+                    (click)="t.toggle()"
+                    type="button"
+                  ></button>
                 </div>
-                <small class="text-muted">Format: dd-mm-yyyy</small>
+              </div>
+              <small class="text-muted">Format: dd-mm-yyyy</small>
             </div>
-        </div>
-        <div class="row">
+          </div>
+          <div class="row">
+            <div class="col-md-4"><label>* Title</label></div>
+            <div class="col-md-8">
+              <input
+                type="text"
+                maxlength="50"
+                class="form-control"
+                formControlName="title"
+              /><small class="text-muted">Example: Prepare cover letter</small>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4"><label>Details</label></div>
+            <div class="col-md-8">
+              <textarea
+                class="form-control"
+                rows="7"
+                formControlName="details"
+              ></textarea>
+            </div>
+          </div>
+          <div class="row">
             <div class="col-md-4"><label>* Priority</label></div>
             <div class="col-md-8">
-                <select class="selectpicker show-menu-arrow form-control" formControlName="priority">
-                    <option value="0">Low</option>
-                    <option value="1">Normal</option>
-                    <option value="2">High</option>
-                </select>
-<small class="text-muted">Select an appropriate option.</small></div>
-        </div>
-        <div class="row">
-            <div class="col-md-4"><label>Assign to</label></div>
-            <div class="col-md-8">
-                <ng-select class="ng-select" [items]="assignees" [multiple]="true"
-                    bindLabel="assigneeName" [closeOnSelect]="false" bindValue="assigneeId"
-                    placeholder="Please Select" formControlName="assignee">
-                    <ng-template ng-option-tmp let-item="item" let-item$="item$"
-                        let-index="index">
-                        <input id="item-{{index}}" type="checkbox"
-                            [(ngModel)]="item$.selected"
-                            [ngModelOptions]="{standalone: true}" />
-                        {{item.assigneeName}}
-                    </ng-template>
-                    <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
-                        <div class="ng-value py-1"
-                            *ngFor="let item of items; let f = first">
-                            <span class="ng-value-icon left" (click)="clear(item)"
-                                aria-hidden="true">×</span>
-                            <span class="ng-value-label">
-                                {{item.assigneeName}}</span>
-                        </div>
-                    </ng-template>
-                </ng-select>
-<small class="text-muted">Assign task to selected user(s)</small></div>
-        </div>
-        <div class="row">
-            <div class="col-md-4"><label>* Title</label></div>
-            <div class="col-md-8"><input type="text" maxlength="50" class="form-control" formControlName="title"><small class="text-muted">Example: Prepare cover letter</small></div>
-        </div>
-        <div class="row">
-            <div class="col-md-4"><label> Details</label></div>
-            <div class="col-md-8"><textarea class="form-control" rows="7" formControlName="details"></textarea></div>
-        </div>
-        <div class="row">
-            <div class="col-md-4"></div>
-            <div class="col-md-8">
-                <button style="margin-bottom:15px;" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> Submit</button>
+              <select
+                class="selectpicker show-menu-arrow form-control"
+                formControlName="priority"
+              >
+                <option value="0">Low</option>
+                <option value="1">Normal</option>
+                <option value="2">High</option>
+              </select>
+              <small class="text-muted">Select an appropriate option.</small>
             </div>
-        </div>
-    </form>
-</div>
-</div>
-</div>
+          </div>
+          <div class="row">
+            <div class="col-md-4"><label>* Assign to</label></div>
+            <div class="col-md-8">
+              <ng-select
+                class="ng-select"
+                [items]="assignees"
+                bindLabel="displayValue"
+                [closeOnSelect]="false"
+                bindValue="keyValue"
+                placeholder="Please Select"
+                formControlName="assignedTo"
+              >
+              </ng-select>
+              <small class="text-muted">Assign task to selected user(s)</small>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4"><label>* Assigned On</label></div>
+            <div class="col-md-8">
+              <div class="input-group">
+                <input
+                  class="form-control"
+                  formControlName="assignedOn"
+                  placeholder="dd-mm-yyyy"
+                  name="dp"
+                  ngbDatepicker
+                  #x="ngbDatepicker"
+                />
+                <div class="input-group-append">
+                  <button
+                    class="btn btn-secondary fa fa-calendar-o"
+                    (click)="x.toggle()"
+                    type="button"
+                  ></button>
+                </div>
+              </div>
+              <small class="text-muted">Format: dd-mm-yyyy</small>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4"><label>* Task Status</label></div>
+            <div class="col-md-8">
+              <div class="row">
+                <div class="col-md-6 d-flex align-items-center custom-rad">
+                    <input type="radio" formControlName="status" value="in-progress" />
+                    <label>In-Progress</label>
+                </div>
+                <div class="col-md-6 d-flex align-items-center custom-rad">
+                    <input type="radio" formControlName="status" value="completed" />
+                    <label>Completed</label>
+                </div>
+              </div>
+              <small class="text-muted">Format: dd-mm-yyyy</small>
+            </div>
+          </div>
+          <div class="row justify-content-end">
+            <div class="col-auto">
+              <button
+                style="margin-bottom: 15px"
+                class="btn btn-primary"
+                (click)="submitForm()"
+              >
+                <span class="glyphicon glyphicon-ok"></span> Submit
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>

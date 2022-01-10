@@ -23,5 +23,8 @@
           {{amlListForm.value.amlCheckList[i].amlCheckPoint}}</h4>
       </div>
     </ng-container>
+    <h4 *ngIf="amlListForm.value.amlCheckList && amlListForm.value.amlCheckList.length == 0" class="w-100 text-center">
+      No AML Available
+    </h4>
   </div>
 </div>

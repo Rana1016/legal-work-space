@@ -17,20 +17,26 @@ import { CaseActivitiesModule } from './case-activities/case-activities.module';
 import { RouterModule } from '@angular/router';
 import { SettingsModule } from './settings/settings.module';
 import { TemplatesModule } from './templates/templates.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgSelectModule } from '@ng-select/ng-select'; import { CasesService } from './shared/services/cases.service';
 import { DashedNgbDateAdapter, DashedNgbDateParserFormatter } from './shared/services/ngb-date.service';
 import { PeshiListComponent } from './peshi-list/peshi-list.component';
+import { LoginComponent } from './auth/login/login.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
+import { ChangePasswordComponent } from './auth/change-password/change-password.component';
+import { InstallmentsComponent } from './installments/installments.component';
 
 
 @NgModule({
-  declarations: [AppComponent, PeshiListComponent],
+  declarations: [AppComponent, LoginComponent, ChangePasswordComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     DashboardModule,
     FontAwesomeModule,
     LayoutModule,
+    ReactiveFormsModule,
     AuthModule,
     ConsultationsModule,
     HighchartsChartModule,
@@ -51,7 +57,8 @@ import { PeshiListComponent } from './peshi-list/peshi-list.component';
     },
     {
       provide: NgbDateAdapter, useClass: DashedNgbDateAdapter
-    }
+    },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })

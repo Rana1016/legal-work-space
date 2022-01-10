@@ -15,10 +15,11 @@ export class NewUserComponent implements OnInit {
     this.newUserForm = this.fb.group({
       name: [''],
       email: [''],
+      password: [''],
       groupId: ['0'],
       locationId: ['0'],
       jobTitle: [''],
-      jobType: ['0'],
+      type: ['0'],
       status: ['0'],
     });
     this.route.params.subscribe(({ userId }) => {
@@ -37,7 +38,7 @@ export class NewUserComponent implements OnInit {
   ngOnInit(): void { }
 
   submitForm() {
-    let data = { ...this.newUserForm.value, status: this.newUserForm.controls.status.value !== '0' };
+    let data = { ...this.newUserForm.value, groupId: Number(this.newUserForm.value.groupId), locationId: Number(this.newUserForm.value.locationId), status: this.newUserForm.value.status !== '0' };
     !!this.edit ?
       this.user.updateUserById(Number(this.edit), data)
         .subscribe((res) => res == '1' && this.router.navigate(['../..'], { relativeTo: this.route }))

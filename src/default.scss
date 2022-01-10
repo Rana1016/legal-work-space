@@ -433,7 +433,6 @@ h5.solid span {
 }
 
 .table-responsive {
-    padding-bottom: 100px;
     padding-top: 20px;
 }
 
@@ -727,9 +726,7 @@ input.toolbar_search {
 }
 
 .modal-body .btn {
-    color: #000;
     font-weight: 700;
-    background-color: #ddd;
 }
 
 .calendar_popup div.row {
@@ -1797,6 +1794,9 @@ ul.vbar a.vbar_active {
     border: 2px solid #fea501;
     margin: 0;
     min-width: 70px;
+}
+
+.badge_cms:not(.not-upper) {
     text-transform: uppercase;
 }
 
@@ -1920,6 +1920,7 @@ a.btn-default:focus {
     background-repeat: repeat-x;
     border-color: #dbdbdb;
     border-color: #ccc;
+    color: black;
     margin-bottom: 2px !important;
 }
 
@@ -4717,7 +4718,7 @@ table th[class*="col-"] {
 
 .table-responsive {
     min-height: 0.01%;
-    overflow-x: auto;
+    overflow-x: unset !important;
 }
 
 @media screen and (max-width: 767px) {
@@ -5844,7 +5845,7 @@ tbody.collapse.in {
     outline: 0;
 }
 
-.dropdown-menu {
+.dropdown-menu:not(ngb-datepicker) {
     position: absolute;
     top: 100%;
     left: 0;

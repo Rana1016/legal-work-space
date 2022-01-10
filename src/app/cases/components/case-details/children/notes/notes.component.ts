@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
-import { CaseDetailService } from 'src/app/shared/services/case-detail.service';
-import { NotesService } from 'src/app/shared/services/notes.service';
+import { NotesService } from 'src/app/shared/services/case-details/notes.service';
 
 @Component({
   selector: 'app-notes',
@@ -17,7 +16,13 @@ export class NotesComponent implements OnInit {
   caseId!: number;
   notes!: any[];
   ngOnInit(): void {
-    this.noteService.getNotes(this.caseId).subscribe((notes) => this.notes = notes)
+    this.noteService.notesObservable.subscribe(notes => {
+      if (!!notes) {
+        this.notes = notes
+      } else {
+        this.noteService.getNotes(this.caseId).subscribe();
+      }
+    });
   }
   deleteNote(noteId: number) {
     this.noteService.deleteNote(noteId).subscribe((response) => {

@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path: "new-task",
     component: NewTaskComponent
+  },
+  {
+    path: "edit/:taskId",
+    component: NewTaskComponent
   }
 ];
 

@@ -23,14 +23,14 @@
     </div>
 </ng-template>
 <ng-container [formGroup]="formGroup">
-    <select class="w-100 selectpicker form-control" #lwSELECT [formControlName]="controlName" (ngModelChange)="change.emit($event)">
+    <div class="d-flex">
+        <select class="w-100 selectpicker form-control" #lwSELECT [formControlName]="controlName" (ngModelChange)="change.emit($event)">
         <option value="0" *ngIf="!noFirstText">{{!firstText ? 'Please Select' : firstText | titlecase}}</option>
-        <option [value]="!bindValue ? i + 1 : option[bindValue]" *ngFor="let option of !sort ? options : options.sort(); let i = index">
+        <option [value]="!bindValue ? i + 1 : option[bindValue]" *ngFor="let option of !sort ? options : options!.sort(); let i = index">
             {{ !bindLabel ? option : option[bindLabel] }}
         </option>
     </select>
-    <small class="text-muted">{{!customNote ? 'Select an appropriate option.': customNote}}</small>
-    <span class="float-right mt-3">
+    <span class="float-right ml-3" *ngIf="!notEditValue || !notAddValue">
          <button *ngIf="!notEditValue" class="btn btn-primary mr-2" (click)="openModel('edit', newOption)" [disabled]="formControl?.value == null || formControl?.value == 0">
             <span class="fa fa-edit "></span>
         </button>
@@ -39,4 +39,7 @@
             <span class="fa fa-plus"></span>
         </button>
     </span>
+    </div>
+    
+    <small class="text-muted">{{!customNote ? 'Select an appropriate option.': customNote}}</small>
 </ng-container>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
-import { StatusService } from 'src/app/shared/services/status.service';
+import { StatusService } from 'src/app/shared/services/case-details/status.service';
 
 @Component({
   selector: 'app-status',
@@ -28,10 +28,9 @@ export class StatusComponent implements OnInit {
   }
 
   getStatus() {
-    this.statusService.caseStatus(this.caseId).subscribe((status) => {
-      console.log(status)
+    this.statusService.statusObservable.subscribe((status) => {
       this.caseStatus = status;
-    })
+    });
   }
 
 }

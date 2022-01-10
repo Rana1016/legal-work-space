@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CaseActivitiesComponent } from './case-activities.component';
 import { RouterModule } from '@angular/router';
 import { DataTablesModule } from 'angular-datatables';
+import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { DataTablesModule } from 'angular-datatables';
     RouterModule,
     CaseActivitiesRoutingModule,
     ReactiveFormsModule,
+    NgbDatepickerModule,
     DataTablesModule
   ]
 })

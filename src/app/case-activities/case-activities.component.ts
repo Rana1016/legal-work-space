@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DataTableDirective } from 'angular-datatables';
 import * as moment from 'moment';
+import { Subject } from 'rxjs';
 import { ActivityService } from '../shared/services/activity.service';
 
 @Component({
@@ -9,19 +11,18 @@ import { ActivityService } from '../shared/services/activity.service';
   templateUrl: './case-activities.component.html',
   styleUrls: ['./case-activities.component.scss']
 })
-export class CaseActivitiesComponent implements OnInit {
+export class CaseActivitiesComponent implements OnInit, AfterViewInit {
   searchForm!: FormGroup;
-  date!: string;
-  currentDate!: Date;
-  constructor(private router: Router, private route: ActivatedRoute, private fb: FormBuilder, private activityService: ActivityService) { }
-  
+  currentDate!: string;
   data: any;
-  dtOptions!: DataTables.Settings;
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
   activities!: any[];
+  constructor(private router: Router, private route: ActivatedRoute, private fb: FormBuilder, private activityService: ActivityService) { }
   ngOnInit(): void {
-    this.route.params.subscribe(({date}) => {
-      this.date = date
-      this.currentDate = moment(date, 'DD-MM-YYYY').toDate();
+    this.route.params.subscribe(({ date }) => {
+      let [day, month, year] = date.split('-');
+      this.currentDate = `${moment({year, month: month - 1, day}).format('YYYY-MM-DD')}T00:00:00.000Z`
     });
     this.searchForm = this.fb.group({
       currentDate: [this.currentDate, Validators.required]
@@ -33,13 +34,15 @@ export class CaseActivitiesComponent implements OnInit {
       order: [[0, "desc"]],
       lengthChange: false,
       paging: true,
+      processing: true,
       ordering: true,
       displayStart: -1,
       info: true,
       autoWidth: false,
       searching: true,
       language: {
-        emptyTable: 'No activities available.'
+        emptyTable: 'No activities available.',
+        processing: 'Loading Activities...'
       },
       columns: [{
         title: 'Time',
@@ -51,7 +54,7 @@ export class CaseActivitiesComponent implements OnInit {
         width: '250',
         data: 'activityAuthor',
         orderable: false,
-        
+
       }, {
         title: 'Case Ref',
         width: '150',
@@ -68,18 +71,31 @@ export class CaseActivitiesComponent implements OnInit {
         orderable: false,
         data: 'activityDescription'
       }],
+      destroy: true,
       ajax: this.ajaxActivities.bind(this)
     };
-  }
+  };
+
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+    this.searchForm.valueChanges.subscribe(({ currentDate }) => {
+      this.currentDate = currentDate;
+      this.dtTrigger.next();
+    });
+  };
+
   ajaxActivities(dTParams: any, callback: any) {
-    this.activityService.getActivities(dTParams).subscribe((data) => {
-      this.activities = data;
+    (!!this.currentDate ? this.activityService.getActivitiesByDate(dTParams, this.currentDate) : this.activityService.getActivities(dTParams)).subscribe(({ records, totalRecords }) => {
+      this.activities = records;
       callback({
-        recordsTotal: data.length,
-        recordsFiltered: data.length,
+        recordsTotal: totalRecords,
+        recordsFiltered: totalRecords,
         data: []
       })
     })
   }
 
+  toDate(date: any) {
+    return moment(date).format('DD-MM-YYYY')
+  }
 }

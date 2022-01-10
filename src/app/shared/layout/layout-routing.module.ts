@@ -9,6 +9,10 @@ const LayoutRoutes: Routes = [
     component: DashboardComponent,
   },
   {
+    path: 'dashboard/installments',
+    loadChildren: () => import('src/app/installments/installments.module').then(m => m.InstallmentsModule)
+  },
+  {
     path: 'calendar',
     loadChildren: () =>
       import('src/app/calendar/calendar.module').then((m) => m.CalendarModule),
@@ -90,6 +94,10 @@ const LayoutRoutes: Routes = [
     loadChildren: () =>
       import('src/app/templates/templates.module').then((m) => m.TemplatesModule),
   },
+  {
+    path: 'client',
+    loadChildren: () => import('src/app/client-portal/client-portal.module').then(m => m.ClientPortalModule)
+  }
 ];
 
 const routes: Routes = [

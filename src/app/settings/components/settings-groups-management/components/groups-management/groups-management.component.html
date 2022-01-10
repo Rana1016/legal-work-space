@@ -38,7 +38,7 @@
         <div class="table-responsive">
           <table
             class="table table-striped table-sm row-border hover"
-            [ngClass]="{'users': !groups}"
+            [ngClass]="{'empty': groups && groups.length !== 0}"
             datatable
             [dtOptions]="dtOptions"
           >
@@ -65,9 +65,9 @@
                             </a>
                           </li>
                           <li ngbDropdownItem>
-                            <a>
-                              <span class="fa fa-google-wallet"></span>
-                              Signature
+                            <a (click)="deleteGroup(group.groupId)">
+                              <span class="glyphicon glyphicon-remove"></span>
+                              Delete
                             </a>
                           </li>
                       </ul>

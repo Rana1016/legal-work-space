@@ -1,5 +1,5 @@
 <h1 id="pg-title" class="row align-items-center justify-content-center justify-content-md-start">
-    Contact book <span class="glyphicon glyphicon-chevron-right mx-3"></span> Add group
+    Contact book <span class="glyphicon glyphicon-chevron-right mx-3"></span> {{!!edit ? 'Edit': 'Add new'}} group
   </h1>
   <div class="row">
     <div class="col-md-12">
@@ -11,7 +11,7 @@
                 <li>
                   <a
                     class="btn"
-                    [routerLink]="['..']"
+                    [routerLink]="!!edit ? ['../..'] : ['..']"
                     ><span class="glyphicon glyphicon-arrow-left"></span> Back</a
                   >
                 </li>
@@ -44,7 +44,7 @@
                       type="text"
                       maxlength="50"
                       class="form-control"
-                      formControlName="name"
+                      formControlName="title"
                     /><small class="text-muted">Example: Civil Case Group</small>
                   </div>
                 </div>
@@ -75,6 +75,7 @@
                     <button
                       style="margin-bottom: 15px"
                       class="btn btn-primary"
+                      (click)="submitForm()"
                     >
                       <span class="glyphicon glyphicon-ok"></span> Submit
                     </button>

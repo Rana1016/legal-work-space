@@ -1,5 +1,5 @@
   <h1 id="pg-title" class="row align-items-center justify-content-center justify-content-md-start">
-    Log book <span class="glyphicon glyphicon-chevron-right mx-3"></span> {{title | titlecase}} <span class="glyphicon glyphicon-chevron-right mx-3"></span> Add new activity
+    Log book <span class="glyphicon glyphicon-chevron-right mx-3"></span> {{title | titlecase}} <span class="glyphicon glyphicon-chevron-right mx-3"></span> Add new log
   </h1>
 <div class="row">
   <div class="col-md-12">
@@ -34,11 +34,9 @@
               required.
             </div>
             <form
-              id="data_form"
-              name="data_form"
               class="form-horizontal"
               accept-charset="UTF-8"
-              enctype="multipart/form-data"
+              [formGroup]="newLogForm"
             >
               <div class="row">
                 <div class="col-md-4"><label for="inpCID">Case ID</label></div>
@@ -47,31 +45,33 @@
                     type="text"
                     maxlength="10"
                     class="form-control"
-                    id="inpCID"
-                    name="inpCID"
+                    formControlName="caseId"
                   /><small class="text-muted">Example: 2417.01</small>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-4">&nbsp;</div>
-                <div class="col-md-8" id="client_form_result">
-                  <p>&nbsp;</p>
-                  <input type="hidden" name="hidMATTER_ID" value="" />
                 </div>
               </div>
 
               <div class="row">
                 <div class="col-md-4"><label for="inpDATE">* Date</label></div>
                 <div class="col-md-8">
-                  <input
-                    type="text"
-                    maxlength="10"
-                    class="form-control bt_datepicker span12"
-                    id="inpDATE"
-                    name="inpDATE"
-                    value="06-10-2021"
-                    readonly="readonly"
-                  /><small class="text-muted">Format: dd-mm-yyyy</small>
+                  <div class="input-group">
+                    <input
+                      class="form-control"
+                      formControlName="date"
+                      placeholder="dd-mm-yyyy"
+                      name="dp"
+                      ngbDatepicker
+                      readonly
+                      #t="ngbDatepicker"
+                    />
+                    <div class="input-group-append">
+                      <button
+                        disabled
+                        class="btn btn-secondary fa fa-calendar-o"
+                        (click)="t.toggle()"
+                        type="button"
+                      ></button>
+                    </div>
+                  </div><small class="text-muted">Format: dd-mm-yyyy</small>
                 </div>
               </div>
               <div class="row">
@@ -83,9 +83,7 @@
                     type="text"
                     maxlength="100"
                     class="form-control"
-                    id="inpTITLE"
-                    name="inpTITLE"
-                    value=""
+                    formControlName="title"
                   /><small class="text-muted"
                     >Example: Application sent to HO by special delivery.</small
                   >
@@ -100,9 +98,7 @@
                     type="text"
                     maxlength="50"
                     class="form-control"
-                    id="inpREF"
-                    name="inpREF"
-                    value=""
+                    formControlName="reference"
                   /><small class="text-muted">Example: GB882XEFD34</small>
                 </div>
               </div>
@@ -114,8 +110,7 @@
                   <textarea
                     class="form-control"
                     style="height: 175px !important"
-                    id="inpNOTES"
-                    name="inpNOTES"
+                    formControlName="additionalInfo"
                     rows="3"
                   ></textarea>
                 </div>

@@ -5,8 +5,7 @@ import { CaseActivitiesComponent } from './case-activities.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/dashboard',
-    pathMatch: 'full'
+    component: CaseActivitiesComponent
   },
   {
     path: ':date',

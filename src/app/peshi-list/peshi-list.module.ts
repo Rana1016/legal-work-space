@@ -8,11 +8,13 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { NgbDatepickerModule, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { PeshisComponent } from './components/peshis/peshis.component';
 import { AgGridModule } from 'ag-grid-angular';
+import { PeshiListComponent } from './peshi-list.component';
 
 @NgModule({
   declarations: [
     NewPeshiComponent,
-    PeshisComponent
+    PeshisComponent,
+    PeshiListComponent
   ],
   imports: [
     CommonModule,

@@ -4,6 +4,8 @@ import { ColDef, Column, ColumnApi, GridApi, GridReadyEvent } from 'ag-grid-comm
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { CasesService } from 'src/app/shared/services/cases.service';
+import { PeshiService } from 'src/app/shared/services/peshi.service';
+import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-peshis',
@@ -13,15 +15,15 @@ import { CasesService } from 'src/app/shared/services/cases.service';
 export class PeshisComponent implements OnInit {
   gridApi?: GridApi;
   gridColumnApi?: ColumnApi;
-  constructor(private caseService: CasesService) {}
+  constructor(private lookup: SharedService, private peshi: PeshiService) {}
 
   columnDefs: ColDef[] = [
     {
-      field: 'fileRef',
+      field: 'caseId',
       editable: true,
     },
     {
-      field: 'courtCaseNo',
+      field: 'previousProceedings',
       editable: true
     },
     {
@@ -40,45 +42,7 @@ export class PeshisComponent implements OnInit {
   rowData?: any[];
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.rowData = [
-        {
-          fileRef: 12,
-          courtCaseNo: 1000,
-          remarks: 'Admitted Crime',
-          prevDate: moment(new Date()).format('DD-MM-yyyy'),
-          nextDate: moment(new Date()).format('DD-MM-yyyy')
-        },
-        {
-          fileRef: 12,
-          courtCaseNo: 1000,
-          remarks: 'Admitted Crime',
-          prevDate: moment(new Date()).format('DD-MM-yyyy'),
-          nextDate: moment(new Date()).format('DD-MM-yyyy')
-        },
-        {
-          fileRef: 12,
-          courtCaseNo: 1000,
-          remarks: 'Admitted Crime',
-          prevDate: moment(new Date()).format('DD-MM-yyyy'),
-          nextDate: moment(new Date()).format('DD-MM-yyyy')
-        },
-        {
-          fileRef: 12,
-          courtCaseNo: 1000,
-          remarks: 'Admitted Crime',
-          prevDate: moment(new Date()).format('DD-MM-yyyy'),
-          nextDate: moment(new Date()).format('DD-MM-yyyy')
-        },
-        {
-          fileRef: 12,
-          courtCaseNo: 1000,
-          remarks: 'Admitted Crime',
-          prevDate: moment(new Date()).format('DD-MM-yyyy'),
-          nextDate: moment(new Date()).format('DD-MM-yyyy')
-        }
-      ];
-    }, 1500)
+    this.peshi.getAll().subscribe((rowData) => this.rowData = rowData)
   };
 
   sizeToFit() {
@@ -97,5 +61,9 @@ export class PeshisComponent implements OnInit {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
     this.sizeToFit();
+  }
+
+  editPeshi(row: any) {
+    this.lookup.updateOption('tblPeshi',  'peshiId', row.colDef.field, `${row.data.peshiId}`, row.newValue).subscribe();
   }
 }

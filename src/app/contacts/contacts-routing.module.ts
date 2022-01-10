@@ -1,25 +1,33 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ContactGroupComponent } from './components/contact-group/contact-group.component';
+import { ContactComponent } from './components/contact/contact.component';
 import { NewContactComponent } from './components/new-contact/new-contact.component';
 import { NewGroupComponent } from './components/new-group/new-group.component';
-import { ContactsComponent } from './contacts.component';
+import { ContactGroupComponent } from './contact-group.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: ContactsComponent
-  },
-  {
-    path: 'groups/:id',
     component: ContactGroupComponent
   },
   {
-    path: 'groups/:id/new-contact',
+    path: 'groups/:contactGroupId',
+    component: ContactComponent
+  },
+  {
+    path: 'groups/:contactGroupId/new-contact',
+    component: NewContactComponent
+  },
+  {
+    path: 'groups/:contactGroupId/edit/:contactId',
     component: NewContactComponent
   },
   {
     path: 'new-group',
+    component: NewGroupComponent
+  },
+  {
+    path: 'edit/:contactGroupId',
     component: NewGroupComponent
   }
 ];

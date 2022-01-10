@@ -10,21 +10,15 @@
           </a>
           <ul ngbDropdownMenu>
             <li ngbDropdownItem>
-              <a (click)="changeStatus('cancelled')">
+              <a (click)="changeStatus('closed case')">
                 <span class="glyphicon glyphicon-remove-circle mr-1"></span>
-                Change status to cancelled
+                Change status to Closed
               </a>
             </li>
             <li ngbDropdownItem>
-              <a (click)="changeStatus('pending')">
+              <a (click)="changeStatus('case in-progress')">
                 <span class="glyphicon glyphicon-hourglass mr-1"></span>
-                Change status to pending
-              </a>
-            </li>
-            <li ngbDropdownItem>
-              <a (click)="changeStatus('completed')">
-                <span class="glyphicon glyphicon-check mr-1"></span>
-                Change status to completed
+                Change status to In-progress
               </a>
             </li>
             
@@ -45,6 +39,6 @@
   </div>
   <div class="row">
     <div class="col-md-4 strongest">Current Status</div>
-    <div class="col-md-8">{{caseStatus | titlecase}}</div>
+    <div class="col-md-8">{{caseStatus | titlecase }}{{!caseStatus ? 'N/A' : ''}}</div>
   </div>
 </div>

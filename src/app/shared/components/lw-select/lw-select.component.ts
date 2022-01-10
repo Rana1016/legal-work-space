@@ -9,14 +9,14 @@ import { SharedService } from '../../services/shared.service';
 })
 export class LwSelectComponent implements OnInit {
   @Input() controlName!: string;
-  @Input() options!: any[];
+  @Input() options?: any[];
   @Input() bindLabel?: string;
   @Input() bindValue?: string;
   @Input() customNote?: string;
   @Input() sort?: boolean;
   @Input() noFirstText?: boolean;
   @Input() firstText?: string;
-  @Input() notEditValue?: boolean;
+  @Input() notEditValue?: boolean = true;
   @Input() notAddValue?: boolean;
   @Input() tableName?: string;
   @Input() keyColName?: string;
@@ -40,7 +40,7 @@ export class LwSelectComponent implements OnInit {
 
     if (!!this.options) {
       this.optionForm = this.fb.group({
-        value: [this.options.length - 1],
+        value: [this.options!.length - 1],
         label: [null]
       })
     }
@@ -53,7 +53,7 @@ export class LwSelectComponent implements OnInit {
     if (type == 'edit') {
       this.optionForm.patchValue({
         value: this.formControl.value,
-        label: !this.bindLabel ? this.options.filter((opt, i) => i == this.formControl.value - 1)[0] : this.options.filter((opt, i) => (!this.bindValue ? i : opt[this.bindValue]) == (!this.bindValue ? this.formControl.value - 1 : this.formControl.value))[0][this.bindLabel]
+        label: !this.bindLabel ? this.options!.filter((opt, i) => i == this.formControl.value - 1)[0] : this.options!.filter((opt, i) => (!this.bindValue ? i : opt[this.bindValue]) == (!this.bindValue ? this.formControl.value - 1 : this.formControl.value))[0][this.bindLabel]
       })
     } else {
       this.optionForm.reset()
@@ -70,16 +70,19 @@ export class LwSelectComponent implements OnInit {
       newOption = this.optionForm.value.label
     }
 
-    this.modalType == 'add' ? this.options.push(newOption) :
-      this.options.filter((opt, i) => {
+    if (this.modalType == 'add') {
+      this.options!.push(newOption)
+      !this.bindValue ? !this.sort ? this.formControl.setValue(this.options!.length) :
+      this.options!.sort().filter((opt, i) => { opt == this.optionForm.value.label && this.formControl.setValue(i + 1) }) :
+      this.formControl.setValue(this.options![this.options!.length - 1][this.bindValue])
+    } else {
+      this.options!.filter((opt, i) => {
         if ((!this.bindLabel && i == this.formControl.value - 1) || (this.bindLabel && (!this.bindValue ? i : opt[this.bindValue]) == (!this.bindValue ? this.formControl.value - 1 : this.formControl.value))) {
-          this.options[i] = newOption
+          this.options![i] = newOption
         }
-      })
-    this.modalType == 'add' ? !this.bindValue ? !this.sort ? this.formControl.setValue(this.options.length) :
-      this.options.sort().filter((opt, i) => { opt == this.optionForm.value.label && this.formControl.setValue(i + 1) }) :
-      this.formControl.setValue(this.options[this.options.length - 1][this.bindValue]) :
+      });
       this.bindValue && this.formControl.setValue(this.optionForm.value.value);
+    }
     modal.dismiss();
   }
 }

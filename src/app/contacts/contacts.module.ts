@@ -2,18 +2,19 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ContactsRoutingModule } from './contacts-routing.module';
-import { ContactsComponent } from './contacts.component';
+import { ContactGroupComponent } from './contact-group.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NewContactComponent } from './components/new-contact/new-contact.component';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-import { ContactGroupComponent } from './components/contact-group/contact-group.component';
+import { ContactComponent } from './components/contact/contact.component';
 import { NewGroupComponent } from './components/new-group/new-group.component';
+import { DataTablesModule } from 'angular-datatables';
 
 
 @NgModule({
   declarations: [
-    ContactsComponent,
     ContactGroupComponent,
+    ContactComponent,
     NewContactComponent,
     NewGroupComponent
   ],
@@ -22,7 +23,8 @@ import { NewGroupComponent } from './components/new-group/new-group.component';
     FormsModule,
     ReactiveFormsModule,
     ContactsRoutingModule,
-    NgbDropdownModule
+    NgbDropdownModule,
+    DataTablesModule
   ]
 })
 export class ContactsModule { }

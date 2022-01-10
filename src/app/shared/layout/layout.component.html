@@ -1,14 +1,19 @@
-<lw-header (openModal)="openModal($event)"></lw-header>
+<lw-header (openModal)="openModal($event)" [isClient]="isClient" [Settings]="Settings" [installments]="installments" [reminders]="reminders" [workflow]="workflow"></lw-header>
 <div class="container-fluid h-100">
   <div class="row h-100">
-    <lw-sidenav class="fixer col-sm-12 col-sm-4 col-xl-2 lw-sidenav d-none d-xl-block" [openSideNav]="mobileMenu" (closed)="mobileMenu = false"></lw-sidenav>
+    <lw-sidenav class="fixer col-sm-12 col-sm-4 col-xl-2 lw-sidenav d-none d-xl-block" [isClient]="isClient" [menuItems]="LeftMenu" [clientMenu]="clientMenu" [openSideNav]="mobileMenu" (closed)="mobileMenu = false"></lw-sidenav>
     <div class="col-sm-12 col-sm-12 col-md-12 col-xl-10 main">
-      <div class="row">
+      <div class="row" *ngIf="!isClient">
         <div class="col-sm-12">
           <app-floating-timer></app-floating-timer>
         </div>
       </div>
-      <router-outlet></router-outlet>
+      <div [hidden]="!!isLoading">
+        <router-outlet></router-outlet>
+      </div>
+      <div *ngIf="isLoading" class="h-100 d-flex align-items-center justify-content-center">
+        <i class="fa fa-circle-notch fa-spin fa-4x"></i>
+      </div>
       <div class="menu_footer_mobile d-xl-none">
         <div class="container">
           <div class="row">

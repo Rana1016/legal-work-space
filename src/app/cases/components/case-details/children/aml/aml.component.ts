@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AmlService } from 'src/app/shared/services/aml.service';
+import { AmlService } from 'src/app/shared/services/case-details/aml.service';
 
 @Component({
   selector: 'app-aml',
@@ -23,19 +23,23 @@ export class AmlComponent implements OnInit {
   }
 
   initializeAML() {
-    this.amlService.getAmlCheckListById(this.caseId).subscribe((AmlCheckList) => {
-      AmlCheckList.forEach(({amlCheckPoint, ifChecked, id}, i) => {
-        (<FormArray>this.amlListForm.controls.amlCheckList).push(
-          this.fb.group({
-            ifChecked: [ifChecked],
-            amlCheckPoint: [amlCheckPoint],
-            id: [id]
+    this.amlService.chkListObservable.subscribe(AmlCheckList => {
+      if (!!AmlCheckList) {
+        AmlCheckList?.forEach(({amlCheckPoint, ifChecked, id}: any, i: number) => {
+          (<FormArray>this.amlListForm.controls.amlCheckList).push(
+            this.fb.group({
+              ifChecked: [ifChecked],
+              amlCheckPoint: [amlCheckPoint],
+              id: [id]
+            })
+          );
+          (<FormArray>this.amlListForm.controls.amlCheckList).controls[i].valueChanges.subscribe(({ifChecked, id}) => {
+            this.amlService.checkAmlCheckPoint(id, ifChecked).subscribe((res) => res == true && console.log('Done'))
           })
-        );
-        (<FormArray>this.amlListForm.controls.amlCheckList).controls[i].valueChanges.subscribe(({ifChecked, id}) => {
-          this.amlService.checkAmlCheckPoint(id, ifChecked).subscribe((res) => res == true && console.log('Done'))
-        })
-      });
+        });
+      } else {
+        this.amlService.getAmlCheckListById(this.caseId).subscribe();
+      }
     })
   }
 }

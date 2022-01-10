@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
@@ -7,9 +9,13 @@ import { UserService } from 'src/app/shared/services/user.service';
   styleUrls: ['./users-management.component.scss']
 })
 export class UsersManagementComponent implements OnInit {
-  constructor(private user: UserService) { }
+  constructor(private user: UserService, private modalService: NgbModal) { }
   users!: any[];
   dtOptions: any;
+  SignatureUpload!: File;
+  @ViewChild('signatureUpload') SignatureUploadModal!: TemplateRef<any>;
+  currentGroupId: any;
+
   ngOnInit(): void {
     this.dtOptions = {
       responsive: true,
@@ -18,12 +24,14 @@ export class UsersManagementComponent implements OnInit {
       order: [[0, "desc"]],
       lengthChange: false,
       paging: true,
+      processing: true,
       ordering: true,
       displayStart: -1,
       info: true,
       autoWidth: false,
       searching: true,
       language: {
+        infoEmpty: '',
         emptyTable: 'No Users available.'
       },
       columns: [{
@@ -78,13 +86,24 @@ export class UsersManagementComponent implements OnInit {
       callback({
         recordsTotal: totalRecords,
         recordsFiltered: totalRecords,
-        data: []
       })
     })
   }
 
   deleteUser(userId: number) {
-    this.user.deleteUser(userId).subscribe((res) => { if (res == 1) { this.users = this.users.filter((user) => user.UserId != userId) } });
+    this.user.deleteUser(userId).subscribe((res) => { if (res == 1) { this.users = this.users.filter((user) => user.userId != userId) } });
+  }
+
+  openSignatureUpload(id: number) {
+    this.currentGroupId = id;
+    this.modalService.open(this.SignatureUploadModal)
+  }
+
+  setSignature(e: any) {
+    this.SignatureUpload =  e.target.files.item(0);
+  }
+  uploadSignature() {
+    console.log(this.SignatureUpload)
   }
 
 }

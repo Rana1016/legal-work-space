@@ -1,106 +1,99 @@
-<div class="profilex">
-    
-</div>
+<div class="profilex"></div>
 <div class="row">
   <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
     <h5>Personal Details</h5>
   </div>
   <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
     <ul class="nav nav-right">
-        <li ngbDropdown>
-            <a ngbDropdownToggle class="btn-custom">
-                Actions
+      <li ngbDropdown>
+        <a ngbDropdownToggle class="btn-custom"> Actions </a>
+        <ul ngbDropdownMenu>
+          <li ngbDropdownItem>
+            <a target="_blank">
+              <span class="glyphicon glyphicon-print mr-1"></span>
+              Print client information sheet
             </a>
-            <ul ngbDropdownMenu>
-              <li ngbDropdownItem>
-                <a target="_blank">
-                    <span class="glyphicon glyphicon-print mr-1"></span>
-                    Print client information sheet
-                </a>
-              </li>
-              <li ngbDropdownItem>
-                <a>
-                    <span class="glyphicon glyphicon-pencil mr-1"></span>
-                    Edit Personal Details
-                </a>
-              </li>
-              <li ngbDropdownItem>
-                <a>
-                    <span class="glyphicon glyphicon-plus mr-1"></span>
-                    Add other applicants / parties
-                </a>
-              </li>
-              <li ngbDropdownItem>
-                <a>
-                    <span class="glyphicon glyphicon-remove mr-1"></span>
-                    Delete profile
-                </a>
-              </li>
-              <li ngbDropdownItem>
-                <a>
-                    <span class="glyphicon glyphicon-user mr-1"></span>
-                    Client Portal
-                </a>
-              </li>
-            </ul>
           </li>
+          <li ngbDropdownItem>
+            <a [routerLink]="['edit', pD?.personID]">
+              <span class="glyphicon glyphicon-pencil mr-1"></span>
+              Edit Personal Details
+            </a>
+          </li>
+          <!-- <li ngbDropdownItem>
+            <a>
+              <span class="glyphicon glyphicon-plus mr-1"></span>
+              Add other applicants / parties
+            </a>
+          </li> -->
+          <li ngbDropdownItem>
+            <a (click)="deletePersonalDetails()">
+              <span class="glyphicon glyphicon-remove mr-1"></span>
+              Delete profile
+            </a>
+          </li>
+          <li ngbDropdownItem>
+            <a [routerLink]="['/client/portal', caseId]">
+              <span class="glyphicon glyphicon-user mr-1"></span>
+              Client Portal
+            </a>
+          </li>
+        </ul>
+      </li>
     </ul>
   </div>
 </div>
 <hr />
-  <div class="row">
-    <div class="col-md-4 strongest">Client's Company Name</div>
-    <div class="col-md-8"></div>
+<div class="row">
+  <div class="col-md-4 strongest">Client's Name</div>
+  <div class="col-md-8">{{ pD?.name || 'N/A' }}</div>
+</div>
+<hr />
+<div class="row">
+  <div class="col-md-4 strongest">Gender</div>
+  <div class="col-md-8">{{ FormData.genders[pD?.gender - 1] || 'N/A' }}</div>
+</div>
+<hr />
+<div class="row">
+  <div class="col-md-4 strongest">Address</div>
+  <div class="col-md-8">
+    {{ pD?.address || 'N/A' }}
   </div>
-  <hr />
-  <div class="row">
-    <div class="col-md-4 strongest">Client's Name</div>
-    <div class="col-md-8">Rizwan Sabir</div>
+</div>
+<hr />
+<div class="row">
+  <div class="col-md-4 strongest">Email Address</div>
+  <div class="col-md-8">{{ pD?.email || 'N/A' }}</div>
+</div>
+<hr />
+<div class="row">
+  <div class="col-md-4 strongest">Phone Number</div>
+  <div class="col-md-8">
+    {{ pD?.phoneNumber || 'N/A' }}{{ pD?.cpPhoneumber ? " / " : ''}}{{ pD?.cpPhoneNumber }}
   </div>
-  <hr />
-  <div class="row">
-    <div class="col-md-4 strongest">Date of Birth</div>
-    <div class="col-md-8">07 September 2021</div>
+</div>
+<hr />
+<div class="row">
+  <div class="col-md-4 strongest">Last Modified By</div>
+  <div class="col-md-8">
+    {{ pD?.lastModifiedByName || 'N/A' }} on {{ toDate(pD?.lastModifiedDate) || 'N/A' }}
+    {{ toTime(pD?.lastModifiedDate) || '' }}
   </div>
-  <hr />
-  <div class="row">
-    <div class="col-md-4 strongest">Gender</div>
-    <div class="col-md-8">Female</div>
+</div>
+<ng-template #deletePerson let-modal>
+  <div class="modal-header">
+      <h4 class="modal-title" ngbAutoFocus>Set Lead Client</h4>
+      <button type="button" type="button" class="close" aria-label="Close"
+          (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+      </button>
   </div>
-  <hr />
-  <div class="row">
-    <div class="col-md-4 strongest">Nationality</div>
-    <div class="col-md-8">Austria</div>
+  <div class="modal-body">
+      <form>
+          <div class="form-group">
+              <label>You are going to delete this person, Are you sure?</label>
+              <div class="d-flex align-items-center justify-content-end"><button class="btn btn-success mr-1" (click)="deleteProfile(); modal.close()">Yes</button> <button (click)="modal.close()" class="btn btn-danger ml-1">No</button></div>
+          </div>
+      </form>
   </div>
-  <hr />
-  <div class="row">
-    <div class="col-md-4 strongest">Address</div>
-    <div class="col-md-8">
-      41 D Office No 7 2nd Floor PIA Main Bulevard Wapdatown Lahore<br />Lahore<br />54000<br />PAKISTAN
-    </div>
-  </div>
-  <hr />
-  <div class="row">
-    <div class="col-md-4 strongest">Email Address</div>
-    <div class="col-md-8">rizwanalisabir@gmail.com</div>
-  </div>
-  <hr />
-  <div class="row">
-    <div class="col-md-4 strongest">Phone Number</div>
-    <div class="col-md-8">03028005404 / 03028005404</div>
-  </div>
-  <hr />
-  <div class="row">
-    <div class="col-md-4 strongest">Correspondence Mode</div>
-    <div class="col-md-8">By Post (Hard Copy)</div>
-  </div>
-  <hr />
-  <div class="row">
-    <div class="col-md-4 strongest">Source</div>
-    <div class="col-md-8">Referred by Friend / Family Member</div>
-  </div>
-  <hr />
-  <div class="row">
-    <div class="col-md-4 strongest">Last Modified By</div>
-    <div class="col-md-8">Dr. Mazhar Ilahi on 30-09-2021 16:14:40</div>
-  </div>
+</ng-template>

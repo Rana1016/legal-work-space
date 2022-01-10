@@ -23,6 +23,15 @@
         "Female",
         "Other"
     ],
+    "modesOfPayment": [
+        "Card",
+        "Cash & Card",
+        "Cheque",
+        "Online",
+        "Deposit",
+        "Mixed",
+        "Other"
+    ],
     "countries": [
         "Afghanistan",
         "Albania",
@@ -519,6 +528,7 @@
     ],
     "feeTypes": [
         "Fixed Fee",
+        "Retainer-ship",
         "Hourly Fee",
         "Contingency Billing",
         "ProBono",

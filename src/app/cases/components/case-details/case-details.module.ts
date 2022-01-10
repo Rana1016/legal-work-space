@@ -16,13 +16,15 @@ import { PersonalDetailsComponent } from './children/personal-details/personal-d
 import { AccountDetailsComponent } from './children/account-details/account-details.component';
 import { TimeKeepingComponent } from './children/time-keeping/time-keeping.component';
 import { CaseDetailsComponent } from './children/case-details/case-details.component';
-import { NgbAccordionModule, NgbDatepickerModule, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-import { NewPeshiComponent } from './children/new-peshi/new-peshi.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { NgbAccordionModule, NgbDatepickerModule, NgbDropdownModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { DataTablesModule } from 'angular-datatables';
 import { NewAmlListComponent } from './children/new-aml-list/new-aml-list.component';
 import { NewNoteComponent } from './children/new-note/new-note.component';
+import { EditPersonalDetailsComponent } from './children/edit-personal-details/edit-personal-details.component';
+import { EditCaseDetailsComponent } from './children/edit-case-details/edit-case-details.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -41,9 +43,10 @@ import { NewNoteComponent } from './children/new-note/new-note.component';
     AccountDetailsComponent,
     ActivitiesComponent,
     TimeKeepingComponent,
-    NewPeshiComponent,
     NewAmlListComponent,
-    NewNoteComponent
+    NewNoteComponent,
+    EditPersonalDetailsComponent,
+    EditCaseDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -54,7 +57,10 @@ import { NewNoteComponent } from './children/new-note/new-note.component';
     NgbDropdownModule,
     NgSelectModule,
     NgbAccordionModule,
-    NgbDatepickerModule
+    NgbDatepickerModule,
+    NgbModalModule,
+    SharedModule,
+    FormsModule
   ]
 })
 export class CaseDetailsModule { }

@@ -9,8 +9,7 @@ import { KeydatesService } from 'src/app/shared/services/keydates.service';
 })
 export class DeadLinesComponent implements OnInit {
   constructor(private router: Router, private keydateService: KeydatesService) { }
-  
-  data: any;
+  keyDates!: any[];
   dtOptions!: DataTables.Settings;
   caseId!: number;
 
@@ -19,21 +18,27 @@ export class DeadLinesComponent implements OnInit {
     this.caseId = Number(UrlPartitions[UrlPartitions.length - 2]);
     this.dtOptions = {
       responsive: true,
+      serverSide: true,
       // scrollX: true,
       order: [[0, "desc"]],
-      lengthChange: false,
-      paging: false,
+      paging: true,
+      processing: true,
+      pageLength: 10,
+      pagingType: 'full_numbers',
       ordering: true,
       displayStart: -1,
       info: true,
       autoWidth: false,
       searching: true,
+      lengthChange: false,
       language: {
-        emptyTable: 'No keydates available.'
+        processing: 'Loading Key Dates...',
+        emptyTable: 'No Key Dates available.'
       },
       columns: [{
         title: '',
-        width: '150',
+        width: '40',
+        data: null,
         orderable: false
       }, {
         title: 'Key date',
@@ -61,12 +66,16 @@ export class DeadLinesComponent implements OnInit {
     };
   }
   ajaxKeyDates(dTParams: any, callback: any) {
-    this.keydateService.getKeyDatesByCaseId(this.caseId).subscribe((data) => {
+    this.keydateService.getKeyDatesByCaseId(this.caseId, dTParams).subscribe(({totalRecords, records}) => {
+      this.keyDates = records;
       callback({
-        recordsTotal: data.length,
-        recordsFiltered: data.length,
-        data: data
+        recordsTotal: totalRecords,
+        recordsFiltered: totalRecords
       })
     })
+  }
+
+  deleteKeyDate(keyDateId: number) {
+    this.keydateService.delete(keyDateId).subscribe((res) => { if (res == 1) { this.keyDates = this.keyDates.filter((keyDate) => keyDate.keyDateId != keyDateId) } });
   }
 }

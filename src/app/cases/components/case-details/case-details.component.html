@@ -1,4 +1,4 @@
-<h1 id="pg-title" class="row align-items-center justify-content-center justify-content-md-start">Cases<span class="glyphicon glyphicon-chevron-right mx-3"></span> CL/{{caseRef.toFixed(2)}}</h1>
+<h1 id="pg-title" class="row align-items-center justify-content-center justify-content-md-start">Cases<span class="glyphicon glyphicon-chevron-right mx-3"></span> {{cD?.caseCategories[0]?.categoryCode}}/{{caseRef.toFixed(2)}}</h1>
 <!-- {{currentCase?.clientName.split()[currentCase.clientName.split().length - 1] ?  '/' + currentCase?.clientName.split()[currentCase.clientName.split().length - 1] : ''}} -->
 <div class="row mt-lg-0 mt-2">
   <div class="col-md-12">
@@ -8,9 +8,9 @@
           <div class="col-md-12" id="pg-nav">
             <ul class="list-inline">
               <li>
-                <button class="btn btn-sm btn-primary">
+                <a role="button" [routerLink]="['/new-case/steps', caseRef, 'new-matter']" class="btn btn-sm btn-primary">
                   <span class="glyphicon glyphicon-plus"></span> New matter
-                </button>
+                </a>
               </li>
               <li>
                 <a class="btn btn-primary"><i class="glyphicon glyphicon-th"></i> List of matters</a>
@@ -23,13 +23,13 @@
   </div>
 </div>
 
-<div class="row">
+<!-- <div class="row">
   <div class="col-sm-12 col-md-12">
     <div class="widget">
       <div class="widget-body">
         <div class="row">
           <div class="col-sm-12 col-md-8 col-lg-8">
-            <h5>Rizwan Sabir</h5>
+            <h5>{{pD?.name}}</h5>
             <p style="margin: 20px 0">
               <strong class="muted">Civil Litigation
                 <span class="fa fa-arrow-right"></span> Boundary and neighbour
@@ -37,14 +37,16 @@
             </p>
           </div>
           <div class="col-sm-4 col-md-4 col-lg-4 text-right">
-            <span class="badge_cms badge_green" style="margin: 0 0 0 15px">In-Progress</span>
+            <span class="badge_cms badge_{{cD?.caseDetail?.caseStatus == 'closed case' ? 'red' : 'green'}}" style="margin: 0 0 0 15px"
+        >{{cD?.caseDetail.caseStatus == 'closed case' ? 'Closed' : 'In-Progress'}}</span
+      >
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-<div style="margin-top: 30px" class="r-tabs">
+</div> -->
+<div style="margin-top: 20px" class="r-tabs">
   <ul class="r-tabs-nav">
     <li *ngFor="let dT of detailsTabs; let i = index;" class="r-tabs-tab"
       [ngClass]="{'r-tabs-state-active': dT.active, 'r-tabs-state-default': !dT.active}">

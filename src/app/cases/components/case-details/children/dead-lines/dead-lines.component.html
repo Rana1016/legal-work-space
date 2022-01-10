@@ -1,22 +1,46 @@
 <div class="row">
     <div class="col-sm-12 d-flex justify-content-between">
         <h5>Key Dates</h5>
-        <ul class="list-inline">
+        <!-- <ul class="list-inline">
             <li>
                 <a class="btn btn_toolbar"><span class="glyphicon glyphicon-plus"></span> Add new key date</a>
             </li>
-        </ul>
+        </ul> -->
     </div>
 </div>
-<hr />
-<table class="table table-striped table-sm row-border hover" datatable [dtOptions]="dtOptions">
-    <!-- <tbody> -->
-     <!-- <tr *ngFor="let group of data">
-           <td>{{group.id}}</td>
-           <td>{{group.email}}</td>
-           <td>{{group.username}}</td>
+<table class="table table-striped table-sm row-border hover" [ngClass]="{'empty': keyDates && keyDates.length !== 0}" datatable [dtOptions]="dtOptions">
+    <tbody>
+        <tr *ngFor="let keyDate of keyDates">
+            <td class="text-center">
+                <span class="glyphicon glyphicon-stop glyphicon-red"></span>
+            </td>
+            <td>{{keyDate.keyDate |  date: 'dd MMM YYYY'}}</td>
+            <td>
+                <strong>{{keyDate.title}}</strong>
+                <br />
+                <small class="muted">{{keyDate.title}}</small>
+            </td>
+            <td></td>
+            <td>
+                <ul class="nav">
+                  <li ngbDropdown>
+                    <a ngbDropdownToggle class="nav-link" role="button"> </a>
+                    <ul
+                      ngbDropdownMenu
+                      class="dropdown-menu dropdown-menu-right"
+                    >
+                      <li ngbDropdownItem>
+                        <a (click)="deleteKeyDate(keyDate.keyDateId)">
+                          <span class="glyphicon glyphicon-remove"></span>
+                          Delete
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </td>
        </tr>
-    </tbody> -->
+    </tbody>
   </table>
 <!-- <div class="table-responsive">
     <div id="DataTables_Table_3_wrapper" class="dataTables_wrapper no-footer">

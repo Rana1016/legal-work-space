@@ -47,15 +47,16 @@
                             "node_modules/bootstrap/dist/js/bootstrap.min.js"
                         ],
                         "allowedCommonJsDependencies": [
-                            "pikaday"
+                            "pikaday",
+                            "pdfmake/build/pdfmake"
                         ]
                     },
                     "configurations": {
                         "production": {
                             "budgets": [{
                                     "type": "initial",
-                                    "maximumWarning": "2mb",
-                                    "maximumError": "4mb"
+                                    "maximumWarning": "5mb",
+                                    "maximumError": "10mb"
                                 },
                                 {
                                     "type": "anyComponentStyle",
@@ -124,7 +125,8 @@
             "node_modules/bootstrap/dist/js/bootstrap.js"
                         ],
                         "allowedCommonJsDependencies": [
-                            "pikaday"
+                            "pikaday",
+                            "pdfmake/build/pdfmake"
                         ]
                     }
                 }

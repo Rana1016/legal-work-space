@@ -1,1 +1,74 @@
-<p>case-sub-categories works!</p>
+<h1 id="pg-title" class="row align-items-center justify-content-center justify-content-md-start">Areas of practice <span *ngIf="categoryTitle" class="glyphicon glyphicon-chevron-right mx-3"></span> {{categoryTitle}}</h1>
+<div class="row">
+    <div class="col-md-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div class="row">
+                    <div class="col-md-12" id="pg-nav">
+                        <ul class="list-inline">
+                            <li>
+                                <a [routerLink]="['new-subcategory']" class="btn"><span class="glyphicon glyphicon-plus"></span> Add new</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="widget">
+      <div class="widget-body">
+        <div class="table-responsive">
+          <table
+          class="table table-striped table-sm row-border hover"
+          [ngClass]="{
+            'empty': caseSubCategories && caseSubCategories.length !== 0
+          }"
+          datatable
+          [dtOptions]="dtOptions"
+          [dtTrigger]="dtTrigger"
+        >
+                <tbody>
+                  <tr *ngFor="let subCategory of caseSubCategories">
+                    <td>
+                      <a
+                        [routerLink]="['edit', subCategory.keyValue]"
+                        style="font-size: 15px; border-bottom: 0 none"
+                        class="td_link_dark"
+                        >{{subCategory.displayValue}}</a
+                      >
+                    </td>
+                    <td>
+                      <ul class="nav">
+                        <li ngbDropdown>
+                          <a ngbDropdownToggle class="td_link_dark" style="border-bottom: none;" role="button">
+                          </a>
+                          <ul ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
+                              <li ngbDropdownItem>
+                                <a [routerLink]="['edit', subCategory.keyValue]">
+                                  <span class="glyphicon glyphicon-pencil mr-2"></span>
+                                  Edit
+                                </a>
+                              </li>
+                              <li ngbDropdownItem>
+                                <a (click)="deleteCaseSubCategory(subCategory.keyValue)">
+                                  <span class="glyphicon glyphicon-remove mr-2"></span>
+                                  Delete
+                                </a>
+                              </li>
+                          </ul>
+                          </li>
+                      </ul>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -21,9 +21,6 @@ export class DefaultComponent implements OnInit, AfterViewInit {
   status?: string;
 
   ngOnInit(): void {
-    this.route.params.subscribe(({status}) => {
-      this.status = status;
-    });
     this.searchForm = this.fb.group({
       search: [null]
     });
@@ -73,6 +70,10 @@ export class DefaultComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.dtTrigger.next();
+    this.route.params.subscribe(({status}) => {
+      this.status = status;
+      this.dtTrigger.next();
+    });
     this.searchForm.controls.search.valueChanges.subscribe(() => {
       this.dtTrigger.next();
     });

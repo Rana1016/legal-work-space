@@ -12,8 +12,12 @@ export class TasksService {
     return this.http.post(ApiRoutes.tasks.add, data)
   }
 
-  getAll(dTParams: any) {
-    return this.http.post<any>(ApiRoutes.tasks.all, dTParams)
+  getAll(dTParams: any, status?: string) {
+    return this.http.post<any>(ApiRoutes.tasks.all, dTParams, {
+      params: {
+        ...(!!status && {status})
+      }
+    })
   }
 
   getTasksById(id: number) {

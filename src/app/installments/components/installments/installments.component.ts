@@ -31,15 +31,20 @@ export class InstallmentsComponent implements OnInit {
         emptyTable: 'No Installments available.'
       },
       columns: [{
-        title: 'Contact groups',
-        width: '700',
-        data: '`title`',
+        title: 'Case ID',
+        width: '150',
+        data: 'caseId',
         orderable: true
       }, {
-        title: 'Actions',
-        width: '50',
-        orderable: false,
-        data: null
+        title: 'Due Date',
+        width: '200',
+        data: 'dueDate',
+        orderable: true
+      }, {
+        title: 'Amount',
+        width: '150',
+        data: 'amount',
+        orderable: true
       }],
       ajax: this.ajaxContactGroups.bind(this)
     };

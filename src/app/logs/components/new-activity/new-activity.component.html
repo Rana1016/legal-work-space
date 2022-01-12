@@ -1,5 +1,5 @@
   <h1 id="pg-title" class="row align-items-center justify-content-center justify-content-md-start">
-    Log book <span class="glyphicon glyphicon-chevron-right mx-3"></span> {{title | titlecase}} <span class="glyphicon glyphicon-chevron-right mx-3"></span> Add new log
+    Log book <span class="glyphicon glyphicon-chevron-right mx-3"></span> {{title | titlecase}} <span class="glyphicon glyphicon-chevron-right mx-3"></span> {{!edit ? 'Add new' : 'Edit'}} log
   </h1>
 <div class="row">
   <div class="col-md-12">
@@ -125,6 +125,7 @@
                     id="file"
                     name="userfile"
                     class="input-xlarge"
+                    (change)="fileChange($any($event.target))"
                   /><small class="text-muted"
                     >Allowed file types:
                     pdf|doc|docx|dot|dotx|xls|xlsx|ppt|pptx|pps|ppsx|odt|ods|odp|pages|rtf|txt|csv|gif|png|jpg<br />
@@ -139,6 +140,7 @@
                     style="margin-bottom: 15px"
                     class="btn btn-primary"
                     type="submit"
+                    (click)="submitForm()"
                   >
                     <span class="glyphicon glyphicon-ok"></span> Submit
                   </button>

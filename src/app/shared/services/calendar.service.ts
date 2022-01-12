@@ -18,10 +18,11 @@ export class CalendarService {
     })
   }
 
-  getEventsBySearch(searchValue: string) {
+  getEventsBySearch(searchValue: string, userId: number) {
     return this.http.get<any>(ApiRoutes.calendarEvents.bySearch, {
       params: {
-        searchValue
+        searchValue,
+        userId
       }
     })
   }

@@ -102,11 +102,11 @@ export class TimeKeepingComponent implements OnInit {
   }
 
   getCategory(id: number) {
-    return this.lookup.getOptions('tblTimeKeepCategory', 'timeKeepCategoryId', 'Title', 'timeKeepCategoryId', id);
+    return this.lookup.getOptions('tblHourlyRate', 'hourlyRateId', 'Title', 'hourlyRateId', id);
   }
 
   getSubCategory(id: number) {
-    return this.lookup.getOptions('tblTimeKeepSubCategory', 'timeKeepSubCategoryId', 'Title', 'timeKeepSubCategoryId', id);
+    return this.lookup.getOptions('tblHourlyRateDetail', 'hourlyRateDetailId', 'Title', 'hourlyRateDetailId', id);
   }
 
   openEdit(id: number) {

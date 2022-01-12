@@ -71,8 +71,7 @@
         <div class="col-7">
           <label>VAT rate</label>
           <select class="selectpicker form-control" formControlName="vatRate">
-            <option value="1">20% (VAT on Income - Standard)</option>
-            <option value="2">0% (No VAT - Zero Rate)</option>
+            <option *ngFor="let vatRate of vatRates" [value]="vatRate.keyValue">{{vatRate.displayValue}}</option>
           </select>
         </div>
       </div>

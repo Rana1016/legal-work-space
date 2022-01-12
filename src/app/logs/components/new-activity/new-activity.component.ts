@@ -21,7 +21,7 @@ export class NewActivityComponent implements OnInit {
       this.logBookFolder.getLogBookFolderById(logBookFolderId).subscribe((logBookFolder) => {
         this.title = logBookFolder.title;
       });
-      this.logBook.getLogBookById(this.edit).subscribe((log) => {
+      logId && this.logBook.getLogBookById(this.edit).subscribe((log) => {
         this.newLogForm.patchValue(log);
       });
     });
@@ -32,17 +32,21 @@ export class NewActivityComponent implements OnInit {
       title: [''],
       reference: [''],
       additionalInfo: [''],
-      logBookFolderId: [this.logBookFolderId || 0]
+      logBookFolderId: [this.logBookFolderId || 0],
+      documentPath: ['']
     });
   }
 
   title!: string;
-
+  docToUpload?: any;
+  fileChange({files}: {files: FileList}) {
+    this.docToUpload = <File>files.item(0);
+  }
 
   submitForm() {
     (!this.edit ?
-      this.logBook.addLogBook({...this.newLogForm.value, caseId: Number(this.newLogForm.value.caseId)})
-      : this.logBook.updateLogBookById(this.edit, {...this.newLogForm.value, caseId: Number(this.newLogForm.value.caseId)})
+      this.logBook.addLogBook({...this.newLogForm.value, caseId: Number(this.newLogForm.value.caseId)}, this.docToUpload)
+      : this.logBook.updateLogBookById(this.edit, {...this.newLogForm.value, caseId: Number(this.newLogForm.value.caseId)}, this.docToUpload)
     ).subscribe((res) => res == '1' && this.router.navigate(!this.edit ? ['..'] : ['../..'], { relativeTo: this.route }))
   }
 

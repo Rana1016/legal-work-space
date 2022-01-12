@@ -1,39 +1,41 @@
-<h1 id="pg-title" class="row align-items-center justify-content-center justify-content-md-start">Global settings</h1>
+<h1
+  id="pg-title"
+  class="row align-items-center justify-content-center justify-content-md-start"
+>
+  Global settings
+</h1>
 <div class="row">
-    <div class="col-md-12">
-        <div class="widget">
-            <div class="widget-body">
-                <div class="row">
-                    <div class="col-md-12" id="pg-nav">
-                        <ul class="list-inline">
-                            <li>
-                                <a class="btn" routerLink="/settings/bank-accounts"><span class="fa fa-university"></span> Bank Accounts</a
+  <div class="col-md-12">
+    <div class="widget">
+      <div class="widget-body">
+        <div class="row">
+          <div class="col-md-12" id="pg-nav">
+            <ul class="list-inline">
+              <li>
+                <a class="btn" routerLink="/settings/bank-accounts"
+                  ><span class="fa fa-university"></span> Bank Accounts</a
                 >
               </li>
               <li>
-                <a
-                  class="btn" routerLink="/settings/office-locations"
+                <a class="btn" routerLink="/settings/office-locations"
                   ><span class="glyphicon glyphicon-home"></span> Office
                   Locations</a
                 >
               </li>
               <li>
-                <a
-                  class="btn"  routerLink="/settings/user-management"
+                <a class="btn" routerLink="/settings/user-management"
                   ><span class="glyphicon glyphicon-user"></span> User
                   Management</a
                 >
               </li>
               <li>
-                <a
-                  class="btn"  routerLink="/settings/areas-of-practice"
+                <a class="btn" routerLink="/settings/areas-of-practice"
                   ><span class="glyphicon glyphicon-check"></span> Areas of
                   Practice</a
                 >
               </li>
               <li>
-                <a
-                  class="btn" routerLink="/templates/documents"
+                <a class="btn" routerLink="/templates/documents"
                   ><span class="glyphicon glyphicon-duplicate"></span> Document
                   Templates</a
                 >
@@ -55,11 +57,8 @@
           required.
         </div>
         <form
-          id="data_form"
-          name="data_form"
+          [formGroup]="globalSettingsForm"
           class="form-horizontal"
-          action="#"
-          method="post"
           accept-charset="UTF-8"
         >
           <h4><strong>Company details</strong></h4>
@@ -73,9 +72,7 @@
                 type="text"
                 maxlength="16"
                 class="form-control"
-                id="inpCOMP_REG"
-                name="inpCOMP_REG"
-                value=""
+                formControlName="companyRegNo"
               /><small class="text-muted">Example: 1234578</small>
             </div>
           </div>
@@ -91,9 +88,7 @@
                 type="text"
                 maxlength="16"
                 class="form-control"
-                id="inpVAT"
-                name="inpVAT"
-                value=""
+                formControlName="vatRegNo"
               /><small class="text-muted">Example: GB12345678</small>
             </div>
           </div>
@@ -106,9 +101,7 @@
                 type="text"
                 maxlength="5"
                 class="form-control"
-                id="inpVAT_RATE"
-                name="inpVAT_RATE"
-                value="20.00"
+                formControlName="vatRatePercentage"
               /><small class="text-muted">Example: 20.00</small>
             </div>
           </div>
@@ -123,30 +116,10 @@
             <div class="col-md-8">
               <textarea
                 class="form-control"
-                id="inpINV_NOTES"
-                name="inpINV_NOTES"
+                formControlName="invoiceFooter"
                 rows="3"
               >
 We accept payment by Credit Card (Mastercard / Visa), Debit Card (Visa Debit, Visa Electron, Maestro), Cash, cheque, or Electronic Bank Transfer (BACS/CHAPS/SWIFT/wire transfer).</textarea
-              >
-            </div>
-          </div>
-          <hr />
-          <div class="row hideme">
-            <div class="col-md-4">
-              <label for="inpINV_TERMS">Invoice terms &amp; conditions</label>
-            </div>
-            <div class="col-md-8">
-              <textarea
-                class="form-control"
-                id="inpINV_TERMS"
-                name="inpINV_TERMS"
-                rows="3"
-              >
-Just to remind you about the terms &amp; conditions you agreed,
-
-. You agreed to pay full amount on or before due date of this invoice.
-. You agreed that if the outstanding amount is not settled as agreed in the contract on or before due date of this invoice then we reserve every right to stop acting on your behalf and terminate this contract.</textarea
               >
             </div>
           </div>
@@ -158,8 +131,7 @@ Just to remind you about the terms &amp; conditions you agreed,
             <div class="col-md-8">
               <textarea
                 class="form-control"
-                id="inpINV_EMAIL"
-                name="inpINV_EMAIL"
+                formControlName="invoiceEmailTemplate"
                 rows="3"
               >
 Please find attached your invoice. We appreciate your prompt payment.
@@ -176,8 +148,7 @@ Thanks for your business!</textarea
             <div class="col-md-8">
               <textarea
                 class="form-control"
-                id="inpINV_REMINDER"
-                name="inpINV_REMINDER"
+                formControlName="invoiceReminderTemplate"
                 rows="3"
               >
 This is a friendly reminder that the above mentioned invoice is now overdue.
@@ -198,8 +169,7 @@ Thanks in advance for your cooperation.</textarea
             <div class="col-md-8">
               <textarea
                 class="form-control"
-                id="inpINST_DUE"
-                name="inpINST_DUE"
+                formControlName="installmentReminder"
                 rows="3"
               >
 This is a friendly reminder that your instalment is now due as mentioned above. If payment has already been made please disregard this email.
@@ -216,10 +186,8 @@ Thank you in advance for your prompt payment.</textarea
             <div class="col-md-8">
               <button
                 class="btn btn-primary"
-                data-toggle="modal"
-                data-target=".bs-example-modal-lg"
                 type="button"
-                aria-hidden="true"
+                (click)="submitForm()"
               >
                 <span class="glyphicon glyphicon-ok"></span> Save changes
               </button>

@@ -8,8 +8,11 @@ import { ApiRoutes } from '../api/routes';
 export class LogbookService {
   constructor(private http: HttpClient) { }
 
-  addLogBook(data: any) {
-    return this.http.post(ApiRoutes.logBook.add, data)
+  addLogBook(data: any, doc: File) {
+    let formData = new FormData();
+    formData.append('data', JSON.stringify(data));
+    formData.append('document', doc, doc.name);
+    return this.http.post(ApiRoutes.logBook.add, formData)
   }
 
   getAll(dTParams: any) {
@@ -24,8 +27,11 @@ export class LogbookService {
     })
   }
 
-  updateLogBookById(logBookId: number, data: any) {
-    return this.http.post(ApiRoutes.logBook.update, { ...data, logBookId })
+  updateLogBookById(logBookId: number, data: any, doc?: File) {
+    let formData = new FormData();
+    formData.append('data', JSON.stringify({ ...data, logBookId }));
+    !!doc && formData.append('document', doc, doc?.name);
+    return this.http.post(ApiRoutes.logBook.update, formData)
   }
 
   deleteLogBook(id: number) {

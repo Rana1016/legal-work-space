@@ -34,6 +34,14 @@
           datatable
           [dtOptions]="dtOptions"
         >
+        <tbody>
+          <tr *ngFor="let installment of installments">
+            <td>{{installment.caseId}}</td>
+            <td>{{installment.dueDate | date : 'dd-MM-YYYY'}}</td>
+            <td>{{installment.amount}}</td>
+          </tr>
+        </tbody>
+
         </table>
         </div>
       </div>

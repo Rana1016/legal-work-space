@@ -59,9 +59,9 @@
                           </a>
                           <ul ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
                               <li ngbDropdownItem>
-                                  <a>
+                                  <a [routerLink]="['folder', logBookFolder.logBookFolderId]">
                                       <span class="glyphicon glyphicon-eye-open mr-2"></span>
-                                      View activities
+                                      View logs
                                   </a>
                               </li>
                               <li ngbDropdownItem>

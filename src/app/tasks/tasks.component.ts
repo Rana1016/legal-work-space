@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
 import { SharedService } from '../shared/services/shared.service';
 import { TasksService } from '../shared/services/tasks.service';
 
@@ -8,12 +10,15 @@ import { TasksService } from '../shared/services/tasks.service';
   styleUrls: ['./tasks.component.scss']
 })
 export class TasksComponent implements OnInit {
-  constructor(private task: TasksService, private lookup: SharedService) {
+  constructor(private task: TasksService, private lookup: SharedService, private route: ActivatedRoute) {
     this.lookup.getOptions('tblUser', 'UserId', 'Name').subscribe((users) => this.assignees = users);
   }
   tasks!: any[];
   title!: string;
   dtOptions!: DataTables.Settings;
+  status!: string;
+  dtTrigger: Subject<any> = new Subject();
+
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -75,18 +80,27 @@ export class TasksComponent implements OnInit {
         orderable: false,
         data: null
       }],
+      destroy: true,
       ajax: this.ajaxTasks.bind(this)
     };
+  }
+
+  ngAfterViewInit() {
+    this.dtTrigger.next();
+    this.route.params.subscribe(({status}) => {
+      this.status = status;
+      this.dtTrigger.next()
+    })
   }
 
   assignees!: any[];
 
   getUser(userId: number) {
-    return (this.assignees?.find((a) => { if (a.keyValue == userId) {return a.displayValue}}) || 'N/A')
+    return (this.assignees?.find((a) => { if (a.keyValue == userId) {return a.displayValue}}) || 'N/A').displayValue
   }
 
   ajaxTasks(dTParams: any, callback: any) {
-    this.task.getAll(dTParams).subscribe(({records, totalRecords}) => {
+    this.task.getAll(dTParams, this.status).subscribe(({records, totalRecords}) => {
       this.tasks = records;
       callback({
         recordsTotal: totalRecords,

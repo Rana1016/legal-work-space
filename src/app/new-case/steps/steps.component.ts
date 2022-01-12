@@ -236,7 +236,7 @@ export class StepsComponent implements OnInit {
         const feeForm = (<FormGroup>(<FormGroup>this.stepForm.controls.paymentOptions).controls.feeTypeForm)
         feeType == 1 || feeType == 2 ? (
           feeForm.setControl('agreedFee', this.fb.control('')),
-          feeForm.setControl('isVATIncluded', this.fb.control(0)),
+          feeForm.setControl('isVATIncluded', this.fb.control("0")),
           feeForm.setControl('advancePayment', this.fb.control('')),
           feeForm.setControl('installments', this.fb.array([this.createInstallment()])),
           feeForm.removeControl('hourlyRateCaseWorker'),
@@ -247,8 +247,8 @@ export class StepsComponent implements OnInit {
           feeForm.removeControl('advancePayment'),
           feeForm.removeControl('installments'),
           feeType == 3 ? (
-            feeForm.setControl('hourlyRateCaseWorker', this.fb.control(0)),
-            feeForm.setControl('isVATIncluded', this.fb.control(0)),
+            feeForm.setControl('hourlyRateCaseWorker', this.fb.control("0")),
+            feeForm.setControl('isVATIncluded', this.fb.control("0")),
             feeForm.removeControl('agreedValue'),
             feeForm.removeControl('amountOrPercentage')
           ) : feeType == 4 ? (

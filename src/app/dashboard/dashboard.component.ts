@@ -23,49 +23,54 @@ export class DashboardComponent implements OnInit {
 
   outcomeChart: typeof Highcharts = Highcharts;
   outcomeChartOpt!: Highcharts.Options;
-  outcomeData: {
+  outcomeData!: {
     outcome_positive: number,
     outcome_negative: number,
     outcome_neutral: number,
-  } = {
-      outcome_positive: 40,
-      outcome_negative: 20,
-      outcome_neutral: 40
-    }
-
+  };
   successChart: typeof Highcharts = Highcharts;
   successChartOpt!: Highcharts.Options;
-  successData: {
+  successData!: {
     objectiveMet: number,
     objectiveNotMet: number,
     instructionsWithdrawn: number,
     noFurtherInstructions: number
-  } = {
-      objectiveMet: 100,
-      objectiveNotMet: 0,
-      instructionsWithdrawn: 0,
-      noFurtherInstructions: 0
-    };
+  };
 
   inProgressCases?: number;
   closedCases?: number;
   totalCases?: number;
 
   ngOnInit(): void {
-    for (var i = 0; i <= 7; i++) {
+    for (var i = 0; i <= 1; i++) {
       this.registrationYears.push(this.selectedYear - i);
     };
     this.caseChartInit();
   }
   caseChartInit() {
-    this.dashboardService.getDashboardStats(this.selectedYear).subscribe(({ newAndReturning, tiles: [{ totalClosedCase, totalInProgressCase, totalCases }] }) => {
+    this.dashboardService.getDashboardStats(this.selectedYear).subscribe(({ newAndReturning, tiles: [{ totalClosedCase, totalInProgressCase, totalCases }], caseOutcomes, caseResults }) => {
       this.inProgressCases = totalInProgressCase;
       this.closedCases = totalClosedCase;
       this.totalCases = totalCases;
+      this.outcomeData = {
+        outcome_negative: caseOutcomes.find((e: any) => e.caseOutcome == 'Outcome Negative')?.percentage || 0,
+        outcome_positive: caseOutcomes.find((e: any) => e.caseOutcome == 'Outcome Positive')?.percentage || 0,
+        outcome_neutral: caseOutcomes.find((e: any) => e.caseOutcome == 'Outcome Neutral')?.percentage || 0
+      }
+      this.successData = {
+        objectiveMet: caseResults.find((e: any) => e.caseResult == 'Objective Met')?.percentage || 0,
+        objectiveNotMet: caseResults.find((e: any) => e.caseResult == 'Objective Not Met')?.percentage || 0,
+        instructionsWithdrawn: caseResults.find((e: any) => e.caseResult == 'Instructions Withdrawn')?.percentage || 0,
+        noFurtherInstructions: caseResults.find((e: any) => e.caseResult == 'No Further Instructions')?.percentage || 0,
+      };
       for (var i = 0; i <= 11; i++) {
+        newAndReturning.length !== 0 ?
         newAndReturning?.forEach(({ month, new: newClients, returning: newMatters }: { month: string; returning: number; new: number; }) => {
           month?.startsWith(`${i + 1} `) ? (this.newClients[i] = newClients, this.newMatters[i] = newMatters) : (this.newClients[i] = 0, this.newMatters[i] = 0);
-        });
+        }) : (
+          this.newClients[i] = 0,
+          this.newMatters[i] = 0
+        )
         i == 11 && (this.caseChartOpt = {
           title: {
             text: `My Cases in ${this.selectedYear}`,

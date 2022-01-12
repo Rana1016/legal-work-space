@@ -11,22 +11,21 @@ import { TimeActivityCodesComponent } from './components/time-activity-codes/tim
 import { VatRatesComponent } from './components/vat-rates/vat-rates.component';
 import { QuizComponent } from './components/quiz/quiz.component';
 import { ContactsComponent } from './components/contacts/contacts.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     SettingsComponent,
     CalendarComponent,
     GlobalSettingsComponent,
-    AreasOfPracticeComponent,
-    WorkflowTemplatesComponent,
     TimeActivityCodesComponent,
-    VatRatesComponent,
     QuizComponent,
     ContactsComponent
   ],
   imports: [
     CommonModule,
-    SettingsRoutingModule
+    SettingsRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class SettingsModule { }

@@ -31,8 +31,9 @@ export class CalendarComponent implements OnInit {
 
   searchEvents(search: string) {
     this.Calendar.getApi().removeAllEventSources();
-    this.calendarSvc.getEventsBySearch(search).subscribe((data) => {
+    this.calendarSvc.getEventsBySearch(search, this.user.getUser.userId).subscribe((data) => {
       this.calendarOptions.eventSources = [data];
+      this.Calendar.getApi().changeView('listMonth')
     })
   }
 
@@ -202,7 +203,7 @@ export class CalendarComponent implements OnInit {
 
   dateClick({ date, jsEvent, view }: DateClickArg) {
     this.modalType = 'add';
-    var startDate = date.toISOString().split('T')[0];
+    var startDate = this.toDate(date);
     var startTime = this.toTime(date);
     this.eventForm.patchValue({
       startDate: startDate,
@@ -335,27 +336,11 @@ export class CalendarComponent implements OnInit {
 
   addEvent() {
     this.eventForm.dirty &&
-      this.calendarSvc.addEvent({ ...this.eventForm.value, caseId: Number(this.eventForm.value.caseId) }).subscribe((res) => {
-        if (res == 1) {
-          this.Calendar.getApi().addEvent({
-            title: this.capitalize.transform(this.eventForm.value.title || ''),
-            start: this.eventForm.value.startDate,
-            startTime: (this.eventForm.value.startTime != '00:00:00' ? 'T' + this.eventForm.value.startTime : ''),
-            end: this.eventForm.value.endDate,
-            endTime: (this.eventForm.value.endTime != '00:00:00' ? 'T' + this.eventForm.value.endTime : ''),
-            extendedProps: {
-              userId: this.eventForm.value.userId,
-              caseId: this.eventForm.value.caseId,
-              personName: this.eventForm.value.personName,
-              email: this.eventForm.value.email,
-              contact: this.eventForm.value.contact,
-              location: this.eventForm.value.location,
-              description: this.eventForm.value.description,
-              emialNotification: parseInt(<string>this.eventForm.value.emialNotification),
-              eventScope: this.eventForm.value.eventScope
-            }
-          }, this.Calendar.getApi().getEventSourceById(this.eventForm.value.userId) || undefined
-          )
+      this.calendarSvc.addEvent({ ...this.eventForm.value, caseId: Number(this.eventForm.value.caseId), start: this.eventForm.value.startDate + (this.eventForm.value.startTime != '00:00:00' ? 'T' + this.eventForm.value.startTime : ''), end: this.eventForm.value.endDate + (this.eventForm.value.endTime != '00:00:00' ? 'T' + this.eventForm.value.endTime : ''), }).subscribe((res) => {
+        if (res == '1') {
+          this.Calendar.getApi().removeAllEventSources();
+          this.getEvents();
+          this.eventFormInit()
         }
       })
   };

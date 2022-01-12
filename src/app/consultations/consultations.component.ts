@@ -83,7 +83,7 @@ export class ConsultationsComponent implements OnInit, AfterViewInit {
 
   ajaxConsultations(dTParams: any, callback: any) {
     (this.searchMethod == '0' ?
-    this.consultation.getAll(dTParams)
+    this.consultation.getAll(dTParams, this.search)
     : this.consultation.getByDateRange(this.startDate, this.endDate, dTParams)).subscribe(({records, totalRecords}) => {
       this.consultations = records;
       callback({
@@ -104,7 +104,7 @@ export class ConsultationsComponent implements OnInit, AfterViewInit {
 
   convertToCase(id: number) {
     this.consultation.convertToCase(id).subscribe((res) => {
-      if (res == 1) {
+      if (res == 4) {
         this.consultations = this.consultations.filter(({consultationId}) => consultationId != id);
         this.router.navigate(['/cases']);
       };

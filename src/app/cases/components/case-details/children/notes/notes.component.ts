@@ -16,17 +16,13 @@ export class NotesComponent implements OnInit {
   caseId!: number;
   notes!: any[];
   ngOnInit(): void {
-    this.noteService.notesObservable.subscribe(notes => {
-      if (!!notes) {
-        this.notes = notes
-      } else {
-        this.noteService.getNotes(this.caseId).subscribe();
-      }
+    this.noteService.getNotes(this.caseId).subscribe(notes => {
+      this.notes = notes
     });
   }
-  deleteNote(noteId: number) {
-    this.noteService.deleteNote(noteId).subscribe((response) => {
-      response == 1 && (this.notes = this.notes.filter(({noteId}) => noteId != noteId))
-    })
-  }
+deleteNote(noteId: number) {
+  this.noteService.deleteNote(noteId).subscribe((response) => {
+    response == 1 && (this.notes = this.notes.filter(({ noteId }) => noteId != noteId))
+  })
+}
 }

@@ -4,6 +4,10 @@ export const ApiRoutes: API_ROUTES = {
     dashboard: {
         getStats: `${environment.baseUrl}dashboard/getDashboardStats`
     },
+    globalSettings: {
+        get: `${environment.baseUrl}common/getGlobalSettings`,
+        update: `${environment.baseUrl}common/updateGlobalSettings`
+    },
     cases: {
         all: `${environment.baseUrl}case/getCasesMinor`,
         caseDetails: `${environment.baseUrl}case/getCaseDetailByCaseId`,
@@ -23,15 +27,37 @@ export const ApiRoutes: API_ROUTES = {
         update: `${environment.baseUrl}caseCategory/updateCaseCategory`,
         delete: `${environment.baseUrl}caseCategory/deleteCaseCategory`
     },
+    timeKeepCategories: {
+        all: `${environment.baseUrl}hourlyRate/getHourlyRate`,
+        add: `${environment.baseUrl}hourlyRate/newHourlyRate`,
+        byId: `${environment.baseUrl}hourlyRate/getHourlyRateById`,
+        update: `${environment.baseUrl}hourlyRate/updateHourlyRate`,
+        delete: `${environment.baseUrl}hourlyRate/deleteHourlyRate`
+    },
     installment: {
         overdue: `${environment.baseUrl}installment/getOverdueInsallments`
     },
     caseSubCategories: {
         all: `${environment.baseUrl}caseSubCategory/getCaseSubCategory`,
         add: `${environment.baseUrl}caseSubCategory/newCaseSubCategory`,
-        byId: `${environment.baseUrl}caseSubCategory/getCaseSubCategoriesById`,
+        byId: `${environment.baseUrl}caseSubCategory/getSubCaseCategoriesById`,
         update: `${environment.baseUrl}caseSubCategory/updateCaseSubCategory`,
         delete: `${environment.baseUrl}caseSubCategory/deleteCaseSubCategory`
+    },
+    timeKeepSubCategories: {
+        all: `${environment.baseUrl}hourlyRate/getHourlyRateDetail`,
+        add: `${environment.baseUrl}hourlyRate/newHourlyRateDetail`,
+        byId: `${environment.baseUrl}hourlyRate/getSubHourlyRateById`,
+        update: `${environment.baseUrl}hourlyRate/updateHourlyRateDetail`,
+        delete: `${environment.baseUrl}hourlyRate/deleteHourlyRateDetail`,
+        byCategoryId: `${environment.baseUrl}hourlyRate/getHourlyRateDetailByHourlyRateId`
+    },
+    vatRates: {
+        all: `${environment.baseUrl}vatRate/getVatRate`,
+        add: `${environment.baseUrl}vatRate/newVatRate`,
+        byId: `${environment.baseUrl}vatRate/getVatRateById`,
+        update: `${environment.baseUrl}vatRate/updateVatRate`,
+        delete: `${environment.baseUrl}vatRate/deleteVatRate`
     },
     clientPortal: {
         getInfo: `${environment.baseUrl}client/getClientInfoBycaseId`,
@@ -181,6 +207,8 @@ export const ApiRoutes: API_ROUTES = {
         get: `${environment.baseUrl}lookup/look`,
         add: `${environment.baseUrl}lookup/addNewLookUp`,
         edit: `${environment.baseUrl}lookup/editLookUp`,
+        delete: `${environment.baseUrl}lookup/deleteLookUp`,
+        table: `${environment.baseUrl}lookup/lookPagination`
     },
     notification: {
         get: `${environment.baseUrl}notification/getCounts`,
@@ -191,6 +219,10 @@ export const ApiRoutes: API_ROUTES = {
 export interface API_ROUTES {
     dashboard: {
         getStats: string;
+    };
+    globalSettings: {
+        get: string;
+        update: string;
     };
     cases: {
         all: string;
@@ -209,6 +241,11 @@ export interface API_ROUTES {
     };
     caseCategories: CommonAPIRoutes;
     caseSubCategories: CommonAPIRoutes;
+    timeKeepCategories: CommonAPIRoutes;
+    timeKeepSubCategories: CommonAPIRoutes & {
+        byCategoryId: string;
+    };
+    vatRates: CommonAPIRoutes;
     clientPortal: {
         getInfo: string;
         toggleStatus: string;
@@ -288,6 +325,8 @@ export interface API_ROUTES {
         get: string;
         add: string;
         edit: string;
+        delete: string;
+        table: string;
     };
     peshi: CommonAPIRoutes;
     notification: {

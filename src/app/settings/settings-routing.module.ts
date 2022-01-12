@@ -22,7 +22,7 @@ const routes: Routes = [
     children: [
       {
         path: "areas-of-practice",
-        component: AreasOfPracticeComponent
+        loadChildren: () => import('src/app/settings/components/areas-of-practice/areas-of-practice.module').then(m => m.AreasOfPracticeModule)
 
       },
       {
@@ -71,11 +71,11 @@ const routes: Routes = [
 
       }, {
         path: "vat-rates",
-        component: VatRatesComponent
+        loadChildren: () => import('src/app/settings/components/vat-rates/vat-rates.module').then(m => m.VatRatesModule)
 
       }, {
         path: "workflow-templates",
-        component: WorkflowTemplatesComponent
+        loadChildren: () => import('src/app/settings/components/workflow-templates/workflow-templates.module').then(m => m.WorkflowTemplatesModule)
 
       },
     ]

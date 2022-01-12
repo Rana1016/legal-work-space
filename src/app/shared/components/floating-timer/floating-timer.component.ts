@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 import { SharedService } from '../../services/shared.service';
 import { TimeKeepingService } from '../../services/time-keeping.service';
+import { VatRateService } from '../../services/vat-rate.service';
 
 @Component({
   selector: 'app-floating-timer',
@@ -16,6 +17,7 @@ export class FloatingTimerComponent implements OnInit {
   seconds!: number;
   categories!: any[];
   subCategories!: any[];
+  vatRates!: any[];
 
   TimeOut?: any;
   timerModal: any;
@@ -23,7 +25,7 @@ export class FloatingTimerComponent implements OnInit {
   @ViewChild('AddTimeEntryForBilling') AddTimeEntryForBilling!: TemplateRef<any>;
 
   addTimeForm: FormGroup;
-  constructor(private modalService: NgbModal, private fb: FormBuilder, private timeKeep: TimeKeepingService, private lookup: SharedService) {
+  constructor(private modalService: NgbModal, private fb: FormBuilder, private timeKeep: TimeKeepingService, private lookup: SharedService, private vatRate: VatRateService) {
     this.addTimeForm = this.fb.group({
       caseId: [''],
       dateCreated: [new Date().toISOString()],
@@ -31,7 +33,7 @@ export class FloatingTimerComponent implements OnInit {
       categoryId: ["0"],
       subCategoryId: ["0"],
       inclusiveVat: ["0"],
-      vatRate: ["1"],
+      vatRate: [null],
       timeSpent: ["00:00:00"],
       type: ["0"]
     });
@@ -40,6 +42,7 @@ export class FloatingTimerComponent implements OnInit {
     this.hours = 0;
     this.minutes = 0;
     this.seconds = 0;
+    // this.vatRate.getVatRates(szq)
     this.timeKeep.modalOpen.subscribe((timeKeepId) => {
       if (timeKeepId != null) {
         this.timeKeep.getTimeKeepById(timeKeepId).subscribe((data) => {
@@ -49,6 +52,12 @@ export class FloatingTimerComponent implements OnInit {
       } else {
         
       }
+    });
+    this.vatRate.getAll().subscribe(data => {
+      this.vatRates = data;
+      this.addTimeForm.patchValue({
+        vatRate: `${data[0].keyValue}`
+      })
     })
   }
 
@@ -119,10 +128,10 @@ export class FloatingTimerComponent implements OnInit {
   }
 
   getCategories() {
-    return this.lookup.getOptions('tblTimeKeepCategory', 'timeKeepCategoryId', 'Title').subscribe((categories) =>  this.categories = categories);
+    return this.lookup.getOptions('tblHourlyRate', 'hourlyRateId', 'Title').subscribe((categories) =>  this.categories = categories);
   }
 
-  getSubCategories(categoryId: number) {
-    return this.lookup.getOptions('tblTimeKeepSubCategory', 'timeKeepSubCategoryId', 'Title', 'timeKeepCategoryId', categoryId).subscribe((subCategories) =>  this.subCategories = subCategories);
+  getSubCategories(hourlyRate: any) {
+    return this.lookup.getOptions('tblHourlyRateDetail', 'hourlyRateDetailId', 'Title', 'hourlyRateId', `${this.addTimeForm.value.categoryId}`).subscribe((subCategories) =>  this.subCategories = subCategories);
   }
 }

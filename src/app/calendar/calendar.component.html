@@ -65,7 +65,7 @@
                 </table>
               </div>
             </div> -->
-            <h5 style="margin: 0 0 20px 0">Internet Calendar (iCal)</h5>
+            <h5 style="margin: 20px 0 20px 0">Internet Calendar (iCal)</h5>
             <p>
               Add your calendar to your iOS / Android devices
               <strong>(one-way, read-only synchronization)</strong>
@@ -170,7 +170,7 @@
         <div class="col-sm-12 col-md-12 col-lg-12">
           <label>Email notification before appointment</label>
           <select
-            class="selectpicker form-control" formControlName="emailNotificationTime"
+            class="selectpicker form-control" formControlName="emialNotification"
           >
           <option *ngFor="let opt of FormData.emailNotificationTimes" [value]="opt.value">{{opt.label}}</option>
           </select>
@@ -208,7 +208,8 @@
       <div class="col-6 d-flex justify-content-start">
         <button
             class="btn btn-danger ml-1"
-            (click)="modal.dismiss('Cross click')"
+            (click)="modal.dismiss('Cross click'); eventForm.reset()"
+
           >
             <span class="glyphicon glyphicon-remove mr-1"></span>Cancel
           </button>

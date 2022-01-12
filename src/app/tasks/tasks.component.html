@@ -12,18 +12,18 @@
           <div class="col-md-12" id="pg-nav">
             <ul class="list-inline">
               <li>
-                <a class="btn" [routerLink]="['new-task']">
+                <a class="btn" [routerLink]="['/tasks/new-task']">
                   <span class="glyphicon glyphicon-plus"></span> Create new task
                 </a>
               </li>
               <li>
-                <a class="btn">
+                <a class="btn" [routerLink]="['/tasks/status/in-progress']">
                   <span class="glyphicon glyphicon-remove"></span> Tasks
                   incomplete
                 </a>
               </li>
               <li>
-                <a class="btn">
+                <a class="btn" [routerLink]="['/tasks/status/completed']">
                   <span class="glyphicon glyphicon-ok"></span> Tasks completed
                 </a>
               </li>
@@ -62,6 +62,7 @@
                 [ngClass]="{ 'empty': tasks && tasks.length !== 0 }"
                 datatable
                 [dtOptions]="dtOptions"
+                [dtTrigger]="dtTrigger"
               >
                 <tbody>
                   <tr *ngFor="let task of tasks">

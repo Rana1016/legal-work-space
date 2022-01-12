@@ -40,7 +40,7 @@ export class NewTaskComponent implements OnInit {
       ...this.newTaskForm.value,
       caseId: Number(this.newTaskForm.value.caseId)
     };
-    (!!this.edit ? this.task.addTask(data) : this.task.updateTaskById(this.edit, data)).subscribe((res) => res == 1 && this.router.navigate(['..'], {relativeTo: this.route}))
+    (!this.edit ? this.task.addTask(data) : this.task.updateTaskById(this.edit, data)).subscribe((res) => res == 1 && this.router.navigate( !this.edit ? ['..'] : ['../..'], {relativeTo: this.route}))
   }
 
 }

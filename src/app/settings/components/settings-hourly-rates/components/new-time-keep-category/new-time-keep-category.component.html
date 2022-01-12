@@ -1,1 +1,71 @@
-<p>new-time-keep-category works!</p>
+<h1 id="pg-title" class="row align-items-center justify-content-center justify-content-md-start">
+    Hourly rates<span class="glyphicon glyphicon-chevron-right mx-3"></span> {{!edit ? 'Add new': 'Edit'}} hourly rate
+  </h1>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="widget">
+        <div class="widget-body">
+          <div class="row">
+            <div class="col-md-12" id="pg-nav">
+              <ul class="list-inline">
+                <li>
+                  <a
+                    class="btn"
+                    [routerLink]="!edit ? ['..'] : ['../..']"
+                    ><span class="glyphicon glyphicon-arrow-left"></span> Back</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-12">
+      <div class="widget">
+        <div class="widget-body">
+          <div class="row">
+            <div class="col-sm-12 col-md-12">
+              <div class="alert alert-info" role="alert">
+                <strong>Note:</strong> All fields are required.
+              </div>
+              <form
+                class="form-horizontal"
+                [formGroup]="newCategoryForm"
+              >
+                <div class="row">
+                    <div class="col-md-4">
+                      <label for="inpNAME">* Title</label>
+                    </div>
+                    <div class="col-md-8">
+                      <input
+                        type="text"
+                        maxlength="50"
+                        class="form-control"
+                        formControlName="title"
+                      /><small class="text-muted">Example: Post (Incoming)</small>
+                    </div>
+                  </div>
+                  
+                <div class="row justify-content-end">
+                  <div class="col-auto">
+                    <button
+                      style="margin-bottom: 15px"
+                      class="btn btn-primary"
+                      (click)="submitForm()"
+                    >
+                      <span class="glyphicon glyphicon-ok"></span> Submit
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

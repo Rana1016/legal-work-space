@@ -98,6 +98,6 @@ export class DocumentsComponent implements OnInit {
 
   uploadDoc() {
     (this.uploadMode == 'single' ? this.common.uploadSingleDocument(this.caseId, this.uploadDocForm.value.sharedWithClient != '0', this.files)
-    : this.common.uploadMultipleDocuments(this.caseId, this.uploadDocForm.value.sharedWithClient != '0', this.files)).subscribe()
+    : this.common.uploadMultipleDocuments(this.caseId, this.uploadDocForm.value.sharedWithClient != '0', this.files)).subscribe((res) => {})
   }
 }

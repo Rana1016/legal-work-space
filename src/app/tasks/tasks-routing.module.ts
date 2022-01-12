@@ -9,6 +9,10 @@ const routes: Routes = [
     component:TasksComponent
   },
   {
+    path: "status/:status",
+    component:TasksComponent
+  },
+  {
     path: "new-task",
     component: NewTaskComponent
   },

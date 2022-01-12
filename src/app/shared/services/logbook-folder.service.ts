@@ -37,7 +37,7 @@ export class LogbookFolderService {
   }
 
   getLogBookFolderByUserId(userId: number, dTParams: any) {
-    return this.http.get<any>(ApiRoutes.logBookFolder.byUserId, {
+    return this.http.post<any>(ApiRoutes.logBookFolder.byUserId, dTParams, {
       params: {
         userId
       }

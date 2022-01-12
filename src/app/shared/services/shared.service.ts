@@ -9,6 +9,14 @@ import { UserService } from './user.service';
 export class SharedService {
   constructor(private http: HttpClient, private user: UserService) { }
 
+  getGlobalSettings() {
+    return this.http.get<any>(ApiRoutes.globalSettings.get);
+  }
+
+  updateGlobalSettings(data: any) {
+    return this.http.post(ApiRoutes.globalSettings.update, data)
+  }
+
   getOptions(tableName: string, keyValueColumnName: string, displayValueColumnName: string, whereColumn?: string, whereValue?: number | string) {
     return this.http.get<any[] | any>(ApiRoutes.lookup.get, {
       params: {
@@ -21,12 +29,35 @@ export class SharedService {
     })
   }
 
-  addOption(tableName: string, keyValueColumnName: string, displayValueColumnName: string, newValue: string,) {
-    return this.http.post(ApiRoutes.lookup.add, {tableName, keyValueColumnName, displayValueColumnName, newValue});
+  getTableOptions(dTParams: any, tableName: string, keyValueColumnName: string, displayValueColumnName: string, primaryKey: string, whereColumn?: string, whereValue?: number | string) {
+    return this.http.post<any>(ApiRoutes.lookup.table, dTParams, {
+      params: {
+        tableName,
+        keyValueColumnName,
+        displayValueColumnName,
+        primaryKey,
+        ...(!!whereColumn && { whereColumn }),
+        ...(!!whereValue && { whereValue })
+      }
+    })
+  }
+
+  addOption(tableName: string, keyValueColumnName: string = '', displayValueColumnName: string, keyValue: string = '', displayValue: string) {
+    return this.http.post(ApiRoutes.lookup.add, {tableName, keyValueColumnName, displayValueColumnName, keyValue, displayValue});
   }
 
   updateOption(tableName: string, keyValueColumnName: string, displayValueColumnName: string, keyValue: string, displayValue: string,) {
     return this.http.post(ApiRoutes.lookup.edit, {tableName, keyValueColumnName, displayValueColumnName, keyValue, displayValue});
+  }
+  
+  deleteOption(tableName: string, deleteByColumnName: string, deleteWhereValue: number) {
+    return this.http.delete(ApiRoutes.lookup.delete, {
+      params: {
+        tableName,
+        deleteByColumnName,
+        deleteWhereValue
+      }
+    })
   }
 
   getMenu() {

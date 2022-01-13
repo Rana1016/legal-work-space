@@ -62,29 +62,29 @@ export const mandatoryCaseDetailsFields: FormField[] = [
   //     field: 'subCategoriesOffense',
   //     type: 'array',
   //   },
-  {
-    field: 'lescoCase',
-    type: 'boolean',
-  },
-  {
-    field: 'lescoType',
-    type: 'boolean',
-  },
-  {
-    field: 'lescoGroup',
-    type: 'group',
-    mandatoryFields: [
-      { field: 'cloDivision', type: 'input' },
-      { field: 'cloSubDivision', type: 'input' },
-      { field: 'cloConsumerRef', type: 'input' },
-      { field: 'cloClerkName', type: 'input' },
-      { field: 'seCircle', type: 'select' },
-      { field: 'seDivision', type: 'input' },
-      { field: 'seSubDivision', type: 'input' },
-      { field: 'seConsumer', type: 'input' },
-      { field: 'seClerkName', type: 'input' },
-    ],
-  },
+  // {
+  //   field: 'lescoCase',
+  //   type: 'boolean',
+  // },
+  // {
+  //   field: 'lescoType',
+  //   type: 'boolean',
+  // },
+  // {
+  //   field: 'lescoGroup',
+  //   type: 'group',
+  //   mandatoryFields: [
+  //     { field: 'cloDivision', type: 'input' },
+  //     { field: 'cloSubDivision', type: 'input' },
+  //     { field: 'cloConsumerRef', type: 'input' },
+  //     { field: 'cloClerkName', type: 'input' },
+  //     { field: 'seCircle', type: 'select' },
+  //     { field: 'seDivision', type: 'input' },
+  //     { field: 'seSubDivision', type: 'input' },
+  //     { field: 'seConsumer', type: 'input' },
+  //     { field: 'seClerkName', type: 'input' },
+  //   ],
+  // },
   {
     field: 'briefCaseDescription',
     type: 'input',

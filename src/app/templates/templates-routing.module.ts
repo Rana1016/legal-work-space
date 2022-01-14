@@ -2,6 +2,7 @@ import { DocumentsComponent } from './components/documents/documents.component';
 import { TemplatesComponent } from './templates.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { DocumentTemplateComponent } from './components/document-template/document-template.component';
 const routes: Routes = [
   {
     path: "",
@@ -15,6 +16,10 @@ const routes: Routes = [
       {
         path: "documents",
         component:DocumentsComponent
+      },
+      {
+        path: "document-viewer",
+        component:DocumentTemplateComponent
       }
     ]
   }

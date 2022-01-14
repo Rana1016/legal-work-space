@@ -48,6 +48,7 @@
     "pikaday": "^1.8.2",
     "responsive-tabs": "^1.6.3",
     "rxjs": "~6.6.0",
+    "tinymce": "^5.10.2",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },

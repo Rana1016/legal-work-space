@@ -1,0 +1,52 @@
+<h1
+  id="pg-title"
+  class="row align-items-center justify-content-center justify-content-md-start"
+>
+  Document templates
+</h1>
+<div class="row">
+  <div class="col-md-12">
+    <div class="widget">
+      <div class="widget-body">
+        <div class="row">
+          <div class="col-md-12" id="pg-nav">
+            <ul class="list-inline">
+              <li>
+                <a class="btn"
+                  ><span class="glyphicon glyphicon-plus"></span> New folder</a
+                >
+              </li>
+              <li>
+                <a class="btn"
+                  ><span class="glyphicon glyphicon-plus"></span> New
+                  template</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <editor
+      [init]="{
+        height: '100%',
+        plugins: [
+          'advlist autolink lists link image charmap print preview anchor',
+          'searchreplace visualblocks code fullscreen',
+          'insertdatetime media table paste code help wordcount'
+        ],
+        toolbar:
+          'undo redo | formatselect | bold italic backcolor | \
+          alignleft aligncenter alignright alignjustify | \
+          bullist numlist outdent indent | removeformat | help'
+      }"
+      [formControl]="docData"
+      (ngModelChange)="clog($event)"
+    ></editor>
+  </div>
+</div>

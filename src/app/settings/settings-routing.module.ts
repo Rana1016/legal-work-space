@@ -77,6 +77,10 @@ const routes: Routes = [
         path: "workflow-templates",
         loadChildren: () => import('src/app/settings/components/workflow-templates/workflow-templates.module').then(m => m.WorkflowTemplatesModule)
 
+      }, {
+        path: "charts-of-accounts",
+        loadChildren: () => import('src/app/settings/components/charts-of-accounts/charts-of-accounts.module').then(m => m.ChartsOfAccountsModule)
+
       },
     ]
   },

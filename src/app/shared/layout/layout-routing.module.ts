@@ -97,6 +97,10 @@ const LayoutRoutes: Routes = [
   {
     path: 'client',
     loadChildren: () => import('src/app/client-portal/client-portal.module').then(m => m.ClientPortalModule)
+  },
+  {
+    path: 'general-transaction',
+    loadChildren:()=> import('src/app/general-transaction/general-transaction.module').then(m=>m.GeneralTransactionModule)
   }
 ];
 

@@ -12,6 +12,7 @@ import { VatRatesComponent } from './components/vat-rates/vat-rates.component';
 import { QuizComponent } from './components/quiz/quiz.component';
 import { ContactsComponent } from './components/contacts/contacts.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ChartsOfAccountsComponent } from './components/charts-of-accounts/charts-of-accounts.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     GlobalSettingsComponent,
     TimeActivityCodesComponent,
     QuizComponent,
-    ContactsComponent
+    ContactsComponent,
+    // ChartsOfAccountsComponent
   ],
   imports: [
     CommonModule,

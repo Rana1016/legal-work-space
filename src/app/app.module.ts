@@ -26,10 +26,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 import { ChangePasswordComponent } from './auth/change-password/change-password.component';
 import { InstallmentsComponent } from './installments/installments.component';
+import { GeneralTransactionComponent } from './general-transaction/general-transaction.component';
 
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, ChangePasswordComponent],
+  declarations: [AppComponent, LoginComponent, ChangePasswordComponent, GeneralTransactionComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

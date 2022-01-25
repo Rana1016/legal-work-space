@@ -100,7 +100,7 @@ const LayoutRoutes: Routes = [
   },
   {
     path: 'general-transaction',
-    loadChildren:()=> import('src/app/general-transaction/general-transaction.module').then(m=>m.GeneralTransactionModule)
+    loadChildren:()=> import('src/app/general-transaction/general-transaction.module').then(m => m.GeneralTransactionModule)
   }
 ];
 

@@ -31,11 +31,11 @@ export class GeneralTransactionComponent implements OnInit {
     this.debits = [];
 
     this.empForm = this.fb.group({
-      mainClass: ['main'],
-      subClass: ['sub'],
-      generalLedger: ['genral'],
-      cases: ['cases'],
-      clients: ['client'],
+      mainClass: [''],
+      subClass: [''],
+      generalLedger: [''],
+      cases: [''],
+      clients: [''],
       credit: [''],
       debit:[''],
     })

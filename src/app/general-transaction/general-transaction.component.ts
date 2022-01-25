@@ -11,24 +11,31 @@ import { SharedService } from "src/app/shared/services/shared.service"
 })
 export class GeneralTransactionComponent implements OnInit {
   mainClassSelectedId: any;
-  constructor(private chartAccounts:ChartsOfAccountsService, private fb:FormBuilder, private lookup:SharedService) { }
+  debits: any;
+  constructor(private chartAccounts: ChartsOfAccountsService, private fb: FormBuilder, private lookup: SharedService) {
+
+   }
+
+  dummyData!: any;
   mainClass!: any[];
   subClass!: any[];
   generalLedger!: any[];
   cases!: any[];
   clients!: any[];
-  debits!: any [];
+
   credits!: any[];
   dtOptions!: DataTables.Settings;
   empForm!: FormGroup
 
   ngOnInit(): void {
+    this.debits = [];
+
     this.empForm = this.fb.group({
-      mainClass: [''],
-      subClass: [''],
-      generalLedger: [''],
-      cases: [''],
-      clients: [''],
+      mainClass: ['main'],
+      subClass: ['sub'],
+      generalLedger: ['genral'],
+      cases: ['cases'],
+      clients: ['client'],
       credit: [''],
       debit:[''],
     })
@@ -49,13 +56,15 @@ export class GeneralTransactionComponent implements OnInit {
   }
   getAllCases(){
 
-    this.lookup.getOptions('tblCaseMaster', 'caseId', 'totalRecords').subscribe((res) => {
+    this.lookup.getOptions('tblCaseMaster', 'caseId', 'caseId').subscribe((res) => {
       // console.log(res)
       this.cases=res
 
     });
 
   }
+
+
   onChange(event: any, type : string) {
     // this.mainClassSelectedId = event.value;
     switch (type) {
@@ -64,6 +73,13 @@ export class GeneralTransactionComponent implements OnInit {
         break;
       case 'generalLedger':
         this.getGeneralLedgerById(event.value);
+        break;
+      default:
+        break;
+    }
+    switch (type) {
+      case 'clients':
+        this.getClients(event.value);
         break;
       default:
         break;
@@ -83,10 +99,19 @@ export class GeneralTransactionComponent implements OnInit {
       // console.log(res)
       this.generalLedger=res
     });
-   }
+  }
+
+  getClients(caseSelectedId: any) {
+    this.lookup.getOptions('tblClient', 'clientId', 'clientId', 'caseId', `${caseSelectedId}`).subscribe((res) => {
+      // console.log(res)
+      this.clients = res
+
+    });
+  }
   submitForm() {
     console.log(this.empForm)
+    this.dummyData= this.empForm.value
 
-    this.debits.push(this.mainClass)
+    // this.debits.push(this.mainClass)
   }
 }

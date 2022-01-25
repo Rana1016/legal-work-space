@@ -6,104 +6,98 @@
       <form [formGroup]="empForm" >
       <div class="widget-body">
 
-        <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="widget">
+                <div class="widget-body">
+                  <div class="row">
+                    <div class="col-md-12">
 
-          <div class="col-md-4">
-              <label>Main Class</label>
-          </div>
-          <div class="col-md-8">
-              <select class="w-100 selectpicker form-control" (change)="onChange($event.target, 'subclass')" formControlName="mainClass"
-                  >
-                  <option >Please Select</option>
-                  <option [value]="main.keyValue" *ngFor="let main of mainClass">{{main.displayValue}}</option>
-              </select>
-              <small class="text-muted">Select an appropriate option.</small>
-          </div>
-      </div>
-        <div class="row">
-          <div class="col-md-4">
-              <label>Sub Class</label>
-          </div>
-          <div class="col-md-8">
-              <select class="w-100 selectpicker form-control" (change)="onChange($event.target, 'generalLedger')" formControlName="subClass"
-                  >
-                  <option value="0">Please Select</option>
-                  <option [value]="sub.keyValue" *ngFor="let sub of subClass">{{sub.displayValue}}</option>
-              </select>
-              <small class="text-muted">Select an appropriate option.</small>
-          </div>
-      </div>
-        <div class="row">
-          <div class="col-md-4">
-              <label>General Ledger</label>
-          </div>
-          <div class="col-md-8">
-              <select class="w-100 selectpicker form-control" formControlName="generalLedger"
-                  >
-                  <option value="0">Please Select</option>
-                  <option [value]="general.keyValue" *ngFor="let general of generalLedger"> {{general.displayValue}}</option>
-              </select>
-              <small class="text-muted">Select an appropriate option.</small>
-          </div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">
-            <label>Cases</label>
-        </div>
-        <div class="col-md-8">
-            <select class="w-100 selectpicker form-control" formControlName="cases"
-                >
-                <option value="0">Please Select</option>
-                <option [value]="case.keyValue" *ngFor="let case of cases">{{case.dispalyValue}}</option>
-            </select>
-            <small class="text-muted">Select an appropriate option.</small>
-        </div>
-    </div>
+                    </div>
+                  </div>
+                  <hr />
+                  <table class="table " >
+                    <thead>
+                      <tr>
+                        <th>Main Class</th>
+                        <th>Sub Class</th>
+                        <th>General Ledger</th>
+                        <th>Cases</th>
+                        <th>Clients</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let tData of dummyData">
+                        <td>{{tData.value.mainClass}}</td>
+                        <td>{{tData.value.subClass}}</td>
+                        <td>{{tData.value.gneralLedger}}</td>
+                        <td>{{tData.value.cases}}</td>
+                        <td>{{tData.value.clients}}</td>
+                      </tr>
+                      <tr role="row" >
+                        <td class="sorting_1">
+                          <div class="col-md-12">
+                            <select class="w-100 selectpicker form-control" (change)="onChange($event.target, 'subclass')" formControlName="mainClass"
+                                >
+                                <option >Please Select</option>
+                                <option [value]="main.keyValue" *ngFor="let main of mainClass">{{main.displayValue}}</option>
+                            </select>
+                            <small class="text-muted">Select an appropriate option.</small>
+                        </div>
 
-    <div class="row">
-      <div class="col-md-4">
-          <label>Clients</label>
-      </div>
-      <div class="col-md-8">
-          <select class="w-100 selectpicker form-control" formControlName="clients"
-              >
-              <option value="0">Please Select</option>
-              <option *ngFor="let client of clients">clients</option>
-          </select>
-          <small class="text-muted">Select an appropriate option.</small>
-      </div>
-  </div>
+                        </td>
+                        <td>
+                          <div class="col-md-12 col-sm-8">
+                            <select class="w-100 selectpicker form-control" (change)="onChange($event.target, 'generalLedger')" formControlName="subClass"
+                                >
+                                <option value="0">Please Select</option>
+                                <option [value]="sub.keyValue" *ngFor="let sub of subClass">{{sub.displayValue}}</option>
+                            </select>
+                            <small class="text-muted">Select an appropriate option.</small>
+                        </div>
 
-  <div class="row">
-    <div class="col-md-4">
-      <label for="inpNAME"> credit</label>
-    </div>
-    <div class="col-md-8">
-      <input
-        type="text"
-        maxlength="50"
-        class="form-control"
-        formControlName="credit"
-      />
-      <!-- <small class="text-muted">Example: Client litigation</small> -->
-    </div>
-  </div>
-  <br>
-  <div class="row">
-    <div class="col-md-4">
-      <label for="inpNAME"> Debit</label>
-    </div>
-    <div class="col-md-8">
-      <input
-        type="text"
-        maxlength="50"
-        class="form-control"
-        formControlName="debit"
-      />
-      <!-- <small class="text-muted">Example: Client litigation</small> -->
-    </div>
-  </div>
-  <br>
+                        </td>
+                        <td>
+                          <div class="col-md-12">
+                            <select class="w-100 selectpicker form-control" formControlName="generalLedger"
+                                >
+                                <option value="0">Please Select</option>
+                                <option [value]="general.keyValue" *ngFor="let general of generalLedger"> {{general.displayValue}}</option>
+                            </select>
+                            <small class="text-muted">Select an appropriate option.</small>
+                        </div>
+
+                        </td>
+                        <td>
+                          <div class="col-md-12">
+                            <select class="w-100 selectpicker form-control" (change)="onChange($event.target, 'clients')" formControlName="cases">
+                                <option value="0">Please Select</option>
+                                <option [value]="case.keyValue" *ngFor="let case of cases">{{case.displayValue}}</option>
+                            </select>
+                            <small class="text-muted">Select an appropriate option.</small>
+                        </div>
+                        </td>
+                        <td>
+                          <div class="col-md-12">
+                            <select class="w-100 selectpicker form-control" formControlName="clients"
+                                >
+                                <option value="0">Please Select</option>
+                                <option *ngFor="let client of clients">{{client.displayValue}}</option>
+                            </select>
+                            <small class="text-muted">Select an appropriate option.</small>
+                        </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          </div>
 </div>
 </form>
 <br>
@@ -120,9 +114,9 @@
     </div>
 </div>
 </div>
-<div class="col-md-12">
+<!-- <div class="col-md-12">
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-12">
     <div class="widget">
       <div class="widget-body">
         <div class="row">
@@ -157,8 +151,8 @@
 
               </td>
               <td>
-                <!-- {{case.matterDescription}} -->
-                Matter
+                {{case.matterDescription}}
+
 
               </td>
             </tr>
@@ -167,12 +161,18 @@
       </div>
     </div>
   </div>
-  <div class="col-md-6">
+
+</div>
+
+</div> -->
+<!-- <div class="col-md-12">
+<div class="row">
+  <div class="col-md-12">
     <div class="widget">
       <div class="widget-body">
         <div class="row">
           <div class="col-md-12">
-            <h5>Credit </h5>
+            <h5>Debit </h5>
           </div>
         </div>
         <hr />
@@ -187,43 +187,96 @@
             </tr>
           </thead>
           <tbody>
-            <tr role="row" *ngFor="let case of credits">
+            <tr role="row" >
               <td class="sorting_1">
-                <!-- {{case.date | date: 'MM-dd-yyyy'}} -->
-                Date
-              </td>
-              <td>
-                <!-- <a class="td_link" [routerLink]="['case-details/' + case.caseRef]">{{ case.caseRef }}</a> -->
-                Case ref
-              </td>
-              <td>
-                <!-- {{case.clientName}} -->
-                Client Name
+                <div class="col-md-8">
+                  <select class="w-100 selectpicker form-control" (change)="onChange($event.target, 'subclass')" formControlName="mainClass"
+                      >
+                      <option >Please Select</option>
+                      <option [value]="main.keyValue" *ngFor="let main of mainClass">{{main.displayValue}}</option>
+                  </select>
+                  <small class="text-muted">Select an appropriate option.</small>
+              </div>
 
               </td>
               <td>
-                <!-- {{case.matterDescription}} -->
-                Matter
+                <div class="col-md-8">
+                  <select class="w-100 selectpicker form-control" (change)="onChange($event.target, 'generalLedger')" formControlName="subClass"
+                      >
+                      <option value="0">Please Select</option>
+                      <option [value]="sub.keyValue" *ngFor="let sub of subClass">{{sub.displayValue}}</option>
+                  </select>
+                  <small class="text-muted">Select an appropriate option.</small>
+              </div>
 
+              </td>
+              <td>
+                <div class="col-md-8">
+                  <select class="w-100 selectpicker form-control" formControlName="generalLedger"
+                      >
+                      <option value="0">Please Select</option>
+                      <option [value]="general.keyValue" *ngFor="let general of generalLedger"> {{general.displayValue}}</option>
+                  </select>
+                  <small class="text-muted">Select an appropriate option.</small>
+              </div>
+
+              </td>
+              <td>
+                <div class="col-md-8">
+                  <select class="w-100 selectpicker form-control" (change)="onChange($event.target, 'clients')" formControlName="cases">
+                      <option value="0">Please Select</option>
+                      <option [value]="case.keyValue" *ngFor="let case of cases">{{case.displayValue}}</option>
+                  </select>
+                  <small class="text-muted">Select an appropriate option.</small>
+              </div>
+              </td>
+              <td>
+                <div class="col-md-8">
+                  <select class="w-100 selectpicker form-control" formControlName="clients"
+                      >
+                      <option value="0">Please Select</option>
+                      <option *ngFor="let client of clients">{{client.displayValue}}</option>
+                  </select>
+                  <small class="text-muted">Select an appropriate option.</small>
+              </div>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
-    <div class="row justify-content-end">
-      <div class="col-auto">
-        <button
-          style="margin-bottom: 15px"
-          class="btn btn-primary"
-          (click)="submitForm()"
-        >
-          <span class="glyphicon glyphicon-ok"></span> Submit
-        </button>
-      </div>
   </div>
-</div>
-</div>
 
 </div>
 
+</div> -->
+
+<!-- <div class="row">
+  <form action="">
+    <table>
+      <thead>
+        <tr>
+          <th>
+            main class
+          </th>
+          <th>
+            Sub class
+          </th>
+          <th>
+            general ledger
+          </th>
+          <th>
+            Cases
+          </th>
+          <th>Client
+
+          </th>
+          <th>Debit</th>
+          <th>Credit</th>
+        </tr>
+      </thead>
+    </table>
+  </form>
+</div>
+
+ -->

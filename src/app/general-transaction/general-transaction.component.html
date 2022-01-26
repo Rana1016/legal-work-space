@@ -3,7 +3,7 @@
   <div class="col-md-12">
 
     <div class="widget">
-      <form [formGroup]="empForm" >
+      <form [formGroup]="empForm"  >
       <div class="widget-body">
 
         <div class="col-md-12">
@@ -20,35 +20,43 @@
                   <table class="table " >
                     <thead>
                       <tr>
-                        <th>Main Class</th>
-                        <th>Sub Class</th>
+                        <!-- <th>Main Class</th>
+                        <th>Sub Class</th> -->
                         <th>General Ledger</th>
+                        <th>Narration</th>
                         <th>Cases</th>
                         <th>Clients</th>
+                        <th>Credit</th>
+                        <th>Debit</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let tData of dummyData">
-                        <td>{{tData.value.mainClass}}</td>
-                        <td>{{tData.value.subClass}}</td>
-                        <td>{{tData.value.gneralLedger}}</td>
-                        <td>{{tData.value.cases}}</td>
-                        <td>{{tData.value.clients}}</td>
-                      </tr>
+
+                        <tr *ngFor="let Data of dummyData" >
+                          <!-- <td>{{Data.mainClass}}</td>
+                          <td>{{Data.subClass}}</td> -->
+                          <td>{{Data.generalLedger}}</td>
+                          <td>{{Data.narations}}</td>
+                          <td>{{Data.cases}}</td>
+                          <td>{{Data.clients}}</td>
+                          <td>{{Data.credits}}</td>
+                          <td>{{Data.debits}}</td>
+                        </tr>
+
+
                       <tr role="row" >
-                        <td class="sorting_1">
-                          <div class="col-md-12">
-                            <select class="w-100 selectpicker form-control" (change)="onChange($event.target, 'subclass')" formControlName="mainClass"
-                                >
+                        <!-- <td class="sorting_1">
+                          <div class="col-md-8 col-sm-12 px-0">
+                       <select class="w-100 selectpicker form-control " (change)="onChange($event.target, 'subclass')" formControlName="mainClass">
                                 <option >Please Select</option>
                                 <option [value]="main.keyValue" *ngFor="let main of mainClass">{{main.displayValue}}</option>
                             </select>
                             <small class="text-muted">Select an appropriate option.</small>
                         </div>
 
-                        </td>
-                        <td>
-                          <div class="col-md-12 col-sm-8">
+                        </td> -->
+                        <!-- <td>
+                          <div class="col-md-8 col-sm-12 px-0">
                             <select class="w-100 selectpicker form-control" (change)="onChange($event.target, 'generalLedger')" formControlName="subClass"
                                 >
                                 <option value="0">Please Select</option>
@@ -57,20 +65,30 @@
                             <small class="text-muted">Select an appropriate option.</small>
                         </div>
 
-                        </td>
+                        </td> -->
                         <td>
-                          <div class="col-md-12">
+                          <div class="col-md-12 col-sm-12 px-0 ">
                             <select class="w-100 selectpicker form-control" formControlName="generalLedger"
                                 >
                                 <option value="0">Please Select</option>
                                 <option [value]="general.keyValue" *ngFor="let general of generalLedger"> {{general.displayValue}}</option>
-                            </select>
-                            <small class="text-muted">Select an appropriate option.</small>
-                        </div>
+                              </select>
+                              <small class="text-muted">Select an appropriate option.</small>
+                            </div>
 
-                        </td>
+                          </td>
+                          <td>
+
+                            <div class="col-md-12 col-sm-12  mr-0">
+
+                              <input type="text"  class="form-control " formControlName="narations" />
+                              <small class="text-muted">Write an appropriate narration.</small>
+
+                            </div>
+                            </td>
+
                         <td>
-                          <div class="col-md-12">
+                          <div class="col-md-12 col-sm-12 px-0">
                             <select class="w-100 selectpicker form-control" (change)="onChange($event.target, 'clients')" formControlName="cases">
                                 <option value="0">Please Select</option>
                                 <option [value]="case.keyValue" *ngFor="let case of cases">{{case.displayValue}}</option>
@@ -79,7 +97,7 @@
                         </div>
                         </td>
                         <td>
-                          <div class="col-md-12">
+                          <div class="col-md-12 col-sm-12 px-0">
                             <select class="w-100 selectpicker form-control" formControlName="clients"
                                 >
                                 <option value="0">Please Select</option>
@@ -88,6 +106,35 @@
                             <small class="text-muted">Select an appropriate option.</small>
                         </div>
                         </td>
+                        <td>
+
+                          <div class="col-md-12 col-sm-12 px-0 " (click)="disableFields('credit')">
+
+                            <input type="text" #credit [readonly]="cCheck"  class="form-control" formControlName="credits" />
+                            <small class="text-muted">Enter Credit</small>
+
+                          </div>
+                          </td>
+                          <td>
+
+                            <div class="col-md-12 col-sm-12 px-0 py-0" (click)="disableFields('debit')">
+
+                              <input type="text"  #debit [readonly]="dCheck"  class="form-control" formControlName="debits" />
+                              <small class="text-muted">Enter Debit</small>
+
+                            </div>
+                            </td>
+                            <div class="row justify-content-end">
+                              <div class="col-auto">
+                                <button
+                                  style="margin-top: 10px;"
+                                  class="btn btn-primary"
+                                  (click)="submitForm()"
+                                >
+                                  <span class="glyphicon glyphicon-ok"></span> Save
+                                </button>
+                              </div>
+                                </div>
                       </tr>
                     </tbody>
                   </table>
@@ -100,18 +147,19 @@
           </div>
 </div>
 </form>
-<br>
 <div class="row justify-content-end">
   <div class="col-auto">
     <button
       style="margin-bottom: 15px"
       class="btn btn-primary"
-      (click)="submitForm()"
+      (click)="submitData()"
     >
       <span class="glyphicon glyphicon-ok"></span> Submit
     </button>
   </div>
     </div>
+<br>
+
 </div>
 </div>
 <!-- <div class="col-md-12">

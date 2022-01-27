@@ -40,10 +40,9 @@ export class GeneralTransactionComponent implements OnInit {
     this.dummyData = [];
     this.addCradit = 0
     this.finalDebit = 0
-    this.finalcradit =0
-    this.addDebit=0
+    this.finalcradit = 0;
+    this.addDebit= 0
     this.empForm = this.fb.group({
-<<<<<<< HEAD
       mainClass: [],
       subClass: [],
       generalLedger: [],
@@ -62,15 +61,6 @@ export class GeneralTransactionComponent implements OnInit {
       //   this.credits,
       //   this.debits
       // ])
-=======
-      mainClass: [''],
-      subClass: [''],
-      generalLedger: [''],
-      cases: [''],
-      clients: [''],
-      credit: [''],
-      debit:[''],
->>>>>>> 611f27d47e9d58e8fc3dc36e803139c00f94d1bb
     })
     this.cCheck = false;
     this.dCheck = false;
@@ -83,26 +73,26 @@ export class GeneralTransactionComponent implements OnInit {
     this.getGeneralLedgerById();
     this.getAllCases();
   }
-  creditCheck() {
-    if (this.cCheck && !this.dCheck) {
-      return this.cCheck = false
-    }
-    else {
-      return this.dCheck = true;
+  // creditCheck() {
+  //   if (this.cCheck && !this.dCheck) {
+  //     return this.cCheck = false
+  //   }
+  //   else {
+  //     return this.dCheck = true;
 
 
-    }
-  }
+  //   }
+  // }
 
-  debitCheck() {
-    if (this.dCheck && !this.cCheck) {
-      return this.dCheck=false
-    }
-    else {
-   return this.cCheck=true
+  // debitCheck() {
+  //   if (this.dCheck && !this.cCheck) {
+  //     return this.dCheck=false
+  //   }
+  //   else {
+  //  return this.cCheck=true
 
-    }
-  }
+  //   }
+  // }
 
   disableFields(value: any) {
     console.log(value);
@@ -189,8 +179,10 @@ export class GeneralTransactionComponent implements OnInit {
   getGeneralLedgerById() {
     this.lookup.getOptions('tblGeneralLedger', 'generalLedgerId', 'head') .subscribe((res) => {
       // console.log(res)
-      this.generalLedger=res
+      this.generalLedger = res;
+      console.log("🚀 ~ file: general-transaction.component.ts ~ line 183 ~ GeneralTransactionComponent ~ this.lookup.getOptions ~ this.generalLedger", this.generalLedger);
     });
+
   }
 
   getClients(caseSelectedId: any) {
@@ -200,9 +192,14 @@ export class GeneralTransactionComponent implements OnInit {
 
     });
   }
+  // ChangeData(event: any) {
+  //   // this.empForm.get('generalLedger')?.patchValue(event.displayValue);
+  // console.log("🚀 ~ file: general-transaction.component.ts ~ line 196 ~ GeneralTransactionComponent ~ ChangeData ~ event", event)
+
+  // }
 
   submitForm() {
-    console.log(this.empForm)
+    console.log('empFrom Data submit',this.empForm)
     // this.dummyData = this.empForm.value
     // this.tData.push(this.fb.control(''));
 
@@ -222,26 +219,31 @@ export class GeneralTransactionComponent implements OnInit {
   }
 
     submitData(){
-      this.dummyData.forEach((data) => {
-        parseInt(data.debits)
-        parseInt(data.credits)
-        if (parseInt(data.debits) != NaN) {
 
-          this.addDebit = + parseInt(data.debits)
-          this.finalDebit =this.addDebit
+      this.dummyData.forEach((data) => {
+        console.log("🚀 ~ file: general-transaction.component.ts ~ line 224 ~ GeneralTransactionComponent ~ this.dummyData.forEach ~ data", data);
+        if (Number(data.debits)) {
+
+          this.addDebit += Number(data.debits)
         }
-        if (parseInt(data.credits) != NaN) {
-          this.addCradit = + parseInt(data.credits)
-          this.finalcradit = this.addCradit
+        else if (Number(data.credits)) {
+
+          this.addCradit += Number(data.credits)
         }
+          // this.finalDebit = this.addDebit
+
+          // this.finalcradit = this.addCradit
+
       })
-      console.log(this.addCradit)
-        console.log(this.addDebit)
-      if (this.addDebit == this.addCradit) {
+      if (this.addDebit === this.addCradit) {
         alert('Data successfully enter')
+        this.addDebit = 0;
+        this.addCradit = 0;
       }
       else {
         alert('ERROR!!! data is not submited')
+        this.addDebit = 0;
+        this.addCradit = 0;
       }
 
     // this.debits.push(this.mainClass)

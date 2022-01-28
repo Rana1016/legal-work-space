@@ -31,13 +31,19 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let tData of dummyData">
-                        <td>{{tData.mainClass}}</td>
-                        <td>{{tData.subClass}}</td>
-                        <td>{{tData.gneralLedger}}</td>
-                        <td>{{tData.cases}}</td>
-                        <td>{{tData.clients}}</td>
-                      </tr>
+
+                        <tr *ngFor="let Data of dummyData" >
+                          <!-- <td>{{Data.mainClass}}</td>
+                          <td>{{Data.subClass}}</td> -->
+                          <td>{{Data.generalLedger}}</td>
+                          <td>{{Data.narations}}</td>
+                          <td>{{Data.cases}}</td>
+                          <td>{{Data.clients}}</td>
+                          <td>{{Data.credits}}</td>
+                          <td>{{Data.debits}}</td>
+                        </tr>
+
+
                       <tr role="row" >
                         <!-- <td class="sorting_1">
                           <div class="col-md-8 col-sm-12 px-0">
@@ -62,11 +68,72 @@
                         </td> -->
                         <td>
                           <div class="col-md-12 col-sm-12 px-0 ">
-                            <select class="w-100 selectpicker form-control" formControlName="generalLedger"
+                            <!-- <select class="w-100 selectpicker form-control" formControlName="generalLedger"
                                 >
                                 <option value="0">Please Select</option>
                                 <option [value]="general.keyValue" *ngFor="let general of generalLedger"> {{general.displayValue}}</option>
-                              </select>
+                              </select> -->
+
+                              <!-- class="ng-select"
+                              [items]="categories"
+                              [multiple]="true"
+                              bindLabel="categoryTitle"
+                              [closeOnSelect]="false"
+                              bindValue="categoryId"
+                              placeholder="Please Select"
+                              formControlName="categories"
+                              (change)="getSubCategories()"
+ -->
+
+                              <ng-select
+                class="ng-select"
+                [items]="generalLedger"
+                [multiple]="false"
+                bindLabel="displayValue"
+                [closeOnSelect]="true"
+                bindValue="keyValue"
+                placeholder="Please Select"
+                formControlName="generalLedger"
+
+
+              >
+                <ng-template
+                  ng-option-tmp
+                  let-item="item"
+                  let-item$="item$"
+                  let-index="index"
+                >
+                  <!-- <input
+                    id="item-{{ index }}"
+                    type="checkbox"
+                    [(ngModel)]="generalLedger.selected"
+                    [ngModelOptions]="{ standalone: true }"
+                  /> -->
+                  {{item.displayValue}}
+                </ng-template>
+                <ng-template
+                  ng-multi-label-tmp
+                  let-items="generalLedger">
+                  <div
+                    class="ng-value py-1"
+                    *ngFor="let item of generalLedger; let f = first"
+                  >
+                    <span
+                      class="ng-value-icon left"
+
+                      aria-hidden="true"
+                      ></span>
+
+                    </div>
+
+
+                    <div  class="ng-value py-1" *ngFor="let item of generalLedger">
+                    <span class="ng-value-label"
+                      >{{ item.displayValue}}</span
+                    >
+                  </div>
+                </ng-template>
+              </ng-select>
                               <small class="text-muted">Select an appropriate option.</small>
                             </div>
 
@@ -83,20 +150,117 @@
 
                         <td>
                           <div class="col-md-12 col-sm-12 px-0">
-                            <select class="w-100 selectpicker form-control" (change)="onChange($event.target, 'clients')" formControlName="cases">
+                            <!-- <select class="w-100 selectpicker form-control" (change)="onChange($event.target, 'clients')" formControlName="cases">
                                 <option value="0">Please Select</option>
                                 <option [value]="case.keyValue" *ngFor="let case of cases">{{case.displayValue}}</option>
-                            </select>
+                            </select> -->
+                            <ng-select
+                            class="ng-select"
+                            [items]="cases"
+                            [multiple]="false"
+                            bindLabel="displayValue"
+                            [closeOnSelect]="true"
+                            bindValue="keyValue"
+                            placeholder="Please Select"
+                            formControlName="cases"
+                            (change)="onChange($event.target, 'clients')"
+
+                          >
+                            <ng-template
+                              ng-option-tmp
+                              let-item="item"
+                              let-item$="item$"
+                              let-index="index"
+                            >
+                              <!-- <input
+                                id="item-{{ index }}"
+                                type="checkbox"
+                                [(ngModel)]="generalLedger.selected"
+                                [ngModelOptions]="{ standalone: true }"
+                              /> -->
+                              {{item.displayValue}}
+                            </ng-template>
+                            <ng-template
+                              ng-multi-label-tmp
+                              let-items="cases">
+                              <div
+                                class="ng-value py-1"
+                                *ngFor="let item of cases; let f = first"
+                              >
+                                <span
+                                  class="ng-value-icon left"
+
+                                  aria-hidden="true"
+                                  ></span>
+
+                                </div>
+
+
+                                <div  class="ng-value py-1" *ngFor="let item of cases">
+                                <span class="ng-value-label"
+                                  >{{ item.displayValue}}</span
+                                >
+                              </div>
+                            </ng-template>
+                          </ng-select>
                             <small class="text-muted">Select an appropriate option.</small>
                         </div>
                         </td>
                         <td>
                           <div class="col-md-12 col-sm-12 px-0">
-                            <select class="w-100 selectpicker form-control" formControlName="clients"
+                            <!-- <select class="w-100 selectpicker form-control" formControlName="clients"
                                 >
                                 <option value="0">Please Select</option>
                                 <option *ngFor="let client of clients">{{client.displayValue}}</option>
-                            </select>
+                            </select> -->
+                            <ng-select
+                            class="ng-select"
+                            [items]="clients"
+                            [multiple]="false"
+                            bindLabel="displayValue"
+                            [closeOnSelect]="true"
+                            bindValue="keyValue"
+                            placeholder="Please Select"
+                            formControlName="clients"
+
+                          >
+                            <ng-template
+                              ng-option-tmp
+                              let-item="item"
+                              let-item$="item$"
+                              let-index="index"
+                            >
+                              <!-- <input
+                                id="item-{{ index }}"
+                                type="checkbox"
+                                [(ngModel)]="generalLedger.selected"
+                                [ngModelOptions]="{ standalone: true }"
+                              /> -->
+                              {{item.displayValue}}
+                            </ng-template>
+                            <ng-template
+                              ng-multi-label-tmp
+                              let-items="clients">
+                              <div
+                                class="ng-value py-1"
+                                *ngFor="let item of clients; let f = first"
+                              >
+                                <span
+                                  class="ng-value-icon left"
+
+                                  aria-hidden="true"
+                                  ></span>
+
+                                </div>
+
+
+                                <div  class="ng-value py-1" *ngFor="let item of clients">
+                                <span class="ng-value-label"
+                                  >{{ item.displayValue}}</span
+                                >
+                              </div>
+                            </ng-template>
+                          </ng-select>
                             <small class="text-muted">Select an appropriate option.</small>
                         </div>
                         </td>

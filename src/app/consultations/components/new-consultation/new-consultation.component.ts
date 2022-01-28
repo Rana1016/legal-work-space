@@ -60,7 +60,7 @@ export class NewConsultationComponent implements OnInit {
       this.caseService.getSubCategories(this.newConsultationForm.value.categories).subscribe((res) => {
         Object.keys(res).forEach((key, i) => {
           if (this.newConsultationForm.value.categories.includes(12)) {
-            
+
             res[key] = res[key].filter(({ categoryId }: any) => categoryId !== 12)
             res[key] = res[key].filter(({ categoryId }: any) => categoryId !== 13)
           }

@@ -41,7 +41,8 @@
                 maxlength="10"
                 class="form-control"
                 formControlName="caseId"
-              /><small class="text-muted">Example: 2417.01</small>
+                [(ngModel)]="searchId" (ngModelChange)="checkCase($event)"
+              /><small class="text-muted">{{isValid ? clientName !== "" ? clientName + ' with ID: '+ searchId : '' : 'Please enter a valid Case ID.'}}</small>
             </div>
           </div>
           <div class="row">

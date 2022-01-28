@@ -37,6 +37,7 @@
                     installments != 0 &&
                     updateNotification('installments')
                 "
+                [routerLink]="['/dashboard/installments']"
               >
                 <span class="glyphicon glyphicon-bell"></span> Instalments
                 <span *ngIf="installments" class="badge fright">{{
@@ -63,6 +64,7 @@
                     reminders != 0 &&
                     updateNotification('reminders')
                 "
+                [routerLink]="['/keydates']"
               >
                 <span class="glyphicon glyphicon-bell"></span> Reminders
                 <span *ngIf="reminders" class="badge fright">{{

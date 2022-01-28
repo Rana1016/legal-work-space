@@ -42,10 +42,6 @@ export class CaseDetailsComponent implements OnInit {
         selector: 'documents',
       },
       {
-        title: 'Peshi List',
-        selector: 'peshi-list',
-      },
-      {
         title: 'Notes',
         selector: 'notes',
       },

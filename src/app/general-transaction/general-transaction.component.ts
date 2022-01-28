@@ -43,26 +43,6 @@ export class GeneralTransactionComponent implements OnInit {
     this.finalcradit =0
     this.addDebit=0
     this.empForm = this.fb.group({
-<<<<<<< HEAD
-      mainClass: [],
-      subClass: [],
-      generalLedger: [],
-      narations:[],
-      cases: [],
-      clients: [],
-      credits: [],
-      debits: [],
-      // tdata: this.fb.array([
-      //   this.fb.control(''),
-      //   this.mainClass,
-      //   this.subClass,
-      //   this.generalLedger,
-      //   this.cases,
-      //   this.clients,
-      //   this.credits,
-      //   this.debits
-      // ])
-=======
       mainClass: [''],
       subClass: [''],
       generalLedger: [''],
@@ -70,7 +50,6 @@ export class GeneralTransactionComponent implements OnInit {
       clients: [''],
       credit: [''],
       debit:[''],
->>>>>>> 611f27d47e9d58e8fc3dc36e803139c00f94d1bb
     })
     this.cCheck = false;
     this.dCheck = false;

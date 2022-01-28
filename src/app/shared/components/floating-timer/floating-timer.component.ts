@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnChanges, OnInit, Output, TemplateRef, ViewCh
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
+import { CasesService } from '../../services/cases.service';
 import { SharedService } from '../../services/shared.service';
 import { TimeKeepingService } from '../../services/time-keeping.service';
 import { VatRateService } from '../../services/vat-rate.service';
@@ -25,7 +26,18 @@ export class FloatingTimerComponent implements OnInit {
   @ViewChild('AddTimeEntryForBilling') AddTimeEntryForBilling!: TemplateRef<any>;
 
   addTimeForm: FormGroup;
-  constructor(private modalService: NgbModal, private fb: FormBuilder, private timeKeep: TimeKeepingService, private lookup: SharedService, private vatRate: VatRateService) {
+  dateCreatedOnly: string;
+  isValid?: boolean = true;
+  clientName?: string = "";
+  searchId = '';
+  constructor(private modalService: NgbModal, 
+    private fb: FormBuilder, 
+    private timeKeep: TimeKeepingService,
+    private lookup: SharedService, 
+    private vatRate: VatRateService,
+    private caseService: CasesService) {
+    this.dateCreatedOnly = new Date().toISOString().split('T')[0];
+    console.log(this.dateCreatedOnly);
     this.addTimeForm = this.fb.group({
       caseId: [''],
       dateCreated: [new Date().toISOString()],
@@ -44,8 +56,12 @@ export class FloatingTimerComponent implements OnInit {
     this.seconds = 0;
     // this.vatRate.getVatRates(szq)
     this.timeKeep.modalOpen.subscribe((timeKeepId) => {
+      console.log(timeKeepId);
+      
       if (timeKeepId != null) {
         this.timeKeep.getTimeKeepById(timeKeepId).subscribe((data) => {
+          console.log(data, 'time keeping');
+          
           this.addTimeForm.patchValue(data);
           this.modalInit();
         })
@@ -79,6 +95,7 @@ export class FloatingTimerComponent implements OnInit {
   }
 
   modalInit() {
+    
     this.getCategories();
     this.addTimeForm.controls.categoryId.valueChanges.subscribe((categoryId) => {
       this.getSubCategories(Number(categoryId));
@@ -87,6 +104,8 @@ export class FloatingTimerComponent implements OnInit {
       centered: true,
       scrollable: true
     });
+    
+    
   }
 
   updateTimer() {
@@ -133,5 +152,18 @@ export class FloatingTimerComponent implements OnInit {
 
   getSubCategories(hourlyRate: any) {
     return this.lookup.getOptions('tblHourlyRateDetail', 'hourlyRateDetailId', 'Title', 'hourlyRateId', `${this.addTimeForm.value.categoryId}`).subscribe((subCategories) =>  this.subCategories = subCategories);
+  }
+
+  checkCase(caseId: string | number) {
+    if ((<string>caseId).length >= 4) {
+      caseId = Number(caseId)
+      this.caseService.isValid(caseId).subscribe(({ message, clientName }: any) => {
+        this.clientName = clientName;
+        this.isValid = message == undefined
+      })
+    } else {
+      this.isValid = true;
+      this.clientName = "";
+    }
   }
 }

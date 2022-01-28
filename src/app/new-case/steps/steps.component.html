@@ -2351,7 +2351,7 @@
                                                         <label>* Advance Payment</label>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <input type="text" maxlength="10" placeholder="0.00" class="form-control" formControlName="advancePayment"/>
+                                                        <input type="text" maxlength="10" placeholder="0.00" class="form-control" (change)="checkAdvancePayment()" formControlName="advancePayment"/>
                                                         <small class="text-muted">Example: 299.50</small>
                                                     </div>
                                                 </div>
@@ -2432,10 +2432,10 @@
                 <p class="text-center msg-icon">
                     <span class="fa msg-error " aria-hidden="true"></span>
                 </p>
-                <ul *ngIf="Navigation == 1">
-                    <li>Please fill all Plaitiff/Defendant/Third Party data.</li>
+                <ul *ngIf="Navigation === 1 || Navigation === 2 || Navigation === 3 || Navigation === 4 || Navigation === 5">
+                    <li>Please fill all the required data.</li>
                 </ul>
-                <ul *ngIf="Navigation == 2">
+                <!-- <ul *ngIf="Navigation == 2">
                     <li>The Client Instructions field is required.</li>
                     <li>The Categories field is required.</li>
                     <li>The Lesco Case & Its Details are required.</li>
@@ -2464,7 +2464,7 @@
                 <ul *ngIf="Navigation == 5">
                     <li>The Fee Type field is required.</li>
                     <li>All Fields must be filled.</li>
-                </ul>
+                </ul> -->
                 <p class="text-center">
                     <a (click)="modal.close()" class="btn">
                         <i class="icon-remove icon-white"></i> Close & Continue

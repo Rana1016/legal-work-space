@@ -712,7 +712,10 @@ export class StepsComponent implements OnInit {
   getInstallments() {
     return (<FormArray>(<FormGroup>this.stepForm.controls.paymentOptions.get('feeTypeForm')).get('installments')).controls;
   }
-
+  checkAdvancePayment(){
+    console.log(<FormArray>(<FormGroup>this.stepForm.controls.paymentOptions.get('feeTypeForm')).get('advancePayment'));
+    
+  }
   createInstallment() {
     return this.fb.group({
       installmentId: [0],

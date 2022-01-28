@@ -12,6 +12,7 @@ import Pikaday from 'pikaday';
 import { SharedService } from '../shared/services/shared.service';
 import { UserService } from '../shared/services/user.service';
 import { CalendarService } from '../shared/services/calendar.service';
+import { CasesService } from '../shared/services/cases.service';
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
@@ -21,7 +22,16 @@ export class CalendarComponent implements OnInit {
   @ViewChild('calendar') Calendar!: FullCalendarComponent;
   @ViewChild('eventInCalender') eventInCalender!: TemplateRef<any>;
   Pikaday!: Pikaday;
-  constructor(private modalService: NgbModal, private fb: FormBuilder, private lookup: SharedService, private capitalize: TitleCasePipe, private user: UserService, private calendarSvc: CalendarService) { }
+  isValid?: boolean = true;
+  clientName?: string = "";
+  searchId = '';
+  constructor(private modalService: NgbModal, 
+    private fb: FormBuilder, 
+    private lookup: SharedService, 
+    private capitalize: TitleCasePipe, 
+    private user: UserService, 
+    private calendarSvc: CalendarService,
+    private caseService: CasesService) { }
 
   calendarOptions!: CalendarOptions;
   FormData = FormData;
@@ -362,4 +372,16 @@ export class CalendarComponent implements OnInit {
   toTime(date: any) {
     return moment(new Date(date)).format('HH:mm:ss')
   };
+  checkCase(caseId: string | number) {
+    if ((<string>caseId).length >= 4) {
+      caseId = Number(caseId)
+      this.caseService.isValid(caseId).subscribe(({ message, clientName }: any) => {
+        this.clientName = clientName;
+        this.isValid = message == undefined
+      })
+    } else {
+      this.isValid = true;
+      this.clientName = "";
+    }
+  }
 }

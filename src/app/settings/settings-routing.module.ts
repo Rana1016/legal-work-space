@@ -82,6 +82,10 @@ const routes: Routes = [
         loadChildren: () => import('src/app/settings/components/charts-of-accounts/charts-of-accounts.module').then(m => m.ChartsOfAccountsModule)
 
       },
+      {
+        path: "journal-voucher",
+        loadChildren:()=>import('src/app/settings/components/journal-voucher-transactions/journal-voucher-transaction.module').then(m=>m.JournalVoucherTransactionModule)
+      },
     ]
   },
 ]

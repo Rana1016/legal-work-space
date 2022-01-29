@@ -81,6 +81,13 @@ export const ApiRoutes: API_ROUTES = {
     update: `${environment.baseUrl}activity/updateActivity`,
     delete: `${environment.baseUrl}activity/deleteActivity`,
   },
+  documentTemplate: {
+    all: `${environment.baseUrl}document/getTemplates`,
+    byId: `${environment.baseUrl}document/getTemplateById`,
+    add: `${environment.baseUrl}document/newTemplate`,
+    update: `${environment.baseUrl}document/updateTemplate`,
+    delete: `${environment.baseUrl}document/deleteTemplate`,
+  },
   caseStatus: {
     getCaseStatus: `${environment.baseUrl}case/getCaseStatus`,
     changeCaseStatus: `${environment.baseUrl}case/updateCaseStatus`,
@@ -293,6 +300,13 @@ export interface API_ROUTES {
         add: string;
         update: string;
         delete: string;
+  };
+  documentTemplate: {
+    all: string;
+    byId: string;
+    add: string;
+    update: string;
+    delete: string;
   };
 
     caseStatus: {

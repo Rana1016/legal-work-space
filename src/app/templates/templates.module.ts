@@ -7,7 +7,8 @@ import { TemplatesComponent } from './templates.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { DocumentTemplateComponent } from './components/document-template/document-template.component';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { DataTablesModule } from 'angular-datatables';
+import { NgbDatepickerModule, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     EditorModule,
     ReactiveFormsModule,
-    TemplatesRoutingModule
+    TemplatesRoutingModule,
+    DataTablesModule,
+    NgbDropdownModule
   ]
 })
 export class TemplatesModule { }

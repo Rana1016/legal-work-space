@@ -18,9 +18,14 @@ const routes: Routes = [
         component:DocumentsComponent
       },
       {
+        path: "edit/:documentId",
+        component: DocumentTemplateComponent
+      },
+      {
         path: "document-viewer",
         component:DocumentTemplateComponent
       }
+      
     ]
   }
 ];

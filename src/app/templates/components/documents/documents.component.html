@@ -6,18 +6,15 @@
                 <div class="row">
                     <div class="col-md-12" id="pg-nav">
                         <ul class="list-inline">
-                            <li>
-                                <a class="btn"><span class="glyphicon glyphicon-plus"></span> New folder</a
-                >
-              </li>
-              <li>
-                <a
-                  class="btn"
-                  ><span class="glyphicon glyphicon-plus"></span> New
-                  template</a
-                >
-              </li>
-            </ul>
+                          <li>
+                            <a
+                              class="btn"
+                              [routerLink]="['/templates/document-viewer']"
+                              ><span class="glyphicon glyphicon-plus"></span> New
+                              template</a
+                            >
+                          </li>
+                      </ul>
           </div>
         </div>
       </div>
@@ -34,86 +31,62 @@
             id="DataTables_Table_0_wrapper"
             class="dataTables_wrapper no-footer"
           >
-            <div id="DataTables_Table_0_filter" class="dataTables_filter">
-              <label
-                >Search:<input
-                  type="search"
-                  class=""
-                  placeholder=""
-                  aria-controls="DataTables_Table_0"
-              /></label>
-            </div>
             <table
-              class="table table-striped res_tab_full_asc dataTable no-footer"
-              cellspacing="0"
-              width="100%"
-              id="DataTables_Table_0"
-              role="grid"
-              aria-describedby="DataTables_Table_0_info"
-            >
-              <thead>
-                <tr role="row">
-                  <th
-                    class="sorting_asc"
-                    tabindex="0"
-                    aria-controls="DataTables_Table_0"
-                    rowspan="1"
-                    colspan="1"
-                    aria-sort="ascending"
-                    aria-label="Title: activate to sort column descending"
-                  >
-                    Title
-                  </th>
-                  <th
-                    width="150"
-                    class="sorting"
-                    tabindex="0"
-                    aria-controls="DataTables_Table_0"
-                    rowspan="1"
-                    colspan="1"
-                    aria-label="Author: activate to sort column ascending"
-                  >
-                    Author
-                  </th>
-                  <th
-                    width="50"
-                    class="sorting"
-                    tabindex="0"
-                    aria-controls="DataTables_Table_0"
-                    rowspan="1"
-                    colspan="1"
-                    aria-label="Actions: activate to sort column ascending"
-                  >
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr role="row" class="odd">
-                  <td class="sorting_1">
-                    <img
-                      src="https://crescent.legalworkspace.co.uk/theme/img/fa-folder-close.png"
-                      alt=""
-                    />
-                    &nbsp;&nbsp;<a
-                      style="font-size: 15px; border-bottom: 0 none"
-                      class="td_link_dark"
-                      >-- System Default</a
-                    >
-                  </td>
-                  <td></td>
-                  <td></td>
-                </tr>
-              </tbody>
-            </table>
-            <div
-              class="dataTables_info"
-              id="DataTables_Table_0_info"
-              role="status"
-              aria-live="polite"
-            >
-              Showing 1 to 1 of 1 entries
-            </div>
+                class="table table-striped table-sm row-border hover"
+                [ngClass]="{
+                  empty: documentTemplates && documentTemplates.length !== 0
+                }"
+                datatable
+                [dtOptions]="dtOptions"
+                [dtTrigger]="dtTrigger"
+              >
+                <tbody>
+            <tr *ngFor="let docTemp of documentTemplates" >
+               <td>{{docTemp.createddate | date: 'dd-MM-YYYY'}}</td> 
+               <td>{{docTemp.title}}</td>
+              <td>
+                <!-- <ul class="nav">
+                  <li ngbDropdown>
+                    <ul ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
+                        <li ngbDropdownItem>
+                          <a [routerLink]="['edit', docTemp.documentId]">
+                            <span class="glyphicon glyphicon-pencil mr-2"></span>
+                            Edit
+                          </a>
+                        </li>
+                        <li ngbDropdownItem>
+                          <a (click)="deleteDocTemp(docTemp.documentId)">
+                            <span class="glyphicon glyphicon-remove mr-2"></span>
+                            Delete
+                          </a>
+                        </li>
+                    </ul>
+                    </li>
+                </ul> -->
+                <ul class="nav">
+                  <li ngbDropdown>
+                    <a ngbDropdownToggle class="nav-link" style="border-bottom: 0;" role="button">
+                    </a>
+                    <ul ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
+                        <li ngbDropdownItem>
+                          <a [routerLink]="['/templates/edit', docTemp.documentid]">
+                            <span class="glyphicon glyphicon-pencil mr-2"></span>
+                            Edit
+                          </a>
+                        </li>
+                        <li ngbDropdownItem>
+                          <a (click)="deleteDocTemp(docTemp.documentid)">
+                            <span class="glyphicon glyphicon-remove mr-2"></span>
+                            Delete
+                          </a>
+                        </li>
+                    </ul>
+                    </li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+              </table>
           </div>
         </div>
       </div>

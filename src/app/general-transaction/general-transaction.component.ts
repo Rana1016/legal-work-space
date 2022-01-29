@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup , FormArray} from '@angular/forms';
-import { ChartsOfAccountsService } from "src/app/shared/services/charts-of-accounts.service";
+// import { ConsoleReporter } from 'jasmine';
+// import { ChartsOfAccountsService } from "src/app/shared/services/charts-of-accounts.service";
+import { GeneralTransactionService } from "src/app/shared/services/general-transaction.service";
 
 import { SharedService } from "src/app/shared/services/shared.service"
+import { UserService } from "src/app/shared/services/user.service";
+
 
 @Component({
   selector: 'app-general-transaction',
@@ -12,9 +16,8 @@ import { SharedService } from "src/app/shared/services/shared.service"
 export class GeneralTransactionComponent implements OnInit {
   mainClassSelectedId: any;
   isDisable: boolean = false;
-  // isDebit:boolean=false
 
-  constructor(private chartAccounts: ChartsOfAccountsService, private fb: FormBuilder, private lookup: SharedService) {}
+  constructor(private journalVouvher: GeneralTransactionService, private user: UserService, private fb: FormBuilder, private lookup: SharedService) { }
   dummyData!: any[];
   addDebit!: number;
   addCradit!: number;
@@ -37,30 +40,24 @@ export class GeneralTransactionComponent implements OnInit {
   dCheck!: Boolean;
 
   ngOnInit(): void {
+
     this.dummyData = [];
     this.addCradit = 0
     this.finalDebit = 0
     this.finalcradit = 0;
-    this.addDebit= 0
+    this.addDebit = 0
     this.empForm = this.fb.group({
-      mainClass: [],
-      subClass: [],
+      createdBy: [this.user.getUser.userId],
+      createdDate: [new Date().toISOString()],
+      // mainClass: [],
+      // subClass: [],
       generalLedger: [],
-      narations:[],
+      narations: [],
       cases: [],
       clients: [],
       credits: [],
       debits: [],
-      // tdata: this.fb.array([
-      //   this.fb.control(''),
-      //   this.mainClass,
-      //   this.subClass,
-      //   this.generalLedger,
-      //   this.cases,
-      //   this.clients,
-      //   this.credits,
-      //   this.debits
-      // ])
+
     })
     this.cCheck = false;
     this.dCheck = false;
@@ -69,30 +66,10 @@ export class GeneralTransactionComponent implements OnInit {
     this.dtOptions = {
 
     }
-    // this.showMainClass();
     this.getGeneralLedgerById();
     this.getAllCases();
   }
-  // creditCheck() {
-  //   if (this.cCheck && !this.dCheck) {
-  //     return this.cCheck = false
-  //   }
-  //   else {
-  //     return this.dCheck = true;
 
-
-  //   }
-  // }
-
-  // debitCheck() {
-  //   if (this.dCheck && !this.cCheck) {
-  //     return this.dCheck=false
-  //   }
-  //   else {
-  //  return this.cCheck=true
-
-  //   }
-  // }
 
   disableFields(value: any) {
     console.log(value);
@@ -100,33 +77,18 @@ export class GeneralTransactionComponent implements OnInit {
       this.cCheck = false;
       this.dCheck = true;
       this.empForm.patchValue({
-        "debits" : ''
+        "debits": ''
       })
     } else {
       this.dCheck = false;
       this.cCheck = true;
       this.empForm.patchValue({
-        "credits" : ''
+        "credits": ''
       })
     }
-   }
-//   disable() {
+  }
 
-// if (this.credits!==null) {
-//   this.isDisable=false
-// } else {
-//   this.isDisable=true
-// }
-//   }
 
-  // disableField() {
-
-  //   if (this.credits == undefined) {
-  //     this.isDisabled=false
-  //     } else {
-  //     this.isDisabled=true
-  //     }
-  // }
   // showMainClass(){
 
   //   this.lookup.getOptions('tblMainClass', 'mainClassId', 'head').subscribe((res) => {
@@ -136,36 +98,20 @@ export class GeneralTransactionComponent implements OnInit {
   //   });
 
   // }
-  getAllCases(){
+  getAllCases() {
 
     this.lookup.getOptions('tblCaseMaster', 'caseId', 'caseId').subscribe((res) => {
       // console.log(res)
-      this.cases=res
+      this.cases = res
 
     });
 
   }
 
 
-  onChange(event: any, type : string) {
-    // this.mainClassSelectedId = event.value;
-    // switch (type) {
-    //   case 'subclass':
-    //     this.getSubclassesById(event.value);
-    //     break;
-    //   case 'generalLedger':
-    //     this.getGeneralLedgerById(event.value);
-    //     break;
-    //   default:
-    //     break;
-    // }
-    switch (type) {
-      case 'clients':
-        this.getClients(event.value);
-        break;
-      default:
-        break;
-    }
+  onChange(event: any) {
+
+    this.getClients(event.keyValue)
 
   }
 
@@ -177,83 +123,57 @@ export class GeneralTransactionComponent implements OnInit {
   //   });
   // }
   getGeneralLedgerById() {
-    this.lookup.getOptions('tblGeneralLedger', 'generalLedgerId', 'head') .subscribe((res) => {
-      // console.log(res)
+    this.lookup.getOptions('tblGeneralLedger', 'generalLedgerId', 'head').subscribe((res) => {
       this.generalLedger = res;
-      console.log("🚀 ~ file: general-transaction.component.ts ~ line 183 ~ GeneralTransactionComponent ~ this.lookup.getOptions ~ this.generalLedger", this.generalLedger);
     });
 
   }
 
   getClients(caseSelectedId: any) {
-    this.lookup.getOptions('tblClient', 'clientId', 'clientId', 'caseId', `${caseSelectedId}`).subscribe((res) => {
-      // console.log(res)
-      this.clients = res
+    this.lookup.getOptions('tblperson', 'personId', 'name', 'caseId', `${caseSelectedId}`).subscribe((res) => {
+      this.clients =res
 
     });
   }
-  // ChangeData(event: any) {
-  //   // this.empForm.get('generalLedger')?.patchValue(event.displayValue);
-  // console.log("🚀 ~ file: general-transaction.component.ts ~ line 196 ~ GeneralTransactionComponent ~ ChangeData ~ event", event)
 
-  // }
 
-  submitForm() {
-    console.log('empFrom Data submit',this.empForm)
-    // this.dummyData = this.empForm.value
-    // this.tData.push(this.fb.control(''));
-
+  addrow() {
     this.showData = this.empForm.value;
+    this.showData.createdBy = this.user.getUser.userId;
+    this.showData.createdDate = new Date().toISOString();
     console.log(this.showData)
     this.dummyData.push(this.showData)
     console.log()
     this.empForm.reset()
-
-    //  this.getDebits = this.empForm.value
-    // this.addDebit.push(this.getDebits)
-    // console.log(this.getDebits)
-    // this.dummyData.push(this.showData.subClass)
-    // this.dummyData.push(this.showData.generalLedger)
-    // this.dummyData.push(this.showData.cases)
-    // this.dummyData.push(this.showData.client)
   }
 
-    submitData(){
+  submitData() {
+    this.journalVouvher.addNewJournalVoucher(this.dummyData).subscribe((res) => {
+      res = this.dummyData
+      console.log(res)
 
-      this.dummyData.forEach((data) => {
-        console.log("🚀 ~ file: general-transaction.component.ts ~ line 224 ~ GeneralTransactionComponent ~ this.dummyData.forEach ~ data", data);
-        if (Number(data.debits)) {
-
-          this.addDebit += Number(data.debits)
-        }
-        else if (Number(data.credits)) {
-
-          this.addCradit += Number(data.credits)
-        }
-          // this.finalDebit = this.addDebit
-
-          // this.finalcradit = this.addCradit
-
-      })
-      if (this.addDebit === this.addCradit) {
-        alert('Data successfully enter')
-        this.addDebit = 0;
-        this.addCradit = 0;
+})
+    this.dummyData.forEach((data) => {
+      if (Number(data.debits)) {
+        this.addDebit += Number(data.debits)
       }
-      else {
-        alert('ERROR!!! data is not submited')
-        this.addDebit = 0;
-        this.addCradit = 0;
+      else if (Number(data.credits)) {
+        this.addCradit += Number(data.credits)
       }
+    })
+    if (this.addDebit === this.addCradit) {
+      alert('Data successfully enter')
+      this.addDebit = 0;
+      this.addCradit = 0;
+    }
+    else {
+      alert('ERROR!!! data is not submited')
+      this.addDebit = 0;
+      this.addCradit = 0;
+    }
 
-    // this.debits.push(this.mainClass)
+    // if (this.journalVouvher.addNewJournalVoucher(this.empForm.value))
+
   }
-
-  // get tData() {
-  //   return this.empForm.get('Table-Data') as FormArray;
-  // }
-  // addCredit: any[] = this.dummyData.map(t => console.log(t.credits))
-
-
 
 }

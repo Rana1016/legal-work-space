@@ -13,6 +13,7 @@ import { QuizComponent } from './components/quiz/quiz.component';
 import { ContactsComponent } from './components/contacts/contacts.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ChartsOfAccountsComponent } from './components/charts-of-accounts/charts-of-accounts.component';
+// import { JournalVoucherTransactionsComponent } from './components/journal-voucher-transactions/journal-voucher-transactions.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { ChartsOfAccountsComponent } from './components/charts-of-accounts/chart
     TimeActivityCodesComponent,
     QuizComponent,
     ContactsComponent,
+    // JournalVoucherTransactionsComponent,
     // ChartsOfAccountsComponent
   ],
   imports: [

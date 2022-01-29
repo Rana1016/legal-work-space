@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from "@angular/forms";
 
 import { GeneralTransactionRoutingModule } from './general-transaction-routing.module';
 
@@ -8,7 +9,8 @@ import { GeneralTransactionRoutingModule } from './general-transaction-routing.m
   declarations: [],
   imports: [
     CommonModule,
-    GeneralTransactionRoutingModule
+    GeneralTransactionRoutingModule,
+    FormsModule
   ]
 })
 export class GeneralTransactionModule { }

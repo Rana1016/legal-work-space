@@ -245,6 +245,12 @@ export const ApiRoutes: API_ROUTES = {
     bySubClassId: `${environment.baseUrl}accounts/getGeneralLedgerBySubClassId`,
     delete: `${environment.baseUrl}accounts/deleteGeneralLedger`
   },
+  journalTransaction: {
+    add: `${environment.baseUrl}accounts/AddNewJournalVoucher`,
+    all: `${environment.baseUrl}accounts/getJournalVouchersMaster`,
+    byId: `${environment.baseUrl}accounts/getVoucherDetails`,
+
+  }
 }
 
 export interface API_ROUTES {
@@ -291,7 +297,12 @@ export interface API_ROUTES {
         single: string;
         multi: string;
         documentsByCaseId: string;
-    };
+  };
+  journalTransaction: {
+    add: string;
+    all: string;
+    byId: string;
+  }
     caseActivities: {
         all: string;
         allById: string;
@@ -374,7 +385,8 @@ export interface API_ROUTES {
     notification: {
         get: string;
         update: string;
-    };
+  };
+
 }
 
 interface CommonAPIRoutes {
@@ -386,4 +398,5 @@ interface CommonAPIRoutes {
   byCaseId?: string;
   byMainClassId?: string;
   bySubClassId?: string;
+
 }

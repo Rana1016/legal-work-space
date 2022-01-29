@@ -74,16 +74,7 @@
                                 <option [value]="general.keyValue" *ngFor="let general of generalLedger"> {{general.displayValue}}</option>
                               </select> -->
 
-                              <!-- class="ng-select"
-                              [items]="categories"
-                              [multiple]="true"
-                              bindLabel="categoryTitle"
-                              [closeOnSelect]="false"
-                              bindValue="categoryId"
-                              placeholder="Please Select"
-                              formControlName="categories"
-                              (change)="getSubCategories()"
- -->
+
 
                               <ng-select
                 class="ng-select"
@@ -163,7 +154,7 @@
                             bindValue="keyValue"
                             placeholder="Please Select"
                             formControlName="cases"
-                            (change)="onChange($event.target, 'clients')"
+                            (change)="onChange($event)"
 
                           >
                             <ng-template
@@ -214,6 +205,9 @@
                                 <option *ngFor="let client of clients">{{client.displayValue}}</option>
                             </select> -->
                             <ng-select
+
+
+
                             class="ng-select"
                             [items]="clients"
                             [multiple]="false"
@@ -287,7 +281,7 @@
                                 <button
                                   style="margin-top: 10px;"
                                   class="btn btn-primary"
-                                  (click)="submitForm()"
+                                  (click)="addrow()"
                                 >
                                   <span class="glyphicon glyphicon-ok"></span> Save
                                 </button>

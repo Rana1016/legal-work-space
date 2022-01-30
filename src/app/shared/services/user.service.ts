@@ -19,6 +19,10 @@ export class UserService {
     return JSON.parse(localStorage.getItem('user')!)
   }
 
+  get getClient() {
+    return JSON.parse(localStorage.getItem('client')!)
+  }
+
   login(data: any) {
     return this.http.post<any>(ApiRoutes.auth.login, data, {observe: 'response'})
     .pipe(
@@ -30,9 +34,25 @@ export class UserService {
     );
   }
 
+  clientLogin(data: any) {
+    return this.http.post<any>(ApiRoutes.auth.clientLogin, data , {observe: 'response'})
+    .pipe(
+      tap((res : any) => {
+        if (res.status == 200) {
+          localStorage.setItem('client', JSON.stringify(res.body.response[0]))
+        }
+      })
+    );
+  }
+
   logout() {
     localStorage.removeItem('user');
     this.router.navigate(['/login']);
+  }
+
+  customerLogout() {
+    localStorage.removeItem('client');
+    this.router.navigate(['/cases']);
   }
 
   addUser(data: any) {

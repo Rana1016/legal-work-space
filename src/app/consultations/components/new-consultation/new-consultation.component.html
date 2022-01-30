@@ -131,13 +131,13 @@
             <div class="col-md-8">
               <ng-select
                 class="ng-select"
-                [items]="subCategories"
+                [items]="subCategoriesByCat"
                 [multiple]="true"
                 bindLabel="subCategoryTitle"
                 [closeOnSelect]="false"
                 bindValue="subCategoryId"
                 placeholder="Please Select"
-                formControlName="subcategories"
+                formControlName="subCategories"
               >
                 <ng-template
                   ng-option-tmp

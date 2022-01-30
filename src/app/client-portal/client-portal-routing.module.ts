@@ -6,9 +6,6 @@ import { PortalComponent } from './components/portal/portal.component';
 
 const routes: Routes = [
   {
-    path: 'portal/:caseId',
-    component: PortalComponent
-  }, {
     path: 'my-cases',
     component: MyCasesComponent
   },
@@ -17,8 +14,9 @@ const routes: Routes = [
     component: MyDocumentsComponent
   },
   {
-    path: '**',
-    redirectTo: '/cases',
+    path: '',
+    redirectTo:"my-cases",
+    pathMatch:"full"
   }
 ];
 

@@ -9,21 +9,22 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ClientPortalComponent } from './client-portal.component';
 import { DataTablesModule } from 'angular-datatables';
-
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   declarations: [
     ClientPortalComponent,
     PortalComponent,
     MyCasesComponent,
-    MyDocumentsComponent
+    MyDocumentsComponent,
   ],
   imports: [
     CommonModule,
     NgbModule,
     ClientPortalRoutingModule,
     ReactiveFormsModule,
-    DataTablesModule
+    DataTablesModule,
+    RouterModule
   ]
 })
 export class ClientPortalModule { }

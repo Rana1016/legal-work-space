@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { PortalComponent } from '../client-portal/components/portal/portal.component';
+import { NonClientAuthGuard } from '../shared/guards/non-client-auth.guard';
 import { DefaultComponent } from './components/cases/cases.component';
 
 const routes: Routes = [
@@ -7,6 +9,11 @@ const routes: Routes = [
     path: '',
     component: DefaultComponent,
   },
+  {
+    path: 'portal/:caseId',
+    canActivate: [NonClientAuthGuard],
+    component: PortalComponent
+  }, 
   {
     path: ':status',
     component: DefaultComponent,

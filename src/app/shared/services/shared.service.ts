@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiRoutes } from '../api/routes';
 import { UserService } from './user.service';
@@ -7,7 +7,10 @@ import { UserService } from './user.service';
   providedIn: 'root'
 })
 export class SharedService {
-  constructor(private http: HttpClient, private user: UserService) { }
+  headers: HttpHeaders;
+  constructor(private http: HttpClient, private user: UserService) {
+    this.headers = new HttpHeaders();
+   }
 
   getGlobalSettings() {
     return this.http.get<any>(ApiRoutes.globalSettings.get);
@@ -70,31 +73,31 @@ export class SharedService {
   }
 
   uploadSingleDocument(caseId: any, sharedWithClient: any, doc: File) {
+    // let headers: HttpHeaders = this.headers;
+    // headers.set("caseId", caseId);
+    // headers.set("sharedWithClient", sharedWithClient);
+    // headers.set("uploadedBy", this.user.getUser.userId);
+    console.log(caseId, sharedWithClient, 'in service');
+    
     let uploadedBy = this.user.getUser.userId;
     let formData = new FormData();
     formData.append('document', doc, doc.name);
-    return this.http.post(ApiRoutes.common.single, formData, {
-      headers: {
-        caseId,
-        sharedWithClient,
-        uploadedBy
-      }
-    })
+    formData.append('caseId', caseId);
+    formData.append('sharedWithClient', sharedWithClient);
+    formData.append('uploadedBy', uploadedBy);
+    return this.http.post(ApiRoutes.common.single, formData)
   }
 
   uploadMultipleDocuments(caseId: any, sharedWithClient: any, docs: FileList) {
     let uploadedBy = this.user.getUser.userId;
     let formData = new FormData();
+    formData.append('caseId', caseId);
+    formData.append('sharedWithClient', sharedWithClient);
+    formData.append('uploadedBy', uploadedBy);
     for (var i = 0; i < docs.length; i++) {
       formData.append('Document '+i, docs[i], docs[i].name)
     }
-    return this.http.post(ApiRoutes.common.multi, formData, {
-      headers: {
-        caseId,
-        sharedWithClient,
-        uploadedBy
-      }
-    })
+    return this.http.post(ApiRoutes.common.multi, formData)
   }
 
   getNotificationsCount() {

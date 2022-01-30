@@ -14,13 +14,15 @@ export class NewConsultationComponent implements OnInit {
   constructor(private fb: FormBuilder, private caseService: CasesService, private router: Router, private route: ActivatedRoute, private consultation: ConsultationService) { }
   newConsultationForm!: FormGroup;
   categories: any[] = [];
-  subCategories: any[] = [];
+  subCategoriesByCat: any[] = [];
   FormData = FormData;
   edit?: number;
   ngOnInit(): void {
     this.route.params.subscribe(({consultationId}) => {
       this.edit = Number(consultationId);
       this.consultation.getConsultationById(Number(consultationId)).subscribe((consultation) => {
+        console.log(consultation);
+        
         this.newConsultationForm.patchValue(consultation)
       });
     });
@@ -53,9 +55,9 @@ export class NewConsultationComponent implements OnInit {
     });
   }
   getSubCategories() {
-    this.subCategories = [];
+    this.subCategoriesByCat = [];
     if (this.newConsultationForm.value.categories.length == 0) {
-      this.newConsultationForm.controls.subcategories?.reset()
+      this.newConsultationForm.controls.subCategories?.reset()
     } else {
       this.caseService.getSubCategories(this.newConsultationForm.value.categories).subscribe((res) => {
         Object.keys(res).forEach((key, i) => {
@@ -67,11 +69,11 @@ export class NewConsultationComponent implements OnInit {
           if (i !== Object.keys(res).length - 1) {
             res[key] = res[key].filter((r: any) => r.subCategoryId !== 0)
           }
-          this.subCategories = [...this.subCategories, ...res[key]]
+          this.subCategoriesByCat = [...this.subCategoriesByCat, ...res[key]]
         });
-        let subIDs = this.subCategories.map(({ subCategoryId }) => subCategoryId);
-        this.newConsultationForm.controls.subcategories
-          .setValue(this.newConsultationForm.value.subcategories?.filter((subCategoryId: any) => subIDs.includes(subCategoryId)))
+        let subIDs = this.subCategoriesByCat.map(({ subCategoryId }) => subCategoryId);
+        this.newConsultationForm.controls.subCategories
+          .setValue(this.newConsultationForm.value.subCategories?.filter((subCategoryId: any) => subIDs.includes(subCategoryId)))
       })
     }
   }

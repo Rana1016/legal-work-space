@@ -10,14 +10,19 @@ import { SharedService } from 'src/app/shared/services/shared.service';
   styleUrls: ['./journal-voucher-detail.component.scss']
 })
 export class JournalVoucherDetailComponent implements OnInit, AfterViewInit {
+  journalVoucerDetail: any;
   constructor(private journalDetail: GeneralTransactionService, private lookup: SharedService, private route: ActivatedRoute) { }
   journalDetailById!: any[];
   dtOptions!: DataTables.Settings;
   MasterId!: number;
   journalDetailTitle!: string;
   dtTrigger: Subject<any> = new Subject();
-
+  search = '';
   ngOnInit(): void {
+    this.route.params.subscribe(({voucherDetail}) => {
+      this.MasterId = Number(voucherDetail);
+      
+    });
     this.dtOptions = {
       responsive: true,
       serverSide: true,
@@ -35,19 +40,18 @@ export class JournalVoucherDetailComponent implements OnInit, AfterViewInit {
         processing: 'Loading Journal Voucher Detail...',
         emptyTable: 'No Journal Voucher Detail available.'
       },
-      columns: [{
-        title: 'Main Class',
-        data: 'mainClassHead',
-        orderable: true
-      },
-      {
-        title: 'Sub Class',
-        data: 'subClassHead',
-        orderable: true
-        },
+      columns: [
       {
         title: 'General Ledger Class',
         data: 'generalLedgerHead',
+        orderable: true
+        },{
+        title: 'Main Class',
+        data: 'mainClassHead',
+        orderable: true
+        },{
+        title: 'Sub Class',
+        data: 'subClassHead',
         orderable: true
         },
       {
@@ -77,12 +81,13 @@ export class JournalVoucherDetailComponent implements OnInit, AfterViewInit {
         orderable: true
         },
 
-        {
-        title: 'Actions',
-        width: '50',
-        orderable: false,
-        data: null
-      }],
+      //   {
+      //   title: 'Actions',
+      //   width: '50',
+      //   orderable: false,
+      //   data: null
+      // }
+    ],
       destroy: true,
       ajax: this.ajaxjournalVoucher.bind(this)
     };
@@ -90,21 +95,25 @@ export class JournalVoucherDetailComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.dtTrigger.next();
-    this.route.params.subscribe(({journalId}) => {
-      this.MasterId = Number(journalId);
-      this.journalDetail.getVoucherDetailsById(journalId).subscribe((journalTransaction: any) => {
-        this.journalDetailTitle = journalTransaction.journalDetailTitle
-      });
-      this.dtTrigger.next();
-    });
+    // this.route.params.subscribe(({voucherDetail}) => {
+    //   this.MasterId = Number(voucherDetail);
+    //   this.journalDetail.getVoucherDetailsById(voucherDetail, this.dtOptions).subscribe((journalTransaction: any) => {
+    //     this.journalDetailTitle = journalTransaction.journalDetailTitle
+    //   });
+    //   this.dtTrigger.next();
+    // });
   }
 
   ajaxjournalVoucher(dTParams: any, callback: any) {
-    this.lookup.getTableOptions(dTParams, 'tblJournalTransaction',  'VoucherTitle', 'MasterId', `${this.MasterId}`).subscribe(({records, totalRecords}) => {
-      this.journalDetailById = records;
+    this.journalDetail.getVoucherDetailsById(this.MasterId, dTParams, this.search).subscribe((data : any) => {
+      
+      this.journalVoucerDetail = data.records;
+      console.log(this.journalVoucerDetail);
+      // this.jou = data
       callback({
-        recordsTotal: totalRecords,
-        recordsFiltered: totalRecords,
+        recordsTotal: data.totalRecords,
+        recordsFiltered: data.totalRecords,
+        data: []
       })
     });
   }

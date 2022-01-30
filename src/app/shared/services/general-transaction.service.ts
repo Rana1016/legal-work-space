@@ -13,10 +13,11 @@ export class GeneralTransactionService {
   getJournalVouchersMaster(dTParams: any) {
     return this.http.post<any>(ApiRoutes.journalTransaction.all, dTParams)
   }
-  getVoucherDetailsById(id: number) {
-    return this.http.get(ApiRoutes.journalTransaction.byId, {
+  getVoucherDetailsById(masterId: number, dTParams: any, search?: string) {
+    return this.http.post(ApiRoutes.journalTransaction.byId, dTParams, {
       params: {
-        id
+        masterId,
+        ...(!!search && {search})
       }
     })
   }

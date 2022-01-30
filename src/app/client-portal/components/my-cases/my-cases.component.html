@@ -12,9 +12,8 @@
           <div class="col-md-12" id="pg-nav">
             <ul class="list-inline">
               <li>
-                <a class="btn">
-                  <span class="glyphicon glyphicon-bell"></span> Key dates
-                  reminder
+                <a class="btn" [routerLink]="['/cases']">
+                  <span class="glyphicon glyphicon-bell"></span> Back
                 </a>
               </li>
               
@@ -36,13 +35,13 @@
                 <tbody>
                   <tr role="row" *ngFor="let case of Cases">
                     <td class="sorting_1">
-                      {{case.date | date: 'MM-dd-yyyy'}}
+                      {{case.startDate | date: 'MM-dd-yyyy'}}
                     </td>
                     <td>
-                      {{ case.caseRef }}
+                      {{ case.reference }}
                     </td>
-                    <td>{{case.clientName}}</td>
-                    <td>{{case.matterDescription}}</td>
+                    <td>{{case.caseSuperVisor}}</td>
+                    <td>{{case.description}}</td>
                   </tr>
                 </tbody>
               </table>

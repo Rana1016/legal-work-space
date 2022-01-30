@@ -60,11 +60,15 @@ export class MyCasesComponent implements OnInit {
   }
 
   ajaxCases(dTParams: any, callback: any) {
-    this.clientSvc.getClientCases(this.user.getUser.userId, dTParams).subscribe(({records, totalRecords}: any) => {
-      this.Cases = records;
+    this.clientSvc.getClientCases(this.user.getClient.clientId, dTParams).subscribe(({response}: any) => {
+      console.log(response);
+      
+      this.Cases = response;
+      console.log(this.Cases);
+      
       callback({
-        recordsFiltered: totalRecords,
-        recordsTotal: totalRecords 
+        recordsFiltered: response.length,
+        recordsTotal: response.length 
       })
     })
   }

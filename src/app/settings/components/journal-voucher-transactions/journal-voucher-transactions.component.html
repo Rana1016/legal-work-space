@@ -1,4 +1,4 @@
-<h1 id="pg-title" class="row align-items-center justify-content-center justify-content-md-start">JOurnal Voucher</h1>
+<h1 id="pg-title" class="row align-items-center justify-content-center justify-content-md-start">Journal Voucher</h1>
 <div class="row">
     <div class="col-md-12">
         <div class="widget">
@@ -34,7 +34,7 @@
                   <tr *ngFor="let journal of journalTransaction">
                    <td>
                       <a
-                        [routerLink]="['journalVoucher', journal.voucherDetail]"
+                        [routerLink]="['journalVoucher', journal.journalVoucherMasterId]"
                         style="font-size: 15px; border-bottom: 0 none"
                         class="td_link_dark"
                         >{{journal.description}}</a

@@ -138,7 +138,8 @@ export const ApiRoutes: API_ROUTES = {
   },
   auth: {
     login: `${environment.baseUrl}user/authenticateUser`,
-    getMenu: `${environment.baseUrl}user/getMenuByGroupId`
+    getMenu: `${environment.baseUrl}user/getMenuByGroupId`,
+    clientLogin : `${environment.baseUrl}user/authenticateClient`
   },
   group: {
     all: `${environment.baseUrl}Group/getGroup`,
@@ -360,6 +361,7 @@ export interface API_ROUTES {
     auth: {
         login: string;
         getMenu?: string;
+        clientLogin : string;
     };
     group: CommonAPIRoutes;
     contact: CommonAPIRoutes & {

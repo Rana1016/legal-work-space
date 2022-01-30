@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from 'src/app/dashboard/dashboard.component';
+import { ClientAuthGuard } from '../guards/client-auth.guard';
 import { LayoutComponent } from './layout.component';
 
 const LayoutRoutes: Routes = [
@@ -96,6 +97,7 @@ const LayoutRoutes: Routes = [
   },
   {
     path: 'client',
+    canActivateChild: [ClientAuthGuard],
     loadChildren: () => import('src/app/client-portal/client-portal.module').then(m => m.ClientPortalModule)
   },
   {

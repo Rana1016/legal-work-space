@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { SharedService } from '../../services/shared.service';
 import { UserService } from '../../services/user.service';
 
@@ -14,8 +15,20 @@ export class HeaderComponent  {
   @Input() workflow?: number;
   @Input() reminders?: number;
   @Input() isClient?: boolean;
-  constructor(private user: UserService, private sharedService: SharedService) {}
-  userName = (<any>this.user.getUser).name;
+  isInClient: boolean = false;
+  userName: any;
+  constructor(private user: UserService, private sharedService: SharedService, private router : Router) {
+    console.log(this.router.url);
+    if(this.router.url.includes('client')){
+      this.isInClient = true;
+      this.userName = (<any>this.user.getClient).userName;
+    }else{
+      this.isInClient = false;
+      this.userName = (<any>this.user.getUser).name;
+    }
+    
+  }
+  
   open(modal: string) {
     this.openModal.emit(modal);
   };
@@ -26,5 +39,9 @@ export class HeaderComponent  {
 
   logout() {
     this.user.logout();
+  }
+  clientLogout() {
+    this.userName = (<any>this.user.getUser).name;
+    this.user.customerLogout();
   }
 }

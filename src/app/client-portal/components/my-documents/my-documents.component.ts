@@ -66,11 +66,11 @@ export class MyDocumentsComponent implements OnInit {
   }
 
   ajaxDocuments(dTParams: any, callback: any) {
-    this.clientSvc.getClientDocuments(this.user.getUser.userId, dTParams).subscribe(({totalRecords, records}) => {
-      this.documents = records;
+    this.clientSvc.getClientDocuments(this.user.getUser.userId, dTParams).subscribe(({totalRecords, response}) => {
+      this.documents = response;
       callback({
-        recordsTotal: totalRecords,
-        recordsFiltered: totalRecords,
+        recordsTotal: response.length,
+        recordsFiltered: response.length,
         // data: records
       })
     })

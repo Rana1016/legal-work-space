@@ -80,6 +80,8 @@ export class EditCaseDetailsComponent implements OnInit {
       lastModifiedBy: [""],
     });
     this.caseService.cDObservable.subscribe((data) => {
+      console.log(data, 'in case sercice');
+      
       if (!!data) {
         this.getCategories();
         this.editCaseDetailsForm.patchValue({ ...data.caseDetail, categories: data.caseCategories.map((cC: any) => cC.categoryId), lastModifiedBy: this.user.getUser.userId, lastModifiedDate: new Date().toISOString() });

@@ -32,15 +32,15 @@
                     </thead>
                     <tbody>
 
-                        <tr *ngFor="let Data of dummyData" >
+                        <tr *ngFor="let Data of voucherData" >
                           <!-- <td>{{Data.mainClass}}</td>
                           <td>{{Data.subClass}}</td> -->
-                          <td>{{Data.generalLedger}}</td>
-                          <td>{{Data.narations}}</td>
-                          <td>{{Data.cases}}</td>
-                          <td>{{Data.clients}}</td>
-                          <td>{{Data.credits}}</td>
-                          <td>{{Data.debits}}</td>
+                          <td>{{Data.generalLedgerId}}</td>
+                          <td>{{Data.narration}}</td>
+                          <td>{{Data.caseId}}</td>
+                          <td>{{Data.clientId}}</td>
+                          <td>{{Data.credit}}</td>
+                          <td>{{Data.debit}}</td>
                         </tr>
 
 
@@ -282,6 +282,7 @@
                                   style="margin-top: 10px;"
                                   class="btn btn-primary"
                                   (click)="addrow()"
+                                  [disabled]="!empForm.valid"
                                 >
                                   <span class="glyphicon glyphicon-ok"></span> Save
                                 </button>

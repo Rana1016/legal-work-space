@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup , FormArray} from '@angular/forms';
+import { FormBuilder, FormGroup , FormArray, Validators} from '@angular/forms';
+import { Router } from '@angular/router';
 // import { ConsoleReporter } from 'jasmine';
 // import { ChartsOfAccountsService } from "src/app/shared/services/charts-of-accounts.service";
 import { GeneralTransactionService } from "src/app/shared/services/general-transaction.service";
@@ -17,8 +18,8 @@ export class GeneralTransactionComponent implements OnInit {
   mainClassSelectedId: any;
   isDisable: boolean = false;
 
-  constructor(private journalVouvher: GeneralTransactionService, private user: UserService, private fb: FormBuilder, private lookup: SharedService) { }
-  dummyData!: any[];
+  constructor(private journalVouvher: GeneralTransactionService, private user: UserService, private fb: FormBuilder, private lookup: SharedService, private router : Router) { }
+  voucherData!: any[];
   addDebit!: number;
   addCradit!: number;
   finalDebit!: number;
@@ -41,7 +42,7 @@ export class GeneralTransactionComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.dummyData = [];
+    this.voucherData = [];
     this.addCradit = 0
     this.finalDebit = 0
     this.finalcradit = 0;
@@ -51,10 +52,10 @@ export class GeneralTransactionComponent implements OnInit {
       createdDate: [new Date().toISOString()],
       // mainClass: [],
       // subClass: [],
-      generalLedger: [],
-      narations: [],
-      cases: [],
-      clients: [],
+      generalLedger: ['' , [Validators.required]],
+      narations: ['', [Validators.required]],
+      cases: ['', [Validators.required]],
+      clients: ['', [Validators.required]],
       credits: [],
       debits: [],
 
@@ -77,13 +78,13 @@ export class GeneralTransactionComponent implements OnInit {
       this.cCheck = false;
       this.dCheck = true;
       this.empForm.patchValue({
-        "debits": ''
+        "debits": 0
       })
     } else {
       this.dCheck = false;
       this.cCheck = true;
       this.empForm.patchValue({
-        "credits": ''
+        "credits": 0
       })
     }
   }
@@ -101,7 +102,7 @@ export class GeneralTransactionComponent implements OnInit {
   getAllCases() {
 
     this.lookup.getOptions('tblCaseMaster', 'caseId', 'caseId').subscribe((res) => {
-      // console.log(res)
+      console.log(res, 'cases')
       this.cases = res
 
     });
@@ -132,42 +133,55 @@ export class GeneralTransactionComponent implements OnInit {
   getClients(caseSelectedId: any) {
     this.lookup.getOptions('tblperson', 'personId', 'name', 'caseId', `${caseSelectedId}`).subscribe((res) => {
       this.clients =res
-
+      console.log(this.clients);
+      
     });
   }
 
 
   addrow() {
-    this.showData = this.empForm.value;
-    this.showData.createdBy = this.user.getUser.userId;
-    this.showData.createdDate = new Date().toISOString();
-    console.log(this.showData)
-    this.dummyData.push(this.showData)
-    console.log()
-    this.empForm.reset()
+    // this.showData = this.empForm.value;
+    this.showData = {
+      "createdBy": this.user.getUser.userId,
+      "createdDate": new Date().toISOString(),
+      "voucherId": 0,
+      "caseId": this.empForm.value.cases,
+      "credit": parseFloat(this.empForm.value.credits),
+      "debit": parseFloat(this.empForm.value.debits),
+      "narration": this.empForm.value.narations,
+      "generalLedgerId": this.empForm.value.generalLedger,
+      "clientId": this.empForm.value.clients,
+      "masterId": 0
+    }
+    if(this.showData.credit != null && this.showData.debit != null ){
+      console.log(this.showData)
+      this.voucherData.push(this.showData);
+      this.empForm.reset()
+    }else{
+      alert('Please Enter Credit or Debit')
+    }
+    
+    
   }
 
   submitData() {
-    this.journalVouvher.addNewJournalVoucher(this.dummyData).subscribe((res) => {
-      res = this.dummyData
-      console.log(res)
 
-})
-    this.dummyData.forEach((data) => {
-      if (Number(data.debits)) {
-        this.addDebit += Number(data.debits)
-      }
-      else if (Number(data.credits)) {
-        this.addCradit += Number(data.credits)
-      }
+    this.voucherData.forEach((data) => {
+      this.addDebit += data.debit
+      this.addCradit += data.credit
     })
+    console.log('Debits' ,this.addDebit, 'Credits', this.addCradit);
+    
     if (this.addDebit === this.addCradit) {
-      alert('Data successfully enter')
-      this.addDebit = 0;
-      this.addCradit = 0;
+      this.journalVouvher.addNewJournalVoucher(this.voucherData).subscribe((res) => {
+        res = this.voucherData
+        this.addDebit = 0;
+        this.addCradit = 0;
+        this.router.navigate(['/settings/journal-voucher']);
+      })
     }
     else {
-      alert('ERROR!!! data is not submited')
+      alert('ERROR!!! Credit and Debit are not Equal')
       this.addDebit = 0;
       this.addCradit = 0;
     }

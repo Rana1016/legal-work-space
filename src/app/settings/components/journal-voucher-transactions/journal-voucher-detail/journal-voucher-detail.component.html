@@ -1,5 +1,23 @@
-<h1 id="pg-title" class="row align-items-center justify-content-center justify-content-md-start">JOurnal transaction detail </h1>
-
+<h1 id="pg-title" class="row align-items-center justify-content-center justify-content-md-start">Journal transaction detail </h1>
+<div class="row">
+  <div class="col-md-12">
+    <div class="widget">
+      <div class="widget-body">
+        <div class="row">
+          <div class="col-md-12" id="pg-nav">
+            <ul class="list-inline">
+              <li>
+                <a [routerLink]="['/settings/journal-voucher']" class="btn">
+                  <span class="glyphicon glyphicon-arrow-left"></span> Back</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="row">
   <div class="col-md-12">
@@ -16,93 +34,93 @@
           [dtTrigger]="dtTrigger"
         >
                 <tbody>
-                  <tr *ngFor="let jouranalDetail of journalDetailById">
+                  <tr *ngFor="let jouranalDetail of journalVoucerDetail">
                     <td>
                       <a
-                        [routerLink]="['edit', jouranalDetail.keyValue]"
+                        
                         style="font-size: 15px; border-bottom: 0 none"
-                        class="td_link_dark"
-                        >{{jouranalDetail.mainClassHead}}</a
-                      >
-                    </td>
-                    <td>
-                      <a
-                        [routerLink]="['edit', jouranalDetail.keyValue]"
-                        style="font-size: 15px; border-bottom: 0 none"
-                        class="td_link_dark"
-                        >{{jouranalDetail.subClassHead}}</a
-                      >
-                    </td>
-                    <td>
-                      <a
-                        [routerLink]="['edit', jouranalDetail.keyValue]"
-                        style="font-size: 15px; border-bottom: 0 none"
-                        class="td_link_dark"
+                        
                         >{{jouranalDetail.generalLedgerHead}}</a
                       >
                     </td>
                     <td>
                       <a
-                        [routerLink]="['edit', jouranalDetail.keyValue]"
+                        
                         style="font-size: 15px; border-bottom: 0 none"
-                        class="td_link_dark"
+                        
+                        >{{jouranalDetail.mainClassHead}}</a
+                      >
+                    </td>
+                    <td>
+                      <a
+                        
+                        style="font-size: 15px; border-bottom: 0 none"
+                        
+                        >{{jouranalDetail.subClassHead}}</a
+                      >
+                    </td>
+                    <td>
+                      <a
+                        
+                        style="font-size: 15px; border-bottom: 0 none"
+                        
                         >{{jouranalDetail.clientName}}</a
                       >
                     </td>
                     <td>
                       <a
-                        [routerLink]="['edit', jouranalDetail.keyValue]"
+                        
                         style="font-size: 15px; border-bottom: 0 none"
-                        class="td_link_dark"
+                        
                         >{{jouranalDetail.narration}}</a
                       >
                     </td>
                     <td>
                       <a
-                        [routerLink]="['edit', jouranalDetail.keyValue]"
+                        
                         style="font-size: 15px; border-bottom: 0 none"
-                        class="td_link_dark"
+                        
                         >{{jouranalDetail.debit}}</a
                       >
                     </td>
                     <td>
                       <a
-                        [routerLink]="['edit', jouranalDetail.keyValue]"
+                        
                         style="font-size: 15px; border-bottom: 0 none"
-                        class="td_link_dark"
+                        
                         >{{jouranalDetail.credit}}</a
                       >
                     </td>
                     <td>
                       <a
-                        [routerLink]="['edit', jouranalDetail.keyValue]"
+                        
                         style="font-size: 15px; border-bottom: 0 none"
-                        class="td_link_dark"
+                        
                         >{{jouranalDetail.caseId}}</a
                       >
                     </td>
-                    <td>
+                    <!-- <td>
                       <ul class="nav">
                         <li ngbDropdown>
-                          <a ngbDropdownToggle class="td_link_dark" style="border-bottom: none;" role="button">
+                          <a ngbDropdownToggle  style="border-bottom: none;" role="button">
                           </a>
                           <ul ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
                               <li ngbDropdownItem>
-                                <a [routerLink]="['edit', jouranalDetail.keyValue]">
+                                <a>
                                   <span class="glyphicon glyphicon-pencil mr-2"></span>
                                   Edit
                                 </a>
                               </li>
-                              <!-- <li ngbDropdownItem>
+                              <li ngbDropdownItem>
                                 <a (click)="deleteCaseSubCategory(jouranalDetail.keyValue)">
                                   <span class="glyphicon glyphicon-remove mr-2"></span>
                                   Delete
                                 </a>
-                              </li> -->
+                              </li>
                           </ul>
                           </li>
                       </ul>
-                    </td>
+                    </td> -->
                   </tr>
                 </tbody>
               </table>

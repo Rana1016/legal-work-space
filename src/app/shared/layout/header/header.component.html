@@ -145,7 +145,10 @@
             <a> <span class="fa fa-key"></span> Change Password </a>
           </li>
           <li ngbDropdownItem>
-            <a (click)="logout()">
+            <a *ngIf="!isInClient" (click)="logout()">
+              <span class="glyphicon glyphicon-log-out"></span> Sign out
+            </a>
+            <a *ngIf="isInClient" (click)="clientLogout()">
               <span class="glyphicon glyphicon-log-out"></span> Sign out
             </a>
           </li>

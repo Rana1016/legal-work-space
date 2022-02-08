@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ClientPortalComponent } from './client-portal.component';
 import { DataTablesModule } from 'angular-datatables';
 import {RouterModule} from '@angular/router';
+import { InvoicesComponent } from './components/invoices/invoices.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import {RouterModule} from '@angular/router';
     PortalComponent,
     MyCasesComponent,
     MyDocumentsComponent,
+    InvoicesComponent,
   ],
   imports: [
     CommonModule,

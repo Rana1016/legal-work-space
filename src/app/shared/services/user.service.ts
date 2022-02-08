@@ -52,7 +52,7 @@ export class UserService {
 
   customerLogout() {
     localStorage.removeItem('client');
-    this.router.navigate(['/cases']);
+    this.router.navigate(['/client/client-login']);
   }
 
   addUser(data: any) {

@@ -20,6 +20,8 @@ export class ClientLoginComponent implements OnInit {
     });
   }
   login() {
+    console.log(this.loginForm.value);
+    
     this.user.clientLogin(this.loginForm.value).subscribe(({status, body}) => {
       if (status == 200) {
         console.log(body)

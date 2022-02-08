@@ -15,61 +15,15 @@ export class MyCasesComponent implements OnInit {
   dtOptions!: DataTables.Settings;
 
   ngOnInit(): void {
-    this.dtOptions = {
-      responsive: true,
-      // scrollX: true,
-      order: [[0, "desc"]],
-      lengthChange: false,
-      paging: true,
-      processing: true,
-      ordering: true,
-      info: true,
-      autoWidth: false,
-      searching: true,
-      serverSide: true,
-      pagingType: 'full_numbers',
-      language: {
-        emptyTable: 'No cases available.',
-        processing: 'Loading Cases...'
-      },
-      columns: [{
-        title: 'Date',
-        data: 'date',
-        width: '200',
-        orderable: true
-      }, {
-        title: 'Case Ref',
-        data: 'caseRef',
-        width: '150',
-        orderable: false,
-        
-      }, {
-        title: 'Client Name',
-        data: 'clientName',
-        width: '250',
-        orderable: false
-      }, {
-        title: 'Matter Description',
-        data: 'matterDescription',
-        width: '550',
-        orderable: false
-      }],
-      destroy: true,
-      ajax: this.ajaxCases.bind(this)
-    };
+    this.getCases();
   }
 
-  ajaxCases(dTParams: any, callback: any) {
-    this.clientSvc.getClientCases(this.user.getClient.clientId, dTParams).subscribe(({response}: any) => {
+  getCases() {
+    this.clientSvc.getClientCases(this.user.getClient.clientId).subscribe(({response}: any) => {
       console.log(response);
       
       this.Cases = response;
       console.log(this.Cases);
-      
-      callback({
-        recordsFiltered: response.length,
-        recordsTotal: response.length 
-      })
     })
   }
 

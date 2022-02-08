@@ -45,7 +45,7 @@ export class ClientService {
     })
   }
 
-  getClientCases(clientId: number, dTParams: any) {
+  getClientCases(clientId: number) {
     return this.http.get<any>(ApiRoutes.clientPortal.getCasesById, {
       params: {
         clientId

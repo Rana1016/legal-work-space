@@ -11,7 +11,6 @@ const routes: Routes = [
   },
   {
     path: 'portal/:caseId',
-    canActivate: [NonClientAuthGuard],
     component: PortalComponent
   }, 
   {

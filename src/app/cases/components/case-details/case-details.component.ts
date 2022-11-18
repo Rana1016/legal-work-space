@@ -46,6 +46,10 @@ export class CaseDetailsComponent implements OnInit {
         selector: 'notes',
       },
       {
+        title: 'Attendance Notes',
+        selector: 'attendance-notes',
+      },
+      {
         title: 'Key Dates',
         selector: 'deadlines',
       },

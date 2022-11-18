@@ -44,8 +44,8 @@
                 <a class="td_link_dark">{{ timeKeeping.caseId }}</a>
               </td> -->
               <td>{{ timeKeeping.dateCreated | date: "dd-MM-YYYY" }}</td>
-              <td>{{ '' }}</td>
-              <td>{{ '' }}</td>
+              <td>{{ timeKeeping?.category }}</td>
+              <td>{{ timeKeeping?.subCategory }}</td>
               <td>{{ timeKeeping.inclusiveVat == "0" ? "VAT Inclusive" : timeKeeping.inclusiveVat == "1" ? "VAT Exclusive" : "No VAT"}}</td>
               <td>{{ timeKeeping.vatRate == '1' ? "20% (VAT on Income - Standard)" : "0% (No VAT - Zero Rate)"}}</td>
               <td>{{ timeKeeping.timeSpent }}</td>

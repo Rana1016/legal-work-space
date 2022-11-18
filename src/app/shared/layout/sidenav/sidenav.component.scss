@@ -1,0 +1,10 @@
+.hasSubmenu{
+    .submenu{
+        display: none;
+    }
+    &:hover{
+        .submenu{
+            display: block;
+        }
+    }
+}

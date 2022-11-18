@@ -4,7 +4,10 @@
 
 export const environment = {
   production: false,
-  baseUrl:"http://135.181.178.183:8006/"
+  // baseUrl:"http://135.181.178.183:8056/"
+
+  baseUrl:"http://d29f-39-61-57-231.ngrok.io/"
+
 };
 
 /*

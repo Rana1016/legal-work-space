@@ -7,12 +7,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { JournalVoucherTransactionsComponent } from './journal-voucher-transactions.component';
 import { JournalVoucherDetailComponent } from './journal-voucher-detail/journal-voucher-detail.component';
+import { PrintVoucherComponent } from './print-voucher/print-voucher.component';
 
 
 @NgModule({
   declarations: [
     JournalVoucherTransactionsComponent,
     JournalVoucherDetailComponent,
+    PrintVoucherComponent,
   ],
   imports: [
     CommonModule,

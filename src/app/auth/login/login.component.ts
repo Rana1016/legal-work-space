@@ -19,10 +19,12 @@ export class LoginComponent implements OnInit {
     });
   }
   login() {
-    this.user.login(this.loginForm.value).subscribe(({status, body}) => {
-      if (status == 200) {
-        this.router.navigateByUrl('/dashboard')
-      }
-    });
+    this.router.navigateByUrl('/dashboard')
+
+  //   this.user.login(this.loginForm.value).subscribe(({status, body}) => {
+  //     if (status == 200) {
+  //       this.router.navigateByUrl('/dashboard')
+  //     }
+  //   });
   }
 }

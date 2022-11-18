@@ -1,0 +1,175 @@
+<h1 id="pg-title" class="row align-items-center justify-content-center justify-content-md-start">Account Statement</h1>
+<div class="row">
+  <div class="col-md-12">
+    <div class="widget">
+      <div class="widget-body">
+          <form action="" [formGroup]="accountStatementForm" (ngSubmit)="searchAccStatement()">
+            <div class="row">
+            <div class="col-sm-12 col-md-4 col-lg-3">
+              <label>Start Date:</label>
+              <div class="input-group">
+                <input
+                  class="form-control"
+                  placeholder="dd-mm-yyyy"
+                  name="dp"
+                  ngbDatepicker
+                  #s="ngbDatepicker"
+                  formControlName="fromDate"
+                />
+                <div class="input-group-append">
+                  <button
+                    class="btn btn-secondary fa fa-calendar-o"
+                    (click)="s.toggle()"
+                    type="button"
+                  ></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-4 col-lg-3">
+              <label>End Date:</label>
+              <div class="input-group">
+                <input
+                  class="form-control"
+                  placeholder="dd-mm-yyyy"
+                  name="dp"
+                  ngbDatepicker
+                  #e="ngbDatepicker"
+                  formControlName="toDate"
+                />
+                <div class="input-group-append">
+                  <button
+                    class="btn btn-secondary fa fa-calendar-o"
+                    (click)="e.toggle()"
+                    type="button"
+                  ></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-4 col-lg-3">
+              <label>General Ledger:</label>
+              <ng-select
+                  class="ng-select"
+                  [items]="generalLedger"
+                  [multiple]="false"
+                  bindLabel="displayValue"
+                  [closeOnSelect]="true"
+                  bindValue="keyValue"
+                  placeholder="Please Select"
+                  formControlName="ledgerId"
+                >
+                  <ng-template
+                    ng-option-tmp
+                    let-item="item"
+                    let-item$="item$"
+                    let-index="index"
+                  >
+                    {{item.displayValue}}
+                  </ng-template>
+                  <ng-template
+                    ng-multi-label-tmp
+                    let-items="generalLedger">
+                    <div
+                      class="ng-value py-1"
+                      *ngFor="let item of generalLedger; let f = first"
+                    >
+                      <span
+                        class="ng-value-icon left"
+  
+                        aria-hidden="true"
+                        ></span>
+  
+                      </div>
+  
+  
+                      <div  class="ng-value py-1" *ngFor="let item of generalLedger">
+                      <span class="ng-value-label"
+                        >{{ item.displayValue}}</span
+                      >
+                    </div>
+                  </ng-template>
+                </ng-select>
+            </div>
+            <div class="col-sm-12 col-md-4 col-lg-3 d-flex align-items-end" >
+              <button class="btn btn-primary">Search</button>
+            </div>
+          </div>
+          </form>
+        
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mainBody">
+  <div *ngIf="isLoading" class="h-100 d-flex align-items-center justify-content-center">
+    <i class="fa fa-circle-notch fa-spin fa-4x"></i>
+  </div>
+  <div *ngIf="!isLoading" class="">
+    <div *ngIf="accountStatementData != null">
+      <div class="divHeader">
+          <img src="https://legalworkspace.co.uk/images/logo.png" />
+      </div>
+      <div class="smallTable">
+        <table class="smallTable">
+          <tr>
+            <td>From Date</td>
+            <td>{{accountStatementForm.value.fromDate | date: 'MM-dd-yyyy HH:MM:SS'}}</td>
+          </tr>
+          <tr>
+            <td>To Date</td>
+            <td>{{accountStatementForm.value.toDate | date: 'MM-dd-yyyy HH:MM:SS'}}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="mainTable">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Voucher #</th>
+              <th>Narration</th>
+              <th>Credit</th>
+              <th>Debit</th>
+              <th>Balance</th>
+            </tr>
+            <tr>
+              <th colspan="5">{{accountStatementData?.generalLedgerHead}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="bgColor">
+              <th></th>
+              <th>Opening Balance</th>
+              <th></th>
+              <th></th>
+              <th>{{accountStatementData?.openingBalance}}</th>
+            </tr>
+            <tr *ngFor="let data of accountStatementData?.transactions">
+              <th>{{data?.generalLedgerCode}}</th>
+              <th></th>
+              <th>{{data?.credit}}</th>
+              <th>{{data?.debit}}</th>
+              <th>{{data?.balance}}</th>
+            </tr>
+            <tr class="bgColor">
+              <th></th>
+              <th>Closing Balance</th>
+              <th></th>
+              <th></th>
+              <th>{{accountStatementData?.closingBalance}}</th>
+            </tr>
+            <tr>
+              <th></th>
+              <th></th>
+              <th>{{accountStatementData?.totalCredit}}</th>
+              <th>{{accountStatementData?.totalDebit}}</th>
+              <th></th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="printBtn" style="margin-top: 50px; text-align: right;">
+        <button class="btn btn-success" (click)="printAccStatement()">Print</button>
+      </div>
+    </div>
+    
+  </div>
+</div>

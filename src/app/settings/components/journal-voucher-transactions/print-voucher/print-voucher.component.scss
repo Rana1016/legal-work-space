@@ -1,0 +1,61 @@
+table.smallTable {
+    width: 40%;
+}
+table {
+    margin-top: 30px !important;
+    border-spacing: 10px !important;
+}
+td {
+    padding: 10px;
+}
+th {
+    border-bottom: 1px solid black !important;
+}
+table, th, td {
+    border: 1px solid black;
+  }
+  h2{
+      font-weight: bold;
+  }
+.GlDetailSection {
+    margin-top: 50px;
+}
+.signatureSection{
+    display: none;
+    margin-top: 170px;
+    overflow: hidden;
+    .signatureDiv{
+        width: 20%;
+        border: 1px solid black;
+        padding: 10px;
+        float: right;
+        h3{
+            margin: 0;
+            margin-bottom: 50px;
+        }
+        hr{
+            border-color: black;
+        }
+    }
+}
+.divHeader{
+    display: none;
+}
+@media print {
+    .printDiv, #print_Logo {
+        display: block;
+    }
+    .signatureSection{
+        display: block;
+    }
+    .no-print{
+        display: none;
+        height: 0 !important;
+    }
+    .divHeader{
+        display: block;
+        width: 100%;
+        position: fixed;
+        top: 0 !important;
+    }
+}

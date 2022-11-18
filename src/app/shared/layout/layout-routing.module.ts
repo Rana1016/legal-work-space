@@ -6,7 +6,7 @@ import { LayoutComponent } from './layout.component';
 
 const LayoutRoutes: Routes = [
   {
-    path: 'dashboard',
+    path: '',
     component: DashboardComponent,
   },
   {

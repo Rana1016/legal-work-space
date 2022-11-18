@@ -1,0 +1,106 @@
+<!-- <h1 id="pg-title" class="row align-items-center justify-content-center justify-content-md-start">Voucher Printing</h1> -->
+<div class="row mt-5 no-print">
+    <div class="col-md-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div class="row">
+                    <div class="col-md-12" id="pg-nav">
+                        <ul class="list-inline">
+                            <a [routerLink]="['/settings/journal-voucher']" class="btn">
+                                <span class="glyphicon glyphicon-arrow-left"></span> Back</a
+                              >
+                            <li>
+                                <button class="btn" (click)="print()">Print</button>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="printDiv">
+    <div class="row">
+        <div class="divHeader">
+            <img src="https://legalworkspace.co.uk/images/logo.png" />
+        </div>
+        <div class="col-12">
+            
+            <div class="widget">
+                <div class="widget-body">
+                    <div class="tableDiv">
+                        <h2>Voucher Printing</h2>
+                        <table class="smallTable">
+                            <tr>
+                                <td>Voucher #</td>
+                                <td>{{printMainData?.voucherNumber}}</td>
+                            </tr>
+                            <tr>
+                                <td>Posting Date</td>
+                                <td>{{printMainData?.postedDate | date: 'MM/dd/yyyy HH:MM:SS'}}</td>
+                            </tr>
+                            <tr>
+                                <td>Approval Date</td>
+                                <td>{{printMainData?.approvedDate | date: 'MM/dd/yyyy HH:MM:SS'}}</td>
+                            </tr>
+                            <tr>
+                                <td>Posted By</td>
+                                <td>{{printMainData?.postedBy}}</td>
+                            </tr>
+                            <tr>
+                                <td>Approved By</td>
+                                <td>{{printMainData?.approvedBy}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="GlDetailSection">
+                        <h2>GL Details</h2>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Gl Code</th>
+                                    <th>GL Name</th>
+                                    <th>Case Litigation Title</th>
+                                    <th>Client Name</th>
+                                    <th>Narration</th>
+                                    <th>Debit</th>
+                                    <th>Credit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let gl of printGlData">
+                                    <td>{{gl?.glCode}}</td>
+                                    <td>{{gl?.glName}}</td>
+                                    <td>{{gl?.litigationCaseTitle}}</td>
+                                    <td>{{gl?.clientName}}</td>
+                                    <td>{{gl?.narration}}</td>
+                                    <td>{{gl?.debit}}</td>
+                                    <td>{{gl?.credit}}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Total</th>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <th></th>
+                                    <th>{{totalValues?.totalDebit}}</th>
+                                    <th>{{totalValues?.totalCredit}}</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div class="signatureSection">
+                        <div class="signatureDiv">
+                            <h3>Approved By:</h3>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

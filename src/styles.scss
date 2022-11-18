@@ -340,3 +340,17 @@ input[type=checkbox].aml_check {
       display: none;
   }
 }
+@media print {
+  .lw-header, .brand, .main-menu{
+      display: none !important;
+      height: 0px !important;
+  }
+  lw-sidenav.navForPrint{
+      display: none !important;
+      height: 0px !important;
+  }
+  .menu_footer_mobile{
+      display: none !important;
+      height: 0px !important;
+  }
+}

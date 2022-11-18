@@ -25,6 +25,7 @@ import { NewNoteComponent } from './children/new-note/new-note.component';
 import { EditPersonalDetailsComponent } from './children/edit-personal-details/edit-personal-details.component';
 import { EditCaseDetailsComponent } from './children/edit-case-details/edit-case-details.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { AttendanceNotesComponent } from './children/attendance-notes/attendance-notes.component';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     NewAmlListComponent,
     NewNoteComponent,
     EditPersonalDetailsComponent,
-    EditCaseDetailsComponent
+    EditCaseDetailsComponent,
+    AttendanceNotesComponent
   ],
   imports: [
     CommonModule,

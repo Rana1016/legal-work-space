@@ -266,7 +266,7 @@
                                                     <label>* Gender</label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <lw-select [controlName]="'gender'" [options]="FormData.genders">
+                                                    <lw-select [controlName]="'gender'" [options]="FormData.genders" [notAddValue]="true">
                                                     </lw-select>
                                                 </div>
                                             </div>
@@ -793,7 +793,7 @@
                                                     <label>* Gender</label>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <lw-select [controlName]="'gender'" [options]="FormData.genders">
+                                                    <lw-select [controlName]="'gender'" [options]="FormData.genders" [notAddValue]="true">
                                                     </lw-select>
                                                 </div>
                                             </div>
@@ -2273,7 +2273,15 @@
                                             <label>* Fee Type?</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <lw-select controlName="feeType" [options]="FormData.feeTypes" [noFirstText]="true"></lw-select>
+                                            <select formControlName="feeType" class="w-100 selectpicker form-control">
+                                                <option value="Fixed Fee"> Fixed Fee </option>
+                                                <option value="Retainer-ship"> Retainer-ship </option>
+                                                <option value="Hourly Fee"> Hourly Fee </option>
+                                                <option value="Contingency Billing"> Contingency Billing </option>
+                                                <option value="ProBono"> ProBono </option>
+                                                <option value="Legal Aid"> Legal Aid </option>
+                                            </select>
+                                            <!-- <lw-select controlName="feeType" [options]="FormData.feeTypes" [noFirstText]="true"></lw-select> -->
                                         </div>
                                     </div>
                                     <ng-container formGroupName="feeTypeForm">
@@ -2287,7 +2295,7 @@
                                                 <textarea class="form-control" rows="3" formControlName="coveredByFeeAgreement"></textarea>
                                             </div>
                                         </div>
-                                        <div class="row" *ngIf="stepForm.value.paymentOptions.feeType == 1 || stepForm.value.paymentOptions.feeType == 2">
+                                        <div class="row" *ngIf="stepForm.value.paymentOptions.feeType == 'Fixed Fee' || stepForm.value.paymentOptions.feeType == 'Retainer-ship'">
                                             <div class="col-md-4">
                                                 <label>* Agreed Fee</label>
                                             </div>
@@ -2298,7 +2306,7 @@
                                                 </small>
                                             </div>
                                         </div>
-                                        <div class="row" *ngIf="stepForm.value.paymentOptions.feeType == 3">
+                                        <div class="row" *ngIf="stepForm.value.paymentOptions.feeType == 'Hourly Fee'">
                                             <div class="col-md-4">
                                                 <label>* Hourly Rate Caseworker</label>
                                             </div>
@@ -2310,7 +2318,7 @@
                                                 <small class="text-muted">Apply hourly rate according to the selected caseworker</small>
                                             </div>
                                         </div>
-                                        <div class="row" *ngIf="stepForm.value.paymentOptions.feeType == 4">
+                                        <div class="row" *ngIf="stepForm.value.paymentOptions.feeType == 'Contingency Billing'">
                                             <div class="col-md-4">
                                                 <label>* Agreed Amount / Percentage</label>
                                             </div>
@@ -2329,9 +2337,9 @@
                                                 <div class="col-md-4">
                                                     <label>
                                                         * Is VAT applicable & included into {{
-                                                            stepForm.value.paymentOptions.feeType == 1 || stepForm.value.paymentOptions.feeType == 2 ? 'agreed fee'
-                                                            : stepForm.value.paymentOptions.feeType == 3 ? 'hourly rate'
-                                                            : stepForm.value.paymentOptions.feeType == 4 && 'agreed amount / percentage'
+                                                            stepForm.value.paymentOptions.feeType == 'Fixed Fee' || stepForm.value.paymentOptions.feeType == 'Retainer-ship' ? 'agreed fee'
+                                                            : stepForm.value.paymentOptions.feeType == 'Hourly Fee' ? 'hourly rate'
+                                                            : stepForm.value.paymentOptions.feeType == 'Contingency Billing' && 'agreed amount / percentage'
                                                         }}?
                                                     </label>
                                                 </div>
@@ -2345,7 +2353,7 @@
                                                     </small>
                                                 </div>
                                             </div>
-                                            <ng-container *ngIf="stepForm.value.paymentOptions.feeType == 1 || stepForm.value.paymentOptions.feeType == 2">
+                                            <ng-container *ngIf="stepForm.value.paymentOptions.feeType == 'Fixed Fee' || stepForm.value.paymentOptions.feeType == 'Retainer-ship'">
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <label>* Advance Payment</label>

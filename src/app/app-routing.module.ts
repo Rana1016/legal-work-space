@@ -20,19 +20,20 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/dashboard',
-    pathMatch: 'full',
-  },
-  {
-    path: '',
-    canActivate: [NonAuthGuard],
-    loadChildren: () => import('src/app/shared/auth/auth.module').then(m => m.AuthModule)
-  },
-  {
-    path: '',
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     loadChildren: () => import('src/app/shared/layout/layout.module').then(m => m.LayoutModule)
   },
+  {
+    path: '',
+    redirectTo: 'layout/dashboard',
+    pathMatch: 'full',
+  },
+  // {
+  //   path: '',
+  //   // canActivate: [NonAuthGuard],
+  //   loadChildren: () => import('src/app/shared/auth/auth.module').then(m => m.AuthModule)
+  // },
+  
   {
     path: "**",
     redirectTo: '/dashboard',

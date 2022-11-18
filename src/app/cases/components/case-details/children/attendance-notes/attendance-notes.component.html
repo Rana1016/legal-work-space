@@ -1,0 +1,63 @@
+<div class="col-sm-12 col-md-12">
+    <div class="profilex">
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          <h5>Attendance Notes</h5>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 toolbar">
+          <ul class="list-inline">
+            <li>
+              <a
+                class="btn btn_toolbar" [routerLink]="['new-note']"
+                ><span class="glyphicon glyphicon-plus"></span> Add Attendance note</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+      <hr />
+      <ngb-accordion *ngIf="attendanceNotes && attendanceNotes.length > 0" [closeOthers]="true" activeIds="static-0">
+        <ngb-panel id="static-{{i}}" *ngFor="let note of attendanceNotes; let i = index;">
+          <ng-template ngbPanelHeader let-opened="opened">
+            <h4 class="panel-title">
+            <button ngbPanelToggle role="button" class="accordion_href">
+              <small class="muted text-green">
+                <strong>
+                  [ {{ note.dateAdded | date: 'dd MMM yyyy'}} ]
+                </strong>
+              </small>
+              {{note.title}}
+            </button>
+            </h4>
+          </ng-template>
+          <ng-template ngbPanelContent>
+            <div class="toolbar">
+              <ul class="list-inline">
+                <a class="btn btn-sm btn-default mx-1">
+                  <span class="glyphicon glyphicon-download-alt"></span>
+                </a>
+                <a class="btn btn-sm btn-default mx-1"><span class="glyphicon glyphicon-print"></span>
+                </a>
+                <!-- <a class="btn btn-sm btn-default mx-1">
+                  <span class="glyphicon glyphicon-pencil"></span>
+                </a> -->
+                <a class="btn btn-sm btn-danger mx-1">
+                  <span class="glyphicon glyphicon-remove"></span>
+                </a>
+              </ul>
+            </div>
+            <hr />
+            {{note.description}}
+            <hr />
+            <small class="muted"
+              >Last modified by: {{note.addedBy}} on {{ note.dateAdded | date: 'dd MMM yyyy'}} {{ note.dateAdded | date: 'hh:mm:ss'}}</small
+            >
+          </ng-template>
+        </ngb-panel>
+      </ngb-accordion>
+      <h4 *ngIf="attendanceNotes && attendanceNotes.length == 0" class="w-100 text-center">
+        No Attendance Notes Available
+      </h4>
+    </div>
+  </div>
+  

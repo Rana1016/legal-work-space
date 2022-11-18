@@ -30,6 +30,7 @@ export class FloatingTimerComponent implements OnInit {
   isValid?: boolean = true;
   clientName?: string = "";
   searchId = '';
+  edit: any;
   constructor(private modalService: NgbModal, 
     private fb: FormBuilder, 
     private timeKeep: TimeKeepingService,
@@ -51,17 +52,18 @@ export class FloatingTimerComponent implements OnInit {
     });
   }
   ngOnInit(): void {
+    this.getCategories();
     this.hours = 0;
     this.minutes = 0;
     this.seconds = 0;
     // this.vatRate.getVatRates(szq)
     this.timeKeep.modalOpen.subscribe((timeKeepId) => {
       console.log(timeKeepId);
-      
+      this.edit = timeKeepId;
       if (timeKeepId != null) {
         this.timeKeep.getTimeKeepById(timeKeepId).subscribe((data) => {
           console.log(data, 'time keeping');
-          
+          this.searchId = data.caseId;
           this.addTimeForm.patchValue(data);
           this.modalInit();
         })
@@ -98,6 +100,8 @@ export class FloatingTimerComponent implements OnInit {
     
     this.getCategories();
     this.addTimeForm.controls.categoryId.valueChanges.subscribe((categoryId) => {
+      console.log('value changes call');
+      
       this.getSubCategories(Number(categoryId));
     })
     this.timerModal = this.modalService.open(this.AddTimeEntryForBilling, {
@@ -138,24 +142,38 @@ export class FloatingTimerComponent implements OnInit {
   }
 
   addTime() {
-    this.timeKeep.addTime({...this.addTimeForm.value, caseId: Number(this.addTimeForm.value.caseId)}).subscribe((res) => {
-      if (res == 1) {
-        this.timerModal.close();
-        this.addTimeForm.reset();
-      }
-    })
+    if(this.edit != null){
+      this.timeKeep.updateTimeKeepById(this.edit, this.addTimeForm.value ).subscribe((res) => {
+        if (res == 1) {
+          this.timerModal.close();
+          this.addTimeForm.reset();
+        }
+      })
+    }else{
+      this.timeKeep.addTime({...this.addTimeForm.value, caseId: Number(this.addTimeForm.value.caseId)}).subscribe((res) => {
+        if (res == 1) {
+          this.timerModal.close();
+          this.addTimeForm.reset();
+        }
+      })
+    }
+    
   }
 
   getCategories() {
-    return this.lookup.getOptions('tblHourlyRate', 'hourlyRateId', 'Title').subscribe((categories) =>  this.categories = categories);
+    return this.lookup.getOptions('tblHourlyRate', 'hourlyRateId', 'Title').subscribe((categories) => this.categories = categories );
   }
 
   getSubCategories(hourlyRate: any) {
+    console.log(this.addTimeForm.value);
+    
     return this.lookup.getOptions('tblHourlyRateDetail', 'hourlyRateDetailId', 'Title', 'hourlyRateId', `${this.addTimeForm.value.categoryId}`).subscribe((subCategories) =>  this.subCategories = subCategories);
   }
 
   checkCase(caseId: string | number) {
-    if ((<string>caseId).length >= 4) {
+    console.log(caseId);
+    
+    if (caseId != null && (<string>caseId).length >= 4) {
       caseId = Number(caseId)
       this.caseService.isValid(caseId).subscribe(({ message, clientName }: any) => {
         this.clientName = clientName;

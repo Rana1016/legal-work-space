@@ -18,14 +18,14 @@ export class HeaderComponent  {
   isInClient: boolean = false;
   userName: any;
   constructor(private user: UserService, private sharedService: SharedService, private router : Router) {
-    console.log(this.router.url);
-    if(this.router.url.includes('client')){
-      this.isInClient = true;
-      this.userName = (<any>this.user.getClient).userName;
-    }else{
-      this.isInClient = false;
-      this.userName = (<any>this.user.getUser).name;
-    }
+    // console.log(this.router.url);
+    // if(this.router.url.includes('client')){
+    //   this.isInClient = true;
+    //   this.userName = (<any>this.user.getClient).userName;
+    // }else{
+    //   this.isInClient = false;
+    //   this.userName = (<any>this.user.getUser).name;
+    // }
     
   }
   
@@ -41,7 +41,7 @@ export class HeaderComponent  {
     this.user.logout();
   }
   clientLogout() {
-    this.userName = (<any>this.user.getUser).name;
+    // this.userName = (<any>this.user.getUser).name;
     this.user.customerLogout();
   }
 }

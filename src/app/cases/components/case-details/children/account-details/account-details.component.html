@@ -10,12 +10,12 @@
                   Actions
               </a>
               <ul ngbDropdownMenu>
-                <li ngbDropdownItem>
+                <!-- <li ngbDropdownItem>
                   <a>
                       <span class="glyphicon glyphicon-pencil mr-1"></span>
                       Manage installments
                   </a>
-                </li>
+                </li> -->
                 <li ngbDropdownItem>
                   <a>
                       <span class="glyphicon glyphicon-pencil mr-1"></span>
@@ -29,7 +29,7 @@
                   </a>
                 </li>
                 <li ngbDropdownItem>
-                  <a>
+                  <a [routerLink]="['/reports/account-statement']">
                       <span class="glyphicon glyphicon-print mr-1"></span>
                       Account statement (PDF)
                   </a>
@@ -49,12 +49,12 @@
 
   <div class="row">
     <div class="col-md-4 strongest">Fee Type</div>
-    <div class="col-md-8">Fixed Fee</div>
+    <div class="col-md-8">{{accountDetail?.feeType}}</div>
   </div>
   <hr />
   <div class="row">
     <div class="col-md-4 strongest">Agreed Fee</div>
-    <div class="col-md-8">£233.00 (VAT Not Applicable) Plus Disbursements</div>
+    <div class="col-md-8">{{accountDetail?.agreedFee}}</div>
   </div>
   <hr />
   <div class="row">
@@ -64,7 +64,7 @@
           <h5>Payment Schedule</h5>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 toolbar">
-          <ul class="list-inline">
+          <!-- <ul class="list-inline">
             <li>
               <a
                 class="btn btn_toolbar"
@@ -72,7 +72,7 @@
                 Instalments</a
               >
             </li>
-          </ul>
+          </ul> -->
         </div>
       </div>
       <hr />
@@ -107,30 +107,30 @@
                 <th width="90" class="sorting_disabled" rowspan="1" colspan="1">
                   Status
                 </th>
-                <th
+                <!-- <th
                   width="32"
                   class="text-center sorting_disabled"
                   rowspan="1"
                   colspan="1"
                 >
                   &nbsp;
-                </th>
+                </th> -->
               </tr>
             </thead>
             <tbody>
-              <tr role="row" class="odd">
-                <td></td>
-                <td>Advance Payment</td>
-                <td>£3.00</td>
-                <td>Paid on 30-09-2021</td>
-                <td class="text-center">
+              <tr role="row" class="odd" *ngFor="let data of accountDetail?.caseAccountDetail">
+                <td>{{checkDateYaer(data?.dueDate) ? (data?.dueDate | date : "dd-MM-YYYY") : ''}}</td>
+                <td>{{data?.description}}</td>
+                <td>{{data?.amount}}</td>
+                <td>{{data?.status}}</td>
+                <!-- <td class="text-center">
                   <a
                     target="_blank"
                     ><span class="fa fa-file-pdf-o" aria-hidden="true"></span
                   ></a>
-                </td>
+                </td> -->
               </tr>
-              <tr role="row" class="even">
+              <!-- <tr role="row" class="even">
                 <td>30-09-2021</td>
                 <td>Instalment</td>
                 <td>£230.00</td>
@@ -143,8 +143,8 @@
                 <td>£0.00</td>
                 <td></td>
                 <td></td>
-              </tr>
-              <tr role="row" class="even">
+              </tr> -->
+              <!-- <tr role="row" class="even">
                 <td></td>
                 <td><strong>BALANCE</strong><br /></td>
                 <td><span class="badge_cms badge_red">£230.00</span></td>
@@ -155,7 +155,7 @@
                     ><span class="fa fa-file-pdf-o" aria-hidden="true"></span
                   ></a>
                 </td>
-              </tr>
+              </tr> -->
             </tbody>
           </table>
         </div>

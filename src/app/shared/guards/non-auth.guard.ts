@@ -10,11 +10,12 @@ export class NonAuthGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (!!localStorage.getItem('user'))  {
-      this.router.navigateByUrl('/dashboard')
+    // if (!!localStorage.getItem('user'))  {
+    //   this.router.navigateByUrl('/dashboard')
+    //   return false
+    // }
+    // return true
       return false
-    }
-    return true
   }
   
 }

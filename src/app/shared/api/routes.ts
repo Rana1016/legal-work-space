@@ -105,6 +105,9 @@ export const ApiRoutes: API_ROUTES = {
     getById: `${environment.baseUrl}case/getAMLByCaseId`,
     addAmlList: `${environment.baseUrl}case/addNewAMLList`,
     checkAML: `${environment.baseUrl}case/checkAMLItem`
+  }, 
+  accountDetails: {
+    getById: `${environment.baseUrl}case/getAccountsDetail`,
   },
   caseNotes: {
     getById: `${environment.baseUrl}note/getNotes`,
@@ -250,7 +253,11 @@ export const ApiRoutes: API_ROUTES = {
     add: `${environment.baseUrl}accounts/AddNewJournalVoucher`,
     all: `${environment.baseUrl}accounts/getJournalVouchersMaster`,
     byId: `${environment.baseUrl}accounts/getVoucherDetails`,
-
+    printDetail : `${environment.baseUrl}accounts/getVoucherPrintDetails`,
+    pendingAll : `${environment.baseUrl}accounts/getPendingApprovalsForVouchers`,
+    approveVoucher : `${environment.baseUrl}accounts/approveVoucher`,
+    accStatementDetails : `${environment.baseUrl}accounts/getLedgerPrintDetails`,
+    trialBalanceDetails : `${environment.baseUrl}accounts/getTrialBalanceDetails`
   }
 }
 
@@ -303,6 +310,11 @@ export interface API_ROUTES {
     add: string;
     all: string;
     byId: string;
+    printDetail : string;
+    pendingAll : string;
+    approveVoucher : string;
+    accStatementDetails : string;
+    trialBalanceDetails : string;
   }
     caseActivities: {
         all: string;
@@ -338,6 +350,9 @@ export interface API_ROUTES {
         getById: string;
         addAmlList: string;
         checkAML: string;
+    };
+    accountDetails: {
+      getById: string;
     };
     caseNotes: {
         getById: string;

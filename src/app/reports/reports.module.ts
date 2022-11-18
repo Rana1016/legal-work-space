@@ -10,9 +10,12 @@ import { UnpaidDisbComponent } from './components/unpaid-disb/unpaid-disb.compon
 import { DebtorsComponent } from './components/debtors/debtors.component';
 import { IncomeComponent } from './components/income/income.component';
 import { HighchartsChartModule } from 'highcharts-angular';
-import { FormsModule } from '@angular/forms';
-
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AccountStatementComponent } from './components/account-statement/account-statement.component';
+import { TrialBalanceComponent } from './components/trial-balance/trial-balance.component';
+import { ReportsMainComponent } from './components/reports-main/reports-main.component';
+import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgSelectModule } from '@ng-select/ng-select';
 @NgModule({
   declarations: [
     ReportsComponent,
@@ -21,13 +24,19 @@ import { FormsModule } from '@angular/forms';
     UnpaidInvoicesComponent,
     UnpaidDisbComponent,
     DebtorsComponent,
-    IncomeComponent
+    IncomeComponent,
+    AccountStatementComponent,
+    TrialBalanceComponent,
+    ReportsMainComponent
   ],
   imports: [
     CommonModule,
     ReportsRoutingModule,
     HighchartsChartModule,
-    FormsModule
+    FormsModule,
+    NgbDatepickerModule,
+    NgSelectModule,
+    ReactiveFormsModule
   ]
 })
 export class ReportsModule { }

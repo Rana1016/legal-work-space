@@ -26,6 +26,8 @@ export class LayoutComponent implements OnInit {
   clientMenu = SideNavItems;
   get isClient() { return this.router.url.includes('/client/') };
   ngOnInit(): void {
+    console.log("layout");
+    
     this.sharedService.getMenu().subscribe(({ leftMenu, settingsMenu }) => {
       this.LeftMenu = leftMenu;
       this.Settings = settingsMenu;

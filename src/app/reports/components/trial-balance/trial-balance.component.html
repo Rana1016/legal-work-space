@@ -1,0 +1,188 @@
+<h1 id="pg-title" class="row align-items-center justify-content-center justify-content-md-start">Trial Balance</h1>
+<div class="row">
+  <div class="col-md-12">
+    <div class="widget">
+      <div class="widget-body">
+          <form action="" [formGroup]="trialBalanceForm" (ngSubmit)="searcTrialBalance()">
+            <div class="row">
+            <div class="col-sm-12 col-md-4 col-lg-3">
+              <label>Start Date:</label>
+              <div class="input-group">
+                <input
+                  class="form-control"
+                  placeholder="dd-mm-yyyy"
+                  name="dp"
+                  ngbDatepicker
+                  #s="ngbDatepicker"
+                  formControlName="fromDate"
+                />
+                <div class="input-group-append">
+                  <button
+                    class="btn btn-secondary fa fa-calendar-o"
+                    (click)="s.toggle()"
+                    type="button"
+                  ></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-4 col-lg-3">
+              <label>End Date:</label>
+              <div class="input-group">
+                <input
+                  class="form-control"
+                  placeholder="dd-mm-yyyy"
+                  name="dp"
+                  ngbDatepicker
+                  #e="ngbDatepicker"
+                  formControlName="toDate"
+                />
+                <div class="input-group-append">
+                  <button
+                    class="btn btn-secondary fa fa-calendar-o"
+                    (click)="e.toggle()"
+                    type="button"
+                  ></button>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-4 col-lg-3">
+              <label>General Ledger:</label>
+                <ng-select class="ng-select" [items]="generalLedger" [multiple]="true"
+                    bindLabel="displayValue" [closeOnSelect]="false" bindValue="keyValue"
+                    placeholder="Please Select" formControlName="glIds">
+                    <ng-template ng-option-tmp let-item="item" let-item$="item$"
+                        let-index="index">
+                        <input id="item-{{index}}" type="checkbox"
+                            [(ngModel)]="item$.selected"
+                            [ngModelOptions]="{standalone: true}" />
+                        {{item.displayValue}}
+                    </ng-template>
+                    <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+                        <div class="ng-value py-1"
+                            *ngFor="let item of items; let f = first">
+                            <span class="ng-value-icon left" (click)="clear(item)"
+                                aria-hidden="true">×</span>
+                            <span class="ng-value-label">{{item.displayValue}} </span>
+                        </div>
+                    </ng-template>
+                </ng-select>
+            </div>
+            <div class="col-sm-12 col-md-4 col-lg-3 d-flex align-items-end" >
+              <button class="btn btn-primary">Search</button>
+            </div>
+          </div>
+          </form>
+        
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mainBody">
+  <div *ngIf="isLoading" class="h-100 d-flex align-items-center justify-content-center">
+    <i class="fa fa-circle-notch fa-spin fa-4x"></i>
+  </div>
+  <div *ngIf="!isLoading" class="">
+    <div *ngIf="trialBalanceData?.trialBalances.length > 0">
+      <div class="divHeader">
+          <img src="https://legalworkspace.co.uk/images/logo.png" />
+      </div>
+      <div class="smallTable">
+          <table class="smallTable">
+              <tr>
+                  <td>From Date</td>
+                  <td>{{trialBalanceData?.fromDate}}</td>
+              </tr>
+              <tr>
+                <td>To Date</td>
+                <td>{{trialBalanceData?.toDate}}</td>
+            </tr>
+          </table>
+      </div>
+      <div class="mainTable">
+        <h2>Trial Balance Details</h2>
+        <table class="table">
+          <thead>
+            <tr>
+                <th>Voucher #</th>
+                <th></th>
+                <th>Narration</th>
+                <th>Opening
+                    Debit</th>
+                <th>Opening
+                    Credit</th>
+                <th>Activity
+                    Debit</th>
+                <th>Activity
+                    Credit</th>
+                <th>Closing
+                    Debit</th>
+                <th>Closing
+                    Credit</th>
+            </tr>
+          </thead>
+          <tbody>
+                <ng-container *ngFor="let mainClass of trialBalanceData?.trialBalances">
+                    <ng-container *ngFor="let subclass of mainClass?.subClass">
+                        <ng-container *ngFor="let accountStatement of subclass?.accountStatements">
+                            <tr>
+                                <td>{{accountStatement?.generalLedgerCode}}</td>
+                                <td></td>
+                                <td>{{accountStatement?.narration}}</td>
+                                <td>{{accountStatement?.openingDebitBalance}}</td>
+                                <td>{{accountStatement?.openingCreditBalance}}</td>
+                                <td>{{accountStatement?.activityDebit}}</td>
+                                <td>{{accountStatement?.activityCredit}}</td>
+                                <td>{{accountStatement?.closingDebit}}</td>
+                                <td>{{accountStatement?.closingCredit}}</td>
+                            </tr>
+                        </ng-container>
+                        <tr class="subClass">
+                            <td>0</td>
+                            <td>Subclass Class Total</td>
+                            <td>{{subclass?.subClassHead}}</td>
+                            <td>{{subclass?.openingDebitBalance}}</td>
+                            <td>{{subclass?.openingCreditBalance}}</td>
+                            <td>{{subclass?.activityDebit}}</td>
+                            <td>{{subclass?.activityCredit}}</td>
+                            <td>{{subclass?.closingDebit}}</td>
+                            <td>{{subclass?.closingCredit}}</td>
+                        </tr>
+                    </ng-container>
+                    <tr class="mainClass">
+                        <td>0</td>
+                        <td>Main Class Total</td>
+                        <td>{{mainClass?.mainClassHead}}</td>
+                        <td>{{mainClass?.openingDebitBalance}}</td>
+                        <td>{{mainClass?.openingCreditBalance}}</td>
+                        <td>{{mainClass?.activityDebit}}</td>
+                        <td>{{mainClass?.activityCredit}}</td>
+                        <td>{{mainClass?.closingDebit}}</td>
+                        <td>{{mainClass?.closingCredit}}</td>
+                    </tr>
+                </ng-container>
+                
+          </tbody>
+          <tfoot>
+            <tr>
+                <th>0</th>
+                <th>Grand Total</th>
+                <th></th>
+                <th>{{trialBalanceData?.grandOpeningDebit}}</th>
+                <th>{{trialBalanceData?.grandOpeningCredit}}</th>
+                <th>{{trialBalanceData?.grandActivityDebit}}</th>
+                <th>{{trialBalanceData?.grandActivityCredit}}</th>
+                <th>{{trialBalanceData?.grandClosingDebit}}</th>
+                <th>{{trialBalanceData?.grandClosingCredit}}</th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <div class="printBtn" style="margin-top: 50px; text-align: right;">
+        <button class="btn btn-success" (click)="printAccStatement()">Print</button>
+      </div>
+    </div>
+    <div *ngIf="trialBalanceData?.trialBalances.length == 0">
+        <p>No Data</p>
+    </div>
+  </div>
+</div>

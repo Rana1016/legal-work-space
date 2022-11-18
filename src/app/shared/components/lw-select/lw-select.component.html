@@ -17,7 +17,7 @@
                 <input class="w-100 form-control" formControlName="value"/>
             </div>
             <div class="w-100 d-flex justify-content-end">
-                <button class="btn btn-primary" (click)="addNewOption(modal)">{{modalType == 'add' ? 'Add' : 'Edit'}}</button>
+                <button type="button" class="btn btn-primary" (click)="addNewOption(modal)">{{modalType == 'add' ? 'Add' : 'Edit'}}</button>
             </div>
         </form>
     </div>
@@ -31,10 +31,10 @@
         </option>
     </select>
     <span class="float-right ml-3" *ngIf="!notEditValue || !notAddValue">
-         <button *ngIf="!notEditValue" class="btn btn-primary mr-2" (click)="openModel('edit', newOption)" [disabled]="formControl?.value == null || formControl?.value == 0">
+         <button type="button" *ngIf="!notEditValue" class="btn btn-primary mr-2" (click)="openModel('edit', newOption)" [disabled]="formControl?.value == null || formControl?.value == 0">
             <span class="fa fa-edit "></span>
         </button>
-        <button *ngIf="!notAddValue"
+        <button type="button" *ngIf="!notAddValue"
             class="btn btn-success" (click)="openModel('add', newOption)">
             <span class="fa fa-plus"></span>
         </button>

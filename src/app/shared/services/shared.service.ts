@@ -64,7 +64,9 @@ export class SharedService {
   }
 
   getMenu() {
-    let groupId = Number(JSON.parse(localStorage.getItem('user')!).groupId);
+    console.log("layout");
+
+    let groupId = Number(JSON.parse(localStorage.getItem('user')!)?.groupId) || "1";
     return this.http.get<any>(ApiRoutes.auth.getMenu!, {
       params: {
         groupId

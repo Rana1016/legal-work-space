@@ -20,6 +20,8 @@ export class PersonalDetailsComponent implements OnInit {
   @ViewChild('deletePerson') ViewModal!: TemplateRef<any>;
   ngOnInit(): void {
     this.caseService.pDObservable.subscribe((data) => {
+      console.log(data);
+      
       this.pD = data;
     });
   }

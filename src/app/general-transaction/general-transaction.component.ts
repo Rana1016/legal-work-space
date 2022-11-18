@@ -17,6 +17,8 @@ import { UserService } from "src/app/shared/services/user.service";
 export class GeneralTransactionComponent implements OnInit {
   mainClassSelectedId: any;
   isDisable: boolean = false;
+  selectedCaseId: any;
+  selectedClientId: any;
 
   constructor(private journalVouvher: GeneralTransactionService, private user: UserService, private fb: FormBuilder, private lookup: SharedService, private router : Router) { }
   voucherData!: any[];
@@ -89,20 +91,9 @@ export class GeneralTransactionComponent implements OnInit {
     }
   }
 
-
-  // showMainClass(){
-
-  //   this.lookup.getOptions('tblMainClass', 'mainClassId', 'head').subscribe((res) => {
-  //     console.log(res)
-  //     this.mainClass=res
-
-  //   });
-
-  // }
   getAllCases() {
 
     this.lookup.getOptions('tblCaseMaster', 'caseId', 'caseId').subscribe((res) => {
-      console.log(res, 'cases')
       this.cases = res
 
     });
@@ -111,9 +102,13 @@ export class GeneralTransactionComponent implements OnInit {
 
 
   onChange(event: any) {
-
+    this.selectedCaseId = event.keyValue;
     this.getClients(event.keyValue)
 
+  }
+  onChangeClient(event : any){
+    this.selectedClientId = event.keyValue;
+    
   }
 
   // getSubclassesById(mainClassSelectedId: any) {
@@ -133,8 +128,6 @@ export class GeneralTransactionComponent implements OnInit {
   getClients(caseSelectedId: any) {
     this.lookup.getOptions('tblperson', 'personId', 'name', 'caseId', `${caseSelectedId}`).subscribe((res) => {
       this.clients =res
-      console.log(this.clients);
-      
     });
   }
 
@@ -145,18 +138,27 @@ export class GeneralTransactionComponent implements OnInit {
       "createdBy": this.user.getUser.userId,
       "createdDate": new Date().toISOString(),
       "voucherId": 0,
-      "caseId": this.empForm.value.cases,
+      "caseId": this.selectedCaseId,
       "credit": parseFloat(this.empForm.value.credits),
       "debit": parseFloat(this.empForm.value.debits),
       "narration": this.empForm.value.narations,
       "generalLedgerId": this.empForm.value.generalLedger,
-      "clientId": this.empForm.value.clients,
+      "clientId": this.selectedClientId,
       "masterId": 0
     }
     if(this.showData.credit != null && this.showData.debit != null ){
-      console.log(this.showData)
       this.voucherData.push(this.showData);
-      this.empForm.reset()
+      // this.empForm.reset();
+      this.empForm.patchValue({
+        "generalLedger": '',
+        "narations": '',
+        "credits" : 0,
+        "debits" : 0,
+        "cases" : this.selectedCaseId,
+        "clients" : this.selectedClientId
+      })
+      this.empForm.controls['cases'].disable();
+      this.empForm.controls['clients'].disable();
     }else{
       alert('Please Enter Credit or Debit')
     }
@@ -170,8 +172,6 @@ export class GeneralTransactionComponent implements OnInit {
       this.addDebit += data.debit
       this.addCradit += data.credit
     })
-    console.log('Debits' ,this.addDebit, 'Credits', this.addCradit);
-    
     if (this.addDebit === this.addCradit) {
       this.journalVouvher.addNewJournalVoucher(this.voucherData).subscribe((res) => {
         res = this.voucherData

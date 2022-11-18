@@ -1,0 +1,56 @@
+table.smallTable {
+    width: 30%;
+}
+table {
+    margin-top: 30px !important;
+    border-spacing: 10px !important;
+}
+td {
+    padding: 10px;
+}
+th {
+    border-bottom: 1px solid black !important;
+}
+table, th, td {
+    border: 1px solid black;
+  }
+  h2{
+      font-weight: bold;
+  }
+
+#print_Logo{
+    display: none;
+}
+.divHeader{
+    display: none;
+}
+.bgColor{
+    background-color: #f5dec0 !important;
+}
+@media print {
+    body{
+        -webkit-print-color-adjust:exact;
+    }
+    #pg-title{
+        display: none;
+    }
+    .printDiv, #print_Logo {
+        display: block;
+    }
+    .signatureSection{
+        display: block;
+    }
+    .no-print{
+        display: none;
+        height: 0 !important;
+    }
+    .bgColor{
+        background-color: #f5dec0 !important;
+    }
+    .divHeader{
+        display: block;
+        width: 100%;
+        position: fixed;
+        top: 0 !important;
+    }
+}

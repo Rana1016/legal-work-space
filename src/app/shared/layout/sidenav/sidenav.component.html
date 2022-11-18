@@ -2,12 +2,21 @@
     <i class="fa fa-circle-notch fa-spin fa-4x"></i>
   </div>
 <ul class="nav" *ngIf="(!isClient && !!menuItems) || !!isClient">
-    <li *ngFor="let menuItem of (!isClient ? menuItems : clientMenu)">
+    <li *ngFor="let menuItem of (!isClient ? menuItems : clientMenu)" [ngClass]="menuItem?.subMenu != null ? 'hasSubmenu' : ''">
         <a [routerLink]="menuItem.url == 'client/portal' && !!client ? [menuItem.url, client] : [menuItem.url]" [ngClass]="{'active': checkActive(menuItem.text == 'Case Activities' ? 'case-activities' : menuItem.url)}">
             <i class="fa fa-{{menuItem.icon}}"></i>
             {{menuItem.text}}
-            <span *ngIf="menuItem.badge" class="badge pull-right">{{menuItem?.badge}}</span>
+            <span *ngIf="menuItem.badge" class="badge">{{menuItem?.badge}}</span>
+            <span *ngIf="menuItem?.subMenu != null" class="pull-right"><i class="fa fa-chevron-right"></i></span>
         </a>
+        <ul *ngIf="menuItem.subMenu != null" class="submenu">
+            <li *ngFor="let submenu of menuItem?.subMenu">
+                <a [routerLink]="submenu.url" [ngClass]="{'active': checkActive(submenu.text == 'Case Activities' ? 'case-activities' : submenu.url)}">
+                    <i class="fa fa-{{submenu.icon}}"></i>
+                    {{submenu.text}}
+                </a>
+            </li>
+        </ul>
     </li>
 </ul>
 <!-- windowClass modal-left mobi-menu modal left fade -->
@@ -22,11 +31,20 @@
     </div>
     <div class="modal-body">
         <ul class="nav menu">
-            <li *ngFor="let menuItem of (!isClient ? menuItems : clientMenu);" [ngClass]="{'active': checkActive(menuItem.url)}">
+            <li *ngFor="let menuItem of (!isClient ? menuItems : clientMenu);" [ngClass]="{'active': checkActive(menuItem.url)}" [ngClass]="menuItem?.subMenu != null ? 'hasSubmenu' : ''">
                 <a [routerLink]='[menuItem.url]' (click)="modal.close('Close Button')">
                     <i class="fa fa-{{menuItem.icon}} mr-2"></i>
                     {{menuItem.text}}
                     <span *ngIf="menuItem.badge" class="badge">{{menuItem?.badge}}</span>
+                    <span *ngIf="menuItem?.subMenu != null" class="pull-right"><i class="fa fa-chevron-right"></i></span>
+                    <ul *ngIf="menuItem.subMenu != null" class="submenu">
+                        <li *ngFor="let submenu of menuItem?.subMenu">
+                            <a [routerLink]="submenu.url" [ngClass]="{'active': checkActive(submenu.text == 'Case Activities' ? 'case-activities' : submenu.url)}">
+                                <i class="fa fa-{{submenu.icon}}"></i>
+                                {{submenu.text}}
+                            </a>
+                        </li>
+                    </ul>
                 </a>
             </li>
         </ul>

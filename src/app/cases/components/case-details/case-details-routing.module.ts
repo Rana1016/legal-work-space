@@ -18,6 +18,7 @@ import { NewAmlListComponent } from './children/new-aml-list/new-aml-list.compon
 import { NewNoteComponent } from './children/new-note/new-note.component';
 import { EditPersonalDetailsComponent } from './children/edit-personal-details/edit-personal-details.component';
 import { EditCaseDetailsComponent } from './children/edit-case-details/edit-case-details.component';
+import { AttendanceNotesComponent } from './children/attendance-notes/attendance-notes.component';
 
 const routes: Routes = [
   {
@@ -56,6 +57,10 @@ const routes: Routes = [
       {
         path: 'notes',
         component: NotesComponent
+      },
+      {
+        path : 'attendance-notes',
+        component : AttendanceNotesComponent
       },
       {
         path: 'deadlines',

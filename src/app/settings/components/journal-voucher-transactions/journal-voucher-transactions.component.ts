@@ -65,6 +65,7 @@ export class JournalVoucherTransactionsComponent implements OnInit {
     });
   }
 
+ 
   // deleteCaseCategory(id: number) {
   //   this.caseCategory.deleteCaseCategory(id).subscribe((res) => {
   //     if (res == 1) {

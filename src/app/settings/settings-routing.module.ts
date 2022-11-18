@@ -9,6 +9,7 @@ import { TimeActivityCodesComponent } from './components/time-activity-codes/tim
 import { VatRatesComponent } from './components/vat-rates/vat-rates.component';
 import { WorkflowTemplatesComponent } from './components/workflow-templates/workflow-templates.component';
 import { SettingsComponent } from './settings.component';
+import { PendingVouchersComponent } from './components/pending-vouchers/pending-vouchers.component';
 
 const routes: Routes = [
   {
@@ -85,6 +86,10 @@ const routes: Routes = [
       {
         path: "journal-voucher",
         loadChildren:()=>import('src/app/settings/components/journal-voucher-transactions/journal-voucher-transaction.module').then(m=>m.JournalVoucherTransactionModule)
+      },
+      {
+        path: "pending-approvals",
+        loadChildren:()=>import('src/app/settings/components/pending-vouchers/pending-vouchers.module').then(m=>m.PendingVouchersModule)
       },
     ]
   },

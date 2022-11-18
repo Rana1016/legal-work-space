@@ -35,13 +35,19 @@ export class NewGeneralLedgerComponent implements OnInit  {
 
     });
     this.route.params.subscribe(({mainClassId, subClassId,generalLedgerId}) => {
+      console.log(generalLedgerId, subClassId);
+      
       this.chartSubAccount.getSubClassById(subClassId).subscribe((chartSubAccounts: any) => {
+        console.log(chartSubAccounts);
+        
         this.newGeneralLedger = chartSubAccounts.head;
         this.newgeneralledgerForm.patchValue({ subClassId: Number(subClassId) });
         this.mainHead = subClassId.mainClassHead;
       });
       generalLedgerId && (this.edit = Number(generalLedgerId));
-      generalLedgerId && this.lookup.getOptions('tblGeneralLedger', 'generalLedgerId', 'head', 'SubClassId', `${subClassId}`).subscribe(([subClass]) => {
+      generalLedgerId && this.lookup.getOptions('tblGeneralLedger', 'generalLedgerId', 'head', 'generalLedgerId', `${generalLedgerId}`).subscribe(([subClass]) => {
+        console.log(subClass);
+        
         this.newgeneralledgerForm.patchValue({
           generalLedgerId: subClass?.keyValue,
           head: subClass?.displayValue

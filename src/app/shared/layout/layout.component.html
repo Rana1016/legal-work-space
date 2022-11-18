@@ -1,7 +1,7 @@
 <lw-header (openModal)="openModal($event)" [isClient]="isClient" [Settings]="Settings" [installments]="installments" [reminders]="reminders" [workflow]="workflow"></lw-header>
 <div class="container-fluid h-100">
   <div class="row h-100">
-    <lw-sidenav class="fixer col-sm-12 col-sm-4 col-xl-2 lw-sidenav d-none d-xl-block" [isClient]="isClient" [menuItems]="LeftMenu" [clientMenu]="clientMenu" [openSideNav]="mobileMenu" (closed)="mobileMenu = false"></lw-sidenav>
+    <lw-sidenav class="fixer col-sm-12 col-sm-4 col-xl-2 lw-sidenav d-none d-xl-block navForPrint" [isClient]="isClient" [menuItems]="LeftMenu" [clientMenu]="clientMenu" [openSideNav]="mobileMenu" (closed)="mobileMenu = false"></lw-sidenav>
     <div class="col-sm-12 col-sm-12 col-md-12 col-xl-10 main">
       <div class="row" *ngIf="!isClient">
         <div class="col-sm-12">

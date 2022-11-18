@@ -46,7 +46,7 @@
                 <span class="fa fa-calendar-check-o"></span> {{inProgressCases}}
               </p>
               <p class="dash_link">
-                <a>
+                <a [routerLink]="['/cases/active']">
                   <strong>View report</strong>
                 </a>
               </p>
@@ -59,7 +59,7 @@
                 <span class="fa fa-calendar-times-o"></span> {{closedCases}}
               </p>
               <p class="dash_link">
-                <a>
+                <a [routerLink]="['/cases/closed']">
                   <strong>View report</strong>
                 </a>
               </p>
@@ -72,7 +72,7 @@
                 <span class="fa fa-calendar-plus-o"></span> {{totalCases}}
               </p>
               <p class="dash_link">
-                <a>
+                <a [routerLink]="['/cases']">
                   <strong>View report</strong>
                 </a>
               </p>

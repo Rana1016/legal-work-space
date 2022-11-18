@@ -9,6 +9,7 @@
                             <li>
                                 <a [routerLink]="['new-category']" class="btn"><span class="glyphicon glyphicon-plus"></span> Add new</a>
               </li>
+              
             </ul>
           </div>
         </div>
@@ -17,7 +18,7 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row" id="printMedia">
   <div class="col-md-12">
     <div class="widget">
       <div class="widget-body">
@@ -47,7 +48,7 @@
                     <td>
 
 
-                        {{journal.createdDate}}
+                        {{journal.createdDate | date: 'MM-dd-yyyy'}}
                     </td>
                     <td>
                       <ul class="nav">
@@ -60,13 +61,14 @@
                                       <span class="glyphicon glyphicon-tasks mr-2"></span>
                                       Manage Sub-categories
                                   </a>
+                                  
                               </li>
-                              <!-- <li ngbDropdownItem>
-                                <a [routerLink]="['edit', category.categoryId]">
-                                  <span class="glyphicon glyphicon-pencil mr-2"></span>
-                                  Edit
-                                </a>
-                              </li> -->
+                              <li ngbDropdownItem>
+                                <a [routerLink]="['printjournalVoucher', journal.journalVoucherMasterId]">
+                                  <span class="glyphicon glyphicon-print mr-2"></span>
+                                  Print Journal Voucher
+                              </a>
+                              </li>
                               <!-- <li ngbDropdownItem>
                                 <a (click)="deleteCaseCategory(category.categoryId)">
                                   <span class="glyphicon glyphicon-remove mr-2"></span>

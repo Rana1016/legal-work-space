@@ -1,0 +1,71 @@
+<h1 id="pg-title" class="row align-items-center justify-content-center justify-content-md-start">Pending Vouchers</h1>
+<div class="row mt-5">
+    <div class="col-md-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div class="row">
+                    <div class="col-md-12" id="pg-nav">
+                        <ul class="list-inline">
+                            <a [routerLink]="['/settings/journal-voucher']" class="btn">
+                                <span class="glyphicon glyphicon-arrow-left"></span> Back</a
+                              >
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" id="printMedia">
+    <div class="col-md-12">
+      <div class="widget">
+        <div class="widget-body">
+          <div class="table-responsive">
+            <table
+            class="table table-striped table-sm row-border hover"
+            [ngClass]="{
+              'empty': pendingVouchers && pendingVouchers.length !== 0
+            }"
+            datatable
+            [dtOptions]="dtOptions"
+            [dtTrigger]="dtTrigger"
+          >
+                  <tbody>
+                    <tr *ngFor="let journal of pendingVouchers">
+                     <td>
+                        {{journal.description}}
+                      </td>
+                      <td>
+                        {{journal.createdBy}}
+  
+                      </td>
+                      <td>
+  
+  
+                          {{journal.createdDate}}
+                      </td>
+                      <td>
+                        <ul class="nav">
+                            <li ngbDropdown>
+                                <a ngbDropdownToggle class="td_link_dark" style="border-bottom: none;" role="button">
+                                </a>
+                                <ul ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
+                                    <li ngbDropdownItem>
+                                        <a (click)="approveVoucher(journal.journalVoucherMasterId)">
+                                            <span class="glyphicon glyphicon-ok"></span>
+                                            Approve
+                                        </a>
+                                        
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>

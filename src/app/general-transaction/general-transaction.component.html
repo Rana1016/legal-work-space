@@ -216,7 +216,7 @@
                             bindValue="keyValue"
                             placeholder="Please Select"
                             formControlName="clients"
-
+                            (change)="onChangeClient($event)"
                           >
                             <ng-template
                               ng-option-tmp

@@ -6353,6 +6353,15 @@ textarea.input-group-sm>.input-group-btn>.btn {
     padding-left: 0;
     margin-bottom: 0;
     list-style: none;
+    .submenu{
+        list-style: none;
+        margin-bottom: 0;
+        margin-top: 0px;
+        padding-left: 10px;
+        a{
+            padding: 10px;
+        }
+    }
 }
 
 .nav>li {
